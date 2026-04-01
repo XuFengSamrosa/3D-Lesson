@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第1课: 增材制造与工业4.0 - 8年级</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=Noto+Sans+SC:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="cyber-presentation">
+    
+    <!-- 极客导航仪 -->
+    <nav class="cyber-nav">
+        <ul>
+            <li class="nav-diamond active" data-target="hero" title="SYS.INIT"></li>
+            <li class="nav-diamond" data-target="concept" title="工业范式"></li>
+            <li class="nav-diamond" data-target="slicing" title="切片算法"></li>
+            <li class="nav-diamond" data-target="hardware" title="透视硬件"></li>
+        </ul>
+    </nav>
+
+    <!-- 滚动长图域 -->
+    <div id="scroll-universe">
+        
+        <!-- SECTION 1: HERO -->
+        <section id="hero" class="cyber-section centered">
+            <div class="glitch-wrapper">
+                <div class="sys-label cyber-fade-up">SYS.INIT // L01</div>
+                <h1 class="mega-title cyber-glitch cyber-fade-up delay-1" data-text="FUTURE DESIGNER">FUTURE DESIGNER</h1>
+                <p class="subtitle cyber-fade-up delay-2">DEEP DIVE INTO ADDITIVE MANUFACTURING</p>
+                <div class="scroll-blinker cyber-fade-up delay-3">
+                    [ SCROLL DOWN TO ANALYZE ]
+                    <span class="terminal-cursor">_</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: PARADIGM SHIFT (概念引入) -->
+        <section id="concept" class="cyber-section">
+            <div class="container relative-container">
+                <div class="sys-label highlight text-center mb-4">PARADIGM.SHIFT // 范式转换</div>
+                <h2 class="section-title text-center text-white cyber-fade-up">做减法的过去 VS 做加法的未来</h2>
+                
+                <div class="vs-container split-layout mt-5">
+                    <!-- 减材制造 (红色) -->
+                    <div class="vs-block subtractive-block cyber-slide-left delay-1">
+                        <div class="vs-header">SUBTRACTIVE / 减材制造</div>
+                        <div class="vs-icon">🔪 车削切削</div>
+                        <p>传统加工，把大块材料雕琢缩小。</p>
+                        <div class="vs-alert">[ 警告: 材料浪费率极高 ]</div>
+                    </div>
+                    
+                    <div class="vs-divider cyber-fade-up delay-2">VS</div>
+                    
+                    <!-- 增材制造 (青色) -->
+                    <div class="vs-block additive-block cyber-slide-right delay-1">
+                        <div class="vs-header">ADDITIVE / 增材制造 (3D Print)</div>
+                        <div class="vs-icon">🧱 堆叠生长</div>
+                        <p>一层一层按需生长建构，内部可做“蜂窝空心”。</p>
+                        <div class="vs-alert success">[ 优势: 复杂结构零门槛成型 ]</div>
+                    </div>
+                </div>
+
+                <!-- 机器盲文 G-CODE 解析流 -->
+                <div class="gcode-module cyber-fade-up delay-3 mt-5">
+                    <div class="gcode-label">机器盲文 // G-CODE STREAM</div>
+                    <div class="gcode-stream">
+                        G0 X10 Y20 Z0.2 ; Move to start &nbsp;|&nbsp; G1 F1500 E0.5 ; Extrude &nbsp;|&nbsp; G1 X50 Y50 ; Draw line &nbsp;|&nbsp; M104 S220 ; Heat nozzle
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: SLICING LOGIC (软件实战) -->
+        <section id="slicing" class="cyber-section">
+            <div class="container split-layout reverse">
+                <div class="text-panel cyber-slide-right">
+                    <div class="sys-label highlight">ALGORITHM.SLICE</div>
+                    <h2 class="section-title">算法重构物理法则</h2>
+                    <h3 class="section-subtitle mb-4">Bambu Studio 四大核心参数</h3>
+                    <div class="matrix-grid">
+                        <div class="matrix-card cyber-drop delay-1">
+                            <i class="card-icon">Z</i>
+                            <h4>层高 <span class="cyber-badge">千层蛋糕</span></h4>
+                            <p>像切千层蛋糕一样，切得越薄表面越光滑细腻，但烤的时间越久。</p>
+                        </div>
+                        <div class="matrix-card cyber-drop delay-2">
+                            <i class="card-icon">%</i>
+                            <h4>填充 <span class="cyber-badge">蜂窝空气</span></h4>
+                            <p>省料利器！内部并非死心，只需用少量塑料搭建“空气蜂窝”支架即可承重。</p>
+                        </div>
+                        <div class="matrix-card cyber-drop delay-3">
+                            <i class="card-icon">W</i>
+                            <h4>外壁 <span class="cyber-badge">外壳</span></h4>
+                            <p>决定承受外部撞击力的坚固“鸡蛋壳”。</p>
+                        </div>
+                        <div class="matrix-card cyber-drop delay-4">
+                            <i class="card-icon">S</i>
+                            <h4>支撑 <span class="cyber-badge">脚手架</span></h4>
+                            <p>打印机不能凭空作画。对悬空的手臂，要提前搭设打印完就能拆除的“建筑脚手架”。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="data-panel cyber-slide-left delay-2 flex-center">
+                    <!-- 纯 CSS 绘制的科幻仪表盘占位符 -->
+                    <div class="cyber-wireframe-display">
+                        <div class="circle-radar"></div>
+                        <div class="circle-inner"></div>
+                        <div class="data-scanline"></div>
+                        <div class="crosshairs"></div>
+                        <div class="overlay-text">G-CODE // ANALYZING LAYER 128...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: HARDWARE SPEC (透视硬件) -->
+        <section id="hardware" class="cyber-section">
+            <div class="container split-layout">
+                <div class="text-panel cyber-slide-left">
+                    <div class="sys-label highlight">HARDWARE.DISSECT</div>
+                    <h2 class="section-title">透视核心零件</h2>
+                    <h3 class="section-subtitle mb-4">A1 如何突破物理极限</h3>
+                    <p class="section-desc">传感器与热力学的交响曲。</p>
+                </div>
+                <div class="data-panel cyber-slide-right delay-1 flex-center">
+                     <div class="blueprint-box">
+                         <div class="blueprint-line">
+                            <span class="bp-icon">⚡</span> <strong>钛合金喉管</strong> <span class="cyber-badge hot">防火墙</span>: 它是隔绝 220 度高温传导的防护壁，确保管子上部保持冰凉，不让耗材提前融化堵死血管。
+                         </div>
+                         <div class="blueprint-line">
+                            <span class="bp-icon">🌀</span> <strong>涡流共振传感器</strong> <span class="cyber-badge active">赛车悬挂</span>: 它能在机器开工前秒算震波频谱，相当于豪车的防震悬挂，专门在高速打印时反向对抗并抹平机身的抖波纹。
+                         </div>
+                         <div class="blueprint-line">
+                            <span class="bp-icon">🎛️</span> <strong>四核主板单元</strong> <span class="cyber-badge cyan">大脑</span>: 整台智能制造机器极速调度的中央控制神经系统。
+                         </div>
+                         <div class="blueprint-line">
+                            <span class="bp-icon">💡</span> <strong>喷嘴 (Nozzle)</strong> <span class="cyber-badge cyan">笔尖</span>: 承担最底层的“挤牙膏”使命的高精度导胶孔 (常为 0.4mm)。
+                         </div>
+                     </div>
+                </div>
+            </div>
+        </section>
+        
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

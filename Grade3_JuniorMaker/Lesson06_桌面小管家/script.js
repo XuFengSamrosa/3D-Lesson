@@ -1,0 +1,35 @@
+const lessonData = ['给文具找个家', '精确输入：量量你的橡皮', '偏移技巧：制作空盒子', '功能装饰：专属名字刻印'];
+
+const lessonContainer = document.getElementById('lesson-sections');
+const navDotsContainer = document.getElementById('nav-dots');
+function init() { renderContent(); setupIntersectionObserver(); }
+function renderContent() {
+    createDot('intro', '首页');
+    lessonData.forEach((slideText, sIdx) => {
+        const sectionId = `slide-${sIdx}`;
+        const section = document.createElement('section');
+        section.id = sectionId;
+        section.innerHTML = `<div class="reveal"><h2>${slideText}</h2></div>`;
+        lessonContainer.appendChild(section);
+        createDot(sectionId, `Slide ${sIdx + 1}`);
+    });
+}
+function createDot(targetId, title) {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot';
+    dot.onclick = () => { document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' }); };
+    navDotsContainer.appendChild(dot);
+    dot.dataset.target = targetId;
+}
+function setupIntersectionObserver() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.querySelector('.reveal')?.classList.add('visible');
+                document.querySelectorAll('.nav-dot').forEach(d => d.classList.toggle('active', d.dataset.target === entry.target.id));
+            }
+        });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('section').forEach(s => observer.observe(s));
+}
+init();
