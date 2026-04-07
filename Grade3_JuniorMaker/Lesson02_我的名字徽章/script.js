@@ -1,35 +1,38 @@
-const lessonData = ['我们要有自己的徽章！', '写下名字：变高数字设计', 'Shapr3D：捏捏看', '切片秘密：糖果色打印'];
-
-const lessonContainer = document.getElementById('lesson-sections');
-const navDotsContainer = document.getElementById('nav-dots');
-function init() { renderContent(); setupIntersectionObserver(); }
-function renderContent() {
-    createDot('intro', '首页');
-    lessonData.forEach((slideText, sIdx) => {
-        const sectionId = `slide-${sIdx}`;
-        const section = document.createElement('section');
-        section.id = sectionId;
-        section.innerHTML = `<div class="reveal"><h2>${slideText}</h2></div>`;
-        lessonContainer.appendChild(section);
-        createDot(sectionId, `Slide ${sIdx + 1}`);
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. 设置点导航点击事件
+    const lessonData = ["我们要有自己的徽章！", "数字画布：制作卡片", "阴阳魔法：镂空与凸起", "骨架探秘：5%、50%填充", "切片见证：神奇的内部"];
+    const navDots = document.querySelectorAll('.nav-dot');
+    navDots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            const targetId = dot.getAttribute('data-target');
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
     });
-}
-function createDot(targetId, title) {
-    const dot = document.createElement('button');
-    dot.className = 'nav-dot';
-    dot.onclick = () => { document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' }); };
-    navDotsContainer.appendChild(dot);
-    dot.dataset.target = targetId;
-}
-function setupIntersectionObserver() {
+
+    // 2. 设置滚动监听 (Intersection Observer)
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.querySelector('.reveal')?.classList.add('visible');
-                document.querySelectorAll('.nav-dot').forEach(d => d.classList.toggle('active', d.dataset.target === entry.target.id));
+                // 给当前出现的 section 加上 visible
+                entry.target.classList.add('visible');
+                
+                // 更新右侧导航小圆点的高亮状态
+                navDots.forEach(d => {
+                    if (d.getAttribute('data-target') === entry.target.id) {
+                        d.classList.add('active');
+                    } else {
+                        d.classList.remove('active');
+                    }
+                });
             }
         });
     }, { threshold: 0.5 });
-    document.querySelectorAll('section').forEach(s => observer.observe(s));
-}
-init();
+
+    // 监听所有的 section
+    document.querySelectorAll('section.scroll-section').forEach(section => {
+        observer.observe(section);
+    });
+});
