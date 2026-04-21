@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：批量列印</title>
+    <meta name="description" content="Grade 8 Lesson 31 - 满盘大批量打印风险管控五步法，防范城市沙盘全盘覆没！">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+:root {
+    --bg-deep: #0f172a;
+    --accent: #22d3ee;
+    --purple: #a855f7;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border: rgba(255, 255, 255, 0.1);
+}
+
+* { margin:0; padding:0; box-sizing: border-box; scroll-behavior: smooth; }
+
+body {
+    background-color: var(--bg-deep);
+    color: var(--text);
+    font-family: 'Outfit', 'Noto Sans SC', sans-serif;
+    overflow-x: hidden;
+    background-image: 
+        linear-gradient(rgba(34, 211, 238, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 211, 238, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+
+#scroll-container {
+    width: 100vw;
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
+section {
+    width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+}
+
+/* 极客导航点 */
+#nav-dots {
+    position: fixed;
+    right: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    z-index: 1000;
+}
+
+.nav-dot {
+    width: 14px;
+    height: 14px;
+    background: transparent;
+    border: 2px solid var(--text-muted);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-dot:hover { border-color: var(--accent); transform: rotate(45deg); }
+.nav-dot.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: rotate(45deg) scale(1.4);
+    box-shadow: 0 0 15px var(--accent);
+}
+
+/* Reveal 效果 */
+.reveal {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+h1.main-title {
+    font-size: 8rem;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -4px;
+    margin-bottom: 2rem;
+    background: linear-gradient(to right, white, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+h2 {
+    font-size: 5.5rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 2.5rem;
+    letter-spacing: -2px;
+}
+
+.tag {
+    color: var(--accent);
+    font-family: monospace;
+    font-size: 1.1rem;
+    letter-spacing: 5px;
+    margin-bottom: 3rem;
+    display: block;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+/* 装饰性网格细节 */
+section::after {
+    content: '';
+    position: absolute;
+    bottom: 4rem;
+    left: 8rem;
+    width: 100px;
+    height: 4px;
+    background: var(--accent);
+}
+
+.scroll-hint {
+    margin-top: 6rem;
+    font-family: monospace;
+    color: var(--accent);
+    letter-spacing: 2px;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; transform: translateY(5px); }
+}
+
+/* 教学卡片细节样式 (Grade 8) */
+.timeline-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 3rem;
+    width: 100%;
+    max-width: 800px;
+    border-left: 2px solid var(--accent);
+    padding-left: 2rem;
+}
+
+.timeline-node {
+    display: flex;
+    gap: 2rem;
+    align-items: baseline;
+    position: relative;
+}
+
+.timeline-node::before {
+    content: '';
+    position: absolute;
+    left: -2.6rem;
+    top: 0.5rem;
+    width: 12px;
+    height: 12px;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+}
+
+.year {
+    font-weight: 900;
+    color: var(--accent);
+    font-size: 1.5rem;
+    min-width: 80px;
+}
+
+.event {
+    font-size: 1.4rem;
+    color: var(--text);
+}
+
+.params-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+    width: 100%;
+}
+
+.param {
+    background: rgba(34, 211, 238, 0.05);
+    border: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 1.2rem;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.param:hover {
+    background: rgba(34, 211, 238, 0.1);
+    border-color: var(--accent);
+}
+
+.comp-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+    width: 100%;
+}
+
+.comp {
+    background: linear-gradient(135deg, rgba(255,255,255,0.05), transparent);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    border-radius: 8px;
+    font-size: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* 响应式微调 */
+@media (max-width: 900px) {
+    .params-grid, .comp-list { grid-template-columns: 1fr; }
+    h1.main-title { font-size: 4rem; }
+    h2 { font-size: 3rem; }
+    section { padding: 4rem; }
+}
+
+</style>
+</head>
+<body>
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+
+        <section id="hero">
+            <h1 class="main-title reveal">L31. 批量列印</h1>
+            <p class="subtitle reveal delay-1">满盘大规模风险管控 —— 防止全军覆没</p>
+            <span class="tag reveal delay-2">MODULE: 运动机制与未来都市</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <section id="concept">
+            <h2 class="reveal">蝴蝶效应灾难链</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>一个翘角毁全盘</strong>
+                    <span>单块地块翘边 → 喷嘴侧扫 → 模型被推运动 → 撞倒邻居 → 多米诺崩塌 → 线材缠绕堵嘴 → 打印终止。一次 6 小时打印的炒面灾难，就从这里开始。</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Warping 翘边链反应, First Layer 第一层质检, 远程巡视协议</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="design">
+            <h2 class="reveal">五步风险管控</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">Step 1</span>
+                    <span class="event">A 键排盘 + 模型间距 ≥ 5mm → 防止喷嘴路径意外侧扫临近模型！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">Step 2</span>
+                    <span class="event">全体开启 Outer Brim 5mm → 所有地块外扩 5mm 裙边装甲，零翘边的物理防线！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">Step 3-5</span>
+                    <span class="event">第一层守候 2 分钟质检料丝压扁度 → 每15分钟巡查 → 异常立刻 App 降速至 80%保存残局！</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 全局启用 Outer Brim Only 裙边。间距 5mm+。第一层速度必须 ≤ 50mm/s。绝不跳过床面校平！</div>
+                <div class="param">> PHYSICS: 第一层料丝判定法——扁面条形 = 附着成功 / 细圆面条形 = 离床太远附着失败 → 立刻取消重新调平！</div>
+            </div>
+        </section>
+
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>将班级全部地块纳入满盘排布方案，完成符合五步管控法的最终切片。</span>
+                    <span>状态检定：打印开始后第 2 分钟在场质检第一层！所有地块的料丝是否全部压扁成功？</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE</strong>
+                    <span>L31_批量列印_姓名.3mf（含满盘方案）</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

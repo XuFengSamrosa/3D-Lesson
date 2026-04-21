@@ -2,22 +2,106 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>第7课 - Lesson07_迷你景观配件</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 魔法课：迷你景观配件</title>
+    <meta name="description" content="第 7 课 - 学习模型的支撑处理与简单的复制对齐">
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+    <style>
+        :root { --accent: #7DD3A0; --accent-light: #E9FBF0; }
+        .garden-icon { font-size: 8rem; text-align: center; }
+    </style>
 </head>
-<body>
-    <nav id="nav-dots"></nav>
-    <div id="app">
-        <main id="scroll-container">
-            <section class="hero" id="intro">
-                <div class="reveal">
-                    <h1>Lesson07_迷你景观配件</h1>
-                    <p class="subtitle">Lesson 7</p>
+<body class="presentation-mode">
+    
+    <nav class="side-nav"><ul></ul></nav>
+
+    <div id="slide-viewport">
+        <!-- 页面 1: Hero -->
+        <section id="hero" class="scroll-section">
+            <div class="content-wrapper centered-layout">
+                <div class="emoji-float reveal-up">🎍</div>
+                <h1 class="big-header reveal-up delay-1">迷你景观配件</h1>
+                <p class="big-desc reveal-up delay-2">给多肉植物当邻居，设计精美的栅栏与指路牌！</p>
+                <div class="scroll-hint reveal-up delay-3">
+                    <div class="mouse"><div class="wheel"></div></div>
+                    打造你的小花园
                 </div>
-            </section>
-            <div id="lesson-sections"></div>
-        </main>
+            </div>
+        </section>
+
+        <!-- 页面 2: 手动复制对齐 -->
+        <section id="copy-paste" class="scroll-section">
+            <div class="content-wrapper split-layout">
+                <div class="text-col reveal-left">
+                    <h1 class="big-header">🪵 栅栏工匠</h1>
+                    <p class="big-desc">整齐的排队是美感的来源：</p>
+                    <div class="glass-card reveal-up delay-1">
+                        <ul class="mission-list">
+                            <li><strong>Ctrl+C / Ctrl+V</strong>：快速复制相同的零件。</li>
+                            <li><strong>对齐魔法</strong>：观察坐标数值，确保护栏在同一条直线上。</li>
+                            <li><strong>组合零件</strong>：将所有护栏零件合并，方便一次性移动。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="img-col reveal-right">
+                    <img src="landscape_garden.png" alt="景观图" class="parallax-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 3: 支撑探秘 -->
+        <section id="support" class="scroll-section">
+            <div class="content-wrapper split-layout reverse">
+                <div class="text-col reveal-right">
+                    <h1 class="big-header">🦒 支撑小马甲</h1>
+                    <p class="big-desc">为什么细长的东西在空气中立不住？</p>
+                    <div class="glass-card reveal-up delay-1">
+                        <p>3D 打印是从下往上堆的。如果没有“地基”，塑料就会掉下来变成一坨乱丝！</p>
+                    </div>
+                </div>
+                <div class="img-col reveal-left">
+                    <div style="font-size: 8rem;">🏗️</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 4: 树形支撑 -->
+        <section id="tree-support" class="scroll-section">
+            <div class="content-wrapper split-layout">
+                <div class="text-col reveal-left">
+                    <h1 class="big-header">🌲 树形支撑的优势</h1>
+                    <div class="glass-card reveal-up delay-1">
+                        <p>1. <strong>更省料</strong>：只在需要的地方生长。</p>
+                        <p>2. <strong>易拆除</strong>：连接处很细，手一撕就掉。</p>
+                        <p>3. <strong>护外观</strong>：不会在模型表面留下难看的痕迹。</p>
+                    </div>
+                    <p class="big-desc delay-2">💡 <strong>提示</strong>：像树枝一样优雅地支撑起你的梦想！</p>
+                </div>
+                <div class="img-col reveal-right">
+                    <img src="tree_support.png" alt="支撑对比" class="parallax-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 5: 最终任务 -->
+        <section id="mission" class="scroll-section">
+            <div class="content-wrapper centered-layout">
+                <div class="tag reveal-up">今日任务</div>
+                <h1 class="big-header reveal-up delay-1">🎯 景观建筑师</h1>
+                <div class="glass-card reveal-up delay-2">
+                    <ul class="mission-list">
+                        <li>制作 1 个细长方柱，并准确复制出 5 个。</li>
+                        <li>将它们整齐排队，并合并为“围栏对象”。</li>
+                        <li>在切片软件中开启“树形支撑”。</li>
+                        <li>进行切片预览，观察支撑是如何生长的。</li>
+                    </ul>
+                </div>
+                <p class="big-desc reveal-up delay-3" style="margin-top:2rem;">让你的景观模型站得稳稳当当！🎋</p>
+            </div>
+        </section>
     </div>
-    <script src="script.js"></script>
+
+    <script src="../assets/script.js"></script>
 </body>
 </html>

@@ -2,22 +2,150 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>第4课 - Lesson04_几何动物园</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 打印实验室：几何动物园</title>
+    <meta name="description" content="Grade 3 Lesson 4 - 掌握组合件的加法与减法（负零件）魔法">
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
 </head>
-<body>
-    <nav id="nav-dots"></nav>
-    <div id="app">
-        <main id="scroll-container">
-            <section class="hero" id="intro">
-                <div class="reveal">
-                    <h1>Lesson04_几何动物园</h1>
-                    <p class="subtitle">Lesson 4</p>
+<body class="presentation-mode">
+    
+    <!-- 右侧导航点 -->
+    <nav class="side-nav">
+        <ul><!-- 由 script.js 自动生成 --></ul>
+    </nav>
+
+    <!-- 滚动容器 -->
+    <div id="slide-viewport">
+        <!-- 页面 1: Hero -->
+        <section id="hero" class="scroll-section">
+            <div class="content-wrapper centered-layout">
+                <span class="emoji-float reveal-up">🐷</span>
+                <h1 class="big-header reveal-up delay-1">几何动物园</h1>
+                <p class="big-desc reveal-up delay-2">用"加法"和"减法"魔法，变出一只小猪！</p>
+                <div class="pig-preview reveal-up delay-3">
+                    <img src="pig_geometric.png" alt="几何小猪" class="hero-pig">
                 </div>
-            </section>
-            <div id="lesson-sections"></div>
-        </main>
+                <div class="scroll-indicator reveal-up delay-3">
+                    下滑开启魔法之旅
+                    <div class="mouse-icon"><div class="wheel"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 2: 布尔运算概念 -->
+        <section id="concept" class="scroll-section">
+            <div class="content-wrapper split-layout">
+                <div class="text-col reveal-left">
+                    <h1 class="big-header">✨ 3D 里的加减法</h1>
+                    <p class="big-desc">在 Bambu Studio 里，我们不用尺子，用"形状"来算数学！</p>
+                    <div class="concept-cards reveal-up delay-1">
+                        <div class="glass-card math-card">
+                            <span class="math-sign">➕</span>
+                            <h3>加法 (添加零件)</h3>
+                            <p>两个形状粘在一起，变成好朋友</p>
+                        </div>
+                        <div class="glass-card math-card">
+                            <span class="math-sign">➖</span>
+                            <h3>减法 (添加负零件)</h3>
+                            <p>像挖冰淇淋一样，抠出完美的洞</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="img-col reveal-right relative-container">
+                    <img src="boolean_concept.png" alt="布尔运算示意图" class="parallax-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 3: 长出耳朵 -->
+        <section id="add-part" class="scroll-section">
+            <div class="content-wrapper split-layout reverse">
+                <div class="img-col reveal-left">
+                    <div class="demo-box glass-card">
+                        <div class="step-image-placeholder">
+                            <span class="badge">第一步</span>
+                            <h3>👂 长出耳朵</h3>
+                            <p>右键身体 -> 添加零件 -> 球体</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-col reveal-right">
+                    <h1 class="big-header">❤️ 爱心加法</h1>
+                    <p class="big-desc">为什么不直接在外面加球体？</p>
+                    <ul class="bullet-points reveal-up delay-1">
+                        <li>✅ <strong>零件管理</strong>：耳朵会跟着身体一起移动</li>
+                        <li>✅ <strong>完美融合</strong>：切片时它们会自动焊成一个整体</li>
+                        <li>✅ <strong>不怕丢</strong>：再也不怕挪动猪头时把耳朵落下了</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 4: 挖出鼻孔 -->
+        <section id="minus-part" class="scroll-section">
+            <div class="content-wrapper split-layout">
+                <div class="text-col reveal-left">
+                    <h1 class="big-header">🌙 月亮减法</h1>
+                    <p class="big-desc">如何抠出圆圆的鼻孔？</p>
+                    <div class="negative-guide reveal-up delay-1">
+                        <div class="neg-step">
+                            <div class="neg-icon">🔩</div>
+                            <p>1. 右键 -> 添加<strong>负零件</strong></p>
+                        </div>
+                        <div class="neg-step">
+                            <div class="neg-icon">🔄</div>
+                            <p>2. 调整圆柱方向，对准猪鼻子</p>
+                        </div>
+                        <div class="neg-step">
+                            <div class="neg-icon">🕳️</div>
+                            <p>3. 塞进一半，瞬间出洞！</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="img-col reveal-right">
+                    <div class="tip-box highlight-box reveal-up delay-2">
+                        💡 <strong>秘诀</strong>：负零件是"看不见的钻头"，它可以把任何形状挖出对应的洞！
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 5: AMS 上色 -->
+        <section id="ams-color" class="scroll-section">
+            <div class="content-wrapper centered-layout">
+                <h1 class="big-header reveal-up">🌈 彩虹涂装</h1>
+                <p class="big-desc reveal-up delay-1">用 AMS 给小猪穿上漂亮的衣服</p>
+                <div class="color-grid reveal-up delay-2">
+                    <div class="color-slot" style="background: #FFB6C1;"><span>1 粉色</span></div>
+                    <div class="color-slot" style="background: #333333;"><span>2 黑色</span></div>
+                    <div class="color-slot" style="background: #FFFFFF;"><span>3 白色</span></div>
+                </div>
+                <div class="tool-tip glass-card reveal-up delay-3">
+                    使用上方工具栏的"油漆桶"，点击零件一秒变色！
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 6: 今日任务 -->
+        <section id="mission" class="scroll-section">
+            <div class="content-wrapper centered-layout">
+                <h1 class="big-header reveal-up">🎯 任务：几何小猪</h1>
+                <div class="mission-card glass-card reveal-up delay-1">
+                    <ul>
+                        <li>🐷 一个椭球形的身体</li>
+                        <li>👂 用"添加零件"做出两只耳朵</li>
+                        <li>👃 用"添加负零件"挖出两个鼻孔</li>
+                        <li>🎨 使用油漆桶工具完成上色</li>
+                    </ul>
+                </div>
+                <div class="save-reminder reveal-up delay-2">
+                    💾 保存并提交：<strong>小猪动物园-姓名.3mf</strong>
+                </div>
+            </div>
+        </section>
     </div>
-    <script src="script.js"></script>
+
+    <script src="../assets/script.js"></script>
 </body>
 </html>

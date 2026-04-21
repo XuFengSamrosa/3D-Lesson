@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：镜像对立</title>
+    <meta name="description" content="Grade 8 Lesson 23 - Mirror 镜像克隆：设计一半，获得完整对称的宇宙飞船！">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+:root {
+    --bg-deep: #0f172a;
+    --accent: #22d3ee;
+    --purple: #a855f7;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border: rgba(255, 255, 255, 0.1);
+}
+
+* { margin:0; padding:0; box-sizing: border-box; scroll-behavior: smooth; }
+
+body {
+    background-color: var(--bg-deep);
+    color: var(--text);
+    font-family: 'Outfit', 'Noto Sans SC', sans-serif;
+    overflow-x: hidden;
+    background-image: 
+        linear-gradient(rgba(34, 211, 238, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 211, 238, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+
+#scroll-container {
+    width: 100vw;
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
+section {
+    width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+}
+
+/* 极客导航点 */
+#nav-dots {
+    position: fixed;
+    right: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    z-index: 1000;
+}
+
+.nav-dot {
+    width: 14px;
+    height: 14px;
+    background: transparent;
+    border: 2px solid var(--text-muted);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-dot:hover { border-color: var(--accent); transform: rotate(45deg); }
+.nav-dot.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: rotate(45deg) scale(1.4);
+    box-shadow: 0 0 15px var(--accent);
+}
+
+/* Reveal 效果 */
+.reveal {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+h1.main-title {
+    font-size: 8rem;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -4px;
+    margin-bottom: 2rem;
+    background: linear-gradient(to right, white, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+h2 {
+    font-size: 5.5rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 2.5rem;
+    letter-spacing: -2px;
+}
+
+.tag {
+    color: var(--accent);
+    font-family: monospace;
+    font-size: 1.1rem;
+    letter-spacing: 5px;
+    margin-bottom: 3rem;
+    display: block;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+/* 装饰性网格细节 */
+section::after {
+    content: '';
+    position: absolute;
+    bottom: 4rem;
+    left: 8rem;
+    width: 100px;
+    height: 4px;
+    background: var(--accent);
+}
+
+.scroll-hint {
+    margin-top: 6rem;
+    font-family: monospace;
+    color: var(--accent);
+    letter-spacing: 2px;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; transform: translateY(5px); }
+}
+
+/* 教学卡片细节样式 (Grade 8) */
+.timeline-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 3rem;
+    width: 100%;
+    max-width: 800px;
+    border-left: 2px solid var(--accent);
+    padding-left: 2rem;
+}
+
+.timeline-node {
+    display: flex;
+    gap: 2rem;
+    align-items: baseline;
+    position: relative;
+}
+
+.timeline-node::before {
+    content: '';
+    position: absolute;
+    left: -2.6rem;
+    top: 0.5rem;
+    width: 12px;
+    height: 12px;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+}
+
+.year {
+    font-weight: 900;
+    color: var(--accent);
+    font-size: 1.5rem;
+    min-width: 80px;
+}
+
+.event {
+    font-size: 1.4rem;
+    color: var(--text);
+}
+
+.params-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+    width: 100%;
+}
+
+.param {
+    background: rgba(34, 211, 238, 0.05);
+    border: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 1.2rem;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.param:hover {
+    background: rgba(34, 211, 238, 0.1);
+    border-color: var(--accent);
+}
+
+.comp-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+    width: 100%;
+}
+
+.comp {
+    background: linear-gradient(135deg, rgba(255,255,255,0.05), transparent);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    border-radius: 8px;
+    font-size: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* 响应式微调 */
+@media (max-width: 900px) {
+    .params-grid, .comp-list { grid-template-columns: 1fr; }
+    h1.main-title { font-size: 4rem; }
+    h2 { font-size: 3rem; }
+    section { padding: 4rem; }
+}
+
+</style>
+</head>
+<body>
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+
+        <section id="hero">
+            <h1 class="main-title reveal">L23. 镜像对立</h1>
+            <p class="subtitle reveal delay-1">设计一半，镜像得到完美对称宇宙飞船</p>
+            <span class="tag reveal delay-2">MODULE: 算法美学与高阶曲面</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <section id="concept">
+            <h2 class="reveal">宇宙偏爱对称</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>力学与美学的统一</strong>
+                    <span>单机翼飞机会因力矩失衡瞬间横滚解体。蝴蝶、战斗机、人体——对称不仅是美，更是在重力世界里生存的力学铁律。</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Mirror 镜像, Symmetry Plane 对称面, 半侧建模工作流</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">STEP 1</span>
+                    <span class="event">只造右翼：在 YZ 对称面的右侧完整设计机翼、发动机舱、翼尖小翼，所有细节全部只画单边！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">STEP 2</span>
+                    <span class="event">Mirror 触发：选中全部右侧体 → 点击 Mirror → 选择 YZ 平面为镜像面 → 左侧完美拷贝生成！Union 合并即完整飞船。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event">平面混淆崩翻：选了 XZ 水平地面为镜像面，结果是模型上下翻转镶地下。左右对称永远选 YZ 竖向面！</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 超大飞船超过热床尺寸时——沿对称面重新切开，分左右翼各自打印，再用公差榫卯无缝拼合！</div>
+                <div class="param">> PHYSICS: 对称件的力平衡——两翼重量必须完全一致，否则打印后实物重心偏移。镜像克隆从根本上保证了质量完全同步。</div>
+            </div>
+        </section>
+
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>设计一架双翼对称的宇宙飞船或装甲无人机，只设计右半侧后 Mirror 得到完整体！可在细节处（如炮台位置）单边破坏对称制造张力。</span>
+                    <span>状态检定：检查模型树——是否所有右侧与左侧实体已 Union 合并为单一 Solid Body？</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE</strong>
+                    <span>L23_镜像对立_姓名.3mf</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

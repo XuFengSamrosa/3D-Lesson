@@ -2,22 +2,123 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>第10课 - Lesson10_关节可动小人</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 魔法课：关节可动小人</title>
+    <meta name="description" content="第 10 课 - 揭秘 3D 打印的关节与公差魔法">
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+    <style>
+        :root { --accent: #7DD3A0; --accent-light: #D5F3E2; }
+        .joint-demo { position: relative; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; }
+        .ball { width: 80px; height: 80px; background: var(--accent); border-radius: 50%; z-index: 2; border: 3px solid rgba(0,0,0,0.1); }
+        .socket { width: 120px; height: 120px; border: 6px dashed var(--accent); border-radius: 50%; position: absolute; }
+        .gap-indicator { position: absolute; top: 50%; left: 65%; color: var(--text); font-weight: 800; }
+    </style>
 </head>
-<body>
-    <nav id="nav-dots"></nav>
-    <div id="app">
-        <main id="scroll-container">
-            <section class="hero" id="intro">
-                <div class="reveal">
-                    <h1>Lesson10_关节可动小人</h1>
-                    <p class="subtitle">Lesson 10</p>
+<body class="presentation-mode">
+    
+    <nav class="side-nav"><ul></ul></nav>
+
+    <div id="slide-viewport">
+        <!-- 页面 1: Hero -->
+        <section id="hero" class="scroll-section">
+            <div class="content-wrapper centered-layout">
+                <div class="emoji-float reveal-up">🤖</div>
+                <h1 class="big-header reveal-up delay-1">关节可动小人</h1>
+                <p class="big-desc reveal-up delay-2">给你的模型注入“生命”，让它动起来！</p>
+                <div class="scroll-hint reveal-up delay-3">
+                    <div class="mouse"><div class="wheel"></div></div>
+                    探索关节的秘密
                 </div>
-            </section>
-            <div id="lesson-sections"></div>
-        </main>
+            </div>
+        </section>
+
+        <!-- 页面 2: 什么是公差？ -->
+        <section id="tolerance" class="scroll-section">
+            <div class="content-wrapper split-layout">
+                <div class="text-col reveal-left">
+                    <h1 class="big-header">📏 距离产生美</h1>
+                    <p class="big-desc">为什么 3D 打印的关节需要“缝隙”？</p>
+                    <div class="glass-card reveal-up delay-1">
+                        <ul class="mission-list">
+                            <li><strong>公差 (Tolerance)</strong>：就是零件之间的“呼吸空间”。</li>
+                            <li><strong>0.5mm 魔法</strong>：这是让塑料不相粘的黄金距离。</li>
+                            <li><strong>见证奇迹</strong>：打印出来就能直接动，不用胶水！</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="img-col reveal-right">
+                    <div class="joint-demo">
+                        <div class="socket"></div>
+                        <div class="ball"></div>
+                        <div class="gap-indicator">⬅️ 这里的缝隙就是公差</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 3: 嵌套建模法 -->
+        <section id="nesting" class="scroll-section">
+            <div class="content-wrapper split-layout reverse">
+                <div class="text-col reveal-right">
+                    <h1 class="big-header">🏗️ 嵌套建模</h1>
+                    <p class="big-desc">教你在 Bambu Studio 里“套娃”：</p>
+                    <div class="glass-card reveal-up delay-1">
+                        <p>1. <strong>做球头</strong>：半径设为 5mm。</p>
+                        <p>2. <strong>建球窝</strong>：设为一个更大的球壳。</p>
+                        <p>3. <strong>挖空位</strong>：添加半径为 5.5mm 的<strong>负零件</strong>。</p>
+                    </div>
+                    <p class="big-desc delay-2">💡 <strong>秘诀</strong>：负零件必须包裹住球头，但要稍微大一点点！</p>
+                </div>
+                <div class="img-col reveal-left">
+                    <img src="joint_anatomy.png" alt="关节切面图" class="parallax-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 4: 支撑探秘 -->
+        <section id="support" class="scroll-section">
+            <div class="content-wrapper centered-layout">
+                <h1 class="big-header reveal-up">🛡️ 保护我的关节</h1>
+                <p class="big-desc reveal-up delay-1">如何确保球头在打印中不掉下来？</p>
+                <div class="concept-grid reveal-up delay-2">
+                    <div class="glass-card icon-card">
+                        <span class="icon">🌲</span>
+                        <h3>树形支撑</h3>
+                        <p>像有机树枝一样托住圆润的底部。</p>
+                    </div>
+                    <div class="glass-card icon-card">
+                        <span class="icon">✂️</span>
+                        <h3>易拆设置</h3>
+                        <p>调大支撑间隙，让关节清理更轻松。</p>
+                    </div>
+                    <div class="glass-card icon-card">
+                        <span class="icon">✨</span>
+                        <h3>0.12mm 层高</h3>
+                        <p>更细腻的表面，转动起来不卡顿。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 5: 最终任务 -->
+        <section id="mission" class="scroll-section">
+            <div class="content-wrapper centered-layout">
+                <div class="tag reveal-up">今日任务</div>
+                <h1 class="big-header reveal-up delay-1">🎯 关节工匠</h1>
+                <div class="glass-card reveal-up delay-2">
+                    <ul class="mission-list">
+                        <li>制作一个圆柱手臂，并在顶端添加 10mm 球头。</li>
+                        <li>利用“添加负零件”在大球体内挖出 11mm 的空位。</li>
+                        <li>将手臂塞入空位，确保中间有一圈黑色的空气层。</li>
+                        <li>进行切片预览，检查球头是否被完美嵌套。</li>
+                    </ul>
+                </div>
+                <p class="big-desc reveal-up delay-3" style="margin-top:2rem;">你的小人即将获得自由！🤖</p>
+            </div>
+        </section>
     </div>
-    <script src="script.js"></script>
+
+    <script src="../assets/script.js"></script>
 </body>
 </html>

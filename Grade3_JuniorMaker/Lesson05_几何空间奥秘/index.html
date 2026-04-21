@@ -2,22 +2,107 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>第5课 - Lesson05_奥秘的莫比乌斯环</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 魔法课：魔法拼图</title>
+    <meta name="description" content="第 5 课 - 学会“切西瓜”魔法与销钉连接原理">
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+    <style>
+        :root { --accent: #FF6B6B; --accent-light: #FFE3E3; }
+        .cut-demo { font-size: 8rem; text-align: center; animation: cut-motion 2s infinite alternate; }
+        @keyframes cut-motion { from { transform: translateX(-20px); } to { transform: translateX(20px); } }
+    </style>
 </head>
-<body>
-    <nav id="nav-dots"></nav>
-    <div id="app">
-        <main id="scroll-container">
-            <section class="hero" id="intro">
-                <div class="reveal">
-                    <h1>Lesson05_奥秘的莫比乌斯环</h1>
-                    <p class="subtitle">Lesson 5</p>
+<body class="presentation-mode">
+    
+    <nav class="side-nav"><ul></ul></nav>
+
+    <div id="slide-viewport">
+        <!-- 页面 1: Hero -->
+        <section id="hero" class="scroll-section">
+            <div class="content-wrapper centered-layout">
+                <div class="emoji-float reveal-up">🍉</div>
+                <h1 class="big-header reveal-up delay-1">魔法拼图：切割艺术</h1>
+                <p class="big-desc reveal-up delay-2">模型太大打不下？学会“切西瓜”魔法吧！</p>
+                <div class="scroll-hint reveal-up delay-3">
+                    <div class="mouse"><div class="wheel"></div></div>
+                    开启切割之旅
                 </div>
-            </section>
-            <div id="lesson-sections"></div>
-        </main>
+            </div>
+        </section>
+
+        <!-- 页面 2: 为什么需要切割？ -->
+        <section id="problem" class="scroll-section">
+            <div class="content-wrapper split-layout">
+                <div class="text-col reveal-left">
+                    <h1 class="big-header">📦 放不下怎么办？</h1>
+                    <p class="big-desc">当你的梦想很大，但打印机盘子很小时：</p>
+                    <div class="glass-card reveal-up delay-1">
+                        <ul class="mission-list">
+                            <li><strong>物理空间限制</strong>：打印机不是无限大的。</li>
+                            <li><strong>打印时长</strong>：切开打印有时更安全。</li>
+                            <li><strong>颜色选择</strong>：不同部分可以用不同颜色。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="img-col reveal-right">
+                    <div style="font-size: 10rem;">⚖️</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 3: 切割工具 -->
+        <section id="cutting" class="scroll-section">
+            <div class="content-wrapper split-layout reverse">
+                <div class="text-col reveal-right">
+                    <h1 class="big-header">🔪 切西瓜魔法</h1>
+                    <p class="big-desc">在 Bambu Studio 里使用【切割】工具：</p>
+                    <div class="glass-card reveal-up delay-1">
+                        <p>1. <strong>选模型</strong>：点击你想切开的对象。</p>
+                        <p>2. <strong>拉切面</strong>：调整切面的高度和角度。</p>
+                        <p>3. <strong>卡槽钩</strong>：利用【连接销】让它们还能拼回来！</p>
+                    </div>
+                </div>
+                <div class="img-col reveal-left">
+                    <img src="cutting_tool.png" alt="切割示意" class="parallax-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 4: 销钉原理 -->
+        <section id="dowel" class="scroll-section">
+            <div class="content-wrapper split-layout">
+                <div class="text-col reveal-left">
+                    <h1 class="big-header">🔩 严丝合缝</h1>
+                    <p class="big-desc">销钉就像是模型之间的“螺丝”：</p>
+                    <div class="glass-card reveal-up delay-1">
+                        <p>自动在切口面生成<strong>孔位</strong>和<strong>销子</strong>，确保打印出来后拼得准、粘得牢。</p>
+                    </div>
+                </div>
+                <div class="img-col reveal-right">
+                    <img src="dowel_pins.png" alt="销钉" class="parallax-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 5: 最终任务 -->
+        <section id="mission" class="scroll-section">
+            <div class="content-wrapper centered-layout">
+                <div class="tag reveal-up">今日任务</div>
+                <h1 class="big-header reveal-up delay-1">🎯 拼图大师</h1>
+                <div class="glass-card reveal-up delay-2">
+                    <ul class="mission-list">
+                        <li>导入一个大型动物模型。</li>
+                        <li>使用水平切割工具，将其一分为二。</li>
+                        <li>设置两个 4mm 的圆形连接销。</li>
+                        <li>将切开的两半平稳摆放在打印盘进行切片预览。</li>
+                    </ul>
+                </div>
+                <p class="big-desc reveal-up delay-3" style="margin-top:2rem;">切得好，才能拼得妙！🧩</p>
+            </div>
+        </section>
     </div>
-    <script src="script.js"></script>
+
+    <script src="../assets/script.js"></script>
 </body>
 </html>

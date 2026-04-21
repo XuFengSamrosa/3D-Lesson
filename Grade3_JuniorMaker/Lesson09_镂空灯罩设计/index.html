@@ -2,22 +2,122 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>第9课 - Lesson09_镂空灯罩设计</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 魔法课：镂空灯罩设计</title>
+    <meta name="description" content="第 9 课 - 玩转角度魔法，设计光影斑斓的 3D 灯罩">
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+    <style>
+        :root { --accent: #9B8EC4; --accent-light: #E0DAF2; }
+        .light-glow { font-size: 8rem; color: #FFD700; filter: drop-shadow(0 0 20px rgba(255,215,0,0.6)); animation: pulse 3s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.8; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } }
+        .angle-circle { width: 250px; height: 250px; border: 4px dashed var(--accent); border-radius: 50%; position: relative; display: flex; align-items: center; justify-content: center; margin: 2rem auto; }
+        .angle-marker { position: absolute; font-weight: 800; color: var(--accent); }
+        .marker-90 { top: -25px; } .marker-0 { right: -25px; } .marker-180 { left: -25px; } .marker-270 { bottom: -25px; }
+    </style>
 </head>
-<body>
-    <nav id="nav-dots"></nav>
-    <div id="app">
-        <main id="scroll-container">
-            <section class="hero" id="intro">
-                <div class="reveal">
-                    <h1>Lesson09_镂空灯罩设计</h1>
-                    <p class="subtitle">Lesson 9</p>
+<body class="presentation-mode">
+    
+    <nav class="side-nav"><ul></ul></nav>
+
+    <div id="slide-viewport">
+        <!-- 页面 1: Hero -->
+        <section id="hero" class="scroll-section">
+            <div class="content-wrapper centered-layout">
+                <div class="light-glow reveal-up">🏮</div>
+                <h1 class="big-header reveal-up delay-1">光影魔术师</h1>
+                <p class="big-desc reveal-up delay-2">用“旋转”的力量在灯罩上剪纸，捕捉光影的魔法！</p>
+                <div class="scroll-hint reveal-up delay-3">
+                    <div class="mouse"><div class="wheel"></div></div>
+                    点亮你的设计
                 </div>
-            </section>
-            <div id="lesson-sections"></div>
-        </main>
+            </div>
+        </section>
+
+        <!-- 页面 2: 角度魔法 -->
+        <section id="angles" class="scroll-section">
+            <div class="content-wrapper split-layout">
+                <div class="text-col reveal-left">
+                    <h1 class="big-header">📐 角度魔法</h1>
+                    <p class="big-desc">既然 Bambu Studio 没有阵列工具，我们就自己动手：</p>
+                    <div class="glass-card reveal-up delay-1">
+                        <ul class="mission-list">
+                            <li><strong>Ctrl+C & V</strong>：复制你的镂空形状。</li>
+                            <li><strong>输入度数</strong>：精准旋转 45°、90°。</li>
+                            <li><strong>镜像对称</strong>：让花纹绕着圆柱完美排队。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="img-col reveal-right">
+                    <div class="angle-circle">
+                        <span class="angle-marker marker-90">90°</span>
+                        <span class="angle-marker marker-0">0°</span>
+                        <span class="angle-marker marker-180">180°</span>
+                        <span class="angle-marker marker-270">270°</span>
+                        <div style="font-size: 4rem;">🧩</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 3: 镂空三部曲 -->
+        <section id="process" class="scroll-section">
+            <div class="content-wrapper split-layout reverse">
+                <div class="text-col reveal-right">
+                    <h1 class="big-header">🕯️ 镂空三部曲</h1>
+                    <div class="glass-card reveal-up delay-1">
+                        <p>1. <strong>建主体</strong>：做一个空心的圆柱小罐子。</p>
+                        <p>2. <strong>设钻头</strong>：把星、圆、方块设为“负零件”。</p>
+                        <p>3. <strong>全穿透</strong>：确保钻头穿过了灯罩的墙壁。</p>
+                    </div>
+                    <p class="big-desc delay-2">💡 <strong>秘诀</strong>：你可以用很多小圆球做出一串“光影珍珠”！</p>
+                </div>
+                <div class="img-col reveal-left">
+                    <img src="lampshade_render.png" alt="灯罩预览" class="parallax-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 4: 展示与切片 -->
+        <section id="slicing" class="scroll-section">
+            <div class="content-wrapper centered-layout">
+                <h1 class="big-header reveal-up">🚀 见证奇迹</h1>
+                <p class="big-desc reveal-up delay-1">切片之后，你的灯罩才会真正“变身”</p>
+                <div class="concept-grid reveal-up delay-2">
+                    <div class="glass-card">
+                        <h3>🧐 检查内部</h3>
+                        <p>看是否有镂空过大导致的“断层”。</p>
+                    </div>
+                    <div class="glass-card">
+                        <h3>🧱 支撑设置</h3>
+                        <p>如果拱门太宽，记得开启树形支撑。</p>
+                    </div>
+                    <div class="glass-card">
+                        <h3>🎨 多色预览</h3>
+                        <p>不同部位的上色会让光影更丰富。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 5: 终极任务 -->
+        <section id="mission" class="scroll-section">
+            <div class="content-wrapper centered-layout">
+                <div class="tag reveal-up">今日任务</div>
+                <h1 class="big-header reveal-up delay-1">🎯 魔法灯罩设计师</h1>
+                <div class="glass-card reveal-up delay-2">
+                    <ul class="mission-list">
+                        <li>建立一个壁厚为 1.2mm 的空心灯罩底座。</li>
+                        <li>设计 1 款核心花纹，并让它绕圈旋转排队。</li>
+                        <li>左右、上下对称布置花纹，保持美感。</li>
+                        <li>切片检查，确保没有悬空“孤块”。</li>
+                    </ul>
+                </div>
+                <p class="big-desc reveal-up delay-3" style="margin-top:2rem;">你的光影作品即将点亮！🕯️</p>
+            </div>
+        </section>
     </div>
-    <script src="script.js"></script>
+
+    <script src="../assets/script.js"></script>
 </body>
 </html>
