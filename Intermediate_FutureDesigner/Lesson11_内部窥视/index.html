@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：内部窥视</title>
+    <meta name="description" content="Grade 8 Lesson 11 - 利用切片X光引擎透视模型，掌握内部蜂窝结构与 Gyroid 波浪阵列。">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="presentation-mode">
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+        
+        <!-- Hero Section -->
+        <section id="hero">
+            <h1 class="main-title reveal">L11. 内部窥视</h1>
+            <p class="subtitle reveal delay-1">切片软件里的截面图解与 X射线审问</p>
+            <span class="tag reveal delay-2">MODULE: 布尔极客与微观工程</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <!-- Concept Section -->
+        <section id="concept">
+            <h2 class="reveal">工业偷工定律</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>拒绝实心毒药</strong>
+                    <span>实心意味着昂贵的成本和无尽的收缩变形。3D 打印之王最强的核心在于：在看不见的黑暗内部，自动修建拥有超强抗压能力的三维网孔！</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Infill 填充, Gyroid 陀螺波浪式网状结构, 截面切割</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Section -->
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">STEP 1</span>
+                    <span class="event">手术刀下拉：拖动界面右侧如同红色垂直刀刃的刻度尺。剥开外皮，欣赏纵向时间的深层演变。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">STEP 2</span>
+                    <span class="event">矩阵置换：在“强度(Strength)”面板，彻底干掉老旧的十字网格(Grid)，将内部模式激活为更高一阶的三维空间【Gyroid 波浪】或【蜂窝】。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event">真空地陷区：如果内部填充调整成 3% 的致命密度，当喷嘴必须在平流层封顶时，拉出的桥梁一定会直接坠落入巨大的黑色虚空！</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slicer Section -->
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 观察不同密度的材料预算。将原先预计的三小时模型，压榨到 1.5 小时内！</div>
+                <div class="param">> PHYSICS: 十字路口追尾定律——当采用纯方格(Grid)填充时，两条垂直相交的拉丝会在汇聚点撞击凝结。由于同一层高两次堆叠会导致擦嘴(碰撞异响声音)，因此极客全系推荐使用 Gyroid 错峰阵型！</div>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>导入一个巨大的实体球状物，使用 15% 密度的 Gyroid 对其发起内部改造并将时间压缩一半。</span>
+                    <span>状态检定：用右侧 X光刀刃截停在模型正中心截面！并验证你的波浪纹理。</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE (系统档案上传协议)</strong>
+                    <span>L11_内部微窥视_姓名.3mf</span>
+                </div>
+            </div>
+        </section>
+        
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

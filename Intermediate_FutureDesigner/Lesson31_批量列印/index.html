@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：批量列印</title>
+    <meta name="description" content="Grade 8 Lesson 31 - 满盘大批量打印风险管控五步法，防范城市沙盘全盘覆没！">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+
+        <section id="hero">
+            <h1 class="main-title reveal">L31. 批量列印</h1>
+            <p class="subtitle reveal delay-1">满盘大规模风险管控 —— 防止全军覆没</p>
+            <span class="tag reveal delay-2">MODULE: 运动机制与未来都市</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <section id="concept">
+            <h2 class="reveal">蝴蝶效应灾难链</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>一个翘角毁全盘</strong>
+                    <span>单块地块翘边 → 喷嘴侧扫 → 模型被推运动 → 撞倒邻居 → 多米诺崩塌 → 线材缠绕堵嘴 → 打印终止。一次 6 小时打印的炒面灾难，就从这里开始。</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Warping 翘边链反应, First Layer 第一层质检, 远程巡视协议</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="design">
+            <h2 class="reveal">五步风险管控</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">Step 1</span>
+                    <span class="event">A 键排盘 + 模型间距 ≥ 5mm → 防止喷嘴路径意外侧扫临近模型！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">Step 2</span>
+                    <span class="event">全体开启 Outer Brim 5mm → 所有地块外扩 5mm 裙边装甲，零翘边的物理防线！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">Step 3-5</span>
+                    <span class="event">第一层守候 2 分钟质检料丝压扁度 → 每15分钟巡查 → 异常立刻 App 降速至 80%保存残局！</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 全局启用 Outer Brim Only 裙边。间距 5mm+。第一层速度必须 ≤ 50mm/s。绝不跳过床面校平！</div>
+                <div class="param">> PHYSICS: 第一层料丝判定法——扁面条形 = 附着成功 / 细圆面条形 = 离床太远附着失败 → 立刻取消重新调平！</div>
+            </div>
+        </section>
+
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>将班级全部地块纳入满盘排布方案，完成符合五步管控法的最终切片。</span>
+                    <span>状态检定：打印开始后第 2 分钟在场质检第一层！所有地块的料丝是否全部压扁成功？</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE</strong>
+                    <span>L31_批量列印_姓名.3mf（含满盘方案）</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

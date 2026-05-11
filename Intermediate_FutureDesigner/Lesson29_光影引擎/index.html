@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：光影引擎</title>
+    <meta name="description" content="Grade 8 Lesson 29 - 镂空蜂窝透光塔与薄壁渗光设计，让城市在黑暗中发光！">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+
+        <section id="hero">
+            <h1 class="main-title reveal">L29. 光影引擎</h1>
+            <p class="subtitle reveal delay-1">镂空蜂窝 × 薄壁渗光 —— 让城市在黑暗中燃烧</p>
+            <span class="tag reveal delay-2">MODULE: 运动机制与未来都市</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <section id="concept">
+            <h2 class="reveal">光之工程学</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>两种发光路径</strong>
+                    <span>路径A｜镂空透光：蜂窝孔阵列让 LED 光线形成鲜明光纹，犀利如激光。路径B｜薄壁渗光：0.8mm 半透明 PETG 让整面墙体均匀散光——建筑变成发光体！</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Lattice 晶格镂空, Translucent PETG 半透明渗光, LED 走线槽预留</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">镂空战法</span>
+                    <span class="event">六边形透孔草图(Ø8mm) + Circular Array × 环形6孔 + Linear Array × 垂直5排 = 30孔蜂窝装甲，关闭塔身填充！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">渗光战法</span>
+                    <span class="event">Shell 0.8mm 薄壁 + 白色/透明 PETG + 填充率 0% 内部全空 + 底部切 4×3mm LED 走线槽。整塔均匀发光！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event">镂空密度红线：孔与孔之间的实体材料最薄不得低于 3mm！低于此值每层打印时孔间肋板会因振动整面碎裂。</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS 路径A: 普通 PLA（任意色），层高 0.15mm，确保镂空孔内壁光洁无毛刺。</div>
+                <div class="param">> SETTINGS 路径B: 白/透明 PETG，层高 0.12mm，外壁仅 2 圈（保持薄透），填充率 0%（全空腔），LED 背光即可均匀透出。</div>
+            </div>
+        </section>
+
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>在你的地块建造能够内置光源的建筑（路径 A 或 B 任选），底部必须有 LED 走线槽预留！</span>
+                    <span>状态检定：关灯后手机手电筒从底部照入，是否从外壳均匀透光（路径B）或从孔洞射出（路径A）？</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE</strong>
+                    <span>L29_光影引擎_姓名.3mf + 走线示意图</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 魔法课：创意手机支架</title>
+    <meta name="description" content="第 11 课 - 学习角度旋转与重心平衡，设计实用的生活小助手">
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+    <style>
+        :root { --accent: #FF9E67; --accent-light: #FFEBDE; }
+        .stand-demo { width: 100%; height: 250px; display: flex; align-items: center; justify-content: center; position: relative; }
+        .phone-mockup { width: 10px; height: 120px; background: #333; border-radius: 5px; transform: rotate(30deg); position: absolute; left: 45%; top: 20%; box-shadow: 10px 10px 30px rgba(0,0,0,0.1); }
+        .stand-base { width: 150px; height: 10px; background: var(--accent); border-radius: 5px; position: absolute; bottom: 20%; }
+        .stand-back { width: 10px; height: 100px; background: var(--accent); border-radius: 5px; transform: rotate(30deg); position: absolute; left: 45%; bottom: 20%; transform-origin: bottom; }
+        .gravity-line { position: absolute; left: 51%; top: 30%; height: 100px; width: 2px; border-left: 2px dashed #FF6B6B; }
+    </style>
+</head>
+<body class="presentation-mode">
+    
+    <nav class="side-nav"><ul></ul></nav>
+
+    <div id="slide-viewport">
+        <!-- 页面 1: Hero -->
+        <section id="hero" class="scroll-section">
+            <div class="content-wrapper centered-layout">
+                <div class="emoji-float reveal-up">📱</div>
+                <h1 class="big-header reveal-up delay-1">创意手机支架</h1>
+                <p class="big-desc reveal-up delay-2">为手机打造一个舒服的“指挥椅”。</p>
+                <div class="scroll-hint reveal-up delay-3">
+                    <div class="mouse"><div class="wheel"></div></div>
+                    寻找黄金角度
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 2: 黄金仰角 -->
+        <section id="angle" class="scroll-section">
+            <div class="content-wrapper split-layout">
+                <div class="text-col reveal-left">
+                    <h1 class="big-header">📐 60 度的秘密</h1>
+                    <p class="big-desc">为什么这是看手机最舒服的角度？</p>
+                    <div class="glass-card reveal-up delay-1">
+                        <ul class="mission-list">
+                            <li><strong>不仰头</strong>：颈椎压力更小。</li>
+                            <li><strong>不反光</strong>：屏幕看得更清晰。</li>
+                            <li><strong>很稳固</strong>：手机不容易向前滑落。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="img-col reveal-right">
+                    <div class="stand-demo">
+                        <div class="stand-base"></div>
+                        <div class="stand-back"></div>
+                        <div class="phone-mockup"></div>
+                        <div class="gravity-line"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 3: 旋转魔法 -->
+        <section id="rotate" class="scroll-section">
+            <div class="content-wrapper split-layout reverse">
+                <div class="text-col reveal-right">
+                    <h1 class="big-header">⚙️ 旋转与嵌入</h1>
+                    <p class="big-desc">在 Bambu Studio 里，我们“粘”出斜面：</p>
+                    <div class="glass-card reveal-up delay-1">
+                        <p>1. <strong>建背板</strong>：先做出一个立着的长方体。</p>
+                        <p>2. <strong>转一度</strong>：使用旋转工具，输入 <strong>60°</strong>。</p>
+                        <p>3. <strong>深嵌入</strong>：把背板的一角塞进底座里，让它们融为一体。</p>
+                    </div>
+                    <p class="big-desc delay-2">💡 <strong>秘诀</strong>：必须让两个零件重叠，切片后才不会断开！</p>
+                </div>
+                <div class="img-col reveal-left">
+                    <img src="stand_stability.jpg" alt="对齐方案" class="parallax-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 4: 细心小细节 -->
+        <section id="details" class="scroll-section">
+            <div class="content-wrapper centered-layout">
+                <h1 class="big-header reveal-up">🛡️ 稳如泰山</h1>
+                <p class="big-desc reveal-up delay-1">如何让支架在放上手机后不“翻车”？</p>
+                <div class="concept-grid reveal-up delay-2">
+                    <div class="glass-card icon-card">
+                        <span class="icon">🚧</span>
+                        <h3>安全挡板</h3>
+                        <p>前端加一个小台阶，挡住手机滑坡。</p>
+                    </div>
+                    <div class="glass-card icon-card">
+                        <span class="icon">⚓</span>
+                        <h3>前重后轻</h3>
+                        <p>让底座尽量大一些，重心稳稳靠前。</p>
+                    </div>
+                    <div class="glass-card icon-card">
+                        <span class="icon">✂️</span>
+                        <h3>负空间镂空</h3>
+                        <p>在背板上挖个洞，省线材又好看！</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 5: 最终任务 -->
+        <section id="mission" class="scroll-section">
+            <div class="content-wrapper centered-layout">
+                <div class="tag reveal-up">今日任务</div>
+                <h1 class="big-header reveal-up delay-1">🎯 首席机械师</h1>
+                <div class="glass-card reveal-up delay-2">
+                    <ul class="mission-list">
+                        <li>建立宽大的底座，并在前端加上 8mm 高的挡板。</li>
+                        <li>旋转背板零件至 60 度，并与底座完美重合。</li>
+                        <li>使用负零件文字功能，刻上你的名字缩写。</li>
+                        <li>检查侧面重心投影，确保不会向后翻。</li>
+                    </ul>
+                </div>
+                <p class="big-desc reveal-up delay-3" style="margin-top:2rem;">你的手机指挥椅准备开工了！🦾</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="../assets/script.js"></script>
+</body>
+</html>

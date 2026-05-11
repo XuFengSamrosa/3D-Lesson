@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：拓扑回环</title>
+    <meta name="description" content="Grade 8 Lesson 20 - Revolve 回转成体，与花瓶模式的螺旋打印极致美学。">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+
+        <section id="hero">
+            <h1 class="main-title reveal">L20. 拓扑回环</h1>
+            <p class="subtitle reveal delay-1">Revolve 剪纸旋转 × 花瓶模式螺旋美学</p>
+            <span class="tag reveal delay-2">MODULE: 算法美学与高阶曲面</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <section id="concept">
+            <h2 class="reveal">旋转是宇宙之美</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>陶艺转盘的数字化</strong>
+                    <span>只需绘制酒杯侧面轮廓的一半，Revolve 将它以中心轴为原点，在虚空中完美旋转 360°——杯子、瓶子、轴承座，一次成型。</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Revolve 回转成体, 旋转轴 Axis, Spiral Vase Mode 花瓶螺旋模式</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">STEP 1</span>
+                    <span class="event">正视图半截面：只在中心轴的右侧绘制酒杯/瓶身侧面轮廓——底圆→细腿→杯身扩张→杯口外翻，必须完全封闭！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">STEP 2</span>
+                    <span class="event">指定旋转轴：Revolve 命令激活，选中截面，选中最靠近中心的那条竖向边作为旋转轴，360° 全周天旋转成体！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event">越轴自爆：截面线段越过中心轴跑到轴的另一侧，旋转时两侧实体互相穿插产生内爆式混沌——永远只在轴的一侧画线！</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 质量标签 → 开启【花瓶模式 Spiral Vase Mode】！喷头从底部开始单圈不间断连续螺旋上升，打出最光滑的薄壁。</div>
+                <div class="param">> PHYSICS: 螺旋无顿挫——不同于普通的标准外壁需要频繁端点刹车启动，花瓶模式一圈到底无停顿，消灭了 100% 的接缝起伏痕迹！</div>
+            </div>
+        </section>
+
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>设计一个极简花瓶或酒杯，Revolve 后使用花瓶模式切片。切片预览中确认是否形成了完整的单线螺旋上升路径！</span>
+                    <span>状态检定：模型侧面是否完全无接缝？看切片路径视图，喷头是否从Zmin一直螺旋连续至Zmax？</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE</strong>
+                    <span>L20_拓扑回环_姓名.3mf</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

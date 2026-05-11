@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：分层嵌体</title>
+    <meta name="description" content="Grade 8 Lesson 14 - Z轴暂停换色法与多实体 CAD 配色的双色打印工艺。">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="presentation-mode">
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+
+        <section id="hero">
+            <h1 class="main-title reveal">L14. 分层嵌体</h1>
+            <p class="subtitle reveal delay-1">Z 轴暂停换色与多实体配色协议</p>
+            <span class="tag reveal delay-2">MODULE: 布尔极客与微观工程</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <section id="concept">
+            <h2 class="reveal">双色黑科技</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>一台机器，两种颜色</strong>
+                    <span>无需昂贵的 AMS 多色系统！精确计算层高，在切片中写入暂停指令，人工换料后继续打印——双色大作即刻成型。</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Layer Change 层间换色, Multi-body 多实体分色, Purge 冲洗清料</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">STEP 1</span>
+                    <span class="event">层高强转算法：底板厚度 2mm ÷ 层高 0.2mm = 第 10 层。把换色暂停点精确锁死在 Layer 10！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">STEP 2</span>
+                    <span class="event">Bambu 写入指令：Process » Others » Pause at Layer / Filament Change。输入层数，小旗帜标记出现即为成功侵入。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event">喷嘴旧色残留：换料后强制手甩 4-5 圈冲洗废料，不清喉便继续只会在新的颜色上留下黑色杂质！</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 在对象列表（Object）中高亮选中不同实体，分别手动赋予1号色和2号色的丝料类别。</div>
+                <div class="param">> PHYSICS: 层间界面的异色结合强度只达到同色模型的 70%。换色层不选在受力节点，是每个极客必须遵守的工艺红线。</div>
+            </div>
+        </section>
+
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>升级第 7 课的极客徽章：底板与代号文字保持独立实体，并正确写入 Layer 10 的暂停换色断点。</span>
+                    <span>状态检定：预览切片时间线上是否出现了换色黑旗标记？</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE (系统档案上传协议)</strong>
+                    <span>L14_分层嵌体_姓名.3mf</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

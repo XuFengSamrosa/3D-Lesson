@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 01 | 工程制图概论与 SolidWorks | 核心授课系统</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        :root {
+            --bg-base: #0a0a0f;
+            --primary: #00ffcc;
+            --primary-glow: rgba(0, 255, 204, 0.6);
+            --secondary: #6600ff;
+            --accent: #ff0055;
+            --text-main: #ffffff;
+            --text-muted: #8b8b9e;
+            --glass-bg: rgba(20, 20, 30, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-base); 
+            color: var(--text-main); 
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* 动态背景矩阵 */
+        .ambient-background {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(0, 255, 204, 0.08), transparent 40%),
+                radial-gradient(circle at 85% 20%, rgba(102, 0, 255, 0.1), transparent 40%),
+                radial-gradient(circle at 50% 80%, rgba(255, 0, 85, 0.05), transparent 40%);
+            filter: blur(40px);
+            animation: breathe 15s infinite alternate;
+        }
+
+        .grid-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            transform: perspective(500px) rotateX(60deg) translateY(-100px) scale(3);
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes breathe {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 50px; }
+        }
+
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 20px 50px;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .brand {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .brand-indicator {
+            width: 10px; height: 10px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--primary);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+        }
+
+        /* 主体布局 */
+        .hero {
+            padding: 150px 50px 80px;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #a0a0b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.8s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.8s 0.2s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 50px 100px;
+            display: grid;
+            grid-template-columns: 2.8fr 1.2fr;
+            gap: 40px;
+        }
+
+        /* 玻璃面板通用样式 */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+            transition: transform 0.4s ease, border-color 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .glass-panel.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(0, 255, 204, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--primary);
+            box-shadow: 0 0 20px var(--primary);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .glass-panel:hover::before { opacity: 1; }
+
+        .panel-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 20px;
+        }
+        .panel-title span { color: var(--primary); font-size: 2.2rem; }
+
+        /* 特殊模块：教师话术 */
+        .talk-track {
+            background: linear-gradient(145deg, rgba(102, 0, 255, 0.1), rgba(0,0,0,0));
+            border-left: 4px solid var(--secondary);
+            padding: 25px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        .talk-track h4 {
+            color: var(--secondary);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .talk-track p { font-size: 1.15rem; font-style: italic; color: #e0e0e0; }
+
+        /* 特殊模块：应急预案 */
+        .emergency {
+            background: rgba(255, 0, 85, 0.05);
+            border: 1px solid rgba(255, 0, 85, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        .emergency:hover { background: rgba(255, 0, 85, 0.1); border-color: var(--accent); box-shadow: 0 0 30px rgba(255, 0, 85, 0.15); }
+        .emergency-title {
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .emergency-title::before { content: '🚨'; font-size: 1.5rem; }
+        .emergency-desc { margin-bottom: 10px; }
+        .emergency-desc strong { color: #fff; }
+        .emergency-steps { padding-left: 20px; color: var(--text-muted); }
+
+        /* CAD 操作指令块 */
+        .cad-command-box {
+            background: #0d0d12;
+            border: 1px solid #2a2a35;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+            position: relative;
+        }
+        .cad-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .cad-step:last-child { margin-bottom: 0; }
+        .step-num {
+            background: rgba(0,255,204,0.1);
+            color: var(--primary);
+            font-family: 'JetBrains Mono';
+            font-weight: bold;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        .step-content strong { color: #fff; }
+        .step-content span { color: var(--text-muted); font-size: 0.95rem; display: block; margin-top: 5px; }
+
+        /* 右侧边栏 */
+        .sidebar { display: flex; flex-direction: column; gap: 30px; }
+        .visual-widget {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            overflow: hidden;
+        }
+        .visual-image {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.5s ease;
+        }
+        .visual-widget:hover .visual-image { transform: scale(1.05); }
+        
+        /* 交互式坐标系动画 */
+        .axis-box { position: relative; width: 100%; height: 200px; display: flex; justify-content: center; align-items: center; border: 1px solid rgba(0,255,204,0.2); border-radius: 12px; background: rgba(0,0,0,0.3); margin-top: 20px; perspective: 600px;}
+        .origin-dot { width: 15px; height: 15px; background: #ff0055; border-radius: 50%; box-shadow: 0 0 15px #ff0055; position: absolute; z-index: 10; }
+        .axis { position: absolute; background: rgba(255,255,255,0.2); transform-origin: 0 0; }
+        .axis-x { width: 100px; height: 2px; transform: rotate(0deg); background: linear-gradient(90deg, #ff0055, transparent); }
+        .axis-y { width: 100px; height: 2px; transform: rotate(-90deg); background: linear-gradient(90deg, #00ffcc, transparent); }
+        .axis-z { width: 100px; height: 2px; transform: rotate(135deg); background: linear-gradient(90deg, #6600ff, transparent); }
+        .axis-label { position: absolute; font-family: 'JetBrains Mono'; font-size: 0.8rem; font-weight: bold; }
+        .label-x { transform: translate(110px, -10px); color: #ff0055; }
+        .label-y { transform: translate(-10px, -110px); color: #00ffcc; }
+        .label-z { transform: translate(-80px, 80px); color: #6600ff; }
+
+        @media (max-width: 1024px) {
+            .container { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-background"></div>
+    <div class="grid-overlay"></div>
+
+    <nav class="navbar">
+        <div class="brand">
+            <div class="brand-indicator"></div>
+            ADVANCED_HARDCORE_OS
+        </div>
+        <div style="font-family: 'JetBrains Mono', monospace; color: var(--primary); font-size: 0.9rem;">
+            TEACHER_DASHBOARD_v2.0
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Lesson 01 | 工程制图概论与 SolidWorks</h1>
+        <p>教师专属授课系统界面。抛弃捏泥巴式的艺术家建模，重塑严格的参数化工程师思维。从三大基准面到坐标原点，建立工业设计的绝对基石。</p>
+    </header>
+
+    <div class="container">
+        <main>
+            <!-- 模块二：专业名词 -->
+            <section class="glass-panel">
+                <h2 class="panel-title"><span>01</span> 专业名词黑板解释 (Glossary)</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                        <h3 style="color: var(--primary); margin-bottom: 10px; font-family: 'JetBrains Mono', monospace;">原点 (0,0,0)</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">宇宙的中心，三面墙交汇的那个墙角。任何零件的第一笔，必须从这个墙角开始长出来，否则它就是在宇宙中流浪的孤魂野鬼。</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                        <h3 style="color: var(--primary); margin-bottom: 10px; font-family: 'JetBrains Mono', monospace;">完全定义 (Fully Defined)</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">图纸中漆黑如墨的颜色。代表该线条的长度和位置已经被数学逻辑死死锁住，绝不会因为拖拽而形变，这是工业界唯一可以信任的状态。</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                        <h3 style="color: var(--primary); margin-bottom: 10px; font-family: 'JetBrains Mono', monospace;">特征树 (Design Tree)</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">左侧的历史记录栏，更是极其严格的“父子血缘关系”。删了父辈的草图，子辈的拉伸实体立刻崩溃。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 模块三：授课话术 -->
+            <section class="glass-panel">
+                <h2 class="panel-title"><span>02</span> 标准授课话术体系 (Talk Tracks)</h2>
+                
+                <div class="talk-track">
+                    <h4>🗣️ 环节一：从“艺术家”到“工程师”</h4>
+                    <p>“同学们，忘掉你们以前的捏泥巴 3D 软件。从今天起，你们是严谨的工程师！在 SolidWorks 里没有‘差不多’，一根轴的直径差了 0.1 毫米，它就塞不进轴承里；差了 1 毫米，整台机器通电瞬间就会卡死烧毁。数字就是法律，基准就是信仰！”</p>
+                </div>
+                
+                <div class="talk-track">
+                    <h4>🗣️ 环节二：对蓝色线条的零容忍</h4>
+                    <p>“看你们画完的草图，是不是蓝色的？在我们的课堂上，蓝色代表极度危险！只要有一根蓝色的线，就说明它在物理世界中是会晃动的。你们唯一的任务，就是打上尺寸，把蓝色全部逼成黑色。只有黑色，才是可以制造的！”</p>
+                </div>
+            </section>
+
+            <!-- 模块四：核心操作 -->
+            <section class="glass-panel">
+                <h2 class="panel-title"><span>03</span> 核心操作：底盘参数化建模</h2>
+                <p style="color: var(--text-muted); margin-bottom: 15px;">不要盲目点击！带领学生严格按照以下工业级流程建立第一个底层特征。</p>
+                
+                <div class="cad-command-box">
+                    <div class="cad-step">
+                        <div class="step-num">STEP 1</div>
+                        <div class="step-content">
+                            <strong>统一坐标单位 (极高危操作)</strong>
+                            <span>点击右下角，强制将 IPS(英寸) 切换为 <strong>MMGS(毫米、克、秒)</strong>。否则 10 寸的模型一旦打印出来会像楼一样大！</span>
+                        </div>
+                    </div>
+                    <div class="cad-step">
+                        <div class="step-num">STEP 2</div>
+                        <div class="step-content">
+                            <strong>草图基准面与原点锚定</strong>
+                            <span>选择 <strong>上视基准面 (Top Plane)</strong> 进入草图。选择“中心矩形”。<strong>鼠标必须移到红色原点</strong>，等出现黄色重合光标后才能点击！</span>
+                        </div>
+                    </div>
+                    <div class="cad-step">
+                        <div class="step-num">STEP 3</div>
+                        <div class="step-content">
+                            <strong>尺寸参数化驱动</strong>
+                            <span>使用“智能尺寸”，标注长180mm，宽140mm。按下回车的瞬间，观察蓝线瞬间变为黑色，并在右下角确认出现 <strong>完全定义</strong> 字样。</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 模块五：灾难预案 -->
+            <section class="glass-panel" style="border-color: rgba(255, 0, 85, 0.3);">
+                <h2 class="panel-title" style="border-bottom-color: rgba(255, 0, 85, 0.2);"><span style="color: var(--accent);">04</span> 灾难级应急预案 (Protocols)</h2>
+                
+                <div class="emergency">
+                    <div class="emergency-title">灾难 1：尺寸标注后，草图扭曲成了麻花</div>
+                    <div class="emergency-desc"><strong>学生表现：</strong> 标完尺寸后，矩形的左边穿过了右边，整个图烂作一团。</div>
+                    <div class="emergency-desc"><strong>核心原因：</strong> 画得太随心所欲，导致长宽比例在系统内错乱，尺寸驱动时逻辑崩溃。</div>
+                    <div class="emergency-steps">
+                        » 撤销尺寸标注。<br>
+                        » 教导核心技巧：<strong>“先拖拽大致比例，再去打上精确尺寸标签！”</strong>
+                    </div>
+                </div>
+
+                <div class="emergency">
+                    <div class="emergency-title">灾难 2：满屏飘红，报“过定义”错误</div>
+                    <div class="emergency-desc"><strong>学生表现：</strong> 标完最后一个尺寸，草图变成刺眼的黄色和红色，弹出报错警告。</div>
+                    <div class="emergency-desc"><strong>核心原因：</strong> 标了自相矛盾或多余的尺寸。矩形两条对边已经被几何约束相等，重复标注会导致逻辑死锁。</div>
+                    <div class="emergency-steps">
+                        » 删除刚画上的多余尺寸。<br>
+                        » 强调铁律：“尺寸不是越多越好，足够约束就行，绝不画蛇添足！”
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <aside class="sidebar">
+            <div class="visual-widget">
+                <h3 style="font-family: 'JetBrains Mono'; font-size: 0.9rem; color: var(--primary); margin-bottom: 15px;">CAD VIEWPORT</h3>
+                <div style="border-radius: 8px; overflow: hidden; position: relative;">
+                    <img src="../assets/images/cad.jpg" class="visual-image" alt="CAD Viewport">
+                    <div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.8); padding: 4px 8px; border-radius: 4px; font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--primary); border: 1px solid var(--primary);">SW_RENDER_01</div>
+                </div>
+            </div>
+
+            <div class="visual-widget">
+                <h3 style="font-family: 'JetBrains Mono'; font-size: 0.9rem; color: var(--secondary); margin-bottom: 15px;">SPATIAL GEOMETRY</h3>
+                <div class="axis-box">
+                    <div class="origin-dot"></div>
+                    <div class="axis axis-x"></div>
+                    <div class="axis axis-y"></div>
+                    <div class="axis axis-z"></div>
+                    <div class="axis-label label-x">X</div>
+                    <div class="axis-label label-y">Y</div>
+                    <div class="axis-label label-z">Z</div>
+                </div>
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--glass-border);">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">UNIT SYSTEM</span>
+                        <span style="font-family: 'JetBrains Mono'; font-weight: 700; color: #fff;">MMGS (mm, g, s)</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">CONSTRAINT STATUS</span>
+                        <span style="font-family: 'JetBrains Mono'; font-weight: 700; color: var(--primary);">FULLY DEFINED</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // 滚动动画观察器
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+        document.querySelectorAll('.glass-panel').forEach((panel, index) => {
+            panel.style.transitionDelay = `${index * 0.1}s`;
+            observer.observe(panel);
+        });
+    </script>
+</body>
+</html>

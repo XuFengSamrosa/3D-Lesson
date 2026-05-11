@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：赛博基建</title>
+    <meta name="description" content="Grade 8 Lesson 28 - 模块化单元开发：防空洞、光伏阵列、数据能量塔。">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+
+        <section id="hero">
+            <h1 class="main-title reveal">L28. 赛博基建</h1>
+            <p class="subtitle reveal delay-1">防空洞 × 光伏列阵 × 数据能量塔建造</p>
+            <span class="tag reveal delay-2">MODULE: 运动机制与未来都市</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <section id="concept">
+            <h2 class="reveal">城市基础设施层</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>从地下到天际</strong>
+                    <span>地下防空洞的通风格栅 / 倾斜追光的光伏板矩阵 / 顶端有天线的镂空数据塔——每一个地块，都承载着未来都市运转的能量节点。</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>参数化建筑, 追光阵列倾角, 镂空透窗阵列</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">防空洞</span>
+                    <span class="event">六边形扁平主体(H=15mm) + 差集通透通风孔(Ø8mm，6孔) + 顶面阵列盖板格栅(1mm 凸起，5mm 间距)。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">能量塔</span>
+                    <span class="event">渐细四棱锥主塔(底20×20，顶8×8，H=80mm) + 四面矩形透窗线性阵列 + 顶部天线（最小直径 1.6mm！）。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event">天线消失陷阱：直径 &lt; 1.6mm（4×0.4）的细柱体在标准切片中将被判定无效消失。最低粗细界限 = 4 倍线宽！</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 全项目统一规范：层高 0.20mm + Gyroid 填充 15% + 外壁 3 圈。快速出盘，保证外边界笔直。</div>
+                <div class="param">> PHYSICS: 榫卯朝向确认——让城市地图对照确认每块底板的榫卯公头朝向正确，不然拼合时会发现方向转了 90° 对不上！</div>
+            </div>
+        </section>
+
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>完成你分配到的地块的主体建筑，按你的功能区类型（防空/光伏/能量塔）选择对应的建造模板并进行个性化改造。</span>
+                    <span>状态检定：建筑模型是否与底板完全融合（Union）？接口榫头是否与 L27 标准一致？</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE</strong>
+                    <span>L28_赛博基建_姓名.3mf</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

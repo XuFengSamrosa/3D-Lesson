@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：工业修补</title>
+    <meta name="description" content="Grade 8 Lesson 24 - 逆向工程：用卡尺测量破损件，CAD重建，打印拯救真实世界。">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+
+        <section id="hero">
+            <h1 class="main-title reveal">L24. 工业修补</h1>
+            <p class="subtitle reveal delay-1">逆向工程 × 卡尺重建 × 拯救真实世界</p>
+            <span class="tag reveal delay-2">MODULE: 算法美学与高阶曲面</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <section id="concept">
+            <h2 class="reveal">修复而非丢弃</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>3D 打印是修理厂</strong>
+                    <span>全球每年数以亿计的设备、家具、工具因找不到一个小塑料件而整体报废。把卡尺数据变成 CAD，三小时后一个全新的替换件打印完毕——这是最有价值的极客超能力。</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Reverse Engineering 逆向工程, 公差补偿, 功能件壁厚强化</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">STEP 1</span>
+                    <span class="event">卡尺建档：外径→内孔径→总高→壁厚→配合孔直径，每尺寸三次测量取均值。建立逆向测量表格！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">STEP 2</span>
+                    <span class="event">CAD 还原：按表格数据忠实重建主体 Extrude，Subtract 挖出安装孔（孔径 +0.4mm 直径补偿），卡爪参考榫卯原理。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event">内孔测量陷阱：忘记使用内颚（游标卡尺的内测颚）会导致内径尺寸严重偏小——用错工具等于全部数据作废！</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 受力功能件专属配方——层高 0.12mm + Gyroid 填充 40% + 外壁 5 圈。强度最大化。</div>
+                <div class="param">> PHYSICS: 外壁圈数定律——每增加一圈外墙（0.4mm），轴向承载力提升约 15%。5 圈外墙等于 2mm 实心边框，能承受足以破坏普通注塑件的压力。</div>
+            </div>
+        </section>
+
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>拿出一个真实报废的家用小零件（耳机架卡扣、椅腿、摇篮车塑料夹），用卡尺完整测量后在 CAD 中 100% 复刻！</span>
+                    <span>状态检定：打印完成后现场装配测试。是否能够无阻力套入原位精准配合？</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE</strong>
+                    <span>L24_工业修补_姓名.3mf + 附测量记录表照片</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

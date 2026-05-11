@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：仿生侵染</title>
+    <meta name="description" content="Grade 8 Lesson 21 - AI生成有机形态参考，CAD描摹重建仿生结构。">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+
+        <section id="hero">
+            <h1 class="main-title reveal">L21. 仿生侵染</h1>
+            <p class="subtitle reveal delay-1">AI 生成有机灵感 × CAD 亿年进化结构复刻</p>
+            <span class="tag reveal delay-2">MODULE: 算法美学与高阶曲面</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <section id="concept">
+            <h2 class="reveal">自然是最强工程师</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>亿年优化的结构基因</strong>
+                    <span>鲨鱼皮的微槽减阻 8%、珊瑚礁的立体网格强度媲美钢筋混凝土、骨松质的空腔模式轻量到极致——这些已被 NASA、波音和 Airbus 直接抄入飞行器设计。</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Biomimicry 仿生学, AI Prompt 提示词工程, Spline Trace 曲线临摹</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">AI 侦察</span>
+                    <span class="event">Prompt格式：[生物对象] + [结构关键词] + [视角] + [线稿风格]。示例: coral cross section, organic lattice, top-down, black white line art</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">STEP 1</span>
+                    <span class="event">导图为底：Shapr3D 新建草图 → 导入 AI 参考图 → 调透明度 50% → 开始在上方用 Spline 曲线精准追踪仿生骨架！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event">AI图不等于3D文件：AI生成的只是 2D 图像灵感。所有立体结构必须由你手动用 Sweep / Loft / Array 重建，无捷径。</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 仿生结构建议贴合底板生长（非悬空），从底面出发向上堆叠，最大化减少支撑开销。</div>
+                <div class="param">> PHYSICS: 有机形态的悬挑评估——自然界的结构无需考虑重力打印，但你需要。用悬垂色谱图扫描所有红色危险区！</div>
+            </div>
+        </section>
+
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>利用 AI 参考图中的有机纹理，在 Shapr3D 中重建至少 5 个仿生单元结构，并用阵列铺展成完整的仿生装甲板。</span>
+                    <span>状态检定：同时提交 AI 参考截图 + 3mf 建模文件共两项证明。</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE</strong>
+                    <span>L21_仿生侵染_姓名.3mf + AI参考截图</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

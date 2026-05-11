@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：赛博路演</title>
+    <meta name="description" content="Grade 8 Lesson 32 - Neo-Metropolis 沙盘整合 × 设计路演 × 极客荣誉颁奖典礼！">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+
+        <section id="hero">
+            <h1 class="main-title reveal">L32. 赛博路演</h1>
+            <p class="subtitle reveal delay-1">Neo-Metropolis 启城 × 设计路演 × 极客荣耀典礼</p>
+            <span class="tag reveal delay-2">MODULE: 运动机制与未来都市 // FINAL</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <section id="city">
+            <h2 class="reveal">城市诞生时刻</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>碎片变都市</strong>
+                    <span>按城市总规图，各地块按序磁吸卡合就位。LED 缓缓亮起——Neo-Metropolis 正式上线！</span>
+                </div>
+                <div class="comp">
+                    <strong>拼合质检协议</strong>
+                    <span>磁铁吸合无弹开 ✓ / 相邻地块水平无台阶 ✓ / 所有榫卯接口无错位 ✓ / LED 发光正常 ✓</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="pitch">
+            <h2 class="reveal">90 秒极客路演</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">汇报①</span>
+                    <span class="event">我的地块功能是什么？（防空洞 / 能量塔 / 光伏阵 / 其他）</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">汇报②</span>
+                    <span class="event">我使用了哪些极客本课技术？（布尔差集 / 环形阵列 / 公差计算 / 磁铁嵌槽 / 镂空透光……）</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">汇报③</span>
+                    <span class="event">我遇到了什么困难，如何极客解决的？</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="awards">
+            <h2 class="reveal">荣誉殿堂</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: gold;">
+                    <strong>🏆 最佳工程师</strong>
+                    <span>设计最严谨，公差控制最精确的极客。</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>🎨 最具美学</strong>
+                    <span>建筑形态最具未来感与视觉冲击力的设计师。</span>
+                </div>
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>💡 光影大师</strong>
+                    <span>LED 透光效果最震撼的工程领航者。</span>
+                </div>
+                <div class="comp" style="border-color: #f59e0b;">
+                    <strong>🚀 最疯狂创新</strong>
+                    <span>最突破常规、最大胆想象的赛博建筑师。</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="finale">
+            <h2 class="reveal">下一次，你们将建造真实的世界。</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent); grid-column: 1 / -1;">
+                    <strong>— 未来设计师，课程完结 —</strong>
+                    <span>从不知游标卡尺，到联手建造了一座完整的未来都市。</span>
+                    <span>32 学时、布尔黑客手法、Print-in-Place 零重力机构、磁吸接口协议……</span>
+                    <span>这不只是 3D 打印课。这是与工程制造世界第一次真正的交锋。</span>
+                    <span style="color:var(--accent); font-weight:900; margin-top: 1rem;">而你们，赢了。</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：基础排版</title>
+    <meta name="description" content="Grade 8 Lesson 6 - 控制切片核心变量，权衡质量与时间。">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="presentation-mode">
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+        
+        <!-- Hero Section -->
+        <section id="hero">
+            <h1 class="main-title reveal">L6. 基础排版</h1>
+            <p class="subtitle reveal delay-1">切片器的初步接管与引擎调试</p>
+            <span class="tag reveal delay-2">MODULE: 数字工程与极客原点</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <!-- Concept Section -->
+        <section id="concept">
+            <h2 class="reveal">工业妥协学</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>不可能三角定律</strong>
+                    <span>极速、强重质量、零台阶纹理——在增材领域，你无法同时拥有这三点。每一次切片，都是极致的妥协艺术。</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Layer Height 层厚, First Layer 第一层底基, Trade-off 工程妥协</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Section -->
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">STEP 1</span>
+                    <span class="event">厚度裁决：理解 0.12mm（玉石级）与 0.28mm（草稿级）甚至 0.20mm（万金油）在切割时的物理概念差别。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">STEP 2</span>
+                    <span class="event">薄壁陷阱：当模型中存在 0.3mm 的超薄片，标准 0.4mm 喷嘴直接将其吞噬抹除，你需要阿剌克涅 Arachne 变宽算法！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event">炒面地狱：哪怕上层的速度被推上音速，底层速度 (First Layer) 永远必须保持压抑在 50mm/s 锁死固化附着力。</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slicer Section -->
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 质量标签页下，修改所有上述的层高，并使用 A键体验自动整理床位。</div>
+                <div class="param">> PHYSICS: 过高的外墙环绕速度由于喷头加速度带来的巨大机械惯性，不可避免地产生了波纹状振动痕（Ghosting）。</div>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>向载盘铺进三架同样的基础模型。分阶段调整层厚和填充率。</span>
+                    <span>状态检定：报告你为了削减 15 分钟切片时间，让模型失去了哪一层级的物理支撑强硬度。</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE (系统档案上传协议)</strong>
+                    <span>L6_排版测算_姓名.3mf</span>
+                </div>
+            </div>
+        </section>
+        
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

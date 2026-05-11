@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：生命轨迹</title>
+    <meta name="description" content="Grade 8 Lesson 17 - 扫掠命令：截面沿路径生长，突破拉伸的三维限制。">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+
+        <section id="hero">
+            <h1 class="main-title reveal">L17. 生命轨迹</h1>
+            <p class="subtitle reveal delay-1">Sweep 扫掠：截面乘着路径飞翔</p>
+            <span class="tag reveal delay-2">MODULE: 算法美学与高阶曲面</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <section id="concept">
+            <h2 class="reveal">超越垂直拉伸</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>弯曲之道</strong>
+                    <span>Extrude 只能笔直向上。Sweep 让一个截面骑着你亲手绘制的任何曲线——S弯、螺旋、U形——穿越时空生长出形体。</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Profile 截面草图, Path 路径样条线, Spline 贝塞尔曲线</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">STEP 1</span>
+                    <span class="event">画出使命路：在任意视图用 Spline 样条折腾一根S形或向空间延伸的三维弯道——这是扫掠舰队的飞行航线。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">STEP 2</span>
+                    <span class="event">创建截面锚：在路径的端点上，建立与路径方向严格垂直的附着平面，在此面上画圆（管路）或星形（异形结构）。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event">路径自交崩溃：若样条曲线画成了∞无限交叉形，扫掠在交叉点失去法线方向，报错在所难免。路径永不交叉！</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 竖向打印与横向打印的两种取向，在切片悬垂色谱展示下，弯管的红色悬垂区域变化巨大。</div>
+                <div class="param">> PHYSICS: 朝向即命运——模型的打印取向直接决定哪些曲面成为悬垂灾难区。选择最优取向，是 Sweep 建模后的首要战略！</div>
+            </div>
+        </section>
+
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>绘制一根至少有三次转向的复杂路径，截面可以是圆形、六边形或你设计的特殊截面形状。</span>
+                    <span>状态检定：切片后是否形成了完整无断裂的连续管路？在最优打印朝向下支撑用量是否最少？</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE</strong>
+                    <span>L17_生命轨迹_姓名.3mf</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

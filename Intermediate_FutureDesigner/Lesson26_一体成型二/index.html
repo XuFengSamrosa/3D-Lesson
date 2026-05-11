@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：一体成型(二)</title>
+    <meta name="description" content="Grade 8 Lesson 26 - 万向陀螺环三轴嵌套与行星齿轮间隙原理。">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+
+        <section id="hero">
+            <h1 class="main-title reveal">L26. 一体成型②</h1>
+            <p class="subtitle reveal delay-1">万向陀螺环 × 行星齿轮间隙联动</p>
+            <span class="tag reveal delay-2">MODULE: 运动机制与未来都市</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <section id="concept">
+            <h2 class="reveal">火箭的姿态灵魂</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>万向节 Gimbal</strong>
+                    <span>三个正交嵌套的环，X/Y/Z 三轴独立自由旋转——相机云台、火箭推力矢量控制、飞行器姿态稳定的核心机构。一次打印，无需组装。</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Gimbal 万向节, 正交轴销 Orthogonal Pins, Backlash 齿侧间隙</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">三环嵌套</span>
+                    <span class="event">内环(30mm) → 中环(50mm) → 外环(70mm)。每对相邻环之间：轴销直径 4mm，对应套孔 4.6mm（双边 0.3mm 间隙）。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">正交法则</span>
+                    <span class="event">内-中环的轴销方向（Y轴），与中-外环的轴销方向（X轴）必须严格 90° 正交！否则三环失去独立旋转自由度。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event">层高极限门槛：层高 ≥ 0.15mm 时，相邻环在弧形顶端距离最近处极易层间熔接——必须使用 0.08mm 精细档位！</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 层高 0.08mm + 外壁速度 100mm/s + 桥接速度 20mm/s + 关闭全部支撑。精度第一，速度垫底。</div>
+                <div class="param">> PHYSICS: 桥接弧度理论——两环之间的最大桥接跨度约为环直径的 π/2 倍，精细层高和极低桥接速度是让弧顶自撑的唯一手段。</div>
+            </div>
+        </section>
+
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>完成至少两环嵌套、轴销正交的陀螺万向节，关闭全部支撑后切片，打印结束时当堂演示多轴独立旋转！</span>
+                    <span>状态检定：固定外环，拨动内圈——内圈是否在与外圈完全不同的轴上自由旋转？</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE</strong>
+                    <span>L26_陀螺环_姓名.3mf</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

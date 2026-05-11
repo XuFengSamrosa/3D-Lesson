@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：公差之隙</title>
+    <meta name="description" content="Grade 8 Lesson 12 - 机械摩擦的魔法数值(0.2mm)，告别绝对吻合的乌托邦。">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="presentation-mode">
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+        
+        <!-- Hero Section -->
+        <section id="hero">
+            <h1 class="main-title reveal">L12. 公差之隙</h1>
+            <p class="subtitle reveal delay-1">摩擦的魔法数值 0.2mm</p>
+            <span class="tag reveal delay-2">MODULE: 布尔极客与微观工程</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <!-- Concept Section -->
+        <section id="concept">
+            <h2 class="reveal">机械缝隙定理</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>拒绝绝对吻合</strong>
+                    <span>纯粹的尺寸一致在真实物理世界等于【死锁卡死】。为它留出呼吸的空隙，它才能在结构中丝滑运转。</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Tolerance 机械公差, Clearance 间隙, 孔洞补偿</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Section -->
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">STEP 1</span>
+                    <span class="event">尺寸测量：如果你要插入一根直径刚好为 10.0mm 且雷打不动的圆柱。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">STEP 2</span>
+                    <span class="event">预留冗余：在需要被插入的盖子上绘制洞孔草图，输入数学极值：直径必须要打上 10.0 + (0.2 x 2) = 10.4mm !</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event">极寒运算错误：最常见的错误就是忘记乘以二！单边预留 0.2，直径必须是双方扩张，切记加上 0.4！</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slicer Section -->
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 质量标签 -> 孔补偿选项 (XY Hole Compensation)。如果不方便改 CAD 尺寸，直接切片器代为执行。</div>
+                <div class="param">> PHYSICS: 大象脚碾压——3D 打印极热的第一层极易被引力在热床上摊开膨大成大象脚，导致底部的圆孔产生天然收缩阻塞。</div>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>二人配合协议战：A方构建一个不规则的钥匙底座（20x20mm基准）；B方盲敲尺寸接收文件，建造出拥有 0.2 间隙的锁定外壳槽。</span>
+                    <span>状态检定：直接把A的钥匙对入B的外壳。滑顺即真理，死卡则重开！</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE (系统档案上传协议)</strong>
+                    <span>L12_公差配合_姓名.3mf</span>
+                </div>
+            </div>
+        </section>
+        
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

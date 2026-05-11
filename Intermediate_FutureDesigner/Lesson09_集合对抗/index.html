@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：集合对抗</title>
+    <meta name="description" content="Grade 8 Lesson 9 - 掌握 Boolean 操作，在三维空间打响加减法战役。">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="presentation-mode">
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+        
+        <!-- Hero Section -->
+        <section id="hero">
+            <h1 class="main-title reveal">L9. 集合对抗</h1>
+            <p class="subtitle reveal delay-1">布尔运算空间的加减乘除战役</p>
+            <span class="tag reveal delay-2">MODULE: 布尔极客与微观工程</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <!-- Concept Section -->
+        <section id="concept">
+            <h2 class="reveal">几何冲突</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>穿孔而不画孔</strong>
+                    <span>你无需在方块上辛苦精准定位画圆，只需要粗暴地把一个圆柱贯穿过去，然后再发动“去除”魔法！这是 CAD 顶级的破坏美学。</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Union 融合并集, Subtract 抹杀差集, Intersect 交集提取</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Section -->
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">STEP 1</span>
+                    <span class="event">强行占位：使用移动工具（重型轴枢），毫不讲理地把形体暴力相互穿插镶嵌。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">STEP 2</span>
+                    <span class="event">Subtract 处刑序列：先点选你想【保护】的主体，再点选变成刻刀的【献祭体】。按下回车，挖空它！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event">虚伪的连接：如果你只是生生把两只手臂插在高达身上却没有使用 Union（并集）指令，切片时就会导致内部空心撞墙崩断！</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slicer Section -->
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 内部检视（拉下切片右侧滚动条），看清内部是否存在隐患墙壁交错！</div>
+                <div class="param">> PHYSICS: 材料重叠惩罚——如果在 3D 打印里发生了未 Union 的实体肉搏叠加，加热喷头会在同一个点反复注射两次挤出物，引发局部拥堵！</div>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>重装上阵：使用 Subtract 差集在一个 40毫米 立方体上凿出完全贯通两侧的光滑圆柱和锥形重重破坏痕迹。</span>
+                    <span>状态检定：如果在开凿时立方体被一刀“切成了两块”，观察左侧树状图（Tree）是不是爆出了新分类代号！</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE (系统档案上传协议)</strong>
+                    <span>L9_集合对抗_姓名.3mf</span>
+                </div>
+            </div>
+        </section>
+        
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

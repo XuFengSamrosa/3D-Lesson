@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：自由落体</title>
+    <meta name="description" content="Grade 8 Lesson 16 - 树状支撑、精准阻断器与外科手术级支撑控制的最高艺术。">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="presentation-mode">
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+
+        <section id="hero">
+            <h1 class="main-title reveal">L16. 自由落体</h1>
+            <p class="subtitle reveal delay-1">树状支撑 × 阻断器的外科手术</p>
+            <span class="tag reveal delay-2">MODULE: 布尔极客与微观工程</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <section id="concept">
+            <h2 class="reveal">精准撑力学</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>有机形态的守护者</strong>
+                    <span>人耳、鼻尖、机翼曲率——不规则有机曲面永远无法靠几何改造消除悬挑。但聪明的树状脚手架能在最少耗材的前提下，精确点触撑起最复杂的空中结构！</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Tree Support 树状支撑, Support Blocker 禁止区涂抹, XY 支撑间距</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">树状 vs 普通</span>
+                    <span class="event">普通支撑：密集坚固，撕除后留下大坑疤。树状支撑：仿生点触，撕除干净有如无事发生！外观件只用树状。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">STEP 1</span>
+                    <span class="event">红色笔刷手术：激活 Support Painting（支撑绘制），用【红色禁止笔刷】精准涂抹自动泛滥到不必要区域的支撑，强制驱逐。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event">支撑距离 0.3mm：支撑与模型贴零距离接触即为物理焊接，永远无法分离。XY 间距锁定 0.3mm 是神圣红线！</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 三方案切片对比——全普通 / 全树状 / 树状+精准 Blocker。报告材料消耗差与打印时间差。</div>
+                <div class="param">> PHYSICS: 60-70% 材料节省来自精准剪除冗余支撑。工业节材就是从支撑的精准外科手术开始的。</div>
+            </div>
+        </section>
+
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>接管一个含有复杂有机悬挑的模型，仅用树状支撑 + Blocker 精准瘦身，把支撑材料量控制在普通支撑方案的一半以下！</span>
+                    <span>状态检定：对比切片重量读数，方案 C 的支撑克重必须 ≤ 方案 A 的 50%！</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE (系统档案上传协议)</strong>
+                    <span>L16_自由落体_姓名.3mf</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

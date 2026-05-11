@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 13 | 榫卯复刻 (Mortise and Tenon) | 核心授课系统</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        :root {
+            --bg-base: #0a0a0f;
+            --primary: #00ffcc;
+            --primary-glow: rgba(0, 255, 204, 0.6);
+            --secondary: #6600ff;
+            --accent: #ff0055;
+            --text-main: #ffffff;
+            --text-muted: #8b8b9e;
+            --glass-bg: rgba(20, 20, 30, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-base); 
+            color: var(--text-main); 
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* 动态背景矩阵 */
+        .ambient-background {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(0, 255, 204, 0.08), transparent 40%),
+                radial-gradient(circle at 85% 20%, rgba(102, 0, 255, 0.1), transparent 40%),
+                radial-gradient(circle at 50% 80%, rgba(255, 0, 85, 0.05), transparent 40%);
+            filter: blur(40px);
+            animation: breathe 15s infinite alternate;
+        }
+
+        .grid-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            transform: perspective(500px) rotateX(60deg) translateY(-100px) scale(3);
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes breathe {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 50px; }
+        }
+
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 20px 50px;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .brand {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .brand-indicator {
+            width: 10px; height: 10px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--primary);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+        }
+
+        /* 主体布局 */
+        .hero {
+            padding: 150px 50px 80px;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #a0a0b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.8s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.8s 0.2s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 50px 100px;
+            display: grid;
+            grid-template-columns: 2.8fr 1.2fr;
+            gap: 40px;
+        }
+
+        /* 玻璃面板通用样式 */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+            transition: transform 0.4s ease, border-color 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .glass-panel.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(0, 255, 204, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--primary);
+            box-shadow: 0 0 20px var(--primary);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .glass-panel:hover::before { opacity: 1; }
+
+        .panel-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 20px;
+        }
+        .panel-title span { color: var(--primary); font-size: 2.2rem; }
+
+        /* 特殊模块：教师话术 */
+        .talk-track {
+            background: linear-gradient(145deg, rgba(102, 0, 255, 0.1), rgba(0,0,0,0));
+            border-left: 4px solid var(--secondary);
+            padding: 25px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        .talk-track h4 {
+            color: var(--secondary);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .talk-track p { font-size: 1.15rem; font-style: italic; color: #e0e0e0; }
+
+        /* 特殊模块：应急预案 */
+        .emergency {
+            background: rgba(255, 0, 85, 0.05);
+            border: 1px solid rgba(255, 0, 85, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        .emergency:hover { background: rgba(255, 0, 85, 0.1); border-color: var(--accent); box-shadow: 0 0 30px rgba(255, 0, 85, 0.15); }
+        .emergency-title {
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .emergency-title::before { content: '🚨'; font-size: 1.5rem; }
+        .emergency-desc { margin-bottom: 10px; }
+        .emergency-desc strong { color: #fff; }
+        .emergency-steps { padding-left: 20px; color: var(--text-muted); }
+
+        /* CAD 操作指令块 */
+        .cad-command-box {
+            background: #0d0d12;
+            border: 1px solid #2a2a35;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+            position: relative;
+        }
+        .cad-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .cad-step:last-child { margin-bottom: 0; }
+        .step-num {
+            background: rgba(0,255,204,0.1);
+            color: var(--primary);
+            font-family: 'JetBrains Mono';
+            font-weight: bold;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        .step-content strong { color: #fff; }
+        .step-content span { color: var(--text-muted); font-size: 0.95rem; display: block; margin-top: 5px; }
+
+        /* 右侧边栏 */
+        .sidebar { display: flex; flex-direction: column; gap: 30px; }
+        .visual-widget {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            overflow: hidden;
+        }
+        
+        /* 交互式燕尾榫动画指示 */
+        .dovetail-anim-box {
+            position: relative; width: 100%; height: 180px; background: rgba(0,0,0,0.3); border-radius: 12px; border: 1px solid rgba(0,255,204,0.2); overflow: hidden; display: flex; align-items: center; justify-content: center; margin-top: 20px;
+        }
+        
+        /* 插座（底板） */
+        .socket {
+            position: absolute; top: 40px; left: 20%; width: 60%; height: 60px; background: #333; border-radius: 4px;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 70% 100%, 60% 30%, 40% 30%, 30% 100%, 0% 100%);
+        }
+        
+        /* 插头 */
+        .plug {
+            position: absolute; top: 120px; left: 40%; width: 20%; height: 42px; background: var(--primary); box-shadow: 0 0 15px var(--primary);
+            clip-path: polygon(0% 100%, 100% 100%, 80% 0%, 20% 0%);
+            animation: slideIn 3s infinite cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes slideIn { 
+            0%, 20% { top: 130px; opacity: 0; }
+            30% { top: 110px; opacity: 1; }
+            70%, 100% { top: 48px; opacity: 1; }
+        }
+
+        @media (max-width: 1024px) {
+            .container { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-background"></div>
+    <div class="grid-overlay"></div>
+
+    <nav class="navbar">
+        <div class="brand">
+            <div class="brand-indicator"></div>
+            INTERMEDIATE_FUTURE_OS
+        </div>
+        <div style="font-family: 'JetBrains Mono', monospace; color: var(--primary); font-size: 0.9rem;">
+            TEACHER_DASHBOARD_v2.0
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Lesson 13 | 榫卯复刻 (Mortise and Tenon)</h1>
+        <p>教师专属授课系统界面。走向机械装配的灵魂之战，引入布尔切除与公差配合。让两个独立的塑料零件严丝合缝地锁死在一起，防御威化饼干式的层纹断裂。</p>
+    </header>
+
+    <div class="container">
+        <main>
+            <!-- 模块二：专业名词 -->
+            <section class="glass-panel">
+                <h2 class="panel-title"><span>01</span> 专业名词黑板解释 (Glossary)</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                        <h3 style="color: var(--primary); margin-bottom: 10px; font-family: 'JetBrains Mono', monospace;">燕尾榫 (Dovetail)</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">古代木工的智慧。外宽内窄的梯形插头，它是抗拉拽的终极形态，受力时会越拉越紧。</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                        <h3 style="color: var(--primary); margin-bottom: 10px; font-family: 'JetBrains Mono', monospace;">布尔运算 (Boolean)</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">电脑里的雕刻刀。把插头当成刀，直接从底板上挖出一个一模一样的坑。极其高效的设计模式。</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                        <h3 style="color: var(--primary); margin-bottom: 10px; font-family: 'JetBrains Mono', monospace;">公差 (Tolerance)</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">给物理世界留出的“呼吸空间”。10毫米的柱子塞不进10毫米的孔，必须把孔放大 0.2 毫米避让。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 模块三：授课话术 -->
+            <section class="glass-panel">
+                <h2 class="panel-title"><span>02</span> 标准授课话术体系 (Talk Tracks)</h2>
+                
+                <div class="talk-track">
+                    <h4>🗣️ 环节一：打破“10毫米进10毫米”的幻想</h4>
+                    <p>“同学们，把 10 毫米的方形插头塞进 10 毫米的孔里，能行吗？绝对不行！塑料挤出时会膨胀，洞实际上只有 9.8 毫米。在工业界这叫过盈配合，除非你拿大铁锤砸，否则永远卡死。你要学会公差避让！”</p>
+                </div>
+                
+                <div class="talk-track">
+                    <h4>🗣️ 环节二：物理定律的毒打</h4>
+                    <p>“为什么你们设计的燕尾榫一掰就断？想想威化饼干，顺着纹理掰是不是一碰就碎？3D 打印就是叠饼干，如果插头是垂直站着打印的，受力瞬间就会断裂。必须让它平躺在热床上！”</p>
+                </div>
+            </section>
+
+            <!-- 模块四：核心操作 -->
+            <section class="glass-panel">
+                <h2 class="panel-title"><span>03</span> 核心操作：布尔切除与公差偏移</h2>
+                <p style="color: var(--text-muted); margin-bottom: 15px;">班级挑战：统一下底10、上底6。操作完后全班同学的底板都能无限首尾相连！</p>
+                
+                <div class="cad-command-box">
+                    <div class="cad-step">
+                        <div class="step-num">STEP 1</div>
+                        <div class="step-content">
+                            <strong>梯形居中与布尔切除</strong>
+                            <span>把画好的燕尾插头移动到底板内部。使用“布尔运算”，目标选底板，工具选插头，执行切除。坑洞瞬间成型。</span>
+                        </div>
+                    </div>
+                    <div class="cad-step">
+                        <div class="step-num">STEP 2</div>
+                        <div class="step-content">
+                            <strong>生死操作：推拉公差 (极其关键)</strong>
+                            <span>选中刚切出来的坑的三个内壁，使用<strong>“推拉/偏移”工具</strong>向外扩大 0.2 mm。孔变大了，插头才能进得去！</span>
+                        </div>
+                    </div>
+                    <div class="cad-step">
+                        <div class="step-num">STEP 3</div>
+                        <div class="step-content">
+                            <strong>切片拦截：强度强化</strong>
+                            <span>在 Bambu Studio 中，将模型摆放为<strong>平躺姿态</strong>。在『强度』面板将“墙壁遍数”从 2 改为 4，让插头变成实心钛合金！</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 模块五：灾难预案 -->
+            <section class="glass-panel" style="border-color: rgba(255, 0, 85, 0.3);">
+                <h2 class="panel-title" style="border-bottom-color: rgba(255, 0, 85, 0.2);"><span style="color: var(--accent);">04</span> 灾难级应急预案 (Protocols)</h2>
+                
+                <div class="emergency">
+                    <div class="emergency-title">灾难 1：燕尾梯形画反了，一拉就掉</div>
+                    <div class="emergency-desc"><strong>学生表现：</strong> 槽口大里面小。插头放进去后顺着开口一拉就脱落了。</div>
+                    <div class="emergency-desc"><strong>核心原因：</strong> 不理解燕尾的物理防脱机制，把上下底弄反了。</div>
+                    <div class="emergency-steps">
+                        » 拿实物演示：“外宽内窄怎么拔都拔不出来；外窄内宽那叫滑梯。”<br>
+                        » 回去修改草图尺寸，切除槽会自动更新。
+                    </div>
+                </div>
+
+                <div class="emergency">
+                    <div class="emergency-title">灾难 2：忘记留公差，永远卡死</div>
+                    <div class="emergency-desc"><strong>学生表现：</strong> 拼死把插头塞进一半后彻底卡死，拔不出也按不下，只能砸断。</div>
+                    <div class="emergency-desc"><strong>核心原因：</strong> 漏做了推拉偏移操作，10mm 的插头强行进入了 9.8mm 的孔。</div>
+                    <div class="emergency-steps">
+                        » 严厉警告：“在工业界这会导致整批零件报废！”<br>
+                        » 回去偏移 0.2mm 重新打印。
+                    </div>
+                </div>
+
+                <div class="emergency">
+                    <div class="emergency-title">灾难 3：布尔切除把原来的插头弄没了</div>
+                    <div class="emergency-desc"><strong>学生表现：</strong> 执行完切除，坑有了，但做工具的插头实体消失了。</div>
+                    <div class="emergency-desc"><strong>核心原因：</strong> 软件默认刀具用完就扔，没有勾选“保留工具实体”。</div>
+                    <div class="emergency-steps">
+                        » Ctrl+Z 撤销。<br>
+                        » 重新布尔运算，勾选<strong>“保留工具实体 (Keep Tool Body)”</strong>。
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <aside class="sidebar">
+            <div class="visual-widget">
+                <h3 style="font-family: 'JetBrains Mono'; font-size: 0.9rem; color: var(--primary); margin-bottom: 15px;">DOVETAIL JOINT KINEMATICS</h3>
+                <div class="dovetail-anim-box">
+                    <div class="socket"></div>
+                    <div class="plug"></div>
+                </div>
+            </div>
+
+            <div class="visual-widget">
+                <h3 style="font-family: 'JetBrains Mono'; font-size: 0.9rem; color: var(--secondary); margin-bottom: 15px;">MANUFACTURING TELEMETRY</h3>
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--glass-border);">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">CLEARANCE TOLERANCE</span>
+                        <span style="font-family: 'JetBrains Mono'; font-weight: 700; color: #fff;">+ 0.20 mm</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">BOOLEAN MODE</span>
+                        <span style="font-family: 'JetBrains Mono'; font-weight: 700; color: var(--primary);">SUBTRACT (KEEP TOOL)</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">WALL LOOPS</span>
+                        <span style="font-family: 'JetBrains Mono'; font-weight: 700; color: var(--accent);">4 (HIGH STRENGTH)</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // 滚动动画观察器
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+        document.querySelectorAll('.glass-panel').forEach((panel, index) => {
+            panel.style.transitionDelay = `${index * 0.1}s`;
+            observer.observe(panel);
+        });
+    </script>
+</body>
+</html>

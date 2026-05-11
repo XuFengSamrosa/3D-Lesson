@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：立体解码</title>
+    <meta name="description" content="Grade 8 Lesson 4 - Z 轴上的魔法，掌握 Extrude 与倒角的进阶。">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="presentation-mode">
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+        
+        <!-- Hero Section -->
+        <section id="hero">
+            <h1 class="main-title reveal">L4. 虚无之刃 (Boolean Subtraction)</h1>
+            <p class="subtitle reveal delay-1">用拉伸切除与布尔运算雕刻物质</p>
+            <span class="tag reveal delay-2">MODULE: 数字工程与极客原点</span>
+            
+            <div class="lesson-visual reveal delay-2"><img src="../assets/images/l4_boolean.jpg" alt="Lesson Visual"></div>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <!-- Concept Section -->
+        <section id="concept">
+            <h2 class="reveal">工业原纪</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>物质的消亡 (Extruded Cut)</strong>
+                    <span>雕塑的核心在于“去除多余的材料”。在已有实体的表面画图，然后使用【拉伸切除】向下挖空物质。</span>
+                </div>
+                <div class="comp">
+                    <strong>布尔运算逻辑</strong>
+                    <span>A - B = C。主实体 A 减去我们画的切除圆柱体 B，最终得到带孔的实体 C。</span>
+                </div>
+            </div>
+</section>
+
+        <!-- Design Section -->
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">STEP 1</span>
+                    <span class="event">寻找着陆点：不要选三大基准面了！这次直接用鼠标左键点击你刚刚拉伸出来的长方体【上表面】，在此处新建草图。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">STEP 2</span>
+                    <span class="event">画出空洞：在表面画一个 Ø10mm 的圆。点击【特征】->【拉伸切除】。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event" style="color: var(--danger);">深度陷阱：在切除属性栏里，不要傻傻地输入深度数字！下拉菜单选择【完全贯穿 Through All】，这样不管方块多厚，孔永远能打穿！</span>
+                </div>
+            </div>
+</section>
+
+        <!-- Slicer Section -->
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 打印中空结构：孔洞是切片软件的噩梦。切片后，拖动右侧的层进度条，观察喷头是如何绕着孔洞画圆圈的。</div>
+                <div class="param">> PHYSICS: 如果孔的走向是水平悬空的（桥接），3D打印机在空中吐丝会下垂。但我们这次是垂直孔，重力对它无效！</div>
+            </div>
+</section>
+
+        <!-- Mission Section -->
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>在 L3 做的充电头实体上，用【拉伸切除】打穿两个 Ø5mm 的散热孔，并用卡尺验证孔径与孔距的精确度！</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE (系统档案上传协议)</strong>
+                    <span>Lesson04_立体解码_姓名.3mf</span>
+                </div>
+            </div>
+        </section>
+        
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

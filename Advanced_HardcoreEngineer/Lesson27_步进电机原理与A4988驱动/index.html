@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 27 | 步进电机与A4988非阻塞驱动 | 核心授课系统</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        :root {
+            --bg-base: #0a0a0f;
+            --primary: #00ffcc;
+            --primary-glow: rgba(0, 255, 204, 0.6);
+            --secondary: #6600ff;
+            --accent: #ff0055;
+            --text-main: #ffffff;
+            --text-muted: #8b8b9e;
+            --glass-bg: rgba(20, 20, 30, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-base); 
+            color: var(--text-main); 
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* 动态背景矩阵 */
+        .ambient-background {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(0, 255, 204, 0.08), transparent 40%),
+                radial-gradient(circle at 85% 20%, rgba(102, 0, 255, 0.1), transparent 40%),
+                radial-gradient(circle at 50% 80%, rgba(255, 0, 85, 0.05), transparent 40%);
+            filter: blur(40px);
+            animation: breathe 15s infinite alternate;
+        }
+
+        .grid-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            transform: perspective(500px) rotateX(60deg) translateY(-100px) scale(3);
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes breathe {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 50px; }
+        }
+
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 20px 50px;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .brand {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .brand-indicator {
+            width: 10px; height: 10px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--primary);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+        }
+
+        /* 主体布局 */
+        .hero {
+            padding: 150px 50px 80px;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #a0a0b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.8s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.8s 0.2s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 50px 100px;
+            display: grid;
+            grid-template-columns: 2.8fr 1.2fr;
+            gap: 40px;
+        }
+
+        /* 玻璃面板通用样式 */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+            transition: transform 0.4s ease, border-color 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .glass-panel.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(0, 255, 204, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--primary);
+            box-shadow: 0 0 20px var(--primary);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .glass-panel:hover::before { opacity: 1; }
+
+        .panel-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 20px;
+        }
+        .panel-title span { color: var(--primary); font-size: 2.2rem; }
+
+        /* 特殊模块：教师话术 */
+        .talk-track {
+            background: linear-gradient(145deg, rgba(102, 0, 255, 0.1), rgba(0,0,0,0));
+            border-left: 4px solid var(--secondary);
+            padding: 25px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        .talk-track h4 {
+            color: var(--secondary);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .talk-track p { font-size: 1.15rem; font-style: italic; color: #e0e0e0; }
+
+        /* 特殊模块：应急预案 */
+        .emergency {
+            background: rgba(255, 0, 85, 0.05);
+            border: 1px solid rgba(255, 0, 85, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        .emergency:hover { background: rgba(255, 0, 85, 0.1); border-color: var(--accent); box-shadow: 0 0 30px rgba(255, 0, 85, 0.15); }
+        .emergency-title {
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .emergency-title::before { content: '🚨'; font-size: 1.5rem; }
+        .emergency-desc { margin-bottom: 10px; }
+        .emergency-desc strong { color: #fff; }
+        .emergency-steps { padding-left: 20px; color: var(--text-muted); }
+
+        /* IDE 代码块 */
+        .ide-window {
+            background: #0d0d12;
+            border: 1px solid #2a2a35;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+        .ide-header {
+            background: #15151e;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #2a2a35;
+        }
+        .mac-dots { display: flex; gap: 8px; margin-right: 20px; }
+        .mac-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .mac-dot.red { background: #ff5f56; }
+        .mac-dot.yellow { background: #ffbd2e; }
+        .mac-dot.green { background: #27c93f; }
+        .ide-title { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #8b8b9e; }
+        .ide-content {
+            padding: 25px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            color: #a6accd;
+            line-height: 1.7;
+            overflow-x: auto;
+        }
+        .code-keyword { color: #c792ea; }
+        .code-function { color: #82aaff; }
+        .code-comment { color: #676e95; font-style: italic; }
+        .code-string { color: #c3e88d; }
+        .code-number { color: #f78c6c; }
+
+        /* 右侧边栏 */
+        .sidebar { display: flex; flex-direction: column; gap: 30px; }
+        .visual-widget {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            overflow: hidden;
+        }
+        .visual-image {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.5s ease;
+        }
+        .visual-widget:hover .visual-image { transform: scale(1.05); }
+        
+        /* 交互式进度雷达 */
+        .radar-box { position: relative; width: 100%; padding-top: 100%; background: radial-gradient(circle, rgba(0,255,204,0.1) 0%, transparent 70%); border-radius: 50%; margin-top: 20px; border: 1px solid rgba(0,255,204,0.2); }
+        .radar-sweep { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; background: conic-gradient(from 0deg, transparent 70%, rgba(0,255,204,0.4) 100%); animation: sweep 4s linear infinite; }
+        @keyframes sweep { 100% { transform: rotate(360deg); } }
+
+        @media (max-width: 1024px) {
+            .container { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-background"></div>
+    <div class="grid-overlay"></div>
+
+    <nav class="navbar">
+        <div class="brand">
+            <div class="brand-indicator"></div>
+            ADVANCED_HARDCORE_OS
+        </div>
+        <div style="font-family: 'JetBrains Mono', monospace; color: var(--primary); font-size: 0.9rem;">
+            TEACHER_DASHBOARD_v2.0
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Lesson 27 | 步进电机原理与A4988驱动</h1>
+        <p>教师专属授课系统界面。深入剖析步进电机内部磁场构造与细分驱动原理，利用ESP32与A4988构建工业级非阻塞运动控制框架。拒绝 delay 阻塞，引入硬件定时器中断。</p>
+    </header>
+
+    <div class="container">
+        <main>
+            <!-- 模块二：专业名词 -->
+            <section class="glass-panel">
+                <h2 class="panel-title"><span>01</span> 专业名词黑板解释 (Glossary)</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                        <h3 style="color: var(--primary); margin-bottom: 10px; font-family: 'JetBrains Mono', monospace;">NEMA 17</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">工业标准尺寸，17代表法兰边长1.7英寸（42mm）。学生口中的“42步进电机”即指此类。</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                        <h3 style="color: var(--primary); margin-bottom: 10px; font-family: 'JetBrains Mono', monospace;">微步细分 (Microstepping)</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">A4988的魔法。将原本1.8°的一个物理整步劈成16份，消除低频共振，极度提升精度。</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                        <h3 style="color: var(--primary); margin-bottom: 10px; font-family: 'JetBrains Mono', monospace;">ISR (中断服务)</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">独立于主循环的神圣特权代码。定时器一到，单片机放下手头所有工作立刻执行的后台幽灵。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 模块三：授课话术 -->
+            <section class="glass-panel">
+                <h2 class="panel-title"><span>02</span> 标准授课话术体系 (Talk Tracks)</h2>
+                
+                <div class="talk-track">
+                    <h4>🗣️ 环节一：引入痛点 (降维打击新手)</h4>
+                    <p>“同学们，回想一下我们之前做的小车。让小车走 10 厘米然后停下，你们是靠 delay() 时间猜的对吧？如果电池没电，它就跑不到。真正的工程师不靠猜！今天引入的步进电机，你发一个脉冲它就转 1.8 度，绝不讨价还价！”</p>
+                </div>
+                
+                <div class="talk-track">
+                    <h4>🗣️ 环节二：代码降维打击 (抛弃 delay)</h4>
+                    <p>“立刻删掉你们代码里的 delay！在真实的机器视觉系统中，当你 delay 的时候，CPU 睡着了，系统就瞎了。我们要把单片机劈成两半，主循环处理数据，定时器在后台每 500 微秒自动翻转电平，这就是工业级的非阻塞架构！”</p>
+                </div>
+            </section>
+
+            <!-- 模块四：核心代码 -->
+            <section class="glass-panel">
+                <h2 class="panel-title"><span>03</span> 核心代码演示 (Non-blocking ISR)</h2>
+                <p style="color: var(--text-muted); margin-bottom: 15px;">在屏幕上展示以下代码，引导学生逐行编写并理解 `volatile` 的物理意义。</p>
+                
+                <div class="ide-window">
+                    <div class="ide-header">
+                        <div class="mac-dots">
+                            <div class="mac-dot red"></div><div class="mac-dot yellow"></div><div class="mac-dot green"></div>
+                        </div>
+                        <span class="ide-title">main.cpp — PlatformIO Workspace</span>
+                    </div>
+                    <div class="ide-content">
+<span class="code-keyword">#include</span> <span class="code-string">&lt;Arduino.h&gt;</span>
+
+<span class="code-comment">// 硬件引脚定义</span>
+<span class="code-keyword">#define</span> DIR_PIN <span class="code-number">19</span>
+<span class="code-keyword">#define</span> STEP_PIN <span class="code-number">18</span>
+<span class="code-keyword">#define</span> EN_PIN <span class="code-number">5</span>
+
+<span class="code-comment">// 【极其重要】中断变量必须加 volatile 防止编译器优化</span>
+<span class="code-keyword">hw_timer_t</span> * timer = NULL;
+<span class="code-keyword">volatile bool</span> step_state = <span class="code-keyword">false</span>;
+<span class="code-keyword">volatile int</span> target_steps = <span class="code-number">3200</span>;
+<span class="code-keyword">volatile int</span> current_steps = <span class="code-number">0</span>;
+
+<span class="code-comment">// 中断服务函数 (ISR) - 加载至内存极速执行</span>
+<span class="code-keyword">void IRAM_ATTR</span> <span class="code-function">onTimer</span>() {
+  <span class="code-keyword">if</span> (current_steps &lt; target_steps) {
+    step_state = !step_state;
+    <span class="code-function">digitalWrite</span>(STEP_PIN, step_state);
+    <span class="code-keyword">if</span> (!step_state) current_steps++; <span class="code-comment">// 脉冲计数</span>
+  }
+}
+
+<span class="code-keyword">void</span> <span class="code-function">setup</span>() {
+  <span class="code-function">pinMode</span>(DIR_PIN, OUTPUT);
+  <span class="code-function">pinMode</span>(STEP_PIN, OUTPUT);
+  <span class="code-function">digitalWrite</span>(DIR_PIN, HIGH);
+  
+  <span class="code-comment">// 配置定时器: 1MHz频率 (1微秒Tick一次)</span>
+  timer = <span class="code-function">timerBegin</span>(<span class="code-number">0</span>, <span class="code-number">80</span>, <span class="code-keyword">true</span>);
+  <span class="code-function">timerAttachInterrupt</span>(timer, &onTimer, <span class="code-keyword">true</span>);
+  <span class="code-function">timerAlarmWrite</span>(timer, <span class="code-number">500</span>, <span class="code-keyword">true</span>); <span class="code-comment">// 每500微秒翻转一次</span>
+  <span class="code-function">timerAlarmEnable</span>(timer);
+}</div>
+                </div>
+            </section>
+
+            <!-- 模块五：灾难预案 -->
+            <section class="glass-panel" style="border-color: rgba(255, 0, 85, 0.3);">
+                <h2 class="panel-title" style="border-bottom-color: rgba(255, 0, 85, 0.2);"><span style="color: var(--accent);">04</span> 灾难级应急预案 (Protocols)</h2>
+                
+                <div class="emergency">
+                    <div class="emergency-title">灾难 1：A4988 芯片冒烟/炸裂</div>
+                    <div class="emergency-desc"><strong>学生表现：</strong> 惊呼，闻到焦糊味，看到火花。</div>
+                    <div class="emergency-desc"><strong>核心原因：</strong> 在通电状态下插拔了步进电机线！产生几十伏特反向电动势瞬间击穿。</div>
+                    <div class="emergency-steps">
+                        » 拔掉总电源，更换 A4988。<br>
+                        » 警告全班：“带电插拔，芯片自费！”
+                    </div>
+                </div>
+
+                <div class="emergency">
+                    <div class="emergency-title">灾难 2：ESP32 无限重启 (Panic Error)</div>
+                    <div class="emergency-desc"><strong>学生表现：</strong> 串口监视器无限刷出红色寄存器崩溃乱码。</div>
+                    <div class="emergency-desc"><strong>核心原因：</strong> 学生在 ISR 中断内部写了 delay() 或 Serial.println()，导致看门狗超时复位。</div>
+                    <div class="emergency-steps">
+                        » 检查并清空 `onTimer` 中的多余代码。<br>
+                        » 强调铁律：“中断函数内只做数学和引脚翻转！”
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <aside class="sidebar">
+            <div class="visual-widget">
+                <h3 style="font-family: 'JetBrains Mono'; font-size: 0.9rem; color: var(--primary); margin-bottom: 15px;">TOPOLOGY VIEWER</h3>
+                <div style="border-radius: 8px; overflow: hidden; position: relative;">
+                    <img src="./assets/images/robotics.jpg" class="visual-image" alt="Robotics Topology">
+                    <div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.8); padding: 4px 8px; border-radius: 4px; font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--primary); border: 1px solid var(--primary);">LIVE FEED</div>
+                </div>
+            </div>
+
+            <div class="visual-widget">
+                <h3 style="font-family: 'JetBrains Mono'; font-size: 0.9rem; color: var(--secondary); margin-bottom: 15px;">HARDWARE TELEMETRY</h3>
+                <div class="radar-box">
+                    <div class="radar-sweep"></div>
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; font-family: 'JetBrains Mono';">
+                        <div style="font-size: 1.5rem; font-weight: 800; color: #fff;">1.8°</div>
+                        <div style="font-size: 0.7rem; color: var(--text-muted);">STEP ANGLE</div>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--glass-border);">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">MICROSTEPPING</span>
+                        <span style="font-family: 'JetBrains Mono'; font-weight: 700; color: #fff;">1/16</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">ISR TICK RATE</span>
+                        <span style="font-family: 'JetBrains Mono'; font-weight: 700; color: var(--primary);">1 MHz</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // 滚动动画观察器 (Scroll Reveal)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // 动画只触发一次
+                }
+            });
+        }, {
+            threshold: 0.1, // 元素出现10%时触发
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        // 绑定所有玻璃面板
+        document.querySelectorAll('.glass-panel').forEach((panel, index) => {
+            // 为每个面板添加级联延迟，产生错落有致的出现效果
+            panel.style.transitionDelay = `${index * 0.1}s`;
+            observer.observe(panel);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 37 - 机械臂逆向运动学 IK 解析 (Python) - Advanced Hardcore Engineer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        :root {
+            --bg-color: #050508;
+            --surface: rgba(18, 18, 26, 0.4);
+            --surface-glass: rgba(10, 10, 15, 0.85);
+            --primary: #00ffcc;
+            --primary-glow: rgba(0, 255, 204, 0.4);
+            --secondary: #0088aa;
+            --text-main: #ffffff;
+            --text-dim: #a0a0b0;
+            --border: rgba(255, 255, 255, 0.08);
+            --danger: #ff3366;
+            --success: #33ff99;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.7; overflow-x: hidden; }
+        
+        .tech-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(0, 255, 204, 0.08), transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(0, 136, 170, 0.08), transparent 50%),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 60px 60px, 60px 60px;
+            z-index: -2; pointer-events: none;
+        }
+        .glow-orb {
+            position: fixed; top: -10%; left: 40%; width: 60vw; height: 60vw;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 60%);
+            z-index: -1; pointer-events: none; border-radius: 50%; opacity: 0.3; filter: blur(80px);
+            animation: pulse 10s infinite alternate;
+        }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 0.2; } 100% { transform: scale(1.2); opacity: 0.4; } }
+
+        .navbar {
+            position: sticky; top: 0; z-index: 100;
+            background: var(--surface-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border); padding: 18px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+        }
+        .nav-brand { font-family: 'JetBrains Mono', monospace; color: #fff; font-weight: 800; font-size: 1.3rem; letter-spacing: 2px; display: flex; align-items: center; gap: 10px; }
+        .nav-brand::before { content: ''; display: inline-block; width: 12px; height: 12px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 10px var(--primary); }
+        .nav-module { color: var(--primary); font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 3px; padding: 6px 12px; border: 1px solid rgba(0,255,204,0.3); border-radius: 20px; background: rgba(0,255,204,0.05); }
+
+        .hero { padding: 100px 40px 60px; text-align: center; max-width: 1100px; margin: 0 auto; position: relative; }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 25px; font-weight: 800; letter-spacing: -1px; line-height: 1.2; }
+        .hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.25rem; color: var(--text-dim); max-width: 800px; margin: 0 auto; font-weight: 300; }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 50px 100px 50px; display: grid; grid-template-columns: 2.5fr 1fr; gap: 50px; }
+        @media (max-width: 1024px) { .container { grid-template-columns: 1fr; } }
+        
+        .section { 
+            background: var(--surface); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border); border-radius: 16px; padding: 40px; margin-bottom: 40px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05); 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        .section:hover { border-color: rgba(0, 255, 204, 0.4); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,255,204,0.1), inset 0 1px 0 rgba(255,255,255,0.1); }
+        .section-title { font-family: 'JetBrains Mono', monospace; font-size: 1.6rem; color: #fff; margin-bottom: 25px; display: flex; align-items: center; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+        .section-title span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; font-size: 2rem; margin-right: 15px; }
+
+        .knowledge-list { list-style: none; }
+        .knowledge-list li { margin-bottom: 20px; padding-left: 40px; position: relative; font-size: 1.15rem; color: #e0e0e0; }
+        .knowledge-list li::before { content: '►'; position: absolute; left: 0; top: 2px; color: var(--primary); font-size: 1rem; font-family: 'JetBrains Mono', monospace; }
+        .list-desc { font-size: 0.95rem; color: var(--text-dim); margin-top: 8px; line-height: 1.6; font-weight: 300; }
+        
+        .debug-list { list-style: none; }
+        .debug-list li { margin-bottom: 20px; padding: 20px; background: rgba(255, 51, 102, 0.05); border-left: 3px solid var(--danger); border-radius: 0 8px 8px 0; }
+        .debug-list .err-code { color: var(--danger); font-family: 'JetBrains Mono', monospace; font-weight: 800; margin-right: 12px; font-size: 0.9rem; padding: 4px 8px; background: rgba(255,51,102,0.1); border-radius: 4px; }
+
+        .code-container { border-radius: 12px; overflow: hidden; margin-top: 25px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .code-header { background: rgba(10, 10, 15, 0.9); padding: 12px 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #666; display: flex; align-items: center; border-bottom: 1px solid var(--border); }
+        .mac-btn { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }
+        .mac-close { background: #ff5f56; } .mac-min { background: #ffbd2e; } .mac-max { background: #27c93f; }
+        .code-title { margin-left: 15px; color: var(--text-dim); }
+        pre { background: rgba(5, 5, 8, 0.8); padding: 25px; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; color: var(--success); overflow-x: auto; line-height: 1.6; white-space: pre-wrap; }
+
+        .mission-box { background: linear-gradient(145deg, rgba(0,255,204,0.08), rgba(0,136,170,0.02)); border: 1px solid rgba(0,255,204,0.3); border-radius: 16px; padding: 35px; position: relative; overflow: hidden; }
+        .mission-box::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary); }
+        .mission-title { color: #fff; font-size: 1.4rem; margin-bottom: 15px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+        .mission-text { color: var(--text-dim); font-size: 1.1rem; font-weight: 300; }
+        .status-badge { margin-top: 25px; display: inline-flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.6); padding: 8px 16px; border: 1px solid var(--border); border-radius: 30px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-main); }
+        .status-dot { width: 8px; height: 8px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 8px var(--primary); animation: blink 2s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        aside { display: flex; flex-direction: column; gap: 30px; }
+        .widget { background: var(--surface); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 16px; padding: 30px; }
+        .widget-title { font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 2px; color: var(--text-dim); margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.95rem; }
+        .stat-row:last-child { border: none; padding-bottom: 0; }
+        .stat-val { font-family: 'JetBrains Mono', monospace; color: var(--text-main); font-weight: bold; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 6px; }
+        
+        .hero-image-container { position: relative; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 40px rgba(0,0,0,0.6); margin-bottom: 20px; }
+        .hero-image-container::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); pointer-events: none; }
+        .hero-image { width: 100%; height: auto; display: block; transition: transform 0.5s ease; }
+        .hero-image-container:hover .hero-image { transform: scale(1.05); }
+        .img-caption { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-dim); text-align: center; letter-spacing: 1px; }
+
+        .instructor-note { background: rgba(0, 255, 204, 0.05); border: 1px solid rgba(0, 255, 204, 0.2); border-radius: 12px; padding: 25px; position: relative; }
+        .instructor-note::before { content: '”'; position: absolute; top: 10px; right: 20px; font-size: 4rem; color: rgba(0,255,204,0.1); font-family: serif; line-height: 1; }
+    </style>
+</head>
+<body>
+    <div class="tech-bg"></div><div class="glow-orb"></div>
+    <nav class="navbar">
+        <div class="nav-brand">ADV_ENGINEER_OS</div>
+        <div class="nav-module">Programming & Robotics</div>
+    </nav>
+    <header class="hero">
+        <h1><span>Lesson 37 - 机械臂逆向运动学 IK 解析 (Python)</span></h1>
+        <p>突破从感知到行动的最后一道数学屏障：逆向运动学（IK）。已知物体在桌面上的空间坐标(X,Y,Z)，通过三角函数解析几何法与雅可比矩阵迭代法，逆向倒推出所有电机的目标旋转角度，实现精准抓取。</p>
+    </header>
+    <div class="container">
+        <main>
+            <section class="section">
+                <h2 class="section-title"><span>01</span> 算法层剖析 (Algorithm Breakdown)</h2>
+                <ul class="knowledge-list">
+                    <li><strong>IK 的非唯一性与难度</strong><div class='list-desc'>与 FK 唯一的结果不同，IK 是非线性方程组求逆，同一个空间点可能有多种抓取姿态（如手臂朝上弯曲或朝下弯曲），甚至无解（目标超出臂展）。</div></li>\n<li><strong>解析法 (Analytical Solution)</strong><div class='list-desc'>利用余弦定理与多边形几何关系，通过严格的代数推导得出公式。计算极快，适合自由度较低的简易机械臂结构（如3DOF或4DOF）。</div></li>\n<li><strong>数值法与雅可比矩阵 (Jacobian)</strong><div class='list-desc'>对于6自由度以上的复杂机器人，解析法过于庞大。引入偏导数计算雅可比矩阵（描述微小角度变化引起的空间微小位移），利用牛顿-拉夫逊迭代法逼近目标。</div></li>\n<li><strong>工作空间 (Workspace) 与奇异点 (Singularity)</strong><div class='list-desc'>判定给定的 (X,Y,Z) 是否在机械臂的物理触达范围内。解析万向节锁（Gimbal Lock）和雅可比矩阵行列式为零时的系统失控现象。</div></li>\n<li><strong>轨迹插补与反解应用</strong><div class='list-desc'>规划一条空间直线，提取路径上的几百个离散点，通过高频运行 IK 计算出对应的电机角度序列，驱动电机协同实现直线运动。</div></li>\n
+                </ul>
+            </section>
+            <section class="section">
+                <h2 class="section-title"><span>02</span> 底层核心代码 (Core Implementation)</h2>
+                <p>禁止复制粘贴，请逐行解析以下工业级框架逻辑：</p>
+                <div class="code-container">
+                    <div class="code-header"><div class="mac-btn mac-close"></div><div class="mac-btn mac-min"></div><div class="mac-btn mac-max"></div><span class="code-title">inverse_kinematics.py / Analytical IK</span></div>
+                    <pre>import math
+
+def calculate_ik_3dof(x, y, z, L1=80, L2=120, L3=150):
+    """3自由度机械臂解析法逆向运动学"""
+    try:
+        # 1. 计算底座旋转角 theta1
+        theta1 = math.atan2(y, x)
+        
+        # 将三维问题降维至二维平面 (r, z')
+        r = math.sqrt(x**2 + y**2)
+        
+        # 减去底座连杆 L1 的高度
+        z_eff = z - L1
+        
+        # 2. 利用余弦定理求解 theta3
+        # L2 和 L3 构成三角形的两边，目标距离为斜边
+        hypotenuse_sq = r**2 + z_eff**2
+        
+        # 检查是否超出机械臂最大臂展
+        if hypotenuse_sq &gt; (L2 + L3)**2:
+            raise ValueError("Target Unreachable (Out of Workspace)")
+            
+        cos_theta3 = (hypotenuse_sq - L2**2 - L3**2) / (2 * L2 * L3)
+        # 取负根（肘部朝上的姿态）
+        theta3 = math.atan2(-math.sqrt(1 - cos_theta3**2), cos_theta3)
+        
+        # 3. 求解 theta2
+        alpha = math.atan2(z_eff, r)
+        beta = math.atan2(L3 * math.sin(theta3), L2 + L3 * math.cos(theta3))
+        theta2 = alpha - beta
+        
+        # 转换为角度返回
+        return math.degrees(theta1), math.degrees(theta2), math.degrees(theta3)
+        
+    except ValueError as e:
+        print(f"IK Error: {e}")
+        return None, None, None
+
+if __name__ == "__main__":
+    t1, t2, t3 = calculate_ik_3dof(100, 100, 50)
+    print(f"Target Joint Angles: Base={t1:.1f}°, Shoulder={t2:.1f}°, Elbow={t3:.1f}°")</pre>
+                </div>
+            </section>
+            <section class="section">
+                <h2 class="section-title"><span>03</span> 系统故障排除 (System Defense)</h2>
+                <ul class="debug-list">
+                    <li><span class='err-code'>[IK_ERR_01]</span> Math Domain Error (域错误)<div style='color:#aaa; font-size:0.95rem; margin-top:8px;'><strong>排查方案:</strong> 排查：目标坐标太远，超出了两根连杆伸直的极限长度。`acos()` 接收的值超出了 [-1, 1] 的范围，引发崩溃。必须做好防崩溃判定。</div></li>\n<li><span class='err-code'>[IK_ERR_02]</span> 多解选取冲突导致机械臂撞击<div style='color:#aaa; font-size:0.95rem; margin-top:8px;'><strong>排查方案:</strong> 排查：`atan2` 返回的角度使得关节产生突变反折（如从 -170度 瞬间要求变为 170度）。需加入状态记忆，优先选择与当前关节角度最接近的解。</div></li>\n<li><span class='err-code'>[SYS_ERR_03]</span> X/Y 坐标为 0 导致分母为零<div style='color:#aaa; font-size:0.95rem; margin-top:8px;'><strong>排查方案:</strong> 排查：当机械臂直立于原点正上方时，存在无限多解（底座转任意角度均可）。需在代码中设置微小容差 (epsilon) 处理原点奇点。</div></li>\n
+                </ul>
+            </section>
+            <section class="section" style="border:none;background:transparent;padding:0;box-shadow:none;">
+                <div class="mission-box">
+                    <div class="mission-title">► 极客重构挑战 (Hardcore Mission)</div>
+                    <div class="mission-text">利用上一节课的 FK 代码验证本节课的 IK 代码：输入一组角度进行 FK 计算得到 X,Y,Z，然后将该 X,Y,Z 扔给 IK 算法反解，检查得出的角度是否与最初的角度一致。</div>
+                    <div class="status-badge"><div class="status-dot"></div>SYS_STATUS: PENDING_USER_CODE</div>
+                </div>
+            </section>
+        </main>
+        <aside>
+            <div class="widget">
+                <div class="widget-title">Subsystem Schematic</div>
+                <div class="hero-image-container">
+                    <img src="./assets/images/robotics.jpg" alt="Schematic" class="hero-image">
+                </div>
+                <div class="img-caption">FIG 1.0 - CODE TOPOLOGY</div>
+            </div>
+            <div class="widget">
+                <div class="widget-title">Lesson Telemetry</div>
+                <div class="stat-row"><span>Code Lines</span><span class="stat-val">~250+ LOC</span></div>
+                <div class="stat-row"><span>Memory Safe</span><span class="stat-val" style="color:var(--success)">VERIFIED</span></div>
+                <div class="stat-row"><span>Complexity</span><span class="stat-val" style="color:var(--danger)">EXTREME</span></div>
+            </div>
+            <div class="widget instructor-note">
+                <div class="widget-title" style="color: var(--primary)">Architect's Note</div>
+                <p style="font-size: 0.9rem; color: #ccc; line-height: 1.5;">恭喜你，当你跨越了 IK 的门槛，你就掌握了控制物理世界的终极密码。至此，机械臂的关节对你而言已不再是电机，而是空间任意维度的画笔。</p>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>

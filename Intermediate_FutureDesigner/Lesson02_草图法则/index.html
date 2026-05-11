@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：草图法则</title>
+    <meta name="description" content="Grade 8 Lesson 2 - 彻底告别鼠标乱拖，掌握精确几何约束">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="presentation-mode">
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+        
+        <!-- Hero Section -->
+        <section id="hero">
+            <h1 class="main-title reveal">L2. 草图法则 (Sketch Constraints)</h1>
+            <p class="subtitle reveal delay-1">不要相信眼睛，去相信系统底层的几何数学</p>
+            <span class="tag reveal delay-2">MODULE: 数字工程与极客原点</span>
+            
+            <div class="lesson-visual reveal delay-2"><img src="../assets/images/l2_sketch.jpg" alt="Lesson Visual"></div>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <!-- Concept Section -->
+        <section id="concept">
+            <h2 class="reveal">工业原纪</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>约束的绝对力量</strong>
+                    <span>在屏幕上看着像平行没用！必须框选两条线，在左侧属性栏点击 [平行 Parallel] 或 [垂直 Perpendicular]。</span>
+                </div>
+                <div class="comp">
+                    <strong>草图的生命周期 (Blue to Black)</strong>
+                    <span>蓝色线条 = 欠定义(随时会变形崩溃)；黑色线条 = 完全定义(被死死锁定)。我们的目标是全黑！</span>
+                </div>
+            </div>
+</section>
+
+        <!-- Design Section -->
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">STEP 1</span>
+                    <span class="event">几何优先法则：画出一个扭曲的三角形。按住 Ctrl 选中底边，点击【水平】；选中两腰，点击【相等】。奇迹发生了。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">STEP 2</span>
+                    <span class="event">尺寸终压：几何约束做完后，最后使用【智能尺寸】标注底边长度 50mm。整个图形瞬间变成绝对锁定的黑色！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event" style="color: var(--danger);">警告：轮廓必须完全闭合！放大检查是否有线头交叉或断口（开口轮廓）。漏水的池子是没法注水成 3D 的！</span>
+                </div>
+            </div>
+</section>
+
+        <!-- Slicer Section -->
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 失败演绎：尝试导出一条二维直线给 Bambu Studio。切片机会报错：这是一个没有物理质量的零维幽灵！</div>
+                <div class="param">> PHYSICS: 空间悖论：二维草图必须通过 Z 轴方向的力（如拉伸、旋转）才能突破维度，获得实体的肉身。</div>
+            </div>
+</section>
+
+        <!-- Mission Section -->
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>绘制一个 50x30 的矩形，内部包含两个 Ø10 的圆。要求：两个圆必须通过 [相等] 约束绑定，只能标注一个圆的尺寸。拉扯线条验证其绝对刚性！</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE (系统档案上传协议)</strong>
+                    <span>Lesson02_草图法则_姓名.3mf</span>
+                </div>
+            </div>
+        </section>
+        
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

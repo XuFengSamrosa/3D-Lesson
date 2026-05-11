@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：工程联结</title>
+    <meta name="description" content="Grade 8 Lesson 30 - 磁铁嵌入槽设计与弹性卡扣，无螺丝工业组装的高能运用。">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+
+        <section id="hero">
+            <h1 class="main-title reveal">L30. 工程联结</h1>
+            <p class="subtitle reveal delay-1">钕磁铁嵌入 × 弹性卡扣 —— 无螺丝工业组装</p>
+            <span class="tag reveal delay-2">MODULE: 运动机制与未来都市</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <section id="concept">
+            <h2 class="reveal">永磁引力物理学</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>5×2mm 的工业奇迹</strong>
+                    <span>钕磁铁重量不到 0.2g，却能提供自身重量 150 倍的磁吸力。精确嵌入 0.2mm 公差的圆形槽内——Neo-Metropolis 的地块从此相互永久吸引，随时锁定。</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Magnet Pocket 磁铁嵌槽, Snap Fit 弹性卡扣, 极性统一协议</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">嵌槽公式</span>
+                    <span class="event">槽直径 = 磁铁实测直径 + 0.2mm；槽深度 = 磁铁实测高度 + 0.1mm；底壁留 0.6mm——磁力穿透但磁铁不脱落！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">四角布阵</span>
+                    <span class="event">四个角各一个磁铁槽。全班必须统一：N 极朝下（或全朝上）！N 与 S 混用等于相邻地块互相磁力排斥爆飞。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event">极性逆装灾难：两块地块靠近却互相弹开——这说明一块 N 朝下，一块 S 朝下。全班的开工前集体极性验证缺一不可！</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 磁铁槽朝下打印（底面着床），确保槽壁精度最高。先单独打印磁铁验证槽再整体开工！</div>
+                <div class="param">> PHYSICS: 磁铁安装用 502 胶水（氰基丙烯酸酯）点胶固定！禁用热熔胶——超过 80°C 钕磁铁永久失磁，城市地块变废铁！</div>
+            </div>
+        </section>
+
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>为你的地块底板加上四角磁铁嵌槽。打印完成后塞入磁铁，与邻桌同学对齐吸合——城市碎片自动精准锁定！</span>
+                    <span>状态检定：两块地块平放后能否被磁力稳定吸合，且用手轻推不错位？</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE</strong>
+                    <span>L30_工程联结_姓名.3mf</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

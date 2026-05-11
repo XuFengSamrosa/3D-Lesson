@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：工程卡尺</title>
+    <meta name="description" content="Grade 8 Lesson 3 - 现实物体到数字孪生的第一步测定。">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="presentation-mode">
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+        
+        <!-- Hero Section -->
+        <section id="hero">
+            <h1 class="main-title reveal">L3. 逆向重构 (Reverse Engineering)</h1>
+            <p class="subtitle reveal delay-1">从物理实体到数字原型的拉伸解码</p>
+            <span class="tag reveal delay-2">MODULE: 数字工程与极客原点</span>
+            
+            <div class="lesson-visual reveal delay-2"><img src="../assets/images/l3_measure.jpg" alt="Lesson Visual"></div>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <!-- Concept Section -->
+        <section id="concept">
+            <h2 class="reveal">工业原纪</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>信息采集与逆向工程</strong>
+                    <span>工业界没有凭空捏造。用数显卡尺死死卡住目标零件，读取 X(长) 50.50mm, Y(宽) 30.20mm。数据即是一切。</span>
+                </div>
+                <div class="comp">
+                    <strong>突破维度的【拉伸 Extrude】</strong>
+                    <span>在完全闭合的 XY 草图上，施加 Z 轴方向的生长力。输入厚度参数，二维图纸瞬间隆起成为三维砖块。</span>
+                </div>
+            </div>
+</section>
+
+        <!-- Design Section -->
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">STEP 1</span>
+                    <span class="event">画地为牢：在前视基准面画出实测的 50.5 x 30.2 矩形（全黑）。退出草图。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">STEP 2</span>
+                    <span class="event">拔地而起：点击【特征】->【拉伸凸台/基体】。必须点选那个会发光的草图内圈！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event" style="color: var(--danger);">致命错误：如果在拉伸时选中的是“边缘线（薄壁特征）”，你拉出来的将是一个中空的纸皮箱子！必须选内部区域。</span>
+                </div>
+            </div>
+</section>
+
+        <!-- Slicer Section -->
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 导入 Bambu Studio：在右上角选择“切片”，观察预计消耗的耗材质量（克）。</div>
+                <div class="param">> PHYSICS: 成本控制法则：你的每一次拉伸都在燃烧材料！把内部填充率从 15% 提高到 50%，观察重量和时间的暴增。</div>
+            </div>
+</section>
+
+        <!-- Mission Section -->
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>逆向测绘你身边的一个长方体充电头（或橡皮擦），在 CAD 中完美复刻它的外形，并拉伸出精确的高度 Z。</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE (系统档案上传协议)</strong>
+                    <span>Lesson03_工程卡尺_姓名.3mf</span>
+                </div>
+            </div>
+        </section>
+        
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

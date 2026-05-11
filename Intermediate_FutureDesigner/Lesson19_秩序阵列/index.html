@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：秩序阵列</title>
+    <meta name="description" content="Grade 8 Lesson 19 - 线性阵列与环形阵列，参数化批量复制的克隆大军战略。">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+
+        <section id="hero">
+            <h1 class="main-title reveal">L19. 秩序阵列</h1>
+            <p class="subtitle reveal delay-1">参数化克隆大军与双轴阵列战略</p>
+            <span class="tag reveal delay-2">MODULE: 算法美学与高阶曲面</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <section id="concept">
+            <h2 class="reveal">设计一次，获得无限</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>工业的终极效率</strong>
+                    <span>设计200个冷却孔不需要画200次。设计12片风扇叶片只需要画1片。阵列让参数化的批量复制力量彻底解放设计师的重复劳动！</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Linear Pattern 线性阵列, Circular Pattern 环形阵列, 参数联动同步更新</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">线性战法</span>
+                    <span class="event">Pattern → Linear：选中对象，锁定 X/Y 轴方向，数量 15，间距 5mm —— 散热鳍片阵列瞬间铺满底板！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">环形战法</span>
+                    <span class="event">Pattern → Circular：选中单片叶片，中心轴选 Z轴，数量 8，角度范围 360° —— 8叶均分风扇满完美周天！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event">边界飞离事故：阵列间距过大，复制体飞出底板边界成悬空战斗机。立刻返回编辑缩减间距！</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 大量实体阵列（200孔）导入 Bambu Studio 切片时间显著增加——Union All 合并后可提速 50% 以上。</div>
+                <div class="param">> PHYSICS: 极密阵列的热失真——鳍片间距 < 2mm 时，切片后发现相邻外壁互相碰撞融合。不得超过喷嘴极限精度！</div>
+            </div>
+        </section>
+
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>设计一块工业散热底板：同时包含线性阵列散热鳍片（至少10片）和环形阵列的中央风扇叶片（至少6叶）。</span>
+                    <span>状态检定：编辑一个原始叶片宽度，其余克隆叶片是否同步变化？这是参数化的最高验证！</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE</strong>
+                    <span>L19_秩序阵列_姓名.3mf</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

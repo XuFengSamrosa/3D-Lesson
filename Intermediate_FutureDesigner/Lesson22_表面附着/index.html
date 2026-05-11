@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：表面附着</title>
+    <meta name="description" content="Grade 8 Lesson 22 - 曲面投影工艺：将平面纹理映射到弯曲表面并雕刻。">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+
+        <section id="hero">
+            <h1 class="main-title reveal">L22. 表面附着</h1>
+            <p class="subtitle reveal delay-1">投影仪将平面图案雕刻进弯曲的宇宙</p>
+            <span class="tag reveal delay-2">MODULE: 算法美学与高阶曲面</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <section id="concept">
+            <h2 class="reveal">曲面上的地图学</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>平面思维的曲线突破</strong>
+                    <span>圆柱的灵魂在它弯曲的外壳上。Shapr3D 不允许在曲面上直接画草图——但可以在贴近的平面上设计图案，再用投影命令把它"照射"到弯曲的装甲上！</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Project to Surface 曲面投影, Offset Plane 贴面参考平面, 地图投影变形</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">STEP 1</span>
+                    <span class="event">建立虚拟投影面：在紧贴圆柱外壁的位置，用 Offset Plane 建立偏移 0mm 的平面参照，在此平面画斜纹理线阵列。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">STEP 2</span>
+                    <span class="event">激活 Project 命令：选中平面图案 → 选择目标曲面 → 图案线条随即贴附弯曲面走向，成为曲面上的弧线族群！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event">地图投影陷阱：越靠近两极（投影角度越斜）的图案变形越大。文字投影在球面两端会惨烈拉伸，这是不可逆的球面几何本质！</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 曲面雕刻槽（凹槽 1mm）导入 Bambu Studio 切片，开启视图检查槽深是否真实贯入——非仅表皮浮浮。</div>
+                <div class="param">> PHYSICS: 弧形槽散热原理——弯曲的散热槽比直线槽面积更大，与气流接触的表面面积提升，散热效率随之提升！</div>
+            </div>
+        </section>
+
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>在一个圆柱外壳上投影对角斜纹散热槽（1mm 深），并尝试在球体上投影三个字母，观察赤道处与两极处的变形差异！</span>
+                    <span>状态检定：切片后确认凹槽在第一层就已经开始退让出坑道——而非只有最上层的表皮划痕？</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE</strong>
+                    <span>L22_表面附着_姓名.3mf</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

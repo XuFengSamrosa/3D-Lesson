@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 魔法课：梦想社区建模</title>
+    <meta name="description" content="第 14 课 - 精雕细琢，将你的社区单体模型打造成艺术品">
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+    <style>
+        :root { --accent: #4DABF7; --accent-light: #E7F5FF; }
+        .modeling-demo { width: 100%; height: 250px; display: flex; align-items: center; justify-content: center; gap: 2rem; }
+        .house-base { width: 120px; height: 100px; background: #eee; border: 4px solid #ccc; position: relative; border-radius: 10px; }
+        .window-part { width: 25px; height: 35px; background: var(--accent-light); border: 2px solid var(--accent); position: absolute; left: 15px; top: 15px; border-radius: 5px; }
+        .window-clone { left: 75px; }
+        .roof-part { width: 0; height: 0; border-left: 70px solid transparent; border-right: 70px solid transparent; border-bottom: 50px solid var(--accent); position: absolute; top: -50px; left: -10px; }
+    </style>
+</head>
+<body class="presentation-mode">
+    
+    <nav class="side-nav"><ul></ul></nav>
+
+    <div id="slide-viewport">
+        <!-- 页面 1: Hero -->
+        <section id="hero" class="scroll-section">
+            <div class="content-wrapper centered-layout">
+                <div class="emoji-float reveal-up">🏠</div>
+                <h1 class="big-header reveal-up delay-1">梦想社区：建模冲刺</h1>
+                <p class="big-desc reveal-up delay-2">细节决定成败。让我们为城市添砖加瓦！</p>
+                <div class="scroll-hint reveal-up delay-3">
+                    <div class="mouse"><div class="wheel"></div></div>
+                    开始精雕细琢
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 2: 细节即灵魂 -->
+        <section id="details" class="scroll-section">
+            <div class="content-wrapper split-layout">
+                <div class="text-col reveal-left">
+                    <h1 class="big-header">✨ 细节即灵魂</h1>
+                    <p class="big-desc">如何让你的建筑看起来更高级？</p>
+                    <div class="glass-card reveal-up delay-1">
+                        <ul class="mission-list">
+                            <li><strong>窗户与门</strong>：利用“负零件”精准抠出。</li>
+                            <li><strong>屋顶装饰</strong>：给平顶加个尖角或圆顶。</li>
+                            <li><strong>装饰零件</strong>：添加旗子、招牌或楼梯。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="img-col reveal-right">
+                    <div class="modeling-demo">
+                        <div class="house-base">
+                            <div class="roof-part"></div>
+                            <div class="window-part"></div>
+                            <div class="window-part window-clone"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 3: 比例大作战 -->
+        <section id="scale" class="scroll-section">
+            <div class="content-wrapper split-layout reverse">
+                <div class="text-col reveal-right">
+                    <h1 class="big-header">📏 跨组对标</h1>
+                    <p class="big-desc">停下来，看看邻居的作品：</p>
+                    <div class="glass-card reveal-up delay-1">
+                        <p>1. <strong>比大小</strong>：我的房子比路灯大吗？</p>
+                        <p>2. <strong>调尺寸</strong>：使用“缩放工具”统一高度。</p>
+                        <p>3. <strong>保风格</strong>：我们的建筑能凑成一对吗？</p>
+                    </div>
+                    <p class="big-desc delay-2">💡 <strong>秘诀</strong>：按住右边的 [比例] 数值，手动输入高度最准确！</p>
+                </div>
+                <div class="img-col reveal-left">
+                    <div class="glass-card highlight-box">
+                        <p style="font-size: 1.2rem;">⚠️ <strong>警告</strong>：如果你的建筑太巨大，打印时间会超过 5 小时，必须缩小！</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 4: 检查与预览 -->
+        <section id="check" class="scroll-section">
+            <div class="content-wrapper centered-layout">
+                <h1 class="big-header reveal-up">🔍 出厂前检查</h1>
+                <p class="big-desc reveal-up delay-1">点击“切片预览”，检查以下内容：</p>
+                <div class="concept-grid reveal-up delay-2">
+                    <div class="glass-card">
+                        <h3>🧐 悬空检查</h3>
+                        <p>房檐、阳台下方是否有黑色空洞？需要支撑吗？</p>
+                    </div>
+                    <div class="glass-card">
+                        <h3>🧱 零件组合</h3>
+                        <p>所有零件是否都属于一个“对象”？（防止打印散架）</p>
+                    </div>
+                    <div class="glass-card">
+                        <h3>🎨 上色完成</h3>
+                        <p>给门窗涂上对比鲜明的颜色吧！</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面 5: 最终任务 -->
+        <section id="mission" class="scroll-section">
+            <div class="content-wrapper centered-layout">
+                <div class="tag reveal-up">今日任务</div>
+                <h1 class="big-header reveal-up delay-1">🎯 建模特种兵</h1>
+                <div class="glass-card reveal-up delay-2">
+                    <ul class="mission-list">
+                        <li>完成你负责的社区单体建模（如：未来超市）。</li>
+                        <li>至少包含 3 处以上精修细节（窗、装饰项）。</li>
+                        <li>与同组成员核对比例，确保尺寸符合规划。</li>
+                        <li>保存为 [社区-组名-作品名.3mf]。</li>
+                    </ul>
+                </div>
+                <p class="big-desc reveal-up delay-3" style="margin-top:2rem;">下节课，我们将开启全班大生产！🚀</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="../assets/script.js"></script>
+</body>
+</html>

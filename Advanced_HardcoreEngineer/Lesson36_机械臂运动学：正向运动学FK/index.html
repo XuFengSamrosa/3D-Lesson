@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 36 - 机械臂运动学：正向运动学 FK (Python) - Advanced Hardcore Engineer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        :root {
+            --bg-color: #050508;
+            --surface: rgba(18, 18, 26, 0.4);
+            --surface-glass: rgba(10, 10, 15, 0.85);
+            --primary: #00ffcc;
+            --primary-glow: rgba(0, 255, 204, 0.4);
+            --secondary: #0088aa;
+            --text-main: #ffffff;
+            --text-dim: #a0a0b0;
+            --border: rgba(255, 255, 255, 0.08);
+            --danger: #ff3366;
+            --success: #33ff99;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.7; overflow-x: hidden; }
+        
+        .tech-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(0, 255, 204, 0.08), transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(0, 136, 170, 0.08), transparent 50%),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 60px 60px, 60px 60px;
+            z-index: -2; pointer-events: none;
+        }
+        .glow-orb {
+            position: fixed; top: -10%; left: 40%; width: 60vw; height: 60vw;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 60%);
+            z-index: -1; pointer-events: none; border-radius: 50%; opacity: 0.3; filter: blur(80px);
+            animation: pulse 10s infinite alternate;
+        }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 0.2; } 100% { transform: scale(1.2); opacity: 0.4; } }
+
+        .navbar {
+            position: sticky; top: 0; z-index: 100;
+            background: var(--surface-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border); padding: 18px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+        }
+        .nav-brand { font-family: 'JetBrains Mono', monospace; color: #fff; font-weight: 800; font-size: 1.3rem; letter-spacing: 2px; display: flex; align-items: center; gap: 10px; }
+        .nav-brand::before { content: ''; display: inline-block; width: 12px; height: 12px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 10px var(--primary); }
+        .nav-module { color: var(--primary); font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 3px; padding: 6px 12px; border: 1px solid rgba(0,255,204,0.3); border-radius: 20px; background: rgba(0,255,204,0.05); }
+
+        .hero { padding: 100px 40px 60px; text-align: center; max-width: 1100px; margin: 0 auto; position: relative; }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 25px; font-weight: 800; letter-spacing: -1px; line-height: 1.2; }
+        .hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.25rem; color: var(--text-dim); max-width: 800px; margin: 0 auto; font-weight: 300; }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 50px 100px 50px; display: grid; grid-template-columns: 2.5fr 1fr; gap: 50px; }
+        @media (max-width: 1024px) { .container { grid-template-columns: 1fr; } }
+        
+        .section { 
+            background: var(--surface); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border); border-radius: 16px; padding: 40px; margin-bottom: 40px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05); 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        .section:hover { border-color: rgba(0, 255, 204, 0.4); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,255,204,0.1), inset 0 1px 0 rgba(255,255,255,0.1); }
+        .section-title { font-family: 'JetBrains Mono', monospace; font-size: 1.6rem; color: #fff; margin-bottom: 25px; display: flex; align-items: center; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+        .section-title span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; font-size: 2rem; margin-right: 15px; }
+
+        .knowledge-list { list-style: none; }
+        .knowledge-list li { margin-bottom: 20px; padding-left: 40px; position: relative; font-size: 1.15rem; color: #e0e0e0; }
+        .knowledge-list li::before { content: '►'; position: absolute; left: 0; top: 2px; color: var(--primary); font-size: 1rem; font-family: 'JetBrains Mono', monospace; }
+        .list-desc { font-size: 0.95rem; color: var(--text-dim); margin-top: 8px; line-height: 1.6; font-weight: 300; }
+        
+        .debug-list { list-style: none; }
+        .debug-list li { margin-bottom: 20px; padding: 20px; background: rgba(255, 51, 102, 0.05); border-left: 3px solid var(--danger); border-radius: 0 8px 8px 0; }
+        .debug-list .err-code { color: var(--danger); font-family: 'JetBrains Mono', monospace; font-weight: 800; margin-right: 12px; font-size: 0.9rem; padding: 4px 8px; background: rgba(255,51,102,0.1); border-radius: 4px; }
+
+        .code-container { border-radius: 12px; overflow: hidden; margin-top: 25px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .code-header { background: rgba(10, 10, 15, 0.9); padding: 12px 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #666; display: flex; align-items: center; border-bottom: 1px solid var(--border); }
+        .mac-btn { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }
+        .mac-close { background: #ff5f56; } .mac-min { background: #ffbd2e; } .mac-max { background: #27c93f; }
+        .code-title { margin-left: 15px; color: var(--text-dim); }
+        pre { background: rgba(5, 5, 8, 0.8); padding: 25px; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; color: var(--success); overflow-x: auto; line-height: 1.6; white-space: pre-wrap; }
+
+        .mission-box { background: linear-gradient(145deg, rgba(0,255,204,0.08), rgba(0,136,170,0.02)); border: 1px solid rgba(0,255,204,0.3); border-radius: 16px; padding: 35px; position: relative; overflow: hidden; }
+        .mission-box::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary); }
+        .mission-title { color: #fff; font-size: 1.4rem; margin-bottom: 15px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+        .mission-text { color: var(--text-dim); font-size: 1.1rem; font-weight: 300; }
+        .status-badge { margin-top: 25px; display: inline-flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.6); padding: 8px 16px; border: 1px solid var(--border); border-radius: 30px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-main); }
+        .status-dot { width: 8px; height: 8px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 8px var(--primary); animation: blink 2s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        aside { display: flex; flex-direction: column; gap: 30px; }
+        .widget { background: var(--surface); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 16px; padding: 30px; }
+        .widget-title { font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 2px; color: var(--text-dim); margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.95rem; }
+        .stat-row:last-child { border: none; padding-bottom: 0; }
+        .stat-val { font-family: 'JetBrains Mono', monospace; color: var(--text-main); font-weight: bold; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 6px; }
+        
+        .hero-image-container { position: relative; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 40px rgba(0,0,0,0.6); margin-bottom: 20px; }
+        .hero-image-container::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); pointer-events: none; }
+        .hero-image { width: 100%; height: auto; display: block; transition: transform 0.5s ease; }
+        .hero-image-container:hover .hero-image { transform: scale(1.05); }
+        .img-caption { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-dim); text-align: center; letter-spacing: 1px; }
+
+        .instructor-note { background: rgba(0, 255, 204, 0.05); border: 1px solid rgba(0, 255, 204, 0.2); border-radius: 12px; padding: 25px; position: relative; }
+        .instructor-note::before { content: '”'; position: absolute; top: 10px; right: 20px; font-size: 4rem; color: rgba(0,255,204,0.1); font-family: serif; line-height: 1; }
+    </style>
+</head>
+<body>
+    <div class="tech-bg"></div><div class="glow-orb"></div>
+    <nav class="navbar">
+        <div class="nav-brand">ADV_ENGINEER_OS</div>
+        <div class="nav-module">Programming & Robotics</div>
+    </nav>
+    <header class="hero">
+        <h1><span>Lesson 36 - 机械臂运动学：正向运动学 FK (Python)</span></h1>
+        <p>硬核机器人学的起点。利用 Python 与 Numpy 进行矩阵计算，推导机械臂的 D-H (Denavit-Hartenberg) 参数模型，实现从各个关节的电机角度到末端机械爪空间坐标(X,Y,Z)的精密数学映射。</p>
+    </header>
+    <div class="container">
+        <main>
+            <section class="section">
+                <h2 class="section-title"><span>01</span> 算法层剖析 (Algorithm Breakdown)</h2>
+                <ul class="knowledge-list">
+                    <li><strong>坐标空间转换</strong><div class='list-desc'>机器人具有两个空间：关节空间 (Joint Space, θ角度集合) 与 笛卡尔空间 (Cartesian Space, 物理世界的XYZ)。正向运动学 FK 即是已知 θ 求 XYZ 的过程。</div></li>\n<li><strong>齐次变换矩阵 (Homogeneous Matrix)</strong><div class='list-desc'>一个 4x4 的矩阵，巧妙地将三维空间中的旋转 (Rotation) 和平移 (Translation) 合并在一起处理，是现代机器人学的核心基石。</div></li>\n<li><strong>D-H 参数建模法</strong><div class='list-desc'>Denavit 与 Hartenberg 提出的一种通用建模规范。只需4个参数 (a, α, d, θ) 即可描述任意相邻连杆之间的几何空间关系。</div></li>\n<li><strong>矩阵级联与点乘</strong><div class='list-desc'>末端执行器的最终位姿矩阵 = 基座到连杆1的矩阵 × 连杆1到2的矩阵 × ...。在 Python 中利用 `@` 运算符实现矩阵极速连乘。</div></li>\n<li><strong>欧拉角与位姿</strong><div class='list-desc'>除了 X,Y,Z 位置，矩阵还包含了机械爪的空间姿态（Roll, Pitch, Yaw）。这对于抓取物品的角度极其重要。</div></li>\n
+                </ul>
+            </section>
+            <section class="section">
+                <h2 class="section-title"><span>02</span> 底层核心代码 (Core Implementation)</h2>
+                <p>禁止复制粘贴，请逐行解析以下工业级框架逻辑：</p>
+                <div class="code-container">
+                    <div class="code-header"><div class="mac-btn mac-close"></div><div class="mac-btn mac-min"></div><div class="mac-btn mac-max"></div><span class="code-title">forward_kinematics.py / Matrix Algebra</span></div>
+                    <pre>import numpy as np
+import math
+
+def dh_matrix(a, alpha, d, theta):
+    """根据 D-H 参数生成 4x4 齐次变换矩阵"""
+    # 将输入角度转为弧度
+    alpha = math.radians(alpha)
+    theta = math.radians(theta)
+    
+    return np.array([
+        [math.cos(theta), -math.sin(theta)*math.cos(alpha),  math.sin(theta)*math.sin(alpha), a*math.cos(theta)],
+        [math.sin(theta),  math.cos(theta)*math.cos(alpha), -math.cos(theta)*math.sin(alpha), a*math.sin(theta)],
+        [0,               math.sin(alpha),                   math.cos(alpha),                  d],
+        [0,               0,                                 0,                                1]
+    ])
+
+def calculate_fk(theta1, theta2, theta3):
+    # Cyber-Sorter 三轴机械臂 D-H 参数表
+    # a: 连杆长度, alpha: 连杆扭转角, d: 偏置距离, theta: 关节角
+    T1 = dh_matrix(a=0,   alpha=90, d=80, theta=theta1)
+    T2 = dh_matrix(a=120, alpha=0,  d=0,  theta=theta2)
+    T3 = dh_matrix(a=150, alpha=0,  d=0,  theta=theta3)
+    
+    # 矩阵级联点乘得到末端执行器相对于基座的变换矩阵 T_end
+    T_end = T1 @ T2 @ T3
+    
+    # 提取第4列前3行，即空间坐标 (X, Y, Z)
+    x = T_end[0, 3]
+    y = T_end[1, 3]
+    z = T_end[2, 3]
+    
+    return x, y, z
+
+if __name__ == "__main__":
+    x, y, z = calculate_fk(45, 30, -30)
+    print(f"End Effector Position: X={x:.2f}, Y={y:.2f}, Z={z:.2f}")</pre>
+                </div>
+            </section>
+            <section class="section">
+                <h2 class="section-title"><span>03</span> 系统故障排除 (System Defense)</h2>
+                <ul class="debug-list">
+                    <li><span class='err-code'>[MATH_ERR_01]</span> 矩阵相乘维度崩溃<div style='color:#aaa; font-size:0.95rem; margin-top:8px;'><strong>排查方案:</strong> 排查：绝对不要在 Python numpy 中使用 `*` 来相乘两个矩阵，那会导致逐元素相乘。必须使用 `@` 或者 `np.dot()`！</div></li>\n<li><span class='err-code'>[LOGIC_02]</span> 计算结果与现实完全不符<div style='color:#aaa; font-size:0.95rem; margin-top:8px;'><strong>排查方案:</strong> 排查：1. 检查是否遗漏了将角度转化为弧度（Radians）；2. 检查 D-H 参数的 a 和 d 的基准面是否选错了。</div></li>\n<li><span class='err-code'>[SIN_COS_ERR_03]</span> 出现极小的浮点数（如 1.22e-16）<div style='color:#aaa; font-size:0.95rem; margin-top:8px;'><strong>排查方案:</strong> 排查：计算机处理 `math.sin(math.pi)` 时由于浮点精度问题不会完全等于 0。这属于正常现象，可用 `np.round()` 进行清理。</div></li>\n
+                </ul>
+            </section>
+            <section class="section" style="border:none;background:transparent;padding:0;box-shadow:none;">
+                <div class="mission-box">
+                    <div class="mission-title">► 极客重构挑战 (Hardcore Mission)</div>
+                    <div class="mission-text">利用 Python 编写一个循环，让 theta1 在 0-180 度之间以 1 度为步长变化，通过 FK 计算末端坐标并使用 `matplotlib` 绘制出末端执行器在 3D 空间中划过的半圆形工作空间轨迹图。</div>
+                    <div class="status-badge"><div class="status-dot"></div>SYS_STATUS: PENDING_USER_CODE</div>
+                </div>
+            </section>
+        </main>
+        <aside>
+            <div class="widget">
+                <div class="widget-title">Subsystem Schematic</div>
+                <div class="hero-image-container">
+                    <img src="./assets/images/robotics.jpg" alt="Schematic" class="hero-image">
+                </div>
+                <div class="img-caption">FIG 1.0 - CODE TOPOLOGY</div>
+            </div>
+            <div class="widget">
+                <div class="widget-title">Lesson Telemetry</div>
+                <div class="stat-row"><span>Code Lines</span><span class="stat-val">~250+ LOC</span></div>
+                <div class="stat-row"><span>Memory Safe</span><span class="stat-val" style="color:var(--success)">VERIFIED</span></div>
+                <div class="stat-row"><span>Complexity</span><span class="stat-val" style="color:var(--danger)">EXTREME</span></div>
+            </div>
+            <div class="widget instructor-note">
+                <div class="widget-title" style="color: var(--primary)">Architect's Note</div>
+                <p style="font-size: 0.9rem; color: #ccc; line-height: 1.5;">如果你在这里对线性代数感到吃力，不用气馁。理解齐次矩阵的本质，就意味着你拿到了进入现代高级机器人学领域的入场券。</p>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>

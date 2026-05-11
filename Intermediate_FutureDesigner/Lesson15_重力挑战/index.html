@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：重力挑战</title>
+    <meta name="description" content="Grade 8 Lesson 15 - 45度自支撑定律，解读悬垂警戒色谱，设计无需支撑的自由结构。">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="presentation-mode">
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+
+        <section id="hero">
+            <h1 class="main-title reveal">L15. 重力挑战</h1>
+            <p class="subtitle reveal delay-1">45° 黄金法则 —— 无需支撑的自由悬挑</p>
+            <span class="tag reveal delay-2">MODULE: 布尔极客与微观工程</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <section id="concept">
+            <h2 class="reveal">万有引力定律</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>重力：打印机最大的敌人</strong>
+                    <span>喷嘴把熔融塑料吐向虚空，没有支撑，物质直接被地球拽坠。但聪明的设计能让每一层都不超过 45° 的悬空临界点，彻底与重力握手言和。</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Overhang 悬垂, Self-supporting 自支撑, Bridge 桥接</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">45° 定律</span>
+                    <span class="event">每层新丝需要 50% 以上的面积搭载在已固化材料上。坡度超过 45°（近水平），不到 50% 搭载面，重力获胜！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">STEP 1</span>
+                    <span class="event">锐角改造：把门洞横档由平顶改为斜坡屋脊形（双面坡度均 ≤ 45°），让它拥有完美的自支撑几何。</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event">桥接特例：完全水平的短跨桥接（≤ 80mm）可通过降低桥接速度至 30% 借助材料张力自撑——但绝不可跨度过宽！</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 切片预览 → 顶部下拉切至"Overhang angle（悬垂角）"着色模式，激活红绿警戒色谱全面体检！</div>
+                <div class="param">> PHYSICS: 🟢绿=安全 / 🟡黄=轻微挂珠 / 🔴红=必然崩落。把红色地带全部用形状改造消灭——才是真正的极客级设计！</div>
+            </div>
+        </section>
+
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>取一个含门洞或悬挑凸台的模型，将其全部红色悬垂区域通过 CAD 几何改造消灭！</span>
+                    <span>状态检定：切片后悬垂色谱图中没有任何红色——仅此一条评判标准！</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE (系统档案上传协议)</strong>
+                    <span>L15_重力挑战_姓名.3mf</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来设计师：一体成型(一)</title>
+    <meta name="description" content="Grade 8 Lesson 25 - Print-in-Place 魔法合页，从打印机取出即可活动的零组装机构。">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <nav id="nav-dots"></nav>
+    <div id="scroll-container">
+
+        <section id="hero">
+            <h1 class="main-title reveal">L25. 一体成型①</h1>
+            <p class="subtitle reveal delay-1">Print-in-Place 魔法合页 —— 打印即活动</p>
+            <span class="tag reveal delay-2">MODULE: 运动机制与未来都市</span>
+            <div class="scroll-hint reveal delay-3">SCROLL TO INITIATE</div>
+        </section>
+
+        <section id="concept">
+            <h2 class="reveal">零组装的工业奇迹</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp">
+                    <strong>从打印机取出便活动</strong>
+                    <span>传统工厂需要分别制造合页两叶和轴销，再人工组装。Print-in-Place 用 0.3mm 的神圣间隙，在一次打印中完成所有部件——取出即弯折！</span>
+                </div>
+                <div class="comp">
+                    <strong>KEYWORDS / 极客密语</strong>
+                    <span>Print-in-Place 一体活动成型, Clearance Gap 间隙退让, 轴销锁止几何</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="design">
+            <h2 class="reveal">参数化指令</h2>
+            <div class="timeline-container reveal delay-1">
+                <div class="timeline-node">
+                    <span class="year">核心间隙</span>
+                    <span class="event">轴销直径 6mm → 穿孔孔径 6.6mm（单边间隙 0.3mm × 2）。用测量工具三次核验——间隙 &lt; 0.15mm 等于死亡粘连！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">STEP 1</span>
+                    <span class="event">轴销带帽：圆柱头部和底部各加一个外扩圆盘（直径 8mm），防止轴向滑出——永久物理锁定，但允许旋转！</span>
+                </div>
+                <div class="timeline-node">
+                    <span class="year">WARNING</span>
+                    <span class="event">禁止 Union：轴销和叶片绝对不可 Union 合并！必须保持独立实体——它们只是几何位置挨着，不是物理焊接！</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="slicer">
+            <h2 class="reveal">切片覆盖</h2>
+            <div class="params-grid reveal delay-1">
+                <div class="param">> SETTINGS: 层高 0.08mm（极精细）+ 外壁 4 圈 + 关闭全部支撑！支撑填满间隙等于打印出一块砖头合页。</div>
+                <div class="param">> PHYSICS: 间隙粘连急救法——打印后若轻微粘连，用竹签沿缝隙轻轻切入，来回弯折激活机构。禁止蛮力掰——直接折断！</div>
+            </div>
+        </section>
+
+        <section id="mission">
+            <h2 class="reveal">极客核心试炼</h2>
+            <div class="comp-list reveal delay-1">
+                <div class="comp" style="border-color: var(--accent);">
+                    <strong>TARGET LOCK</strong>
+                    <span>完成一个两叶合页，间隙 ≥ 0.25mm。切片前关闭全部支撑。打印完取出后直接当着教师的面弯折 —— 即为通过。</span>
+                    <span>状态检定：Shapr3D 内用"测量"工具截图证明间隙数值！</span>
+                </div>
+                <div class="comp" style="border-color: var(--purple);">
+                    <strong>EXPORT FILE</strong>
+                    <span>L25_魔法合页_姓名.3mf</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const navDotsContainer = document.getElementById('nav-dots');
+    const sections = document.querySelectorAll('section');
+
+    function createDot(targetId, title) {
+        if(!navDotsContainer) return;
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot';
+        dot.title = title;
+        dot.dataset.target = targetId;
+        dot.onclick = () => {
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+        };
+        navDotsContainer.appendChild(dot);
+    }
+
+    // Auto-generate dots for every section
+    sections.forEach((section, index) => {
+        const titleEl = section.querySelector('h1, h2');
+        const title = titleEl ? titleEl.innerText : `Slide ${index+1}`;
+        createDot(section.id || `section-${index}`, title);
+        if(!section.id) section.id = `section-${index}`;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add visible class to all .reveal elements in the section
+                const reveals = entry.target.querySelectorAll('.reveal');
+                reveals.forEach(r => r.classList.add('visible'));
+
+                // Update nav dots
+                if(navDotsContainer) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => {
+                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
+</script>
+</body>
+</html>

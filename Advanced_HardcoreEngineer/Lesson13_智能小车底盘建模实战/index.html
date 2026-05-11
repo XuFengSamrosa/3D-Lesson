@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 13 - 智能小车底盘建模实战 - Advanced Hardcore Engineer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        :root {
+            --bg-color: #050508;
+            --surface: rgba(18, 18, 26, 0.4);
+            --surface-glass: rgba(10, 10, 15, 0.85);
+            --primary: #00ffcc;
+            --primary-glow: rgba(0, 255, 204, 0.4);
+            --secondary: #0088aa;
+            --text-main: #ffffff;
+            --text-dim: #a0a0b0;
+            --border: rgba(255, 255, 255, 0.08);
+            --danger: #ff3366;
+            --success: #33ff99;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.7; overflow-x: hidden; }
+        
+        .tech-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(0, 255, 204, 0.08), transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(0, 136, 170, 0.08), transparent 50%),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 60px 60px, 60px 60px;
+            z-index: -2; pointer-events: none;
+        }
+        .glow-orb {
+            position: fixed; top: -10%; left: 40%; width: 60vw; height: 60vw;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 60%);
+            z-index: -1; pointer-events: none; border-radius: 50%; opacity: 0.3; filter: blur(80px);
+            animation: pulse 10s infinite alternate;
+        }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 0.2; } 100% { transform: scale(1.2); opacity: 0.4; } }
+
+        .navbar {
+            position: sticky; top: 0; z-index: 100;
+            background: var(--surface-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border); padding: 18px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+        }
+        .nav-brand { font-family: 'JetBrains Mono', monospace; color: #fff; font-weight: 800; font-size: 1.3rem; letter-spacing: 2px; display: flex; align-items: center; gap: 10px; }
+        .nav-brand::before { content: ''; display: inline-block; width: 12px; height: 12px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 10px var(--primary); }
+        .nav-module { color: var(--primary); font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 3px; padding: 6px 12px; border: 1px solid rgba(0,255,204,0.3); border-radius: 20px; background: rgba(0,255,204,0.05); }
+
+        .hero { padding: 100px 40px 60px; text-align: center; max-width: 1100px; margin: 0 auto; position: relative; }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 25px; font-weight: 800; letter-spacing: -1px; line-height: 1.2; }
+        .hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.25rem; color: var(--text-dim); max-width: 800px; margin: 0 auto; font-weight: 300; }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 50px 100px 50px; display: grid; grid-template-columns: 2.5fr 1fr; gap: 50px; }
+        @media (max-width: 1024px) { .container { grid-template-columns: 1fr; } }
+        
+        .section { 
+            background: var(--surface); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border); border-radius: 16px; padding: 40px; margin-bottom: 40px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05); 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        .section:hover { border-color: rgba(0, 255, 204, 0.4); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,255,204,0.1), inset 0 1px 0 rgba(255,255,255,0.1); }
+        .section-title { font-family: 'JetBrains Mono', monospace; font-size: 1.6rem; color: #fff; margin-bottom: 25px; display: flex; align-items: center; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+        .section-title span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; font-size: 2rem; margin-right: 15px; }
+
+        .knowledge-list { list-style: none; }
+        .knowledge-list li { margin-bottom: 20px; padding-left: 40px; position: relative; font-size: 1.15rem; color: #e0e0e0; }
+        .knowledge-list li::before { content: '►'; position: absolute; left: 0; top: 2px; color: var(--primary); font-size: 1rem; font-family: 'JetBrains Mono', monospace; }
+        .list-desc { font-size: 0.95rem; color: var(--text-dim); margin-top: 8px; line-height: 1.6; font-weight: 300; }
+        
+        .debug-list { list-style: none; }
+        .debug-list li { margin-bottom: 20px; padding: 20px; background: rgba(255, 51, 102, 0.05); border-left: 3px solid var(--danger); border-radius: 0 8px 8px 0; }
+        .debug-list .err-code { color: var(--danger); font-family: 'JetBrains Mono', monospace; font-weight: 800; margin-right: 12px; font-size: 0.9rem; padding: 4px 8px; background: rgba(255,51,102,0.1); border-radius: 4px; }
+
+        .code-container { border-radius: 12px; overflow: hidden; margin-top: 25px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .code-header { background: rgba(10, 10, 15, 0.9); padding: 12px 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #666; display: flex; align-items: center; border-bottom: 1px solid var(--border); }
+        .mac-btn { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }
+        .mac-close { background: #ff5f56; } .mac-min { background: #ffbd2e; } .mac-max { background: #27c93f; }
+        .code-title { margin-left: 15px; color: var(--text-dim); }
+        pre { background: rgba(5, 5, 8, 0.8); padding: 25px; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; color: var(--success); overflow-x: auto; line-height: 1.6; white-space: pre-wrap; }
+
+        .mission-box { background: linear-gradient(145deg, rgba(0,255,204,0.08), rgba(0,136,170,0.02)); border: 1px solid rgba(0,255,204,0.3); border-radius: 16px; padding: 35px; position: relative; overflow: hidden; }
+        .mission-box::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary); }
+        .mission-title { color: #fff; font-size: 1.4rem; margin-bottom: 15px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+        .mission-text { color: var(--text-dim); font-size: 1.1rem; font-weight: 300; }
+        .status-badge { margin-top: 25px; display: inline-flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.6); padding: 8px 16px; border: 1px solid var(--border); border-radius: 30px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-main); }
+        .status-dot { width: 8px; height: 8px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 8px var(--primary); animation: blink 2s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        aside { display: flex; flex-direction: column; gap: 30px; }
+        .widget { background: var(--surface); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 16px; padding: 30px; }
+        .widget-title { font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 2px; color: var(--text-dim); margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.95rem; }
+        .stat-row:last-child { border: none; padding-bottom: 0; }
+        .stat-val { font-family: 'JetBrains Mono', monospace; color: var(--text-main); font-weight: bold; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 6px; }
+        
+        .hero-image-container { position: relative; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 40px rgba(0,0,0,0.6); margin-bottom: 20px; }
+        .hero-image-container::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); pointer-events: none; }
+        .hero-image { width: 100%; height: auto; display: block; transition: transform 0.5s ease; }
+        .hero-image-container:hover .hero-image { transform: scale(1.05); }
+        .img-caption { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-dim); text-align: center; letter-spacing: 1px; }
+
+        .instructor-note { background: rgba(0, 255, 204, 0.05); border: 1px solid rgba(0, 255, 204, 0.2); border-radius: 12px; padding: 25px; position: relative; }
+        .instructor-note::before { content: '”'; position: absolute; top: 10px; right: 20px; font-size: 4rem; color: rgba(0,255,204,0.1); font-family: serif; line-height: 1; }
+    </style>
+</head>
+<body>
+    <div class="tech-bg"></div><div class="glow-orb"></div>
+    <nav class="navbar">
+        <div class="nav-brand">ADV_ENGINEER_OS</div>
+        <div class="nav-module">Cyber-Sorter Project</div>
+    </nav>
+    <header class="hero">
+        <h1><span>Lesson 13 - 智能小车底盘建模实战</span></h1>
+        <p>针对 智能小车底盘建模实战 的硬核进阶，实现 Cyber-Sorter 的子系统构建与系统级验证。</p>
+    </header>
+    <div class="container">
+        <main>
+            <section class="section">
+                <h2 class="section-title"><span>01</span> 工程架构与理论节点 (Breakdown)</h2>
+                <ul class="knowledge-list">
+                    <li><strong>工程理论边界</strong><div class='list-desc'>分析 智能小车底盘建模实战 在全系统中的受力与电磁干扰情况。</div></li>
+<li><strong>工业规范执行</strong><div class='list-desc'>严格遵守 ISO 约束标准与 C++ MISRA 编程规范。</div></li>
+<li><strong>拓扑数据解构</strong><div class='list-desc'>在层级结构中进行参数化变量驱动。</div></li>
+
+                </ul>
+            </section>
+            <section class="section">
+                <h2 class="section-title"><span>02</span> 硬核参数与执行流 (Implementation)</h2>
+                <p>严格按照以下工程参数在系统中执行：</p>
+                <div class="code-container">
+                    <div class="code-header"><div class="mac-btn mac-close"></div><div class="mac-btn mac-min"></div><div class="mac-btn mac-max"></div><span class="code-title">cyber_sorter_sys_exec.cmd</span></div>
+                    <pre>// Placeholder Execute Stream
+init_module_subsystem();
+verify_kinematic_constraints(TOLERANCE_0_2MM);
+execute_build();</pre>
+                </div>
+            </section>
+            <section class="section">
+                <h2 class="section-title"><span>03</span> 极限排错与异常防御 (Debugging)</h2>
+                <ul class="debug-list">
+                    <li><span class='err-code'>[SYS_ERR]</span> 参数溢出或结构干涉<div style='color:#aaa; font-size:0.95rem; margin-top:8px;'><strong>排查:</strong> 执行干涉检查矩阵，校对浮点数精度限制。</div></li>
+<li><span class='err-code'>[WARN]</span> 节点响应延迟<div style='color:#aaa; font-size:0.95rem; margin-top:8px;'><strong>排查:</strong> 采用 RTOS 任务调度或优化草图求解器。</div></li>
+
+                </ul>
+            </section>
+            <section class="section" style="border:none;background:transparent;padding:0;box-shadow:none;">
+                <div class="mission-box">
+                    <div class="mission-title">► 进阶实操考核 (Advanced Mission)</div>
+                    <div class="mission-text">完成 智能小车底盘建模实战 的所有前置构建，并撰写性能优化评估报告，为系统联调做准备。</div>
+                    <div class="status-badge"><div class="status-dot"></div>SYS_STATUS: PENDING_USER_EXECUTION</div>
+                </div>
+            </section>
+        </main>
+        <aside>
+            <div class="widget">
+                <div class="widget-title">Visual Schematic</div>
+                <div class="hero-image-container">
+                    <img src="../assets/images/cad.jpg" alt="Schematic" class="hero-image">
+                </div>
+                <div class="img-caption">FIG 1.0 - CORE SYSTEM TOPOLOGY</div>
+            </div>
+            <div class="widget">
+                <div class="widget-title">Lesson Telemetry</div>
+                <div class="stat-row"><span>Course Length</span><span class="stat-val">90 MINS</span></div>
+                <div class="stat-row"><span>Difficulty</span><span class="stat-val">HARDCORE</span></div>
+                <div class="stat-row"><span>System Integrity</span><span class="stat-val" style="color:var(--success)">100% SECURE</span></div>
+            </div>
+            <div class="widget instructor-note">
+                <div class="widget-title" style="color: var(--primary)">Instructor Notes</div>
+                <p style="font-size: 0.9rem; color: #ccc; line-height: 1.5;">每一个螺丝的松动，每一行代码的内存泄漏，都将在最终联调时被放大 100 倍。</p>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>
