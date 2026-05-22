@@ -1,0 +1,180 @@
+/* custom.css for Lesson 11 */
+
+/* 底座容器 (宽60px, 深80px, 高20px) */
+.base {
+    width: 60px;
+    height: 80px;
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translate3d(0, 0, 10px); /* 居中且底部刚好在 Z=0 */
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.base .face {
+    position: absolute;
+    background: rgba(142, 142, 147, 0.65);
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(2px);
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 3D 底座的 6 个面 */
+.base .face.front  { width: 60px; height: 20px; transform: rotateX(-90deg) translateZ(40px); }
+.base .face.back   { width: 60px; height: 20px; transform: rotateX(90deg) translateZ(40px); }
+.base .face.left   { width: 80px; height: 20px; transform: rotateY(-90deg) translateZ(30px); }
+.base .face.right  { width: 80px; height: 20px; transform: rotateY(90deg) translateZ(30px); }
+.base .face.top    { width: 60px; height: 80px; transform: rotateX(0deg) translateZ(10px); }
+.base .face.bottom { width: 60px; height: 80px; transform: rotateX(180deg) translateZ(10px); }
+
+/* 底座上表面的卡槽指示线 */
+.base .slot-line {
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    left: -30px;
+    top: 10px; /* 卡槽位置 */
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transform: translateZ(10.1px);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+
+/* 支撑背板 (宽60px, 高100px, 厚8px) */
+.back {
+    width: 60px;
+    height: 100px;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+.back .face {
+    position: absolute;
+    background: rgba(0, 122, 255, 0.7);
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    box-shadow: inset 0 0 15px rgba(0, 122, 255, 0.3);
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 3D 背板的 6 个面 */
+.back .face.front  { width: 60px; height: 100px; transform: rotateY(0deg) translateZ(4px); }
+.back .face.back   { width: 60px; height: 100px; transform: rotateY(180deg) translateZ(4px); }
+.back .face.left   { width: 8px; height: 100px; transform: rotateY(-90deg) translateZ(30px); }
+.back .face.right  { width: 8px; height: 100px; transform: rotateY(90deg) translateZ(30px); }
+.back .face.top    { width: 60px; height: 8px; transform: rotateX(90deg) translateZ(50px); }
+.back .face.bottom { width: 60px; height: 8px; transform: rotateX(-90deg) translateZ(50px); }
+
+/* 熨斗切削绿色科技面 (宽70px, 深90px) */
+.iron-plane {
+    width: 70px;
+    height: 90px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -35px;
+    margin-top: -45px;
+    background: rgba(52, 199, 89, 0.35);
+    border: 2px dashed #34c759;
+    box-shadow: 0 0 20px rgba(52, 199, 89, 0.6), inset 0 0 15px rgba(52, 199, 89, 0.3);
+    transform: rotateX(90deg) translateZ(0.5px); /* 贴紧 Z=0 热床面 */
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    pointer-events: none;
+}
+
+/* 步骤状态控制 */
+
+/* 步骤 0: 初始化 */
+.visual-side:not([class*="step-"]) .part,
+.visual-side.step-0 .part {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+/* 步骤 1: 夯实加长地基 (底盘出现，显示卡槽位置) */
+.visual-side.step-1 .base {
+    opacity: 1;
+    transform: translate3d(0, 0, 10px) scale(1);
+}
+.visual-side.step-1 .base .slot-line {
+    opacity: 1;
+}
+
+/* 步骤 2: 倾斜背板狠插入 (背板出现，倾斜30度并下插，底部穿透底座下表面) */
+.visual-side.step-2 .base {
+    opacity: 1;
+    transform: translate3d(0, 0, 10px) scale(1);
+}
+.visual-side.step-2 .base .slot-line {
+    opacity: 1;
+}
+.visual-side.step-2 .back {
+    opacity: 1;
+    /* 倾斜 30 度插入，Z坐标设为 38px 使得下部穿过底盘底面，X轴微旋转 */
+    transform: translate3d(0, 10px, 38px) rotateX(-30deg) scale(1);
+}
+/* 步骤 2 & 3: 背板底面高亮红色，表示露出的悬空尖角警告 */
+.visual-side.step-2 .back .face.bottom {
+    background: rgba(255, 59, 48, 0.9);
+    border-color: #ff3b30;
+    box-shadow: 0 0 10px rgba(255, 59, 48, 0.8);
+}
+
+/* 步骤 3: 组装变一体 (卡槽边缘高亮融合，背板依然穿透) */
+.visual-side.step-3 .base {
+    opacity: 1;
+    transform: translate3d(0, 0, 10px) scale(1);
+}
+/* 卡槽线在组装时变成发光融合形态 */
+.visual-side.step-3 .base .slot-line {
+    opacity: 1;
+    background: rgba(52, 199, 89, 0.5);
+    border-color: #34c759;
+    box-shadow: 0 0 10px rgba(52, 199, 89, 0.8);
+}
+.visual-side.step-3 .back {
+    opacity: 1;
+    transform: translate3d(0, 10px, 38px) rotateX(-30deg) scale(1);
+}
+.visual-side.step-3 .back .face.bottom {
+    background: rgba(255, 59, 48, 0.9);
+    border-color: #ff3b30;
+    box-shadow: 0 0 10px rgba(255, 59, 48, 0.8);
+}
+
+/* 步骤 4: 熨斗一键切底 (场景翻转展示底部，背板上提，红色切平，出现绿色熨斗平放面) */
+.visual-side.step-4 .scene {
+    transform: rotateX(-35deg) rotateY(65deg) rotateZ(-10deg) !important; /* 场景旋转以侧底方观察 */
+}
+.visual-side.step-4 .base {
+    opacity: 1;
+    transform: translate3d(0, 0, 10px) scale(1);
+}
+.visual-side.step-4 .base .slot-line {
+    opacity: 1;
+    background: rgba(52, 199, 89, 0.2);
+    border-color: rgba(52, 199, 89, 0.4);
+}
+.visual-side.step-4 .back {
+    opacity: 1;
+    /* 切平：将背板上移至 Z=46px，底面正好与地盘底面 Z=0 切平齐 */
+    transform: translate3d(0, 10px, 46px) rotateX(-30deg) scale(1);
+}
+/* 背板底面变为贴合热床的绿色高亮 */
+.visual-side.step-4 .back .face.bottom {
+    background: rgba(52, 199, 89, 0.85);
+    border-color: #34c759;
+    box-shadow: 0 0 10px rgba(52, 199, 89, 0.6);
+}
+/* 熨斗切平面浮现并带有呼吸效果 */
+.visual-side.step-4 .iron-plane {
+    opacity: 1;
+    animation: ironPulse 2s infinite ease-in-out;
+}
+@keyframes ironPulse {
+    0%, 100% { opacity: 0.35; box-shadow: 0 0 10px rgba(52, 199, 89, 0.4); }
+    50% { opacity: 0.85; box-shadow: 0 0 25px rgba(52, 199, 89, 0.8); }
+}
