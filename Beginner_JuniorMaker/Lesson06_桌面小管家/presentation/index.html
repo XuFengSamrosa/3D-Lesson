@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第06课：桌面小管家收纳盒 - 3D打印魔法创客营</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">魔法创客营 V1.0 (PRO版)</div>
+        <ul class="nav-links">
+            <li><a href="#intro">课程目标</a></li>
+            <li><a href="#process">3D建模魔法秀</a></li>
+            <li><a href="#tools">魔法兵器谱</a></li>
+            <li><a href="#pitfalls">实验室警报预案</a></li>
+        </ul>
+    </nav>
+
+    <div class="scroll-container">
+        <!-- Slide 1: Intro -->
+        <section id="intro" class="slide slide-dark">
+            <div class="content">
+                <span class="badge">Lesson 06</span>
+                <h1 class="title">桌面小管家收纳盒</h1>
+                <p class="subtitle">精准掏空魔法，打造你的私人百宝箱。</p>
+                
+                <div class="cards">
+                    <div class="card glass">
+                        <h3>核心目标</h3>
+                        <p>综合运用基础形状和负零件，深刻理解‘壁厚’与‘底厚’的概念，告别无底洞。</p>
+                    </div>
+                    <div class="card glass">
+                        <h3>讲师必备知识</h3>
+                        <p>壁厚极限：墙壁太薄会被一捏就碎，至少要留 2mm 的肉！<br>Z轴陷阱(底厚)：挖坑千万不能挖到底，否则收纳盒就成了下水道！</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: The Process (3D CSS Demo) -->
+        <section id="process" class="slide slide-light">
+            <div class="content process-content">
+                <div class="text-side">
+                    <h2>三维魔术解析</h2>
+                    <p>给孩子们看成品之前，先用这套步骤演示魔法是怎么变出来的。</p>
+                    
+                    <div class="step-controls">
+                        <button class="step-btn active" data-step="0">0. 初始化</button>
+<button class="step-btn" data-step="1">1. 召唤实心金砖</button>
+<button class="step-btn" data-step="2">2. 植入透明吞噬兽</button>
+<button class="step-btn" data-step="3">3. 拯救盒子的底面</button>
+<button class="step-btn" data-step="4">4. 布尔掏空成型</button>
+
+                    </div>
+
+                    <div class="step-descriptions">
+                        <div class="desc show" id="desc-0">开始百宝箱铸造。</div>
+<div class="desc" id="desc-1">放置一个 60x60mm 的实心方块作为外壳。</div>
+<div class="desc" id="desc-2">加入一个稍微小一点的红色负零件，它负责吃掉内部的肉。</div>
+<div class="desc" id="desc-3">关键一步！把红色的负零件向上抬高 3mm，保住盒底。</div>
+<div class="desc" id="desc-4">切片！红色怪兽与内部的肉同归于尽，留下一个坚固带底的收纳盒！</div>
+
+                    </div>
+                </div>
+                
+                <div class="visual-side">
+                    <div class="scene">
+                        <div class="axis x-axis">X</div>
+                        <div class="axis y-axis">Y</div>
+                        <div class="axis z-axis">Z</div>
+                        <div class="grid-floor"></div>
+                        <div class='part main-body'><div class='face front'></div><div class='face left'></div><div class='face top'></div></div><div class='part negative-core'><div class='face front'></div><div class='face left'></div><div class='face top'></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Tools -->
+        <section id="tools" class="slide slide-dark">
+            <div class="content">
+                <h2>魔法兵器谱（软件基础）</h2>
+                <div class="tools-grid">
+                    <div class="tool-item glass">
+            <div class="icon">📐</div>
+            <h3>绝对数值面板</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>在右下角输入精确的毫米数字。</p>
+            <p class="teacher-talk">🗣️ "今天我们要造的是实用工具，差一毫米橡皮擦就塞不进去！"</p>
+        </div>
+<div class="tool-item glass">
+            <div class="icon">🔍</div>
+            <h3>X光切片透视</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>切片后拉动右侧垂直滑块。</p>
+            <p class="teacher-talk">🗣️ "一定要拉下透视仪看一眼底部，如果能看到网格床，你的盒子就漏底了！"</p>
+        </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Pitfalls -->
+        <section id="pitfalls" class="slide slide-light">
+            <div class="content">
+                <h2>实验室警报预案</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+            <div class="dot red"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 漏水的无底洞</h3>
+                <p>负零件直接贴到了Z=0的地面。<br>应对：把里面的负零件往上抬高 3mm，给盒子留一层结实的地板！</p>
+            </div>
+        </div>
+<div class="timeline-item">
+            <div class="dot yellow"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 一碰就碎的纸盒</h3>
+                <p>里面掏空得太狠，边框只剩下一丝丝肉。<br>应对：缩小负零件的尺寸，给四面八方都留下安全厚度。</p>
+            </div>
+        </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>
