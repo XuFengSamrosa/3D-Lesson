@@ -1,0 +1,154 @@
+/* custom.css for Lesson 15 */
+
+/* 零件和支撑 3D 容器 */
+.part {
+    width: 0;
+    height: 0;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+.part .face {
+    position: absolute;
+    transition: all 0.8s ease;
+}
+
+/* --- 左构件 1 (L型悬空榫头) 30x30x30px --- */
+.part1 {
+    transform: translate3d(-15px, 0, 35px); /* 默认悬空 20px */
+}
+
+.part1 .face {
+    background: rgba(10, 132, 255, 0.75); /* 科技蓝 */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.part1 .face.front  { width: 30px; height: 30px; left: -15px; top: -15px; transform: rotateX(-90deg) translateZ(15px); }
+.part1 .face.back   { width: 30px; height: 30px; left: -15px; top: -15px; transform: rotateX(90deg) translateZ(15px); }
+.part1 .face.left   { width: 30px; height: 30px; left: -15px; top: -15px; transform: rotateY(-90deg) translateZ(15px); }
+.part1 .face.right  { width: 30px; height: 30px; left: -15px; top: -15px; transform: rotateY(90deg) translateZ(15px); }
+.part1 .face.top    { width: 30px; height: 30px; left: -15px; top: -15px; transform: rotateX(0deg) translateZ(15px); }
+.part1 .face.bottom { width: 30px; height: 30px; left: -15px; top: -15px; transform: rotateX(180deg) translateZ(15px); }
+
+
+/* --- 右构件 2 (卯眼滑块) 30x30x30px --- */
+.part2 {
+    transform: translate3d(15px, 0, 15px); /* 贴地 */
+}
+
+.part2 .face {
+    background: rgba(255, 159, 10, 0.75); /* 暖橙色 */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.part2 .face.front  { width: 30px; height: 30px; left: -15px; top: -15px; transform: rotateX(-90deg) translateZ(15px); }
+.part2 .face.back   { width: 30px; height: 30px; left: -15px; top: -15px; transform: rotateX(90deg) translateZ(15px); }
+.part2 .face.left   { width: 30px; height: 30px; left: -15px; top: -15px; transform: rotateY(-90deg) translateZ(15px); }
+.part2 .face.right  { width: 30px; height: 30px; left: -15px; top: -15px; transform: rotateY(90deg) translateZ(15px); }
+.part2 .face.top    { width: 30px; height: 30px; left: -15px; top: -15px; transform: rotateX(0deg) translateZ(15px); }
+.part2 .face.bottom { width: 30px; height: 30px; left: -15px; top: -15px; transform: rotateX(180deg) translateZ(15px); }
+
+
+/* --- 悬空支撑柱 12x12x20px --- */
+.support {
+    transform: translate3d(-45px, 0, 10px);
+}
+
+.support .face {
+    background: rgba(240, 240, 240, 0.7); /* 磨砂白色 */
+    border: 1px dashed rgba(255, 255, 255, 0.9);
+    box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.5), 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.support .face.front  { width: 12px; height: 20px; left: -6px; top: -10px; transform: rotateX(-90deg) translateZ(6px); }
+.support .face.back   { width: 12px; height: 20px; left: -6px; top: -10px; transform: rotateX(90deg) translateZ(6px); }
+.support .face.left   { width: 12px; height: 20px; left: -6px; top: -10px; transform: rotateY(-90deg) translateZ(6px); }
+.support .face.right  { width: 12px; height: 20px; left: -6px; top: -10px; transform: rotateY(90deg) translateZ(6px); }
+.support .face.top    { width: 12px; height: 12px; left: -6px; top: -6px; transform: rotateX(0deg) translateZ(10px); }
+.support .face.bottom { width: 12px; height: 12px; left: -6px; top: -6px; transform: rotateX(180deg) translateZ(10px); }
+
+
+/* --- 步骤动画样式切换 --- */
+
+/* 步骤 0: 初始化 */
+.visual-side:not([class*="step-"]) .part,
+.visual-side.step-0 .part {
+    opacity: 0;
+}
+
+/* 步骤 1: 躲避相撞红区 (两零件距离极近，交界闪烁红光警报) */
+.visual-side.step-1 .part1 {
+    opacity: 1;
+    transform: translate3d(-15px, 0, 35px);
+}
+.visual-side.step-1 .part2 {
+    opacity: 1;
+    transform: translate3d(15px, 0, 15px);
+}
+.visual-side.step-1 .part1 .face,
+.visual-side.step-1 .part2 .face {
+    border-color: #ff3b30;
+    box-shadow: inset 0 0 10px rgba(255, 59, 48, 0.4), 0 0 12px rgba(255, 59, 48, 0.6);
+    animation: danger-pulse 1.5s infinite ease-in-out;
+}
+
+/* 步骤 2: 加盘片开分厂 (距离拉开，红色警报解除，边缘高亮安全绿色) */
+.visual-side.step-2 .part1 {
+    opacity: 1;
+    transform: translate3d(-45px, 0, 35px);
+}
+.visual-side.step-2 .part2 {
+    opacity: 1;
+    transform: translate3d(45px, 0, 15px);
+}
+.visual-side.step-2 .part1 .face,
+.visual-side.step-2 .part2 .face {
+    border-color: #34c759;
+    box-shadow: inset 0 0 8px rgba(52, 199, 89, 0.3), 0 0 12px rgba(52, 199, 89, 0.5);
+}
+
+/* 步骤 3: 全副武装拆支撑 (拉开状态，左构件下方生成 3D 白色支撑柱) */
+.visual-side.step-3 .part1 {
+    opacity: 1;
+    transform: translate3d(-45px, 0, 35px);
+}
+.visual-side.step-3 .part2 {
+    opacity: 1;
+    transform: translate3d(45px, 0, 15px);
+}
+.visual-side.step-3 .support {
+    opacity: 1;
+}
+
+/* 步骤 4: 物理公差强拼 (支撑剥离消失，左零件落到底盘滑回，拼插对齐接触，视角旋转) */
+.visual-side.step-4 .scene {
+    transform: rotateX(-20deg) rotateY(70deg) rotateZ(0deg) !important;
+}
+.visual-side.step-4 .part1 {
+    opacity: 1;
+    transform: translate3d(-15px, 0, 15px); /* 降落拼合 */
+}
+.visual-side.step-4 .part2 {
+    opacity: 1;
+    transform: translate3d(15px, 0, 15px);
+}
+.visual-side.step-4 .support {
+    opacity: 0;
+    transform: translate3d(-45px, 0, 10px) scale(0.5);
+}
+
+/* 红色碰撞呼吸动画 */
+@keyframes danger-pulse {
+    0%, 100% {
+        border-color: rgba(255, 59, 48, 0.6);
+        box-shadow: inset 0 0 5px rgba(255, 59, 48, 0.2), 0 0 8px rgba(255, 59, 48, 0.4);
+    }
+    50% {
+        border-color: rgba(255, 59, 48, 1);
+        box-shadow: inset 0 0 12px rgba(255, 59, 48, 0.5), 0 0 18px rgba(255, 59, 48, 0.8);
+    }
+}
