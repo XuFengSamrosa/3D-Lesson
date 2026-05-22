@@ -1,0 +1,181 @@
+/* custom.css for Lesson 09 */
+
+/* 灯罩容器 */
+.cyl {
+    width: 0;
+    height: 0;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 侧壁面通用样式 */
+.cyl .face {
+    position: absolute;
+    width: 26px;
+    height: 100px;
+    left: -13px;
+    top: -50px;
+    background: linear-gradient(to bottom, rgba(255, 180, 0, 0.15), rgba(255, 140, 0, 0.35));
+    border: 1.5px solid rgba(255, 180, 0, 0.6);
+    box-shadow: inset 0 0 15px rgba(255, 140, 0, 0.2), 0 0 10px rgba(255, 140, 0, 0.1);
+    transform-style: preserve-3d;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    backface-visibility: hidden;
+}
+
+/* 用伪元素实现盖子与底部 */
+.cyl::before,
+.cyl::after {
+    content: '';
+    position: absolute;
+    width: 62px;
+    height: 62px;
+    left: -31px;
+    top: -31px;
+    border-radius: 50%;
+    background: rgba(255, 140, 0, 0.25);
+    border: 2px solid rgba(255, 180, 0, 0.7);
+    box-shadow: 0 0 20px rgba(255, 140, 0, 0.4);
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+/* 顶盖 */
+.cyl::before {
+    transform: translateZ(50px) rotateX(90deg);
+}
+/* 底盖 */
+.cyl::after {
+    transform: translateZ(-50px) rotateX(90deg);
+}
+
+/* 8个面的摆放 */
+.cyl .face.w1 { transform: translateZ(50px) rotateZ(0deg) translateY(30px) rotateX(90deg); }
+.cyl .face.w2 { transform: translateZ(50px) rotateZ(45deg) translateY(30px) rotateX(90deg); }
+.cyl .face.w3 { transform: translateZ(50px) rotateZ(90deg) translateY(30px) rotateX(90deg); }
+.cyl .face.w4 { transform: translateZ(50px) rotateZ(135deg) translateY(30px) rotateX(90deg); }
+.cyl .face.w5 { transform: translateZ(50px) rotateZ(180deg) translateY(30px) rotateX(90deg); }
+.cyl .face.w6 { transform: translateZ(50px) rotateZ(225deg) translateY(30px) rotateX(90deg); }
+.cyl .face.w7 { transform: translateZ(50px) rotateZ(270deg) translateY(30px) rotateX(90deg); }
+.cyl .face.w8 { transform: translateZ(50px) rotateZ(315deg) translateY(30px) rotateX(90deg); }
+
+/* 侧面菱形图案 */
+.cyl .face::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    left: 7px;
+    top: 44px;
+    background: rgba(255, 59, 48, 0.95);
+    border: 1px solid #ff3b30;
+    transform: rotate(45deg) scale(0);
+    transition: all 0.5s ease;
+    box-shadow: 0 0 10px rgba(255, 59, 48, 0.8);
+    opacity: 0;
+}
+
+/* 红色 3D 菱形负零件 (长方体盒子绕轴旋转45度) */
+.hole {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+.hole .face {
+    position: absolute;
+    background: rgba(255, 59, 48, 0.75);
+    border: 1px solid rgba(255, 59, 48, 0.9);
+    box-shadow: 0 0 15px rgba(255, 59, 48, 0.4);
+}
+/* 3D 长方体六个面，长50px，截面16x16 */
+.hole .face.front  { width: 16px; height: 16px; transform: rotateY(0deg) translateZ(25px); }
+.hole .face.back   { width: 16px; height: 16px; transform: rotateY(180deg) translateZ(25px); }
+.hole .face.left   { width: 50px; height: 16px; left: -17px; transform: rotateY(-90deg) translateZ(8px); }
+.hole .face.right  { width: 50px; height: 16px; left: -17px; transform: rotateY(90deg) translateZ(8px); }
+.hole .face.top    { width: 16px; height: 50px; top: -17px; transform: rotateX(90deg) translateZ(8px); }
+.hole .face.bottom { width: 16px; height: 50px; top: -17px; transform: rotateX(-90deg) translateZ(8px); }
+
+/* 步骤状态控制 */
+
+/* 步骤 0: 初始化 */
+.visual-side:not([class*="step-"]) .part,
+.visual-side.step-0 .part {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+/* 步骤 1: 掏空心灯罩 (显示暖光灯罩外壳) */
+.visual-side.step-1 .cyl {
+    opacity: 1;
+    transform: scale(1);
+}
+.visual-side.step-1 .cyl::before,
+.visual-side.step-1 .cyl::after {
+    opacity: 1;
+}
+
+/* 步骤 2: 植入红色菱形魔法 (浮现出红色 3D 负零件) */
+.visual-side.step-2 .cyl {
+    opacity: 1;
+    transform: scale(1);
+}
+.visual-side.step-2 .cyl::before,
+.visual-side.step-2 .cyl::after {
+    opacity: 1;
+}
+.visual-side.step-2 .hole {
+    opacity: 1;
+    /* 浮出现在灯罩外侧 70px 处，旋转45度形成菱形截面 */
+    transform: translate3d(0, 70px, 50px) rotateY(90deg) rotateX(45deg) scale(1);
+}
+
+/* 步骤 3: 绑定中心坐标 */
+.visual-side.step-3 .cyl {
+    opacity: 1;
+    transform: scale(1);
+}
+.visual-side.step-3 .cyl::before,
+.visual-side.step-3 .cyl::after {
+    opacity: 1;
+}
+/* 在插入的 w1 面显示红色切口虚影 */
+.visual-side.step-3 .cyl .face.w1::after {
+    opacity: 1;
+    transform: rotate(45deg) scale(1.1);
+}
+.visual-side.step-3 .hole {
+    opacity: 1;
+    /* 插入到灯罩壁上 */
+    transform: translate3d(0, 30px, 50px) rotateY(90deg) rotateX(45deg) scale(1);
+}
+
+/* 步骤 4: 八卦阵列复制 */
+.visual-side.step-4 .cyl {
+    opacity: 1;
+    transform: scale(1.1) rotateZ(45deg);
+}
+.visual-side.step-4 .cyl::before,
+.visual-side.step-4 .cyl::after {
+    opacity: 0.6;
+    background: rgba(255, 180, 0, 0.4);
+    box-shadow: 0 0 30px rgba(255, 180, 0, 0.6);
+}
+.visual-side.step-4 .cyl .face {
+    background: linear-gradient(to bottom, rgba(255, 180, 0, 0.05), rgba(255, 140, 0, 0.15));
+    border-color: rgba(255, 180, 0, 0.8);
+    box-shadow: inset 0 0 10px rgba(255, 140, 0, 0.3), 0 0 20px rgba(255, 140, 0, 0.4);
+}
+.visual-side.step-4 .cyl .face::after {
+    opacity: 1;
+    transform: rotate(45deg) scale(1);
+    background: transparent;
+    border: 2.5px solid #ffb400;
+    box-shadow: 0 0 15px rgba(255, 180, 0, 0.8), inset 0 0 5px rgba(255, 180, 0, 0.5);
+}
+.visual-side.step-4 .hole {
+    opacity: 0;
+    transform: translate3d(0, 0, 50px) scale(0);
+}
