@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第07课：迷你景观微缩精灵 - 3D打印魔法创客营</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">魔法创客营 V1.0 (PRO版)</div>
+        <ul class="nav-links">
+            <li><a href="#intro">课程目标</a></li>
+            <li><a href="#process">3D建模魔法秀</a></li>
+            <li><a href="#tools">魔法兵器谱</a></li>
+            <li><a href="#pitfalls">实验室警报预案</a></li>
+        </ul>
+    </nav>
+
+    <div class="scroll-container">
+        <!-- Slide 1: Intro -->
+        <section id="intro" class="slide slide-dark">
+            <div class="content">
+                <span class="badge">Lesson 07</span>
+                <h1 class="title">迷你景观微缩精灵</h1>
+                <p class="subtitle">细小建筑的矩阵排列与树形支撑魔法。</p>
+                
+                <div class="cards">
+                    <div class="card glass">
+                        <h3>核心目标</h3>
+                        <p>学习微缩模型的阵列复制（做栅栏），并探秘如何让打印机在空中建造屋顶（支撑技术）。</p>
+                    </div>
+                    <div class="card glass">
+                        <h3>讲师必备知识</h3>
+                        <p>悬空挑战：打印机吐出的是融化的软糖丝，如果不托住，它绝对无法在空气中凭空搭桥。<br>树形支撑：长得像大树一样的辅助结构，省材料还好拆。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: The Process (3D CSS Demo) -->
+        <section id="process" class="slide slide-light">
+            <div class="content process-content">
+                <div class="text-side">
+                    <h2>三维魔术解析</h2>
+                    <p>给孩子们看成品之前，先用这套步骤演示魔法是怎么变出来的。</p>
+                    
+                    <div class="step-controls">
+                        <button class="step-btn active" data-step="0">0. 初始化</button>
+<button class="step-btn" data-step="1">1. 建立单根木栅栏</button>
+<button class="step-btn" data-step="2">2. 分身排成一排</button>
+<button class="step-btn" data-step="3">3. 召唤悬浮阁楼</button>
+<button class="step-btn" data-step="4">4. 长出树形支撑</button>
+
+                    </div>
+
+                    <div class="step-descriptions">
+                        <div class="desc show" id="desc-0">仙境建造准备。</div>
+<div class="desc" id="desc-1">拉出一根细长的长方体作为基础栅栏。</div>
+<div class="desc" id="desc-2">Ctrl+C/V 复制出一排栅栏，调整间距。</div>
+<div class="desc" id="desc-3">在旁边放一个带悬空顶篷的小阁楼。</div>
+<div class="desc" id="desc-4">切片施法！阁楼底下自动长出了弯曲的绿色树根支撑。</div>
+
+                    </div>
+                </div>
+                
+                <div class="visual-side">
+                    <div class="scene">
+                        <div class="axis x-axis">X</div>
+                        <div class="axis y-axis">Y</div>
+                        <div class="axis z-axis">Z</div>
+                        <div class="grid-floor"></div>
+                        <div class='part tub'></div><div class='part div1'></div><div class='part div2'></div><div class='part tree'></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Tools -->
+        <section id="tools" class="slide slide-dark">
+            <div class="content">
+                <h2>魔法兵器谱（软件基础）</h2>
+                <div class="tools-grid">
+                    <div class="tool-item glass">
+            <div class="icon">📋</div>
+            <h3>极速分身术</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>Ctrl+C 和 Ctrl+V。</p>
+            <p class="teacher-talk">🗣️ "按一次，拉开一次！千万不要狂按，否则原地会生出100个重叠的分身导致爆炸！"</p>
+        </div>
+<div class="tool-item glass">
+            <div class="icon">🌳</div>
+            <h3>召唤树人托举</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>在工艺参数里勾选开启‘树形支撑’。</p>
+            <p class="teacher-talk">🗣️ "用大自然的魔法，从地上长出树木帮你托住悬空的仙女阁楼！"</p>
+        </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Pitfalls -->
+        <section id="pitfalls" class="slide slide-light">
+            <div class="content">
+                <h2>实验室警报预案</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+            <div class="dot red"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 仙女阁楼变炒面</h3>
+                <p>忘了开支撑，阁楼底部完全拉丝垂落。<br>应对：让孩子们看看失败品，教导他们要敬畏‘万有引力’，必须打勾开支撑！</p>
+            </div>
+        </div>
+<div class="timeline-item">
+            <div class="dot orange"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 分身术失控死机</h3>
+                <p>狂按 Ctrl+V 导致软件卡死。<br>应对：利用左边对象列表，找出那些重叠的幽灵并删掉。</p>
+            </div>
+        </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

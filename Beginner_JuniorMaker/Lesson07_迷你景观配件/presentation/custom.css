@@ -1,0 +1,139 @@
+/* custom.css for Lesson 07 */
+
+/* 底座：扁圆柱花盆 */
+.tub {
+    width: 100px;
+    height: 100px;
+    margin-left: -50px;
+    margin-top: -50px;
+    background: rgba(142, 142, 147, 0.9);
+    border: 2px solid rgba(255,255,255,0.4);
+    border-radius: 50%;
+    transform: rotateX(90deg) translateZ(-40px); /* 贴在网格面上 */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.3);
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 栅栏：3D 长条板 */
+.div1 {
+    width: 80px;
+    height: 40px;
+    margin-left: -40px;
+    margin-top: -20px;
+    background: linear-gradient(135deg, #d35400, #e67e22);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 4px;
+    transform: translateZ(10px) rotateX(20deg);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+/* 给 fence 增加一点木纹质感 */
+.div1::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(90deg, rgba(0,0,0,0.15) 0 5px, transparent 5px 10px);
+}
+
+/* 悬空阁楼：3D 方块 */
+.div2 {
+    width: 60px;
+    height: 50px;
+    margin-left: -30px;
+    margin-top: -80px; /* 悬空在上 */
+    background: rgba(41, 128, 185, 0.8);
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 8px;
+    transform-style: preserve-3d;
+    transform: translate3d(40px, 0, 40px) rotateY(-15deg);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 支撑：发光的绿色树结构 */
+.tree {
+    width: 10px;
+    height: 70px;
+    margin-left: 20px;
+    margin-top: -30px;
+    background: #2ecc71;
+    border-radius: 5px;
+    box-shadow: 0 0 15px #2ecc71;
+    transform: translate3d(0, 0, 40px) rotateX(10deg);
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.tree::before {
+    content: '🌳';
+    font-size: 20px;
+    position: absolute;
+    top: -20px;
+    left: -6px;
+    animation: float 2s infinite alternate ease-in-out;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-5px); }
+}
+
+/* 步骤样式逻辑 */
+
+/* 步骤 0: 初始化 */
+.visual-side:not([class*="step-"]) .part,
+.visual-side.step-0 .part {
+    opacity: 0;
+    transform: scale(0.5) translate3d(0, 100px, 0);
+}
+
+/* 步骤 1: 建立单根木栅栏 (底盘和基础元素) */
+.visual-side.step-1 .tub {
+    opacity: 1;
+    transform: rotateX(90deg) translateZ(-40px) scale(1);
+}
+.visual-side.step-1 .div1,
+.visual-side.step-1 .div2,
+.visual-side.step-1 .tree {
+    opacity: 0;
+}
+
+/* 步骤 2: 分身排成一排 (栅栏出现) */
+.visual-side.step-2 .tub {
+    opacity: 1;
+}
+.visual-side.step-2 .div1 {
+    opacity: 1;
+    transform: translate3d(0, 0, 10px) rotateX(20deg) scale(1);
+}
+.visual-side.step-2 .div2,
+.visual-side.step-2 .tree {
+    opacity: 0;
+}
+
+/* 步骤 3: 召唤悬浮阁楼 (阁楼显示，但因无支撑倾斜悬浮) */
+.visual-side.step-3 .tub,
+.visual-side.step-3 .div1 {
+    opacity: 1;
+}
+.visual-side.step-3 .div2 {
+    opacity: 1;
+    transform: translate3d(30px, 0, 40px) rotateY(-15deg) rotateX(5deg); /* 轻微倾斜 */
+}
+.visual-side.step-3 .tree {
+    opacity: 0;
+}
+
+/* 步骤 4: 长出树形支撑 (树形支撑升起，顶住阁楼使其归位) */
+.visual-side.step-4 .tub,
+.visual-side.step-4 .div1 {
+    opacity: 1;
+}
+.visual-side.step-4 .div2 {
+    opacity: 1;
+    transform: translate3d(30px, -5px, 40px) rotateY(-15deg); /* 被托平 */
+}
+.visual-side.step-4 .tree {
+    opacity: 1;
+    transform: translate3d(15px, 5px, 40px) scaleY(1);
+    transform-origin: bottom;
+}
