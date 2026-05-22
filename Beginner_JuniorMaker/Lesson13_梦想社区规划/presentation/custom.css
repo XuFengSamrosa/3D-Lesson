@@ -1,0 +1,193 @@
+/* custom.css for Lesson 13 */
+
+/* 核心蓝图图纸容器 */
+.doc {
+    width: 120px;
+    height: 160px;
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translate3d(0, 0, 1px) scale(0.5);
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+/* 3D 纸张面 (顶底双层，略带厚度) */
+.doc .face {
+    position: absolute;
+    transition: all 0.8s ease;
+    backface-visibility: hidden;
+}
+
+.doc .face.top {
+    width: 120px;
+    height: 160px;
+    transform: rotateX(0deg) translate3d(-60px, -80px, 0.5px);
+    background: rgba(10, 30, 80, 0.85);
+    border: 2px solid rgba(0, 122, 255, 0.6);
+    box-shadow: inset 0 0 25px rgba(0, 122, 255, 0.5), 0 0 20px rgba(0, 122, 255, 0.2);
+    /* 蓝图科技网格 */
+    background-image: 
+        linear-gradient(rgba(0, 122, 255, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 122, 255, 0.2) 1px, transparent 1px);
+    background-size: 10px 10px;
+}
+
+.doc .face.bottom {
+    width: 120px;
+    height: 160px;
+    transform: rotateX(180deg) translate3d(-60px, 80px, 0.5px);
+    background: rgba(5, 15, 40, 0.95);
+    border: 1px solid rgba(0, 122, 255, 0.4);
+}
+
+/* 步骤 2: 地标核心圆 */
+.doc .blueprint-core {
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-23px, -23px, 1px) scale(0.6);
+    border-radius: 50%;
+    border: 2px dashed #007aff;
+    background: radial-gradient(circle, rgba(0, 122, 255, 0.3) 0%, transparent 80%);
+    box-shadow: 0 0 15px rgba(0, 122, 255, 0.5);
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 步骤 3: 道路规划 */
+.doc .blueprint-roads {
+    position: absolute;
+    width: 120px;
+    height: 160px;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-60px, -80px, 1.2px);
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+
+.doc .blueprint-roads .road {
+    position: absolute;
+    background: rgba(52, 199, 89, 0.55);
+    box-shadow: 0 0 12px rgba(52, 199, 89, 0.4);
+    border: 1px solid rgba(52, 199, 89, 0.7);
+    border-radius: 3px;
+    transition: all 0.8s ease;
+}
+
+/* 横向马路 */
+.doc .blueprint-roads .road.r1 {
+    width: 100px;
+    height: 14px;
+    left: 10px;
+    top: 73px;
+}
+
+/* 纵向马路 */
+.doc .blueprint-roads .road.r2 {
+    width: 14px;
+    height: 140px;
+    left: 53px;
+    top: 10px;
+}
+
+/* 步骤 4: 比例尺契约框 */
+.doc .scale-box {
+    position: absolute;
+    width: 136px;
+    height: 176px;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-68px, -88px, 1.5px);
+    border: 2px dashed #ff3b30;
+    box-shadow: 0 0 15px rgba(255, 59, 48, 0.35);
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 8px;
+    box-sizing: border-box;
+}
+
+.doc .scale-text {
+    color: #ff3b30;
+    font-size: 11px;
+    font-weight: 800;
+    font-family: 'Inter', 'SF Pro Display', sans-serif;
+    text-shadow: 0 0 8px rgba(255, 59, 48, 0.8);
+    letter-spacing: 1px;
+}
+
+
+/* --- 步骤动画样式切换 --- */
+
+/* 步骤 0: 初始化 */
+.visual-side:not([class*="step-"]) .doc,
+.visual-side.step-0 .doc {
+    opacity: 0;
+    transform: translate3d(0, 0, 1px) scale(0.5);
+}
+
+/* 步骤 1: 组建梦幻建筑队 (图纸平滑展开) */
+.visual-side.step-1 .doc {
+    opacity: 1;
+    transform: translate3d(0, 0, 1px) scale(1);
+}
+
+/* 步骤 2: 确立主城核心 (地标核心圆高亮) */
+.visual-side.step-2 .doc {
+    opacity: 1;
+    transform: translate3d(0, 0, 1px) scale(1);
+}
+.visual-side.step-2 .doc .blueprint-core {
+    opacity: 1;
+    transform: translate3d(-23px, -23px, 1px) scale(1);
+    animation: core-pulse 2s infinite ease-in-out;
+}
+
+/* 步骤 3: 手绘蓝图分区 (地标亮起，马路网格浮现) */
+.visual-side.step-3 .doc {
+    opacity: 1;
+    transform: translate3d(0, 0, 1px) scale(1);
+}
+.visual-side.step-3 .doc .blueprint-core {
+    opacity: 1;
+    transform: translate3d(-23px, -23px, 1px) scale(1);
+}
+.visual-side.step-3 .doc .blueprint-roads {
+    opacity: 1;
+}
+
+/* 步骤 4: 签署比例尺公约 (整体缩小0.8倍，红色外框高亮显示，场景微转) */
+.visual-side.step-4 .scene {
+    transform: rotateX(-25deg) rotateY(15deg) rotateZ(0deg) !important;
+}
+.visual-side.step-4 .doc {
+    opacity: 1;
+    transform: translate3d(0, 0, 1px) scale(0.8);
+}
+.visual-side.step-4 .doc .blueprint-core {
+    opacity: 0.6;
+    transform: translate3d(-23px, -23px, 1px) scale(1);
+}
+.visual-side.step-4 .doc .blueprint-roads {
+    opacity: 0.6;
+}
+.visual-side.step-4 .doc .scale-box {
+    opacity: 1;
+}
+
+/* 地标圈呼吸动画 */
+@keyframes core-pulse {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(0, 122, 255, 0.4);
+        border-color: rgba(0, 122, 255, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(0, 122, 255, 0.8);
+        border-color: rgba(0, 122, 255, 1);
+    }
+}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第13课：梦想社区大总管 - 3D打印魔法创客营</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">魔法创客营 V1.0 (PRO版)</div>
+        <ul class="nav-links">
+            <li><a href="#intro">课程目标</a></li>
+            <li><a href="#process">3D建模魔法秀</a></li>
+            <li><a href="#tools">魔法兵器谱</a></li>
+            <li><a href="#pitfalls">实验室警报预案</a></li>
+        </ul>
+    </nav>
+
+    <div class="scroll-container">
+        <!-- Slide 1: Intro -->
+        <section id="intro" class="slide slide-dark">
+            <div class="content">
+                <span class="badge">Lesson 13</span>
+                <h1 class="title">梦想社区大总管</h1>
+                <p class="subtitle">抛开电脑画蓝图，团队协作与比例尺公约。</p>
+                
+                <div class="cards">
+                    <div class="card glass">
+                        <h3>核心目标</h3>
+                        <p>脱离电脑，建立宏大场景的协作大局观。签下全组统一的缩放比例尺与连接口径标准协议。</p>
+                    </div>
+                    <div class="card glass">
+                        <h3>讲师必备知识</h3>
+                        <p>比例尺灾难：A 做的房子比 B 做的人还小，放到一起就是奥特曼踩蚂蚁。<br>统一接口：如果社区的路标要插在广场底座上，全员的孔径必须是同一张图纸上定的死规矩！</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: The Process (3D CSS Demo) -->
+        <section id="process" class="slide slide-light">
+            <div class="content process-content">
+                <div class="text-side">
+                    <h2>三维魔术解析</h2>
+                    <p>给孩子们看成品之前，先用这套步骤演示魔法是怎么变出来的。</p>
+                    
+                    <div class="step-controls">
+                        <button class="step-btn active" data-step="0">0. 初始化</button>
+<button class="step-btn" data-step="1">1. 组建梦幻建筑队</button>
+<button class="step-btn" data-step="2">2. 确立主城核心</button>
+<button class="step-btn" data-step="3">3. 手绘蓝图分区</button>
+<button class="step-btn" data-step="4">4. 签署比例尺公约</button>
+
+                    </div>
+
+                    <div class="step-descriptions">
+                        <div class="desc show" id="desc-0">关闭屏幕，拿出图纸。</div>
+<div class="desc" id="desc-1">3-4人一组，选出铁面无私的总建筑师。</div>
+<div class="desc" id="desc-2">确定必带的基础件：底座广场、标志建筑、配件设施。</div>
+<div class="desc" id="desc-3">在纸上画出上帝视角地图，认领地盘。</div>
+<div class="desc" id="desc-4">白纸黑字写下统一销钉厚度和比例公差，全员签字！</div>
+
+                    </div>
+                </div>
+                
+                <div class="visual-side">
+                    <div class="scene">
+                        <div class="axis x-axis">X</div>
+                        <div class="axis y-axis">Y</div>
+                        <div class="axis z-axis">Z</div>
+                        <div class="grid-floor"></div>
+                        <div class="part doc">
+                            <div class="face front"></div>
+                            <div class="face back"></div>
+                            <div class="blueprint-core"></div>
+                            <div class="blueprint-roads">
+                                <div class="road r1"></div>
+                                <div class="road r2"></div>
+                            </div>
+                            <div class="scale-box">
+                                <div class="scale-text">1:100</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Tools -->
+        <section id="tools" class="slide slide-dark">
+            <div class="content">
+                <h2>魔法兵器谱（软件基础）</h2>
+                <div class="tools-grid">
+                    <div class="tool-item glass">
+            <div class="icon">📝</div>
+            <h3>白纸上的契约</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>画出俯视图并写死核心尺寸数据。</p>
+            <p class="teacher-talk">🗣️ "如果轮子和车轴的尺寸不对齐，你们造的就是废铁！组长负责把关！"</p>
+        </div>
+<div class="tool-item glass">
+            <div class="icon">🏷️</div>
+            <h3>文件命名法</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>强制采用组名_部件.3mf。</p>
+            <p class="teacher-talk">🗣️ "全叫‘未命名’，合体时全组绝对当场爆炸！"</p>
+        </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Pitfalls -->
+        <section id="pitfalls" class="slide slide-light">
+            <div class="content">
+                <h2>实验室警报预案</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+            <div class="dot red"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 全都抢着做地标</h3>
+                <p>没人做基础的马路和底板。<br>应对：组长发威，按主次分配任务，地基永远最重要！</p>
+            </div>
+        </div>
+<div class="timeline-item">
+            <div class="dot orange"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 天马行空做不出来</h3>
+                <p>画了超级悬浮飞船却不会加支撑。<br>应对：老师出马，无情打碎幻想，逼着他们改成简单的堆叠房子。</p>
+            </div>
+        </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>
