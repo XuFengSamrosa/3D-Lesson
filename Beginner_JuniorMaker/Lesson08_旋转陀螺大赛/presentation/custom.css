@@ -1,0 +1,89 @@
+/* custom.css for Lesson 08 */
+
+/* 陀螺圆盘：3D 厚圆盘 */
+.disc {
+    width: 80px;
+    height: 80px;
+    margin-left: -40px;
+    margin-top: -40px;
+    background: rgba(44, 62, 80, 0.95);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transform: rotateX(90deg) translateZ(-10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.2);
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 陀螺轴：3D 柱体 */
+.pin {
+    width: 14px;
+    height: 60px;
+    margin-left: -7px;
+    margin-top: -30px;
+    background: linear-gradient(to right, #bdc3c7, #ecf0f1, #95a5a6);
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 6px;
+    transform: translateZ(20px); /* 默认浮空在上方 */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 步骤样式控制 */
+
+/* 步骤 0: 初始化 */
+.visual-side:not([class*="step-"]) .part,
+.visual-side.step-0 .part {
+    opacity: 0;
+    transform: scale(0.5) translate3d(0, 50px, 0);
+}
+
+/* 步骤 1: 召唤陀螺圆盘 */
+.visual-side.step-1 .disc {
+    opacity: 1;
+    transform: rotateX(90deg) translateZ(-10px) scale(1);
+}
+.visual-side.step-1 .pin {
+    opacity: 1;
+    transform: translate3d(0, 0, 40px) scale(1); /* 浮在上方 */
+}
+
+/* 步骤 2: 坐标同心锁定 (轴向下穿过圆盘) */
+.visual-side.step-2 .disc {
+    opacity: 1;
+}
+.visual-side.step-2 .pin {
+    opacity: 1;
+    transform: translate3d(0, 0, -10px) rotateX(90deg); /* 穿入圆盘，与圆盘垂直 */
+}
+
+/* 步骤 3: 边缘增加配重 (利用 box-shadow 在四周生成配重块) */
+.visual-side.step-3 .disc {
+    opacity: 1;
+}
+.visual-side.step-3 .pin {
+    opacity: 1;
+    transform: translate3d(0, 0, -10px) rotateX(90deg);
+    /* 在边缘生成 4 个红色发光配重圆盘 */
+    box-shadow: 
+        0 30px 0 #ff3b30, 
+        0 -30px 0 #ff3b30, 
+        30px 0 0 #ff3b30, 
+        -30px 0 0 #ff3b30;
+}
+
+/* 步骤 4: 倒立对抗变形 (陀螺上下颠倒，轴的长端向下，防止打印悬空) */
+.visual-side.step-4 .disc {
+    opacity: 1;
+}
+.visual-side.step-4 .pin {
+    opacity: 1;
+    transform: translate3d(0, 0, 10px) rotateX(90deg); /* 轴的方向调整 */
+    box-shadow: 
+        0 30px 0 #ff3b30, 
+        0 -30px 0 #ff3b30, 
+        30px 0 0 #ff3b30, 
+        -30px 0 0 #ff3b30;
+}
+.visual-side.step-4 .scene {
+    transform: rotateX(-180deg) rotateY(45deg) !important; /* 场景翻转 */
+}
