@@ -1,0 +1,212 @@
+/* custom.css for Lesson 14 */
+
+/* 底盘与楼宇基础 3D 容器 */
+.part {
+    width: 0;
+    height: 0;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+.part .face {
+    position: absolute;
+    transition: all 0.8s ease;
+}
+
+/* --- 大底盘 100x100x10px --- */
+.base {
+    transform: translate3d(0, 0, 5px);
+}
+
+.base .face {
+    background: rgba(240, 240, 240, 0.9);
+    border: 1px solid rgba(200, 200, 200, 0.6);
+}
+
+.base .face.top {
+    width: 100px;
+    height: 100px;
+    left: -50px;
+    top: -50px;
+    transform: rotateX(0deg) translateZ(5px);
+    background: rgba(52, 199, 89, 0.75); /* 绿草地 */
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.base .face.bottom {
+    width: 100px;
+    height: 100px;
+    left: -50px;
+    top: -50px;
+    transform: rotateX(180deg) translateZ(5px);
+    background: rgba(80, 80, 80, 0.9);
+}
+
+.base .face.front {
+    width: 100px;
+    height: 10px;
+    left: -50px;
+    top: -5px;
+    transform: rotateX(-90deg) translateZ(50px);
+}
+
+.base .face.back {
+    width: 100px;
+    height: 10px;
+    left: -50px;
+    top: -5px;
+    transform: rotateX(90deg) translateZ(50px);
+}
+
+.base .face.left {
+    width: 100px;
+    height: 10px;
+    left: -50px;
+    top: -5px;
+    transform: rotateY(-90deg) translateZ(50px);
+}
+
+.base .face.right {
+    width: 100px;
+    height: 10px;
+    left: -50px;
+    top: -5px;
+    transform: rotateY(90deg) translateZ(50px);
+}
+
+
+/* --- 红大楼 24x24x50px --- */
+.p1 {
+    transform: translate3d(-35px, -35px, 80px);
+}
+
+.p1 .face {
+    background: rgba(255, 59, 48, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.2);
+}
+
+.p1 .face.front  { width: 24px; height: 50px; left: -12px; top: -25px; transform: rotateX(-90deg) translateZ(12px); }
+.p1 .face.back   { width: 24px; height: 50px; left: -12px; top: -25px; transform: rotateX(90deg) translateZ(12px); }
+.p1 .face.left   { width: 24px; height: 50px; left: -12px; top: -25px; transform: rotateY(-90deg) translateZ(12px); }
+.p1 .face.right  { width: 24px; height: 50px; left: -12px; top: -25px; transform: rotateY(90deg) translateZ(12px); }
+.p1 .face.top    { width: 24px; height: 24px; left: -12px; top: -12px; transform: rotateX(0deg) translateZ(25px); }
+.p1 .face.bottom { width: 24px; height: 24px; left: -12px; top: -12px; transform: rotateX(180deg) translateZ(25px); }
+
+
+/* --- 蓝大楼 24x24x40px --- */
+.p2 {
+    transform: translate3d(35px, 35px, 80px);
+}
+
+.p2 .face {
+    background: rgba(0, 122, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.p2 .face.front  { width: 24px; height: 40px; left: -12px; top: -20px; transform: rotateX(-90deg) translateZ(12px); }
+.p2 .face.back   { width: 24px; height: 40px; left: -12px; top: -20px; transform: rotateX(90deg) translateZ(12px); }
+.p2 .face.left   { width: 24px; height: 40px; left: -12px; top: -20px; transform: rotateY(-90deg) translateZ(12px); }
+.p2 .face.right  { width: 24px; height: 40px; left: -12px; top: -20px; transform: rotateY(90deg) translateZ(12px); }
+.p2 .face.top    { width: 24px; height: 24px; left: -12px; top: -12px; transform: rotateX(0deg) translateZ(20px); }
+.p2 .face.bottom { width: 24px; height: 24px; left: -12px; top: -12px; transform: rotateX(180deg) translateZ(20px); }
+
+
+/* --- 剖切扫描红光面 --- */
+.clipper {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    left: 50%;
+    top: 50%;
+    margin-left: -60px;
+    margin-top: -60px;
+    background: rgba(255, 59, 48, 0.2);
+    border: 2px solid #ff3b30;
+    box-shadow: 0 0 15px rgba(255, 59, 48, 0.5);
+    transform: translateZ(0px);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.8s ease;
+}
+
+
+/* --- 步骤动画样式切换 --- */
+
+/* 步骤 0: 初始化 */
+.visual-side:not([class*="step-"]) .part,
+.visual-side.step-0 .part {
+    opacity: 0;
+}
+
+/* 步骤 1: 闭关冲刺造房子 (底盘出现，大楼在远处空中建模中) */
+.visual-side.step-1 .base {
+    opacity: 1;
+}
+.visual-side.step-1 .p1 {
+    opacity: 1;
+    transform: translate3d(-35px, -35px, 80px);
+}
+.visual-side.step-1 .p2 {
+    opacity: 1;
+    transform: translate3d(35px, 35px, 80px);
+}
+
+/* 步骤 2: 组长U盘集大成 (大楼降落到和底座平齐的Z轴高度，但仍分散在各处) */
+.visual-side.step-2 .base {
+    opacity: 1;
+}
+.visual-side.step-2 .p1 {
+    opacity: 1;
+    transform: translate3d(-35px, -35px, 35px); /* 底面正好贴在 Z=10px 上 */
+}
+.visual-side.step-2 .p2 {
+    opacity: 1;
+    transform: translate3d(35px, 35px, 30px); /* 底面正好贴在 Z=10px 上 */
+}
+
+/* 步骤 3: 虚拟拼插大合体 (大楼完美滑移拼装到底盘指定位置) */
+.visual-side.step-3 .base {
+    opacity: 1;
+}
+.visual-side.step-3 .p1 {
+    opacity: 1;
+    transform: translate3d(-24px, 0, 35px);
+}
+.visual-side.step-3 .p2 {
+    opacity: 1;
+    transform: translate3d(24px, 0, 30px);
+}
+
+/* 步骤 4: 剖切视界找刺 (模型半透明，扫描切面显现并上下移动，视角倾斜更多) */
+.visual-side.step-4 .scene {
+    transform: rotateX(-15deg) rotateY(45deg) rotateZ(0deg) !important;
+}
+.visual-side.step-4 .base {
+    opacity: 0.6;
+}
+.visual-side.step-4 .p1 {
+    opacity: 0.65;
+    transform: translate3d(-24px, 0, 35px);
+}
+.visual-side.step-4 .p2 {
+    opacity: 0.65;
+    transform: translate3d(24px, 0, 30px);
+}
+.visual-side.step-4 .clipper {
+    opacity: 1;
+    animation: clipper-sweep 3s infinite ease-in-out;
+}
+
+@keyframes clipper-sweep {
+    0%, 100% {
+        transform: translateZ(10px);
+    }
+    50% {
+        transform: translateZ(60px);
+    }
+}
