@@ -1,0 +1,172 @@
+/* custom.css for Lesson 10 */
+
+/* 关节球窝盒子 */
+.box {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translateZ(30px); /* 底部踩在Z=0网格上 */
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.box .face {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    left: -30px;
+    top: -30px;
+    background: rgba(142, 142, 147, 0.55);
+    border: 1.5px solid rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(2px);
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 3D 盒子的6个面 */
+.box .face.front  { transform: rotateY(0deg) translateZ(30px); }
+.box .face.back   { transform: rotateY(180deg) translateZ(30px); }
+.box .face.left   { transform: rotateY(-90deg) translateZ(30px); }
+.box .face.right  { transform: rotateY(90deg) translateZ(30px); }
+.box .face.top    { transform: rotateX(90deg) translateZ(30px); }
+.box .face.bottom { transform: rotateX(-90deg) translateZ(30px); }
+
+/* 3D 全息或相交面表示的球体/球孔 */
+.socket-negative, .ball {
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translateZ(30px); /* 和盒子同一中心点 */
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+/* 三维交叉圆盘面 */
+.socket-negative .disc-face,
+.ball .disc-face {
+    position: absolute;
+    border-radius: 50%;
+    transform-style: preserve-3d;
+    transition: all 0.8s ease;
+}
+
+/* 红色负零件球窝面 (吞噬空间) */
+.socket-negative .disc-face {
+    width: 48px;
+    height: 48px;
+    left: -24px;
+    top: -24px;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 59, 48, 0.45) 0%, rgba(255, 59, 48, 0.15) 100%);
+    border: 1px dashed #ff3b30;
+    box-shadow: 0 0 8px rgba(255, 59, 48, 0.3);
+}
+
+/* 蓝色球头面 */
+.ball .disc-face {
+    width: 36px;
+    height: 36px;
+    left: -18px;
+    top: -18px;
+    background: radial-gradient(circle at 30% 30%, #5ac8fa 10%, #007aff 70%, #004080 100%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* 交叉摆放形成立体球感 */
+.socket-negative .disc-face.xy, .ball .disc-face.xy { transform: rotateX(90deg); }
+.socket-negative .disc-face.xz, .ball .disc-face.xz { transform: rotateY(90deg); }
+.socket-negative .disc-face.yz, .ball .disc-face.yz { transform: rotateY(0deg); }
+
+/* 公差空气间隙指示环 */
+.ball .gap-ring {
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    left: -23px;
+    top: -23px;
+    border-radius: 50%;
+    border: 2px dashed #ff3b30;
+    transform: rotateX(90deg);
+    box-shadow: 0 0 12px #ff3b30, inset 0 0 12px #ff3b30;
+    opacity: 0;
+    transition: all 0.6s ease;
+}
+
+/* 步骤状态控制 */
+
+/* 步骤 0: 初始化 */
+.visual-side:not([class*="step-"]) .part,
+.visual-side.step-0 .part {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+/* 步骤 1: 造个方块身体 */
+.visual-side.step-1 .box {
+    opacity: 1;
+    transform: translateZ(30px) scale(1);
+}
+
+/* 步骤 2: 放大的吞噬球窝 (盒子圆角化，红球虚影闪烁) */
+.visual-side.step-2 .box {
+    opacity: 1;
+    transform: translateZ(30px) scale(1);
+}
+.visual-side.step-2 .box .face {
+    border-radius: 12px;
+    background: rgba(142, 142, 147, 0.45);
+}
+.visual-side.step-2 .socket-negative {
+    opacity: 1;
+    animation: pulseRed 1.5s infinite ease-in-out;
+}
+@keyframes pulseRed {
+    0%, 100% { opacity: 0.3; transform: translateZ(30px) scale(0.9); }
+    50% { opacity: 0.95; transform: translateZ(30px) scale(1.05); }
+}
+
+/* 步骤 3: 植入球头关节 (蓝色球头嵌入) */
+.visual-side.step-3 .box {
+    opacity: 1;
+    transform: translateZ(30px) scale(1);
+}
+.visual-side.step-3 .box .face {
+    border-radius: 12px;
+}
+.visual-side.step-3 .socket-negative {
+    opacity: 0.4; /* 球窝被挖去，保留轻微全息轮廓 */
+    transform: translateZ(30px) scale(1);
+}
+.visual-side.step-3 .ball {
+    opacity: 1;
+    transform: translateZ(30px) scale(1);
+}
+
+/* 步骤 4: CT扫描验缝隙 (倾斜剖视，盒子变成红白虚框，展示0.5mm阻尼公差) */
+.visual-side.step-4 .scene {
+    transform: rotateX(-80deg) rotateY(25deg) rotateZ(-15deg) !important; /* 场景大幅翻转，剖视感 */
+}
+.visual-side.step-4 .box {
+    opacity: 1;
+    transform: translateZ(30px) scale(1.05);
+}
+.visual-side.step-4 .box .face {
+    border-radius: 12px;
+    background: rgba(142, 142, 147, 0.15); /* 盒子高度透明化 */
+    border: 2px dashed rgba(255, 59, 48, 0.65); /* 红色切面虚框 */
+    box-shadow: 0 0 10px rgba(255, 59, 48, 0.2);
+}
+.visual-side.step-4 .socket-negative {
+    opacity: 0;
+}
+.visual-side.step-4 .ball {
+    opacity: 1;
+    transform: translateZ(30px) scale(1);
+}
+/* 间隙指示环亮起并呼吸闪烁 */
+.visual-side.step-4 .ball .gap-ring {
+    opacity: 1;
+    animation: gapFlash 1.5s infinite ease-in-out;
+}
+@keyframes gapFlash {
+    0%, 100% { opacity: 0.4; box-shadow: 0 0 5px #ff3b30, inset 0 0 5px #ff3b30; }
+    50% { opacity: 1; box-shadow: 0 0 15px #ff3b30, inset 0 0 10px #ff3b30; }
+}
