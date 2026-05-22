@@ -1,0 +1,162 @@
+/* custom.css for Lesson 12 */
+
+/* 打印机顶部横梁 (3D 科技感柱体，作为测量和安装参考) */
+.beam {
+    width: 24px;
+    height: 40px;
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translate3d(0, 0, 60px); /* 居中立在地面上 */
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+.beam .face {
+    position: absolute;
+    background: rgba(0, 122, 255, 0.15);
+    border: 1.5px solid rgba(0, 122, 255, 0.6);
+    box-shadow: 0 0 10px rgba(0, 122, 255, 0.2);
+    transition: all 0.8s ease;
+}
+
+/* 3D 横梁的6个面 (高 120px, 宽 24px, 深 40px) */
+.beam .face.front  { width: 24px; height: 120px; transform: rotateX(-90deg) translateZ(20px); }
+.beam .face.back   { width: 24px; height: 120px; transform: rotateX(90deg) translateZ(20px); }
+.beam .face.left   { width: 40px; height: 120px; transform: rotateY(-90deg) translateZ(12px); }
+.beam .face.right  { width: 40px; height: 120px; transform: rotateY(90deg) translateZ(12px); }
+.beam .face.top    { width: 24px; height: 40px; transform: rotateX(0deg) translateZ(60px); }
+.beam .face.bottom { width: 24px; height: 40px; transform: rotateX(180deg) translateZ(60px); }
+
+/* C型卡扣整体容器 */
+.clam {
+    width: 0;
+    height: 0;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+/* 组成C型卡扣的三块板子 */
+.clam .plate {
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.clam .plate .face {
+    position: absolute;
+    background: rgba(142, 142, 147, 0.7);
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2);
+    transition: all 0.8s ease;
+}
+
+/* 竖板尺寸: 宽 10px, 深 40px, 高 60px */
+.clam .plate-back { transform: translate3d(-17px, 0, 60px); }
+.clam .plate-back .face.front  { width: 10px; height: 60px; transform: rotateX(-90deg) translateZ(20px); }
+.clam .plate-back .face.back   { width: 10px; height: 60px; transform: rotateX(90deg) translateZ(20px); }
+.clam .plate-back .face.left   { width: 40px; height: 60px; transform: rotateY(-90deg) translateZ(5px); }
+.clam .plate-back .face.right  { width: 40px; height: 60px; transform: rotateY(90deg) translateZ(5px); }
+.clam .plate-back .face.top    { width: 10px; height: 40px; transform: rotateX(0deg) translateZ(30px); }
+.clam .plate-back .face.bottom { width: 10px; height: 40px; transform: rotateX(180deg) translateZ(30px); }
+
+/* 顶板尺寸: 宽 40px, 深 40px, 高 10px */
+.clam .plate-top { transform: translate3d(8px, 0, 95px); }
+.clam .plate-top .face.front  { width: 40px; height: 10px; transform: rotateX(-90deg) translateZ(20px); }
+.clam .plate-top .face.back   { width: 40px; height: 10px; transform: rotateX(90deg) translateZ(20px); }
+.clam .plate-top .face.left   { width: 40px; height: 10px; transform: rotateY(-90deg) translateZ(20px); }
+.clam .plate-top .face.right  { width: 40px; height: 10px; transform: rotateY(90deg) translateZ(20px); }
+.clam .plate-top .face.top    { width: 40px; height: 40px; transform: rotateX(0deg) translateZ(5px); }
+.clam .plate-top .face.bottom { width: 40px; height: 40px; transform: rotateX(180deg) translateZ(5px); }
+
+/* 底板尺寸: 宽 40px, 深 40px, 高 10px */
+.clam .plate-bottom { transform: translate3d(8px, 0, 25px); }
+.clam .plate-bottom .face.front  { width: 40px; height: 10px; transform: rotateX(-90deg) translateZ(20px); }
+.clam .plate-bottom .face.back   { width: 40px; height: 10px; transform: rotateX(90deg) translateZ(20px); }
+.clam .plate-bottom .face.left   { width: 40px; height: 10px; transform: rotateY(-90deg) translateZ(20px); }
+.clam .plate-bottom .face.right  { width: 40px; height: 10px; transform: rotateY(90deg) translateZ(20px); }
+.clam .plate-bottom .face.top    { width: 40px; height: 40px; transform: rotateX(0deg) translateZ(5px); }
+.clam .plate-bottom .face.bottom { width: 40px; height: 40px; transform: rotateX(180deg) translateZ(5px); }
+
+/* 步骤状态控制 */
+
+/* 步骤 0: 初始化 */
+.visual-side:not([class*="step-"]) .part,
+.visual-side.step-0 .part {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+/* 步骤 1: 卡尺真实验证 (蓝色横梁高亮，呈现测量网格与卡尺激光线) */
+.visual-side.step-1 .beam {
+    opacity: 1;
+    transform: translate3d(0, 0, 60px) scale(1);
+}
+.visual-side.step-1 .beam .face {
+    background: rgba(0, 122, 255, 0.3);
+    border-color: #007aff;
+    box-shadow: 0 0 15px rgba(0, 122, 255, 0.4);
+}
+
+/* 步骤 2: 造出强壮C型块 (横梁变成半透明，C型卡扣紧密贴合套入，零公差) */
+.visual-side.step-2 .beam {
+    opacity: 0.4;
+    transform: translate3d(0, 0, 60px) scale(1);
+}
+.visual-side.step-2 .clam {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* 步骤 3: 加上宽容公差坑 (C型夹上下开口拉大，在交界处闪烁绿光公差空腔) */
+.visual-side.step-3 .beam {
+    opacity: 0.3;
+    transform: translate3d(0, 0, 60px) scale(1);
+}
+.visual-side.step-3 .clam {
+    opacity: 1;
+    transform: scale(1);
+}
+/* 顶板向上移动 3px，底板向下移动 3px 以展现 0.5mm 间隙公差 */
+.visual-side.step-3 .clam .plate-top {
+    transform: translate3d(8px, 0, 98px);
+}
+.visual-side.step-3 .clam .plate-bottom {
+    transform: translate3d(8px, 0, 22px);
+}
+/* 板子面变为绿色发光边缘表示合格公差 */
+.visual-side.step-3 .clam .plate .face {
+    border-color: #34c759;
+    box-shadow: inset 0 0 10px rgba(52, 199, 89, 0.2), 0 0 8px rgba(52, 199, 89, 0.2);
+}
+
+/* 步骤 4: 强行推倒躺平 (横梁消失，C型夹整体90度放倒躺在地面上，高亮展现防劈裂3D打印丝条层纹) */
+.visual-side.step-4 .scene {
+    transform: rotateX(-35deg) rotateY(40deg) rotateZ(0deg) !important;
+}
+.visual-side.step-4 .beam {
+    opacity: 0;
+    transform: translate3d(0, 0, 60px) scale(0.5);
+}
+.visual-side.step-4 .clam {
+    opacity: 1;
+    /* 放倒平躺在 Z=5px (厚度一半) 的位置 */
+    transform: rotateY(90deg) translate3d(-30px, 0, 20px) scale(1.1);
+}
+/* 顶板和底板位置保持步骤3的开口 */
+.visual-side.step-4 .clam .plate-top { transform: translate3d(8px, 0, 98px); }
+.visual-side.step-4 .clam .plate-bottom { transform: translate3d(8px, 0, 22px); }
+
+/* C型夹表面浮现打印丝层纹 (横向层叠的3D打印丝，防劈裂设计) */
+.visual-side.step-4 .clam .plate .face {
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(100, 100, 100, 0.8) 0px,
+        rgba(100, 100, 100, 0.8) 3px,
+        rgba(142, 142, 147, 0.6) 4px,
+        rgba(142, 142, 147, 0.6) 7px
+    );
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+}
