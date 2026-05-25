@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第10课：关节可动小人 - 3D打印魔法创客营</title>
+    <title>第10课：球头关节守卫 - 3D打印魔法创客营</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="custom.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">魔法创客营 V1.0 (PRO版)</div>
+        <div class="logo">🤖 球头关节守卫</div>
         <ul class="nav-links">
             <li><a href="#intro">课程目标</a></li>
             <li><a href="#process">3D建模魔法秀</a></li>
@@ -23,8 +23,8 @@
         <section id="intro" class="slide slide-dark">
             <div class="content">
                 <span class="badge">Lesson 10</span>
-                <h1 class="title">关节可动小人</h1>
-                <p class="subtitle">不用拼装就能动的魔术！挑战 0.5mm 极限公差。</p>
+                <h1 class="title">球头关节守卫</h1>
+                <p class="subtitle">免组装一次成型活动关节，与黄金物理嵌套公差。</p>
                 
                 <div class="cards">
                     <div class="card glass">
@@ -60,6 +60,19 @@
                         <div class="desc" id="desc-2">在肩膀右侧熔铸出一个稍大的红色半透明球形关节窝（直径10.6mm负零件）。</div>
                         <div class="desc" id="desc-3">将带有球头的手臂滑入关节窝。球头直径为10.0mm，实现无缝嵌套。</div>
                         <div class="desc" id="desc-4">剖切剖视，确认存在 0.3mm 双边配合公差（红虚线间隙），机械臂开始自由旋转挥舞！</div>
+                    </div>
+
+                    <!-- 交互式公差与剖切调节面板 -->
+                    <div class="interactive-panel" id="tolerance-panel" style="display:none; margin-top:20px; background:rgba(0,0,0,0.05); padding:20px; border-radius:12px; border:1px solid rgba(0,0,0,0.1);">
+                        <div style="margin-bottom:15px;">
+                            <label style="font-weight:600; color:#1d1d1f; display:block; margin-bottom:10px;">📐 嵌套双边间隙 (公差): <span id="tolerance-val" style="color:#2997ff; font-weight:800;">0.3</span> mm</label>
+                            <input type="range" id="tolerance-slider" min="0.0" max="0.6" step="0.1" value="0.3" style="width:100%; height:8px; border-radius:4px; background:#ddd; outline:none; -webkit-appearance:none; cursor:pointer;">
+                        </div>
+                        <div style="margin-bottom:15px; display:flex; align-items:center; justify-content:space-between;">
+                            <label style="font-weight:600; color:#1d1d1f; cursor:pointer;" for="xray-toggle">👁️ 启用 X 光剖切视图:</label>
+                            <input type="checkbox" id="xray-toggle" style="width:20px; height:20px; cursor:pointer;">
+                        </div>
+                        <p id="tolerance-feedback" style="margin-top:10px; font-size:0.9rem; font-weight:700; color:#34c759;">✅ 黄金嵌套：实现免组装一体打印与灵活转动！</p>
                     </div>
                 </div>
                 
