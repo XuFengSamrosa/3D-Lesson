@@ -14,9 +14,19 @@
 | [x] | ↳ Task 10 | Implement Lesson 15 (打印与组装) |
 | [x] | ↳ Task 11 | Implement Lesson 16 (作品发布会) |
 | [x] | Phase 3: Verification | Verify all pages in browser and run git tests |
-| [x] | Phase 4: Debug Style Issues | Investigate and fix style loading issues in V3 Lesson 06+ (under file:// protocol) |
-| [x] | ↳ Task 1 | Analyze issue and verify fix on Lesson 06 |
-| [x] | ↳ Task 2 | Apply fix to Lesson 07 to 16 |
-| [x] | ↳ Task 3 | Verify all patched files and submit |
+| [/] | Phase 4: Personalize and Rename V3 Lessons 06-16 | Rename physical directories and implement personalized 3D magic sandboxes and text purification |
+| [x] | ↳ Task 1 | Rename physical directories (Lesson 06 to 16) via git mv |
+| [x] | ↳ Task 2 | Implement personalized presentation for Lesson 06 |
+| [x] | ↳ Task 3 | Implement personalized presentation for Lesson 07 |
+| [ ] | ↳ Task 4 | Implement personalized presentation for Lesson 08 |
+| [ ] | ↳ Task 5 | Implement personalized presentation for Lesson 09 |
+| [ ] | ↳ Task 6 | Implement personalized presentation for Lesson 10 |
+| [ ] | ↳ Task 7 | Implement personalized presentation for Lesson 11 |
+| [ ] | ↳ Task 8 | Implement personalized presentation for Lesson 12 |
+| [ ] | ↳ Task 9 | Implement personalized presentation for Lesson 13 |
+| [ ] | ↳ Task 10 | Implement personalized presentation for Lesson 14 |
+| [ ] | ↳ Task 11 | Implement personalized presentation for Lesson 15 |
+| [ ] | ↳ Task 12 | Implement personalized presentation for Lesson 16 |
+| [ ] | ↳ Task 13 | Perform automated verification, cleanup and push changes to remote repository |
 
 
