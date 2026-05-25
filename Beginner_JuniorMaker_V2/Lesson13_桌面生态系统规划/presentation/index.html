@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第13课：桌面生态系统规划 - 魔法创客营 V2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body class="theme-eco">
+    <nav class="navbar custom-nav">
+        <div class="logo">🚀 桌面生态系统规划</div>
+        <ul class="nav-links">
+            <li><a href="#ecosystem">孤岛到生态</a></li>
+            <li><a href="#protocol">接口公约</a></li>
+            <li><a href="#pitfalls">架构师警报</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="tag">Lesson 13</div>
+            <h1>从孤岛到生态：模块化与接口法则</h1>
+            <p>告别单兵作战！建立团队协作、模块化拆解和统一定义机械接口公差的严谨工作流，向总架构师进阶！</p>
+        </div>
+        <div class="hero-bg-shapes">
+            <div class="grid-bg"></div>
+        </div>
+    </header>
+
+    <section id="ecosystem" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第一法则：模块化集成 (System Integration) 🧩</h2>
+                <p>不要再让你的笔筒和手机架像一盘散沙一样丢在桌上。我们要建造一艘“航空母舰”！</p>
+            </div>
+            
+            <div class="eco-demo">
+                <div class="carrier-base" id="carrier-base">
+                    <div class="slot s1"></div>
+                    <div class="slot s2"></div>
+                    <div class="slot s3"></div>
+                </div>
+                
+                <div class="modules-grid" id="modules-grid">
+                    <div class="eco-module m-pen">
+                        <div class="m-icon">🗑️</div>
+                        <span>收纳容器</span>
+                    </div>
+                    <div class="eco-module m-phone">
+                        <div class="m-icon">📱</div>
+                        <span>倾斜展架</span>
+                    </div>
+                    <div class="eco-module m-gear">
+                        <div class="m-icon">⚙️</div>
+                        <span>功能组件</span>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <button class="btn-eco" id="btn-assemble">启动航母：模块化组装！</button>
+                    <p class="mt-2 text-muted">各个成员独立研发子模块，最后通过统一底座完美集成。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="protocol" class="interactive-section bg-dark text-white">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第二法则：签下生死状（接口公约） 📜</h2>
+                <p>如果不统一插槽尺寸，你做的方形轮子，永远插不进队友做的圆形车轴里！</p>
+            </div>
+            
+            <div class="protocol-demo">
+                <div class="blueprint-paper">
+                    <div class="paper-header">
+                        <h3>🛠️ 研发部：接口标准公约</h3>
+                        <p class="date">日期：<span id="current-date"></span></p>
+                    </div>
+                    
+                    <div class="paper-body">
+                        <div class="rule-box">
+                            <span class="badge">最高法则</span>
+                            <p>本组所有连接均采用圆柱销钉设计。为了保证能顺利插拔并保持紧固，全组成员必须严格遵守以下绝对尺寸：</p>
+                        </div>
+                        
+                        <div class="spec-grid">
+                            <div class="spec-item">
+                                <h4>插头 (凸起)</h4>
+                                <div class="val">直径 10.0 mm</div>
+                            </div>
+                            <div class="spec-item gap">
+                                <h4>呼吸空间</h4>
+                                <div class="val text-danger">单边 0.25 mm</div>
+                            </div>
+                            <div class="spec-item">
+                                <h4>插槽 (凹坑)</h4>
+                                <div class="val">直径 10.5 mm</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="paper-footer">
+                        <p>我发誓在建模时绝不擅自更改以上尺寸，否则我的模型将成为全组的废铁。</p>
+                        <button class="btn-sign" id="btn-sign">全员签下生死状！</button>
+                        <div class="signatures" id="signatures">
+                            <span class="sign s-1">总架构师 (组长)</span>
+                            <span class="sign s-2">模块工程师 A</span>
+                            <span class="sign s-3">模块工程师 B</span>
+                            <div class="stamp">✅ 协议生效</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pitfalls" class="interactive-section bg-colorful">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-danger">🚨 总架构师警报 (避坑指南)</h2>
+            </div>
+            <div class="pitfall-grid">
+                <div class="p-card">
+                    <div class="p-emoji">🚀</div>
+                    <h4>灾难 1：好高骛远的科幻小说</h4>
+                    <p class="desc"><strong>现场：</strong>A组在白纸上画了齿轮连杆机械臂、可弹射抽屉……讨论脱离了实际能力。</p>
+                    <p class="solution"><strong>解药：</strong>强制收敛，重回 MVP（最小可行性产品）框架！饭一口口吃，先保证你们的手机架能平稳插在底座上不倒，再去想加翅膀的事！</p>
+                </div>
+                <div class="p-card">
+                    <div class="p-emoji">😠</div>
+                    <h4>灾难 2：互相推诿的航母甲板</h4>
+                    <p class="desc"><strong>现场：</strong>大家都想做帅气的配件，没人想去画那个巨大且需要统筹无数孔位的主底座。</p>
+                    <p class="solution"><strong>解药：</strong>确立权威！能定夺甲板上留几个孔，孔在哪里的人，叫‘系统总架构师’，也就是组长！组长必须接下主底座，去统筹其他所有人的尺寸。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

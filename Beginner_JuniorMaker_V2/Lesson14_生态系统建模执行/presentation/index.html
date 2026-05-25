@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第14课：生态系统建模执行 - 魔法创客营 V2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body class="theme-assembly">
+    <nav class="navbar custom-nav">
+        <div class="logo">⚙️ 虚拟总装车间</div>
+        <ul class="nav-links">
+            <li><a href="#merge">跨文件汇总</a></li>
+            <li><a href="#xray">干涉检测</a></li>
+            <li><a href="#pitfalls">事故预案</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="tag">Lesson 14</div>
+            <h1>生态落地：数字虚拟总装</h1>
+            <p>波音飞机的百万零件在造出来之前，必须在电脑里拼装几万次！拦截尺寸灾难，拥抱版本迭代！</p>
+        </div>
+        <div class="hero-bg-shapes">
+            <div class="blueprint-grid"></div>
+        </div>
+    </header>
+
+    <section id="merge" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第一道关卡：文件导入法则 📂</h2>
+                <p>组装就像请客吃饭，要打开大门把客人的零件“添加”进来，绝不是双击覆盖自己家！</p>
+            </div>
+            
+            <div class="merge-demo">
+                <div class="software-window">
+                    <div class="toolbar">
+                        <div class="window-btn red"></div>
+                        <div class="window-btn yellow"></div>
+                        <div class="window-btn green"></div>
+                        <div class="tool-actions">
+                            <button class="btn-tool active" id="btn-add">➕ 添加模型</button>
+                            <button class="btn-tool danger" id="btn-double">❌ 错误：双击打开</button>
+                        </div>
+                    </div>
+                    
+                    <div class="workspace" id="workspace">
+                        <div class="host-model">
+                            <span>主底座 (组长)</span>
+                        </div>
+                        <div class="guest-model" id="guest-model">
+                            <span>笔筒 (组员A)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="alert-box" id="alert-box">
+                        <h3>😱 灾难发生！</h3>
+                        <p>你双击了新文件！当前窗口被无情覆盖，你辛辛苦苦画了 30 分钟的主托盘底座已经丢失！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="xray" class="interactive-section bg-dark text-white">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第二道关卡：X光干涉检测 🩻</h2>
+                <p>表面看起来严丝合缝？用内窥镜切开看看，你的柱子是不是砸碎了底盘！</p>
+            </div>
+            
+            <div class="xray-demo">
+                <div class="xray-controls text-center mb-4">
+                    <div class="switch-toggle">
+                        <input type="radio" id="mode-normal" name="xray-mode" value="normal" checked>
+                        <label for="mode-normal">外表看起来 (表面完美)</label>
+                        
+                        <input type="radio" id="mode-xray" name="xray-mode" value="xray">
+                        <label for="mode-xray">X光剖切截面 (揭露穿模)</label>
+                    </div>
+                </div>
+                
+                <div class="xray-viewport" id="xray-viewport">
+                    <div class="x-base">
+                        <div class="x-hole"></div>
+                    </div>
+                    <div class="x-peg"></div>
+                    
+                    <div class="collision-alert" id="collision-alert">
+                        💥 严重穿模！互相卡死！
+                    </div>
+                </div>
+                
+                <div class="xray-text text-center mt-4">
+                    <p><strong>虚拟装配检查重点：</strong>进得去吗？沉到底了吗？有没有重叠挤压？发现穿模，当场打回重做 <strong>V2</strong> 版本！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pitfalls" class="interactive-section bg-colorful">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-danger">🚨 实验室警报 (避坑指南)</h2>
+            </div>
+            <div class="pitfall-grid">
+                <div class="p-card">
+                    <div class="p-emoji">💥</div>
+                    <h4>灾难 1：盲目双击，覆盖组长心血</h4>
+                    <p class="desc"><strong>现场：</strong>组长收到组员传来的文件，顺手在电脑上双击打开。弹出一个新窗口，组长画了 30 分钟的主底座不见了，直接尖叫。</p>
+                    <p class="solution"><strong>解药：</strong>必须在已打开的主托盘项目中，点击顶部“添加模型”，选中其他组员的源文件导入同一次会话！如果不小心双击了，去“文件管理器”找自动保存恢复！</p>
+                </div>
+                <div class="p-card" style="border-top-color: #ffa502;">
+                    <div class="p-emoji">🏢</div>
+                    <h4>灾难 2：比例失调，巨物恐惧</h4>
+                    <p class="desc"><strong>现场：</strong>把大家的模型拼在一起后，A同学的笔筒巨大无比占满托盘，B同学的手机架像个微缩玩具，连手机三分之一都架不住。</p>
+                    <p class="solution"><strong>解药：</strong>对现实世界缺乏感知！电脑里的 10mm 就是 1厘米！马上拿出真实尺子测量旁边的真手机和中性笔，然后根据物理数据在软件中等比例缩放！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

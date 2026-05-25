@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第3课：桌面展示支架 - 魔法创客营 V2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body class="theme-stand">
+    <nav class="navbar custom-nav">
+        <div class="logo">🏗️ 桌面展示支架 (Display Stand)</div>
+        <ul class="nav-links">
+            <li><a href="#parallax">二维谎言</a></li>
+            <li><a href="#tilt">导入与倾斜</a></li>
+            <li><a href="#assemble">组装魔法</a></li>
+            <li><a href="#pitfalls">警报预案</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="tag">Lesson 03</div>
+            <h1>多零件协作与空间拼装</h1>
+            <p>突破二维屏幕的视差欺骗，使用“组装魔法”打造坚固的三维结构结界！</p>
+        </div>
+    </header>
+
+    <section id="parallax" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第一重考验：看破视差谎言 🕵️‍♂️</h2>
+                <p>在平面屏幕上看，以为完美贴合？换个角度，你可能错得离谱！</p>
+            </div>
+            
+            <div class="parallax-demo">
+                <div class="view-switch">
+                    <button class="v-btn active" id="btn-front">正视图 (谎言)</button>
+                    <button class="v-btn" id="btn-side">侧视图 (真相)</button>
+                </div>
+                <div class="scene-container" id="p-scene">
+                    <div class="grid-floor"></div>
+                    <!-- 3D Stand Base -->
+                    <div class="cube p-base">
+                        <div class="face front"></div>
+                        <div class="face back"></div>
+                        <div class="face left"></div>
+                        <div class="face right"></div>
+                        <div class="face top"></div>
+                        <div class="face bottom"></div>
+                    </div>
+                    <!-- 3D Stand Pillar -->
+                    <div class="cube p-pillar">
+                        <div class="face front"></div>
+                        <div class="face back"></div>
+                        <div class="face left"></div>
+                        <div class="face right"></div>
+                        <div class="face top"></div>
+                        <div class="face bottom"></div>
+                    </div>
+                    <!-- 3D Badge (Nameplate) -->
+                    <div class="cube p-badge">
+                        <div class="face front">Sam</div>
+                        <div class="face back"></div>
+                        <div class="face left"></div>
+                        <div class="face right"></div>
+                        <div class="face top"></div>
+                        <div class="face bottom"></div>
+                    </div>
+                </div>
+                <div class="text-alert">
+                    <p><strong>🚨 警告：</strong>如果不从两个以上的角度检查，你的铭牌可能漂浮在十万八千里之外的空气中！引力会教训每一个不严谨的工程师。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tilt" class="interactive-section bg-dark text-white">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第二重考验：红绿蓝法则与倾斜 📐</h2>
+                <p>将铭牌导入热床，并找到最舒适的黄金 60° 仰角。</p>
+            </div>
+            
+            <div class="axis-demo-container">
+                <div class="axis-viewport">
+                    <div class="grid-floor-axis"></div>
+                    <!-- 3D Coordinate Arrows -->
+                    <div class="coordinate-arrows">
+                        <div class="arrow x-arrow" id="arrow-x"><span class="label">X</span></div>
+                        <div class="arrow y-arrow" id="arrow-y"><span class="label">Y</span></div>
+                        <div class="arrow z-arrow" id="arrow-z"><span class="label">Z</span></div>
+                    </div>
+                </div>
+                <div class="axis-controls">
+                    <div class="axis-card-btn x-axis-btn" data-axis="x">
+                        <h3>X 轴 (左右平移)</h3>
+                        <div class="line line-r"></div>
+                        <p><strong>红色标识：</strong>左右移动模型的主轨道</p>
+                    </div>
+                    <div class="axis-card-btn y-axis-btn" data-axis="y">
+                        <h3>Y 轴 (前后纵深)</h3>
+                        <div class="line line-g"></div>
+                        <p><strong>绿色标识：</strong>控制前后位置的纵深轨道</p>
+                    </div>
+                    <div class="axis-card-btn z-axis-btn" data-axis="z">
+                        <h3>Z 轴 (上下升降)</h3>
+                        <div class="line line-b"></div>
+                        <p><strong>蓝色标识：</strong>控制模型腾空或落地的主轴</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tilt-demo">
+                <div class="t-visual-container">
+                    <div class="t-scene" id="t-scene">
+                        <div class="grid-floor-tilt"></div>
+                        <!-- 3D Stand Pillar -->
+                        <div class="cube t-pillar">
+                            <div class="face front"></div>
+                            <div class="face back"></div>
+                            <div class="face left"></div>
+                            <div class="face right"></div>
+                            <div class="face top"></div>
+                            <div class="face bottom"></div>
+                        </div>
+                        <!-- 3D Badge to be tilted -->
+                        <div class="cube t-badge" id="t-badge-model">
+                            <div class="face front">Sam</div>
+                            <div class="face back"></div>
+                            <div class="face left"></div>
+                            <div class="face right"></div>
+                            <div class="face top"></div>
+                            <div class="face bottom"></div>
+                        </div>
+                        <!-- 3D Angle Ring Arc -->
+                        <div class="angle-arc" id="angle-arc">
+                            <svg viewBox="0 0 100 100" class="arc-svg">
+                                <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8" />
+                                <circle cx="50" cy="50" r="40" fill="none" stroke="#f39c12" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="251.2" id="arc-fill" />
+                            </svg>
+                            <div class="angle-text" id="angle-text">0°</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="t-text">
+                    <h3>旋转吸附魔法 📐</h3>
+                    <p>拖动下方滑块旋转面板，观察它是如何绕着轴心转动的。注意 <strong>60度</strong> 是最适合看清的倾角哦！</p>
+                    <div class="slider-wrapper">
+                        <input type="range" id="tilt-range" min="0" max="90" value="0">
+                        <div class="slider-labels">
+                            <span>0° (平躺)</span>
+                            <span>60° (黄金角)</span>
+                            <span>90° (垂直)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="assemble" class="interactive-section bg-colorful">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第三重考验：组装结界 (Assembly) 🔗</h2>
+                <p>零件之间互相穿模干涉？别怕，我们要的就是深度干涉！</p>
+            </div>
+            
+            <div class="assemble-demo">
+                <div class="a-visual-container">
+                    <div class="a-scene" id="a-scene">
+                        <div class="grid-floor-assembly"></div>
+                        <!-- 3D Stand Pillar -->
+                        <div class="cube a-pillar">
+                            <div class="face front"></div>
+                            <div class="face back"></div>
+                            <div class="face left"></div>
+                            <div class="face right"></div>
+                            <div class="face top"></div>
+                            <div class="face bottom"></div>
+                        </div>
+                        <!-- 3D Badge that slides down -->
+                        <div class="cube a-badge" id="a-badge-model">
+                            <div class="face front">Sam</div>
+                            <div class="face back"></div>
+                            <div class="face left"></div>
+                            <div class="face right"></div>
+                            <div class="face top"></div>
+                            <div class="face bottom"></div>
+                        </div>
+                        <!-- Red Glowing Interference Box (Interpenetration Mesh) -->
+                        <div class="cube a-interference" id="a-interference-mesh">
+                            <div class="face front"></div>
+                            <div class="face back"></div>
+                            <div class="face left"></div>
+                            <div class="face right"></div>
+                            <div class="face top"></div>
+                            <div class="face bottom"></div>
+                        </div>
+                    </div>
+                    <div class="assembly-hud">
+                        <div class="status-indicator" id="assembly-status">⚠️ 悬空 (未连接)</div>
+                    </div>
+                </div>
+                <div class="a-text">
+                    <div class="slider-wrapper" style="background: rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.1);">
+                        <label style="font-weight: bold; color: #2f3542; display: block; margin-bottom: 10px;">📥 调整铭牌插入深度 (Y 轴位移)：</label>
+                        <input type="range" id="assembly-slider" min="-30" max="60" value="60" style="accent-color: #f39c12; width: 100%;">
+                        <div class="slider-labels" style="color: #57606f;">
+                            <span>悬空 (无法连接)</span>
+                            <span>干涉 5mm (完美)</span>
+                            <span>穿插过度</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-assemble-action" id="btn-assemble-action" disabled>🔗 执行“组装 (Assemble)”</button>
+                    <p style="margin-top: 15px; font-size: 0.95rem; color: #57606f; line-height: 1.5;">
+                        <strong>物理法则：</strong>在 3D 打印中，两部分零件必须具有一定的<strong>“干涉/穿模量”</strong>，然后通过<strong>“组装 (Assemble)”</strong>将它们的网格融合，打印时才不会断裂脱落。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pitfalls" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-danger">🚨 实验室警报 (避坑指南)</h2>
+            </div>
+            <div class="pitfall-grid">
+                <div class="p-card border-red">
+                    <div class="p-emoji">🍝</div>
+                    <h4>灾难 1：打印出来一堆炒面废丝</h4>
+                    <p class="desc"><strong>现场：</strong>切片没检查，直接打印。发现铭牌掉下来了，喷头在半空中吐出一团乱糟糟的丝线。</p>
+                    <p class="solution"><strong>解药：</strong>这就是悬空导致的灾难！用移动工具把铭牌狠狠地往下压，必须看到柱子吃进了铭牌里。干涉越多越稳固！</p>
+                </div>
+                <div class="p-card border-orange">
+                    <div class="p-emoji">🚫</div>
+                    <h4>灾难 2：找不到“组装”按钮</h4>
+                    <p class="desc"><strong>现场：</strong>框选了半天，右键一看，“组装”按钮是灰色的。</p>
+                    <p class="solution"><strong>解药：</strong>你可能没选全！不要在屏幕上乱点，看着屏幕左边的对象列表，按住 Ctrl 键，精确点击底座、柱子和铭牌，再点右键组装！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

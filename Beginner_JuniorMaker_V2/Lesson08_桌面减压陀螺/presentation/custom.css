@@ -1,0 +1,116 @@
+/* custom.css for V2 Lesson 08 Fidget Spinner */
+
+body.theme-spinner { font-family: 'Nunito', 'Inter', sans-serif; color: #333; }
+.custom-nav { background: rgba(255, 255, 255, 0.95); border-bottom: 2px solid #eee; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;}
+.custom-nav .logo { color: #9b59b6; font-size: 1.5rem; font-weight: 900;}
+.custom-nav .nav-links { list-style: none; display: flex; gap: 20px;}
+.custom-nav .nav-links a { color: #57606f; font-weight: 700; text-decoration: none;}
+
+.bg-light { background-color: #f1f2f6; color: #2f3542; }
+.bg-dark { background-color: #2f3542; color: #f1f2f6; }
+.bg-colorful { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); color: #2f3542; }
+
+.interactive-section { padding: 80px 5%; min-height: 80vh; display: flex; align-items: center; }
+.container { max-width: 1200px; margin: 0 auto; width: 100%; }
+
+.section-header { margin-bottom: 50px; }
+.section-header h2 { font-size: 3rem; margin-bottom: 15px; font-weight: 900; }
+.section-header p { font-size: 1.3rem; opacity: 0.9; max-width: 800px; line-height: 1.6; margin: 0 auto;}
+.text-center { text-align: center;}
+
+/* Hero */
+.hero-section { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; background: #ffffff; overflow: hidden; }
+.hero-content { z-index: 10; padding: 50px; background: rgba(255,255,255,0.85); border-radius: 30px; backdrop-filter: blur(10px); max-width: 800px; border: 4px dashed #9b59b6; box-shadow: 0 20px 50px rgba(155, 89, 182, 0.1);}
+.hero-content h1 { font-size: 3.5rem; color: #9b59b6; margin-bottom: 20px; font-weight: 900; }
+.hero-content p { font-size: 1.5rem; color: #2f3542; font-weight: 600;}
+.tag { display: inline-block; padding: 10px 20px; background: #9b59b6; color: white; border-radius: 30px; font-weight: 900; font-size: 1.2rem; margin-bottom: 20px;}
+.hero-bg-shapes .spinner-bg { position: absolute; width: 400px; height: 400px; background: conic-gradient(from 0deg, transparent 0deg, #9b59b6 90deg, transparent 90deg); border-radius: 50%; opacity: 0.1; top: 10%; right: 10%; animation: spin 2s linear infinite;}
+@keyframes spin { 100% { transform: rotate(360deg);}}
+
+/* Coords Demo */
+.coords-demo { display: flex; align-items: center; justify-content: center; gap: 50px; background: white; padding: 50px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 2px solid #e1e2e6;}
+.c-visual { position: relative; width: 300px; height: 300px;}
+.grid-plate { width: 100%; height: 100%; background: #bdc3c7; border-radius: 10px; position: relative; background-image: linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px); background-size: 20px 20px;}
+.center-cross { position: absolute; width: 40px; height: 40px; border-left: 2px solid #e74c3c; border-top: 2px solid #e74c3c; left: 150px; top: 150px; transform: translate(-50%, -50%); z-index: 5;}
+.center-cross::after { content: ''; position: absolute; width: 40px; height: 40px; border-right: 2px solid #e74c3c; border-bottom: 2px solid #e74c3c; left: -2px; top: -2px;}
+
+.part-handle { position: absolute; width: 20px; height: 20px; background: #e67e22; border-radius: 50%; left: 80px; top: 40px; transition: all 1s ease; border: 2px solid white; z-index: 3;}
+.part-disk { position: absolute; width: 120px; height: 120px; background: rgba(52, 152, 219, 0.7); border-radius: 50%; left: 200px; top: 80px; transition: all 1s ease; border: 2px solid white; z-index: 2;}
+.part-cone { position: absolute; width: 40px; height: 40px; background: #9b59b6; border-radius: 50%; left: 60px; top: 220px; transition: all 1s ease; border: 2px solid white; z-index: 1;}
+
+.c-visual.is-aligned .part-handle { left: 140px; top: 140px; }
+.c-visual.is-aligned .part-disk { left: 90px; top: 90px; }
+.c-visual.is-aligned .part-cone { left: 130px; top: 130px; }
+
+.c-panel { background: #2f3542; color: white; padding: 40px; border-radius: 20px; max-width: 350px;}
+.c-panel h3 { color: #3498db; margin-bottom: 15px;}
+.coord-box { display: flex; gap: 20px; margin: 20px 0; justify-content: center;}
+.axis { background: #1e222a; padding: 10px 20px; border-radius: 10px; font-size: 1.5rem; font-weight: bold;}
+.axis .val { color: #2ed573; }
+.btn-align { background: #3498db; color: white; border: none; padding: 15px 30px; font-size: 1.2rem; font-weight: bold; border-radius: 20px; cursor: pointer; transition: 0.3s; width: 100%;}
+.btn-align:hover { background: #2980b9;}
+.text-small { font-size: 0.9rem; color: #a4b0be;}
+
+/* Physics Demo */
+.physics-demo { background: rgba(0,0,0,0.2); padding: 50px; border-radius: 30px;}
+.phys-scene { position: relative; width: 300px; height: 300px; margin: 0 auto 40px; display: flex; align-items: center; justify-content: center;}
+.top-spin { position: relative; width: 200px; height: 200px; animation: spinTop 1s linear infinite;}
+.s-core { position: absolute; width: 120px; height: 120px; background: #3498db; border-radius: 50%; top: 40px; left: 40px; border: 4px solid #2980b9;}
+.w { position: absolute; width: 40px; height: 40px; background: #f1c40f; border-radius: 50%; border: 3px solid #f39c12; transition: all 0.5s ease;}
+.w-top { top: 0; left: 80px;}
+.w-bottom { bottom: 0; left: 80px;}
+.w-left { left: 0; top: 80px;}
+.w-right { right: 0; top: 80px;}
+
+.top-spin.is-bad { animation: spinVibrate 0.5s linear infinite; transform-origin: 60% 50%;}
+.top-spin.is-bad .w-right { right: 30px; background: #e74c3c; border-color: #c0392b;}
+
+@keyframes spinTop { 100% { transform: rotate(360deg);}}
+@keyframes spinVibrate { 
+    0% { transform: rotate(0deg) translate(0, 0); }
+    25% { transform: rotate(90deg) translate(20px, 10px); }
+    50% { transform: rotate(180deg) translate(-10px, 20px); }
+    75% { transform: rotate(270deg) translate(-20px, -10px); }
+    100% { transform: rotate(360deg) translate(0, 0); }
+}
+
+.btn-phys { color: white; border: none; padding: 15px 30px; font-size: 1.2rem; font-weight: bold; border-radius: 20px; cursor: pointer; transition: 0.3s; margin: 0 10px;}
+.btn-phys.bad { background: #e74c3c;}
+.btn-phys.good { background: #2ed573;}
+.btn-phys:hover { transform: scale(1.05);}
+.phys-text p { font-size: 1.2rem; max-width: 600px; margin: 0 auto; line-height: 1.6;}
+
+/* Brim Demo */
+.brim-demo { display: flex; align-items: center; justify-content: center; gap: 50px; background: white; padding: 50px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.05);}
+.b-visual { position: relative; width: 250px; height: 250px; background: #1e222a; border-radius: 20px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 30px; overflow: hidden;}
+.b-bed { position: absolute; width: 100%; height: 10px; background: #7f8c8d; bottom: 30px;}
+.b-brim { position: absolute; width: 120px; height: 6px; background: rgba(46, 213, 115, 0.5); bottom: 40px; border-radius: 50%; opacity: 0; animation: fadeBrim 4s infinite;}
+.b-cone { position: absolute; width: 0; height: 0; border-left: 40px solid transparent; border-right: 40px solid transparent; border-top: 100px solid #9b59b6; bottom: 40px;}
+.laser-cut { position: absolute; width: 100%; height: 2px; background: #ff4757; bottom: 45px; box-shadow: 0 0 10px #ff4757; opacity: 0; animation: cutTip 4s infinite;}
+
+@keyframes cutTip { 
+    0%, 20% { opacity: 0; bottom: 40px;} 
+    30%, 40% { opacity: 1; bottom: 45px;} 
+    50%, 100% { opacity: 0; bottom: 45px;} 
+}
+@keyframes fadeBrim {
+    0%, 50% { opacity: 0;}
+    60%, 100% { opacity: 1;}
+}
+
+.b-text { display: flex; flex-direction: column; gap: 20px;}
+.step-card { background: rgba(255,255,255,0.8); padding: 30px; border-radius: 20px; border: 2px solid #e1e2e6; max-width: 400px;}
+.s-icon { font-size: 2.5rem; margin-bottom: 10px;}
+.step-card h4 { font-size: 1.3rem; margin-bottom: 10px; color: #2f3542;}
+.step-card p { color: #57606f; line-height: 1.5;}
+
+/* Pitfalls */
+.pitfall-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.p-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.06); transition: transform 0.3s;}
+.p-card:hover { transform: translateY(-10px); }
+.border-red { border-top: 8px solid #ff4757; }
+.border-orange { border-top: 8px solid #ffa502; }
+.p-emoji { font-size: 4rem; margin-bottom: 20px; }
+.p-card h4 { font-size: 1.5rem; margin-bottom: 20px; color: #2f3542; font-weight: 900;}
+.p-card .desc { color: #ff4757; margin-bottom: 20px; font-size: 1.1rem; font-weight: 600;}
+.p-card .solution { color: #2ed573; font-weight: 700; font-size: 1.1rem; background: #f1f8f5; padding: 20px; border-radius: 12px;}

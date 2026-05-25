@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第8课：桌面减压陀螺 - 魔法创客营 V2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body class="theme-spinner">
+    <nav class="navbar custom-nav">
+        <div class="logo">🌀 桌面减压陀螺 (Fidget Spinner)</div>
+        <ul class="nav-links">
+            <li><a href="#coords">绝对坐标法则</a></li>
+            <li><a href="#physics">偏心力实验</a></li>
+            <li><a href="#brim">穿裙子的魔法</a></li>
+            <li><a href="#pitfalls">警报预案</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="tag">Lesson 08</div>
+            <h1>极致参数与物理静力学</h1>
+            <p>收缴你的鼠标！用纯粹的数学坐标，打造一个永不倒下、绝对平衡的竞技陀螺！</p>
+        </div>
+        <div class="hero-bg-shapes">
+            <div class="spinner-bg"></div>
+        </div>
+    </header>
+
+    <section id="coords" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第一重禁忌：封印鼠标的诱惑 🚫🖱️</h2>
+                <p>用鼠标瞎拖？肉眼以为对齐了，其实差了 0.5 毫米。我们要用数字魔法死锁坐标！</p>
+            </div>
+            
+            <div class="coords-demo">
+                <div class="c-visual">
+                    <div class="grid-plate">
+                        <div class="center-cross"></div>
+                        <div class="part-handle" id="p-handle"></div>
+                        <div class="part-disk" id="p-disk"></div>
+                        <div class="part-cone" id="p-cone"></div>
+                    </div>
+                </div>
+                
+                <div class="c-panel">
+                    <h3>绝对原点坐标系</h3>
+                    <p>Bambu Studio 盘面的绝对正中心永远是：</p>
+                    <div class="coord-box">
+                        <span class="axis">X: <span class="val">128</span></span>
+                        <span class="axis">Y: <span class="val">128</span></span>
+                    </div>
+                    <button class="btn-align" id="btn-align">锁定中心 (Align to Center)</button>
+                    <p class="mt-4 text-small">将手柄、盘面、底尖的 X 和 Y 全都在右下角强制输入 128！三者绝对同心！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="physics" class="interactive-section bg-dark text-white">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第二重禁忌：偏心力的无情惩罚 ⚠️</h2>
+                <p>我们要给陀螺外围加上 4 个配重圆柱。如果你的数学算错了一个数，重力会教你做人！</p>
+            </div>
+            
+            <div class="physics-demo">
+                <div class="phys-scene">
+                    <div class="top-spin" id="spin-model">
+                        <div class="s-core"></div>
+                        <div class="w w-top"></div>
+                        <div class="w w-bottom"></div>
+                        <div class="w w-left"></div>
+                        <div class="w w-right" id="w-bad"></div>
+                    </div>
+                </div>
+                
+                <div class="phys-controls text-center">
+                    <button class="btn-phys bad" id="btn-bad">输入错误坐标: X=135</button>
+                    <button class="btn-phys good" id="btn-good">输入正确坐标: X=153</button>
+                </div>
+                
+                <div class="phys-text text-center mt-4">
+                    <p id="phys-msg">中心在 128，半径是 30。右边配重的坐标应该是 128 + 25 = 153！如果写错成 135，重心偏移，陀螺一转就会惨烈摔倒！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="brim" class="interactive-section bg-colorful">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第三重禁忌：反直觉的大象脚克星 🐘</h2>
+                <p>陀螺的尖头朝下，打印机会把尖端压成烂面团。我们需要切平它，并给它穿上“裙子”！</p>
+            </div>
+            
+            <div class="brim-demo">
+                <div class="b-visual">
+                    <div class="b-bed"></div>
+                    <div class="b-brim"></div>
+                    <div class="b-cone"></div>
+                    <div class="laser-cut"></div>
+                </div>
+                
+                <div class="b-text">
+                    <div class="step-card">
+                        <div class="s-icon">✂️</div>
+                        <h4>微创切平</h4>
+                        <p>Z=0 的地方是一个无限小的尖点。用切割工具往上提 0.5mm，扔掉极尖的部分，换取一个微小的平底。</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="s-icon">👗</div>
+                        <h4>开启裙边 (Brim)</h4>
+                        <p>左侧面板 -> 其他 -> 裙边类型选择“外部”。它会在底层外围打一圈薄膜，像抓地吸盘一样死死吸住底尖，防踢飞！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pitfalls" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-danger">🚨 实验室警报 (避坑指南)</h2>
+            </div>
+            <div class="pitfall-grid">
+                <div class="p-card border-red">
+                    <div class="p-emoji">💥</div>
+                    <h4>灾难 1：打印到一半被喷头踢飞</h4>
+                    <p class="desc"><strong>现场：</strong>打到一半模型倒了，拉出一团面条。</p>
+                    <p class="solution"><strong>解药：</strong>这就是“点接触”的下场！抓地力为零。赶紧回去开启裙边(Brim)！或者挑战进阶玩法：把整个陀螺 180度倒立过来打印！</p>
+                </div>
+                <div class="p-card border-orange">
+                    <div class="p-emoji">😵‍💫</div>
+                    <h4>灾难 2：一转就疯狂抖动摔倒</h4>
+                    <p class="desc"><strong>现场：</strong>陀螺像喝醉了一样疯狂震动，几秒钟就倒了。</p>
+                    <p class="solution"><strong>解药：</strong>有“叛徒”偏心了！点开你的 4 个配重块，挨个检查右下角的 X 和 Y 坐标，肯定是你的算数算错了！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

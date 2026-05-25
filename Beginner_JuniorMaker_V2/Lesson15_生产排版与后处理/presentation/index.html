@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第15课：生产车间排版 - 3D打印工程思维</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <style>
+        .part1{width:30px;height:30px;background:#f00;margin-left:-30px;opacity:0;} .part2{width:30px;height:30px;background:#f00;margin-left:-10px;opacity:0;} .step-1 .part1, .step-1 .part2{opacity:1;} .step-2 .part1{opacity:1; transform:translateX(-20px); background:#0f0;} .step-2 .part2{opacity:1; transform:translateX(20px); background:#0f0;} .step-3 .part1{opacity:1; transform:translateX(-20px);} .step-3 .part2{opacity:1; transform:translateX(20px);} .step-4 .part1, .step-4 .part2{opacity:1;} .step-4 .scene{transform:rotateY(90deg);}
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">JuniorMaker V2.0</div>
+        <ul class="nav-links">
+            <li><a href="#intro">课程目标</a></li>
+            <li><a href="#process">3D建模可视化</a></li>
+            <li><a href="#tools">软件兵器谱</a></li>
+            <li><a href="#pitfalls">避坑指南</a></li>
+        </ul>
+    </nav>
+
+    <div class="scroll-container">
+        <!-- Slide 1: Intro -->
+        <section id="intro" class="slide slide-dark">
+            <div class="content">
+                <span class="badge">Lesson 15</span>
+                <h1 class="title">生产车间排版</h1>
+                <p class="subtitle">多盘片并发与护目镜下的暴力拆解。</p>
+                
+                <div class="cards">
+                    <div class="card glass">
+                        <h3>核心目标</h3>
+                        <p>掌控多盘片矩阵式排版防止红色碰撞，佩戴劳保工具进行物理组装试错修补。</p>
+                    </div>
+                    <div class="card glass">
+                        <h3>讲师必备知识</h3>
+                        <p>碰撞高亮：排得过挤触发红色警戒，机器会发生现实撞击事故。<br>支撑拆解工程：使用斜口钳从根部破坏刚性，切忌徒手拉扯断裂本体。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: The Process (3D CSS Demo) -->
+        <section id="process" class="slide slide-light">
+            <div class="content process-content">
+                <div class="text-side">
+                    <h2>三维构建法则</h2>
+                    <p>不要凭空想象，点击下方步骤体验真实的建模逻辑操作流。</p>
+                    
+                    <div class="step-controls">
+                        <button class="step-btn active" data-step="0">0. 初始化</button>
+<button class="step-btn" data-step="1">1. 规避碰撞红区</button>
+<button class="step-btn" data-step="2">2. 分列多盘片</button>
+<button class="step-btn" data-step="3">3. 全副武装拆解</button>
+<button class="step-btn" data-step="4">4. 物理公差修补</button>
+
+                    </div>
+
+                    <div class="step-descriptions">
+                        <div class="desc show" id="desc-0">工厂量产排期。</div>
+<div class="desc" id="desc-1">打散所有零件，红色碰撞部分立刻隔离。</div>
+<div class="desc" id="desc-2">点击加号新建盘片，自动排列各车间任务。</div>
+<div class="desc" id="desc-3">佩戴护目镜，斜口钳断其支撑树根，脆声剥离。</div>
+<div class="desc" id="desc-4">拼装试拔插。太紧用锉刀，太松打蓝丁胶，强行完工。</div>
+
+                    </div>
+                </div>
+                
+                <div class="visual-side">
+                    <div class="scene">
+                        <div class="axis x-axis">X</div>
+                        <div class="axis y-axis">Y</div>
+                        <div class="axis z-axis">Z</div>
+                        <div class="grid-floor"></div>
+                        <div class='part part1'></div><div class='part part2'></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Tools -->
+        <section id="tools" class="slide slide-dark">
+            <div class="content">
+                <h2>软件基础（先利其器）</h2>
+                <div class="tools-grid">
+                    <div class="tool-item glass">
+            <div class="icon">🗂️</div>
+            <h3>多盘片矩阵</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>顶部加号新建盘片，分流巨量零件。</p>
+            <p class="teacher-talk">🗣️ "你是厂长，不要把所有货死塞进一辆卡车！"</p>
+        </div>
+<div class="tool-item glass">
+            <div class="icon">🛠️</div>
+            <h3>劳保钳子拆解</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>斜口钳剪根，尖嘴钳扭转。</p>
+            <p class="teacher-talk">🗣️ "戴好护目镜，我们要暴力拆掉模型这层壳！"</p>
+        </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Pitfalls -->
+        <section id="pitfalls" class="slide slide-light">
+            <div class="content">
+                <h2>灾难应急预案</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+            <div class="dot red"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 裙边重叠变连体婴</h3>
+                <p>自动排列间隙太小，各自宽裙边融合死锁。<br>应对：调出排版齿轮设置，将间隙拉大到 10mm。</p>
+            </div>
+        </div>
+<div class="timeline-item">
+            <div class="dot orange"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 蛮力手撕毁本体</h3>
+                <p>大拇指乱抠把精密卡口连根掰断。<br>应对：拿出 502 强力胶当外科医生，这就是真实工程。</p>
+            </div>
+        </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script src="../../shared_web/script.js"></script>
+</body>
+</html>

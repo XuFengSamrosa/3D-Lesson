@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第7课：多功能手机架 - 魔法创客营 V2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body class="theme-stand2">
+    <nav class="navbar custom-nav">
+        <div class="logo">📱 多功能手机架 (Phone Stand)</div>
+        <ul class="nav-links">
+            <li><a href="#interference">干涉配合</a></li>
+            <li><a href="#gravity">重心法则</a></li>
+            <li><a href="#layflat">面平放神技</a></li>
+            <li><a href="#pitfalls">警报预案</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="tag">Lesson 07</div>
+            <h1>人体工学与物理结构</h1>
+            <p>打造完美的 60° 仰角，用“穿模”建立刚性结构，学会消除底部的致命悬空尖角！</p>
+        </div>
+    </header>
+
+    <section id="interference" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第一式：穿模才是真兄弟 🤝</h2>
+                <p>不要害怕模型互相穿插！在 3D 打印里，这叫“干涉配合”。</p>
+            </div>
+            
+            <div class="interference-demo">
+                <div class="i-card wrong">
+                    <div class="i-visual v-kiss">
+                        <div class="part base"></div>
+                        <div class="part back"></div>
+                        <div class="break-mark">💥</div>
+                    </div>
+                    <h3>❌ 表面贴贴 (极度脆弱)</h3>
+                    <p>如果倾斜的背板只是尖角轻轻碰到基座，打印出来受力面积不到 1 毫米，手机放上去瞬间断裂！</p>
+                </div>
+                
+                <div class="i-card right">
+                    <div class="i-visual v-deep">
+                        <div class="part base"></div>
+                        <div class="part back deep"></div>
+                        <div class="strength-glow"></div>
+                    </div>
+                    <h3>✅ 深度干涉 (坚如磐石)</h3>
+                    <p>必须把背板狠狠地往下压！让尖角吃进底座至少 5mm。切片融合后，它们会变成一块实心塑料，坚不可摧。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gravity" class="interactive-section bg-dark text-white">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第二式：重心的无情背叛 ⚖️</h2>
+                <p>手机的重量是向后压的，如果你的“脚”不够长，就会……</p>
+            </div>
+            
+            <div class="gravity-demo">
+                <div class="g-scene">
+                    <div class="g-floor"></div>
+                    <!-- Stand container -->
+                    <div class="stand-wrapper" id="g-stand">
+                        <div class="stand-base"></div>
+                        <div class="stand-back"></div>
+                        <div class="stand-lip"></div>
+                        <!-- Phone -->
+                        <div class="phone">📱</div>
+                        <div class="cg-line"></div>
+                    </div>
+                </div>
+                
+                <div class="g-controls text-center">
+                    <button class="btn-gravity" id="btn-gravity">测试重心 (放上手机)</button>
+                </div>
+                
+                <div class="g-text text-center mt-4">
+                    <p><strong>物理法则：</strong>重心的垂直投影必须落在底座的面积之内！向后拉长底座，增加投影面积，防侧翻！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="layflat" class="interactive-section bg-colorful">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第三式：面平放神技 (Lay on Face) 🧲</h2>
+                <p>哪怕只有 0.1 毫米的尖角突出来了，也会导致整个大平底悬空！</p>
+            </div>
+            
+            <div class="layflat-demo">
+                <div class="l-visual">
+                    <div class="l-bed"></div>
+                    <div class="l-model" id="l-model">
+                        <div class="m-base"></div>
+                        <div class="m-spike"></div>
+                    </div>
+                    <div class="l-alert">⚠️ 微小尖角穿模导致底部悬空！</div>
+                </div>
+                
+                <div class="l-text">
+                    <button class="btn-flat" id="btn-flat">F 键：强制熨平鞋底</button>
+                    <p class="mt-4"><strong>核心操作：</strong>点击顶部像熨斗一样的工具 (F)。把视角转到底部，点击最大的平整底面，模型会“啪”一下落下，死死贴住热床！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pitfalls" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-danger">🚨 实验室警报 (避坑指南)</h2>
+            </div>
+            <div class="pitfall-grid">
+                <div class="p-card border-red">
+                    <div class="p-emoji">🙃</div>
+                    <h4>灾难 1：点错平放，底朝天</h4>
+                    <p class="desc"><strong>现场：</strong>用了“面平放”，结果整个支架以极其扭曲的姿态倒在地上。</p>
+                    <p class="solution"><strong>解药：</strong>永远记住，你点哪里，哪里就会被按在地上摩擦！按 `Ctrl+Z` 撤销，转到底面再去点正方形鞋底！</p>
+                </div>
+                <div class="p-card border-orange">
+                    <div class="p-emoji">⛷️</div>
+                    <h4>灾难 2：手机滑雪飞出去了</h4>
+                    <p class="desc"><strong>现场：</strong>前面没有挡板，或者挡板只有薄薄一层，低于倾斜背板的根部。</p>
+                    <p class="solution"><strong>解药：</strong>算一算海拔！底座厚 10mm，挡板只有 10mm 的话，它们就一样高了！必须把挡板 Z 轴改成 15mm 以上，才能形成“台阶”。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

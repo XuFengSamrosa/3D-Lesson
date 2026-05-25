@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第4课：桌面收纳筒 - 3D打印工程思维</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">JuniorMaker V2.0</div>
+        <ul class="nav-links">
+            <li><a href="#intro">课程目标</a></li>
+            <li><a href="#process">3D建模可视化</a></li>
+            <li><a href="#tools">软件兵器谱</a></li>
+            <li><a href="#pitfalls">避坑指南</a></li>
+        </ul>
+    </nav>
+
+    <div class="scroll-container">
+        <!-- Slide 1: Intro -->
+        <section id="intro" class="slide slide-dark">
+            <div class="content">
+                <span class="badge">Lesson 04</span>
+                <h1 class="title">桌面收纳筒</h1>
+                <p class="subtitle">从“捏泥巴”到“精细工程”的跨越，掌控容积与底厚。</p>
+                
+                <div class="cards">
+                    <div class="card glass">
+                        <h3>核心目标</h3>
+                        <p>放弃感性拖拽，使用绝对数值面板（长宽高精确到毫米），掌握负零件的三维容积挖减。</p>
+                    </div>
+                    <div class="card glass">
+                        <h3>讲师必备知识</h3>
+                        <p><strong>壁厚极限：</strong>喷嘴0.4mm，最佳入门壁厚需≥2.0mm以防捏碎。<br><strong>绝对坐标：</strong>Z=0 是热床表面，如果挖空不留高度，将产生“无底洞干涉”。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: The Process (3D CSS Demo) -->
+        <section id="process" class="slide slide-light">
+            <div class="content process-content">
+                <div class="text-side">
+                    <h2>三维构建法则</h2>
+                    <p>工程师是如何把一块实心木头变成一个笔筒的？不要凭空想象，点击下方步骤体验真实的布尔运算。</p>
+                    
+                    <div class="step-controls">
+                        <button class="step-btn active" data-step="0">0. 初始化</button>
+                        <button class="step-btn" data-step="1">1. 建立实心主体 (Main Body)</button>
+                        <button class="step-btn" data-step="2">2. 植入负零件 (Negative Core)</button>
+                        <button class="step-btn" data-step="3">3. 拯救底面 (Z轴抬高 3mm)</button>
+                        <button class="step-btn" data-step="4">4. 布尔掏空 (Boolean Cut)</button>
+                    </div>
+
+                    <div class="step-descriptions">
+                        <div class="desc show" id="desc-0">准备开始三维空间的魔术。</div>
+                        <div class="desc" id="desc-1">添加一个 60x60x80mm 的实心块。这是我们产品的原材料。</div>
+                        <div class="desc" id="desc-2">添加一个 56x56x90mm 的红色负零件。它的使命是“吃掉”主体内部的肉，单边留下 2mm 的壁厚。</div>
+                        <div class="desc" id="desc-3"><strong>生死时刻！</strong>如果现在切除，底部会被穿透。将负零件沿Z轴向上移动 3mm，留下坚实的底厚。</div>
+                        <div class="desc" id="desc-4">执行组装操作！红色负零件与重叠部分同时湮灭，一个完美带有底厚和壁厚的收纳筒诞生！</div>
+                    </div>
+                </div>
+                
+                <div class="visual-side">
+                    <div class="scene">
+                        <div class="axis x-axis">X</div>
+                        <div class="axis y-axis">Y</div>
+                        <div class="axis z-axis">Z</div>
+                        <div class="grid-floor"></div>
+                        
+                        <!-- 3D Objects -->
+                        <div class="main-body">
+                            <div class="face front"></div>
+                            <div class="face back"></div>
+                            <div class="face left"></div>
+                            <div class="face right"></div>
+                            <div class="face top"></div>
+                            <div class="face bottom"></div>
+                        </div>
+
+                        <div class="negative-core">
+                            <div class="face front"></div>
+                            <div class="face back"></div>
+                            <div class="face left"></div>
+                            <div class="face right"></div>
+                            <div class="face top"></div>
+                            <div class="face bottom"></div>
+                        </div>
+                        
+                        <div class="hollow-body">
+                             <!-- Complex hollow structure built with CSS for step 4 -->
+                             <div class="wall front-wall"></div>
+                             <div class="wall back-wall"></div>
+                             <div class="wall left-wall"></div>
+                             <div class="wall right-wall"></div>
+                             <div class="wall bottom-floor"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Tools -->
+        <section id="tools" class="slide slide-dark">
+            <div class="content">
+                <h2>软件基础（先利其器）</h2>
+                <div class="tools-grid">
+                    <div class="tool-item glass">
+                        <div class="icon">📐</div>
+                        <h3>绝对数值面板</h3>
+                        <div class="image-placeholder" style="width:100%; height:150px; background:rgba(255,255,255,0.05); border:1px dashed rgba(255,255,255,0.2); border-radius:12px; display:flex; align-items:center; justify-content:center; color:#888; font-size:12px; margin-bottom:20px;">
+                            [预留位置：请在此插入真实的绝对数值面板截图]
+                        </div>
+                        <p>选中模型后，在右下角抛弃顶部的缩放拉杆，直接输入精确的毫米(mm)数值。解锁小锁头实现自由缩放。</p>
+                        <p class="teacher-talk">🗣️ "今天我们要造的是精密产品，差一毫米都不行！谁再用鼠标去拖那个箭头，打印机就会罢工！"</p>
+                    </div>
+                    <div class="tool-item glass">
+                        <div class="icon">🔍</div>
+                        <h3>垂直剖切视图</h3>
+                        <div class="image-placeholder" style="width:100%; height:150px; background:rgba(255,255,255,0.05); border:1px dashed rgba(255,255,255,0.2); border-radius:12px; display:flex; align-items:center; justify-content:center; color:#888; font-size:12px; margin-bottom:20px;">
+                            [预留位置：请在此插入真实的垂直剖切视图截图]
+                        </div>
+                        <p>切片后，向下拉动右侧滑块，像切千层蛋糕一样逐层查看内部，检查底厚是否被挖穿。</p>
+                        <p class="teacher-talk">🗣️ "这是我们的 X 光机。如果不做这一步，你的笔放进去就会掉到异次元！"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Pitfalls -->
+        <section id="pitfalls" class="slide slide-light">
+            <div class="content">
+                <h2>灾难应急预案</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="dot red"></div>
+                        <div class="timeline-content glass-dark">
+                            <h3>🚨 无底洞水管</h3>
+                            <p><strong>学生表现：</strong> 切片后底部直接看到热床网格。<br>
+                            <strong>核心原因：</strong> 负零件的 Z 轴位置为 0，一路挖穿。<br>
+                            <strong>教师应对：</strong> 找到负零件，将其 Z 轴从 0 改成 3，重新切片。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="dot yellow"></div>
+                        <div class="timeline-content glass-dark">
+                            <h3>🚨 侧壁薄如蝉翼，破洞</h3>
+                            <p><strong>学生表现：</strong> 侧壁出现裂缝或大洞。<br>
+                            <strong>核心原因：</strong> 负零件尺寸过大，导致单边壁厚小于 1.2mm，或者外部装饰球嵌得太深挖穿了内壁。<br>
+                            <strong>教师应对：</strong> 检查外部坑洞，绝对不能深过 2mm！工业产品容不得半点误差。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="dot orange"></div>
+                        <div class="timeline-content glass-dark">
+                            <h3>🚨 负零件实心不挖空</h3>
+                            <p><strong>学生表现：</strong> 切片后是一个大柱子套小柱子，实心。<br>
+                            <strong>核心原因：</strong> 没有右键“添加负零件”，而是直接加了两个平级的实体。<br>
+                            <strong>教师应对：</strong> 看看左边面板，它们是平级的！删掉小圆柱，在大圆柱上点右键重加！</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

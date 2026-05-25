@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第9课：光影氛围灯罩 - 魔法创客营 V2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body class="theme-lamp">
+    <nav class="navbar custom-nav">
+        <div class="logo">🏮 光影氛围灯罩 (Vibe Lamp)</div>
+        <ul class="nav-links">
+            <li><a href="#support">自支撑魔法</a></li>
+            <li><a href="#polar">极坐标阵列</a></li>
+            <li><a href="#hierarchy">组装套娃</a></li>
+            <li><a href="#pitfalls">警报预案</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="tag">Lesson 09</div>
+            <h1>曲面雕花与极坐标阵列</h1>
+            <p>掌握不塌陷的自支撑镂空美学，施展完美的 360° 环形阵列魔法阵！</p>
+        </div>
+        <div class="hero-bg-shapes">
+            <div class="lamp-bg"></div>
+        </div>
+    </header>
+
+    <section id="support" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第一重法阵：自支撑孔洞的奥秘 🌉</h2>
+                <p>为什么方形窗户一定会塌，而菱形窗户却能凭空建起？</p>
+            </div>
+            
+            <div class="support-demo">
+                <div class="bridge-card wrong">
+                    <div class="b-visual">
+                        <div class="hole square"></div>
+                        <div class="spaghetti"></div>
+                    </div>
+                    <h3>❌ 死亡平顶 (必塌)</h3>
+                    <p>正方形的顶部是一条完全悬空的平线。喷头跨越这道深渊时，没有下层承托，塑料一定会拉丝下坠，变成灾难！</p>
+                </div>
+                
+                <div class="bridge-card right">
+                    <div class="b-visual">
+                        <div class="hole rhombus"></div>
+                        <div class="build-lines"></div>
+                    </div>
+                    <h3>✅ 菱形拱门 (完美自支撑)</h3>
+                    <p>尖角朝上的菱形或水滴形，每一层都只比下一层往里多悬空一丁点。打印机可以像走楼梯一样，自己把拱门合拢！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="polar" class="interactive-section bg-dark text-white">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第二重法阵：极坐标吸附 🧭</h2>
+                <p>放弃鼠标乱拽！将旋转光标压在内圈刻度线上，享受“咔哒咔哒”的精准吸附感。</p>
+            </div>
+            
+            <div class="polar-demo">
+                <div class="p-visual">
+                    <div class="snap-ring">
+                        <div class="degree-mark d0">0°</div>
+                        <div class="degree-mark d45">45°</div>
+                        <div class="degree-mark d90">90°</div>
+                        <div class="degree-mark d135">135°</div>
+                        <div class="degree-mark d180">180°</div>
+                        
+                        <!-- The rotating pattern element -->
+                        <div class="pattern-cursor" id="p-cursor"></div>
+                    </div>
+                </div>
+                
+                <div class="p-controls text-center">
+                    <button class="btn-snap" id="btn-snap-45">精确吸附旋转 (每次 +45°)</button>
+                </div>
+                
+                <div class="p-text text-center mt-4">
+                    <p><strong>核心操作：</strong>在旋转圆环内部拖拽鼠标。每吸附跳动一次，花纹就精准地沿圆周布下一个阵眼！转一圈 8 个花纹，分毫不差。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="hierarchy" class="interactive-section bg-colorful">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第三重法阵：圆心不可欺 (组装套娃) 🪆</h2>
+                <p>如果不和中心的柱子“组装”在一起，你的花纹就会像脱缰野马飞向外太空！</p>
+            </div>
+            
+            <div class="hierarchy-demo">
+                <div class="h-scene">
+                    <div class="h-center-pillar"></div>
+                    <!-- the pattern orbiting -->
+                    <div class="orbit-container" id="orbit-c">
+                        <div class="h-pattern"></div>
+                    </div>
+                </div>
+                
+                <div class="h-text">
+                    <div class="status-box mb-4" id="h-status">
+                        <h4>❌ 独立个体自转</h4>
+                        <p>花纹没有和主筒组装，它只会原地打转或者乱飞！</p>
+                    </div>
+                    <button class="btn-group" id="btn-group">施法：将花纹与主筒组装绑定！</button>
+                    <p class="mt-4"><strong>逻辑定律：</strong>只有将负零件作为大圆柱的“子级”（组装体），它才能借用大圆柱(128, 128)的中心轴作为自己的公转轨道！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pitfalls" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-danger">🚨 实验室警报 (避坑指南)</h2>
+            </div>
+            <div class="pitfall-grid">
+                <div class="p-card border-red">
+                    <div class="p-emoji">🛸</div>
+                    <h4>灾难 1：花纹满天乱飞，不在圆上</h4>
+                    <p class="desc"><strong>现场：</strong>旋转复制出来的花纹，不但没围成一圈，反而飞到了热床外面。</p>
+                    <p class="solution"><strong>解药：</strong>你忘了组装套娃！必须先把第一个花纹和中间的主灯罩选在一起，右键点击“组装”。然后再去复制里面那个当了儿子的花纹！</p>
+                </div>
+                <div class="p-card border-orange">
+                    <div class="p-emoji">💥</div>
+                    <h4>灾难 2：顶部直接塌成炒面</h4>
+                    <p class="desc"><strong>现场：</strong>打印实物时，好好的窗洞，顶部挂下一堆乱七八糟的塑料丝。</p>
+                    <p class="solution"><strong>解药：</strong>你弄了死亡平顶！大跨度方形洞是绝对违法的。把正方形旋转 45° 变成菱形（尖角朝上），打印机就能自动修复悬空。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第6课：内部收纳隔板与支撑 - 魔法创客营 V2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body class="theme-support">
+    <nav class="navbar custom-nav">
+        <div class="logo">🌳 收纳隔板与支撑 (Supports & Arrays)</div>
+        <ul class="nav-links">
+            <li><a href="#array">克隆分身</a></li>
+            <li><a href="#overhang">致命悬崖</a></li>
+            <li><a href="#support">树形支撑</a></li>
+            <li><a href="#pitfalls">警报预案</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="tag">Lesson 06</div>
+            <h1>对抗地心引力</h1>
+            <p>理解万有引力在 3D 世界的铁律，用克隆魔法制作阵列，召唤“树形支撑”拯救空中楼阁！</p>
+        </div>
+        <div class="hero-bg-shapes">
+            <div class="support-bg"></div>
+        </div>
+    </header>
+
+    <section id="array" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第一式：克隆分身陷阱 👥</h2>
+                <p>复制粘贴的终极口诀：粘一次，拽一下！</p>
+            </div>
+            
+            <div class="array-demo">
+                <div class="a-visual">
+                    <div class="a-base"></div>
+                    <div class="clone-stack" id="c-stack">
+                        <div class="a-board b1"></div>
+                        <div class="a-board b2"></div>
+                        <div class="a-board b3"></div>
+                    </div>
+                </div>
+                <div class="a-text">
+                    <button class="btn-array" id="btn-array">执行：粘一次，拽一下</button>
+                    <div class="text-alert mt-4">
+                        <h3>❌ 原位爆炸灾难</h3>
+                        <p>Bambu Studio 的粘贴是<strong>“原位叠加”</strong>！如果你狂按 Ctrl+V，屏幕上看起来只有一个板子，但实际上它们重叠在了一起！切片时软件会直接崩溃报错。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="overhang" class="interactive-section bg-dark text-white">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第二式：制造致命悬崖 🧗</h2>
+                <p>在笔直的圆筒侧面，强行插一块悬空的置物板！</p>
+            </div>
+            
+            <div class="overhang-demo">
+                <div class="o-visual">
+                    <div class="o-cylinder"></div>
+                    <div class="o-platform"></div>
+                    <!-- The gravity noodle -->
+                    <div class="o-noodle"></div>
+                </div>
+                <div class="o-text">
+                    <h3>重力是无情的！</h3>
+                    <p>想象一下，喷头正在 50mm 的半空中吐出 220℃ 的高温面条。如果下面什么都没有，这根面条会怎样？</p>
+                    <p class="highlight-text">啪唧！直接掉在热床上变成炒面！完全水平（90°）向外伸出的结构，绝对无法凭空打印。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="support" class="interactive-section bg-colorful">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第三式：召唤树形支撑 🌳</h2>
+                <p>左侧工艺面板 -> 支撑 -> 启用支撑 (类型：树形自动)。</p>
+            </div>
+            
+            <div class="support-demo">
+                <div class="s-controls text-center mb-4">
+                    <button class="btn-support" id="btn-support">施法：长出支撑脚手架！</button>
+                </div>
+                <div class="s-visual" id="s-visual">
+                    <div class="s-cylinder"></div>
+                    <div class="s-platform"></div>
+                    <!-- The generated tree support -->
+                    <div class="tree-trunk">
+                        <div class="branch b-left"></div>
+                        <div class="branch b-right"></div>
+                    </div>
+                </div>
+                <div class="s-text text-center mt-4">
+                    <p><strong>树形支撑 (Tree Supports)：</strong>它会像树根一样从旁边避开障碍物蜿蜒生长，伸出树枝去托住悬空部位。极度省料，且打印完用手一掰就掉！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pitfalls" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-danger">🚨 实验室警报 (避坑指南)</h2>
+            </div>
+            <div class="pitfall-grid">
+                <div class="p-card border-red">
+                    <div class="p-emoji">🌪️</div>
+                    <h4>灾难 1：疯狂粘贴引发报错</h4>
+                    <p class="desc"><strong>现场：</strong>切片极度缓慢卡死，或者切片出来表面布满奇怪的马赛克交叉纹理。</p>
+                    <p class="solution"><strong>解药：</strong>看看屏幕左边的对象列表！是不是有 6 个同样的长方体？删掉多余的重叠幽灵，只留你眼睛真正能看到的那些！</p>
+                </div>
+                <div class="p-card border-orange">
+                    <div class="p-emoji">👻</div>
+                    <h4>灾难 2：悬空部位下方全是空气</h4>
+                    <p class="desc"><strong>现场：</strong>切片后，置物台下方空空如也，并没有长出老师所说的大树。</p>
+                    <p class="solution"><strong>解药：</strong>软件是不会主动帮你加支撑的！退回准备界面，检查左侧支撑面板的<strong>“启用支撑”</strong>勾打上了没有？无勾不长树！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第11课：打印机实用配件 - 魔法创客营 V2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body class="theme-caliper">
+    <nav class="navbar custom-nav">
+        <div class="logo">🗜️ 逆向工程：实用配件</div>
+        <ul class="nav-links">
+            <li><a href="#caliper">卡尺与余量</a></li>
+            <li><a href="#layer">层纹力学</a></li>
+            <li><a href="#pitfalls">警报预案</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="tag">Lesson 11</div>
+            <h1>逆向测量与层纹力学</h1>
+            <p>走出虚拟屏幕，用游标卡尺测量物理世界！理解热胀冷缩的 0.5mm 慷慨余量，掌握抗撕裂的摆放法则！</p>
+        </div>
+        <div class="hero-bg-shapes">
+            <div class="caliper-bg"></div>
+        </div>
+    </header>
+
+    <section id="caliper" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第一重勘测：游标卡尺与慷慨余量 📏</h2>
+                <p>桌板厚度 25.0mm。如果你在软件里也挖 25.0mm，夹子绝对塞不进去！</p>
+            </div>
+            
+            <div class="caliper-demo">
+                <div class="c-measurement text-center">
+                    <div class="desk-edge">木板实测: 25.00mm</div>
+                </div>
+                
+                <div class="c-compare-grid mt-4">
+                    <div class="c-card wrong">
+                        <div class="c-visual v-tight">
+                            <div class="clip c-250">
+                                <div class="c-slot">25.0mm</div>
+                            </div>
+                            <div class="wood-block"></div>
+                            <div class="break-sparks">💥 崩裂</div>
+                        </div>
+                        <h3>❌ 零公差 (画家思维)</h3>
+                        <p>塑料冷却收缩会导致槽口变窄。强行卡入，前端直接崩断！</p>
+                    </div>
+                    
+                    <div class="c-card right">
+                        <div class="c-visual v-loose">
+                            <div class="clip c-255">
+                                <div class="c-slot">25.5mm</div>
+                            </div>
+                            <div class="wood-block"></div>
+                            <div class="fit-glow">✅ 完美干涉配合</div>
+                        </div>
+                        <h3>✅ 慷慨余量 (工程师思维)</h3>
+                        <p>给负零件加上 <strong>0.5mm</strong> 的余量 (挖槽高度=25.5mm)。刚好能牢牢咬住木板，坚固无比！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="layer" class="interactive-section bg-dark text-white">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第二重勘测：层纹决定生死 🪵</h2>
+                <p>站立打印不需要支撑？错！当你用力掰开夹子时，层与层之间的胶水会像劈木头一样裂开！</p>
+            </div>
+            
+            <div class="layer-demo">
+                <div class="l-scene">
+                    <div class="l-plate"></div>
+                    
+                    <!-- Standing Clip (Weak) -->
+                    <div class="l-clip standing" id="clip-stand">
+                        <div class="layer-lines"></div>
+                        <div class="crack-line"></div>
+                        <div class="force-arrow f-left">◀</div>
+                        <div class="force-arrow f-right">▶</div>
+                    </div>
+                    
+                    <!-- Laying Clip (Strong) -->
+                    <div class="l-clip laying" id="clip-lay">
+                        <div class="xy-lines"></div>
+                        <div class="force-arrow f-up">▲</div>
+                        <div class="force-arrow f-down">▼</div>
+                    </div>
+                </div>
+                
+                <div class="l-controls text-center mt-4">
+                    <button class="btn-force bad" id="btn-force-stand">施加外力 (站立打印)</button>
+                    <button class="btn-force good" id="btn-force-lay">施加外力 (侧躺打印)</button>
+                </div>
+                
+                <div class="l-text text-center mt-4">
+                    <p id="l-msg"><strong>物理法则：</strong>永远让受力面与层纹方向垂直！不要为了省那点支撑而毁了整个零件的刚性！用平放工具(F)把它侧翻推倒在地上！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pitfalls" class="interactive-section bg-colorful">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-danger">🚨 实验室警报 (避坑指南)</h2>
+            </div>
+            <div class="pitfall-grid">
+                <div class="p-card border-red">
+                    <div class="p-emoji">🤏</div>
+                    <h4>灾难 1：死活卡不进桌板</h4>
+                    <p class="desc"><strong>现场：</strong>兴冲冲拿到打印件往桌上一卡，发现卡口太小，用尽全力也塞不进 25mm 的木板。</p>
+                    <p class="solution"><strong>解药：</strong>这就是对热胀冷缩的无知！退回软件，找到挖槽的负零件，Z轴高度无条件增加 0.5 毫米。我们要的是干涉配合，不是物理死锁！</p>
+                </div>
+                <div class="p-card border-orange">
+                    <div class="p-emoji">🪵</div>
+                    <h4>灾难 2：一掰就断成两截</h4>
+                    <p class="desc"><strong>现场：</strong>卡扣卡上桌子受力时，直接顺着水平方向断成了两半，断面一层一层的。</p>
+                    <p class="solution"><strong>解药：</strong>你犯了力学大忌——受张力区域与层纹平行！用平放工具，选C型夹的侧脸，让它完全躺平在热床上重新打印！连续的塑料丝才能抗撕裂！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

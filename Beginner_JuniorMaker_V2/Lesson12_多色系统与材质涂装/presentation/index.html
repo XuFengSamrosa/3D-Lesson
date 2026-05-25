@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第12课：多色系统与涂装 - 魔法创客营 V2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body class="theme-color">
+    <nav class="navbar custom-nav">
+        <div class="logo">🎨 多色涂装 (Color Painting)</div>
+        <ul class="nav-links">
+            <li><a href="#cost">换色的代价</a></li>
+            <li><a href="#tools">四大填色神器</a></li>
+            <li><a href="#pitfalls">警报预案</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="tag">Lesson 12</div>
+            <h1>视觉狂欢与切片灾难</h1>
+            <p>告别单色世界！掌握智能填色魔法，理解“冲刷塔”背后的恐怖时间代价！</p>
+        </div>
+        <div class="hero-bg-shapes">
+            <div class="color-splash s1"></div>
+            <div class="color-splash s2"></div>
+            <div class="color-splash s3"></div>
+        </div>
+    </header>
+
+    <section id="cost" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第一重审判：换色的恐怖代价 ⏱️</h2>
+                <p>只是在侧面画了一条红线，打印时间为什么从 1 小时暴增到了 20 小时？！</p>
+            </div>
+            
+            <div class="cost-demo">
+                <div class="time-board text-center">
+                    <div class="time-stat">
+                        <span class="label">当前打印时间:</span>
+                        <span class="time-val" id="time-display">01:15:00</span>
+                    </div>
+                    <div class="waste-stat">
+                        <span class="label">冲刷废料:</span>
+                        <span class="waste-val" id="waste-display">0 g</span>
+                    </div>
+                </div>
+                
+                <div class="c-compare-grid mt-4">
+                    <div class="c-card right" id="card-good">
+                        <div class="c-visual v-layer">
+                            <div class="cup layer-colored"></div>
+                            <div class="prime-tower tiny"></div>
+                        </div>
+                        <h3>✅ 聪明的分层 (Layer Color)</h3>
+                        <p>底层白色，顶层红色。只需要在整个过程中换 <strong>1 次</strong> 颜色。</p>
+                        <button class="btn-color good" onclick="simulateColor('good')">测试：分层染色</button>
+                    </div>
+                    
+                    <div class="c-card wrong" id="card-bad">
+                        <div class="c-visual v-vertical">
+                            <div class="cup vertical-colored">
+                                <div class="red-line"></div>
+                            </div>
+                            <div class="prime-tower giant" id="bad-tower"></div>
+                        </div>
+                        <h3>❌ 愚蠢的竖线 (Z-axis Tragedy)</h3>
+                        <p>贯穿 Z 轴的红线，意味着每一层都要在红白之间切换！换色高达 <strong>1000 次</strong>！</p>
+                        <button class="btn-color bad" onclick="simulateColor('bad')">测试：画竖线</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tools" class="interactive-section bg-dark text-white">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第二重审判：四大填色神器 🖌️</h2>
+                <p>顶部油漆桶 (N 键)。在 3D 空间里倒油漆，必须顺应几何边界！</p>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="t-icon bg-brush"></div>
+                    <h4>画笔 (Brush)</h4>
+                    <p>自由涂抹，极易溢出。像个无头苍蝇，只适合大面积的底色粗略覆盖。</p>
+                </div>
+                <div class="tool-card">
+                    <div class="t-icon bg-triangle"></div>
+                    <h4>多边形 (Triangle)</h4>
+                    <p>最精准的微操！按模型表面的极小三角网格上色，修补边缘溢出的终极救星，但极度费眼。</p>
+                </div>
+                <div class="tool-card">
+                    <div class="t-icon bg-height"></div>
+                    <h4>高度 (Height)</h4>
+                    <p>横向一刀切！像水淹没一样，设定范围内的所有结构瞬间染成同一颜色，切片最快。</p>
+                </div>
+                <div class="tool-card highlight">
+                    <div class="t-icon bg-fill"></div>
+                    <h4>填充 (Fill)</h4>
+                    <p><strong>最强魔法：智能倒漆！</strong>只要有明显的凹凸交界线，点击一下，颜色瞬间填满沟壑，边界干净利落！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pitfalls" class="interactive-section bg-colorful">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-danger">🚨 实验室警报 (避坑指南)</h2>
+            </div>
+            <div class="pitfall-grid">
+                <div class="p-card border-red">
+                    <div class="p-emoji">🗑️</div>
+                    <h4>灾难 1：废料塔比模型还大</h4>
+                    <p class="desc"><strong>现场：</strong>用画笔在侧面画了个歪七扭八的笑脸。切片时间 18 小时，角落里长出了一座巨大的塑料塔。</p>
+                    <p class="solution"><strong>解药：</strong>这就是无视 Z 轴频繁换料的下场。废掉的塑料比模型还多三倍！马上撤销颜色，想画脸，老老实实在建模时挖洞，然后用“填充”倒颜色！</p>
+                </div>
+                <div class="p-card border-orange">
+                    <div class="p-emoji">🌊</div>
+                    <h4>灾难 2：油漆漫水全染了</h4>
+                    <p class="desc"><strong>现场：</strong>用 Fill（填充）点了一个字，结果大半个底板跟着全变成了黄色。</p>
+                    <p class="solution"><strong>解药：</strong>水流原理：如果门槛太低，水就会流满地。去调高左侧面板里的“智能角度边界”！如果还不行，切回“多边形”模式，手工把缺口封上！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

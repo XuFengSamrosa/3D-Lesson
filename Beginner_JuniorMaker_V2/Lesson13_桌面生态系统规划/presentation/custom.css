@@ -1,0 +1,92 @@
+/* custom.css for V2 Lesson 13 Ecosystem Planning */
+
+body.theme-eco { font-family: 'Nunito', 'Inter', sans-serif; color: #333; }
+.custom-nav { background: rgba(255, 255, 255, 0.95); border-bottom: 2px solid #eee; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;}
+.custom-nav .logo { color: #2c3e50; font-size: 1.5rem; font-weight: 900;}
+.custom-nav .nav-links { list-style: none; display: flex; gap: 20px;}
+.custom-nav .nav-links a { color: #57606f; font-weight: 700; text-decoration: none;}
+
+.bg-light { background-color: #f8f9fa; color: #2f3542; }
+.bg-dark { background-color: #2f3542; color: #f1f2f6; }
+.bg-colorful { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); color: #2f3542; }
+
+.interactive-section { padding: 80px 5%; min-height: 80vh; display: flex; align-items: center; }
+.container { max-width: 1200px; margin: 0 auto; width: 100%; }
+
+.section-header { margin-bottom: 50px; }
+.section-header h2 { font-size: 3rem; margin-bottom: 15px; font-weight: 900; }
+.section-header p { font-size: 1.3rem; opacity: 0.9; max-width: 800px; line-height: 1.6; margin: 0 auto;}
+.text-center { text-align: center;}
+.text-muted { color: #7f8c8d; }
+
+/* Hero */
+.hero-section { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; background: #ffffff; overflow: hidden; }
+.hero-content { z-index: 10; padding: 50px; background: rgba(255, 255, 255, 0.7); border-radius: 30px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); max-width: 800px; border: 1px solid rgba(255, 255, 255, 0.8); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255,255,255,0.2) inset;}
+.hero-content h1 { font-size: 3.5rem; color: #2c3e50; margin-bottom: 20px; font-weight: 900; }
+.hero-content p { font-size: 1.5rem; color: #34495e; font-weight: 600;}
+.tag { display: inline-block; padding: 10px 20px; background: #2c3e50; color: white; border-radius: 30px; font-weight: 900; font-size: 1.2rem; margin-bottom: 20px;}
+
+.hero-bg-shapes { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none;}
+.grid-bg { position: absolute; width: 200%; height: 200%; top: -50%; left: -50%; background-image: linear-gradient(rgba(44, 62, 80, 0.05) 2px, transparent 2px), linear-gradient(90deg, rgba(44, 62, 80, 0.05) 2px, transparent 2px); background-size: 50px 50px; transform: perspective(500px) rotateX(60deg); animation: gridMove 20s linear infinite;}
+@keyframes gridMove { 0% { transform: perspective(500px) rotateX(60deg) translateY(0); } 100% { transform: perspective(500px) rotateX(60deg) translateY(50px); } }
+
+/* Ecosystem Demo */
+.eco-demo { background: white; padding: 50px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 2px solid #e1e2e6; position: relative; min-height: 400px; display: flex; flex-direction: column; align-items: center;}
+.carrier-base { width: 400px; height: 150px; background: #bdc3c7; border-radius: 20px; border-bottom: 20px solid #95a5a6; position: absolute; bottom: 120px; display: flex; justify-content: space-around; align-items: flex-start; padding-top: 20px; box-shadow: 0 30px 40px rgba(0,0,0,0.1); transition: all 1s;}
+.slot { width: 80px; height: 20px; background: #7f8c8d; border-radius: 10px; box-shadow: inset 0 5px 10px rgba(0,0,0,0.3);}
+
+.modules-grid { display: flex; gap: 30px; position: absolute; top: 40px; transition: all 1s;}
+.eco-module { width: 100px; height: 100px; background: #ecf0f1; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); border: 4px solid #3498db; transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);}
+.m-icon { font-size: 2.5rem; margin-bottom: 5px;}
+.eco-module span { font-weight: bold; color: #2c3e50; font-size: 0.9rem;}
+
+/* The Assembly Animation */
+.eco-demo.is-assembled .modules-grid { top: 180px; }
+.eco-demo.is-assembled .eco-module { transform: translateY(0) scale(0.9); border-radius: 20px 20px 0 0; border-bottom: none;}
+.eco-demo.is-assembled .carrier-base { background: #2ecc71; border-bottom-color: #27ae60;}
+
+.btn-eco { background: #3498db; color: white; border: none; padding: 15px 40px; font-size: 1.2rem; font-weight: bold; border-radius: 30px; cursor: pointer; transition: 0.3s; margin-top: 250px; outline: none;}
+.btn-eco:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);}
+
+/* Protocol Paper */
+.protocol-demo { display: flex; justify-content: center;}
+.blueprint-paper { background: #f1f2f6; width: 100%; max-width: 700px; border-radius: 10px; padding: 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.3); position: relative; overflow: hidden;}
+.blueprint-paper::before { content: ''; position: absolute; width: 100%; height: 100%; top: 0; left: 0; background-image: linear-gradient(#dfe4ea 1px, transparent 1px), linear-gradient(90deg, #dfe4ea 1px, transparent 1px); background-size: 20px 20px; opacity: 0.5; pointer-events: none;}
+.paper-header { border-bottom: 3px solid #2f3542; padding-bottom: 15px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: flex-end;}
+.paper-header h3 { color: #2f3542; font-size: 1.8rem; margin: 0; font-weight: 900;}
+.paper-header .date { color: #57606f; margin: 0; font-weight: bold;}
+
+.rule-box { background: rgba(255,255,255,0.8); border-left: 6px solid #e74c3c; padding: 20px; margin-bottom: 30px; position: relative;}
+.badge { position: absolute; top: -15px; left: 20px; background: #e74c3c; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;}
+.rule-box p { color: #2f3542; font-size: 1.2rem; font-weight: 600; line-height: 1.6; margin: 10px 0 0 0;}
+
+.spec-grid { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; background: white; border: 2px dashed #7f8c8d; padding: 20px; border-radius: 15px;}
+.spec-item { text-align: center; flex: 1;}
+.spec-item h4 { color: #7f8c8d; margin-bottom: 10px;}
+.spec-item .val { font-size: 1.5rem; font-weight: 900; color: #2c3e50; font-family: monospace;}
+.text-danger { color: #e74c3c !important;}
+
+.paper-footer { border-top: 2px dashed #bdc3c7; padding-top: 20px; text-align: center; position: relative;}
+.paper-footer p { color: #7f8c8d; font-weight: bold; margin-bottom: 20px;}
+.btn-sign { background: #2f3542; color: white; border: none; padding: 15px 40px; font-size: 1.2rem; font-weight: bold; border-radius: 5px; cursor: pointer; transition: 0.3s; outline: none;}
+.btn-sign:hover { background: #1e272e; transform: scale(1.05);}
+
+.signatures { display: none; justify-content: space-around; margin-top: 30px; position: relative;}
+.signatures.show { display: flex; }
+.sign { font-family: 'Brush Script MT', cursive; font-size: 2rem; color: #2c3e50; transform: rotate(-5deg); opacity: 0; animation: signWrite 0.5s forwards;}
+.s-2 { animation-delay: 0.5s; transform: rotate(3deg);}
+.s-3 { animation-delay: 1s; transform: rotate(-2deg);}
+.stamp { position: absolute; right: 20px; top: -40px; border: 4px solid #e74c3c; color: #e74c3c; font-size: 1.5rem; font-weight: 900; padding: 10px 20px; border-radius: 10px; transform: rotate(-15deg) scale(3); opacity: 0; animation: stampDown 0.3s 1.5s forwards;}
+
+@keyframes signWrite { to { opacity: 1; } }
+@keyframes stampDown { to { transform: rotate(-15deg) scale(1); opacity: 1; } }
+
+/* Pitfalls */
+.pitfall-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.p-card { background: rgba(255, 255, 255, 0.6); padding: 40px; border-radius: 24px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.8); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255,255,255,0.2) inset; transition: transform 0.3s; border-top: 8px solid #ff4757;}
+.p-card:nth-child(2) { border-top-color: #ffa502;}
+.p-card:hover { transform: translateY(-10px); box-shadow: 0 30px 50px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.2) inset;}
+.p-emoji { font-size: 4rem; margin-bottom: 20px; }
+.p-card h4 { font-size: 1.8rem; margin-bottom: 20px; color: #2f3542; font-weight: 900;}
+.p-card .desc { color: #ff4757; margin-bottom: 20px; font-size: 1.2rem; font-weight: 600;}
+.p-card .solution { color: #2ed573; font-weight: 700; font-size: 1.2rem; background: rgba(46, 213, 115, 0.1); padding: 20px; border-radius: 12px; border: 1px solid rgba(46, 213, 115, 0.2);}

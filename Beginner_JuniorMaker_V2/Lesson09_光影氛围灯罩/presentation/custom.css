@@ -1,0 +1,97 @@
+/* custom.css for V2 Lesson 09 Vibe Lamp */
+
+body.theme-lamp { font-family: 'Nunito', 'Inter', sans-serif; color: #333; }
+.custom-nav { background: rgba(255, 255, 255, 0.95); border-bottom: 2px solid #eee; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;}
+.custom-nav .logo { color: #f1c40f; font-size: 1.5rem; font-weight: 900;}
+.custom-nav .nav-links { list-style: none; display: flex; gap: 20px;}
+.custom-nav .nav-links a { color: #57606f; font-weight: 700; text-decoration: none;}
+
+.bg-light { background-color: #f1f2f6; color: #2f3542; }
+.bg-dark { background-color: #2f3542; color: #f1f2f6; }
+.bg-colorful { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #2f3542; }
+
+.interactive-section { padding: 80px 5%; min-height: 80vh; display: flex; align-items: center; }
+.container { max-width: 1200px; margin: 0 auto; width: 100%; }
+
+.section-header { margin-bottom: 50px; }
+.section-header h2 { font-size: 3rem; margin-bottom: 15px; font-weight: 900; }
+.section-header p { font-size: 1.3rem; opacity: 0.9; max-width: 800px; line-height: 1.6; margin: 0 auto;}
+.text-center { text-align: center;}
+
+/* Hero */
+.hero-section { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; background: #ffffff; overflow: hidden; }
+.hero-content { z-index: 10; padding: 50px; background: rgba(255,255,255,0.85); border-radius: 30px; backdrop-filter: blur(10px); max-width: 800px; border: 4px dashed #f1c40f; box-shadow: 0 20px 50px rgba(241, 196, 15, 0.1);}
+.hero-content h1 { font-size: 3.5rem; color: #f1c40f; margin-bottom: 20px; font-weight: 900; }
+.hero-content p { font-size: 1.5rem; color: #2f3542; font-weight: 600;}
+.tag { display: inline-block; padding: 10px 20px; background: #f1c40f; color: white; border-radius: 30px; font-weight: 900; font-size: 1.2rem; margin-bottom: 20px;}
+.hero-bg-shapes .lamp-bg { position: absolute; width: 300px; height: 400px; background: rgba(241, 196, 15, 0.1); border: 2px dashed #f39c12; border-radius: 100px; top: 10%; right: 10%; box-shadow: 0 0 100px rgba(241, 196, 15, 0.5);}
+
+/* Support Demo */
+.support-demo { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.bridge-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.06); text-align: center;}
+.bridge-card.wrong { border-top: 6px solid #e74c3c; }
+.bridge-card.right { border-top: 6px solid #2ecc71; }
+.b-visual { width: 100%; height: 200px; background: #3498db; border-radius: 15px; position: relative; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden;}
+.hole { background: #1e222a; position: relative;}
+.hole.square { width: 100px; height: 100px; }
+.hole.rhombus { width: 100px; height: 100px; transform: rotate(45deg); }
+.spaghetti { position: absolute; width: 80px; height: 80px; border-left: 2px dashed #e74c3c; border-bottom: 2px dashed #e74c3c; border-bottom-left-radius: 20px; top: 50px; left: 50%; transform: translateX(-50%); animation: fallGoo 2s infinite;}
+.build-lines { position: absolute; width: 140px; height: 140px; border: 2px solid #2ecc71; opacity: 0; animation: buildArch 2s infinite;}
+
+@keyframes fallGoo { 0% { height: 0; opacity: 1;} 80% { height: 80px; opacity: 1;} 100% { height: 80px; opacity: 0;} }
+@keyframes buildArch { 0% { transform: scale(0.8) rotate(45deg); opacity: 0;} 50% { transform: scale(1) rotate(45deg); opacity: 1;} 100% { transform: scale(1.1) rotate(45deg); opacity: 0;} }
+
+.bridge-card h3 { font-size: 1.5rem; margin-bottom: 15px;}
+.bridge-card p { color: #57606f; line-height: 1.5;}
+
+/* Polar Demo */
+.polar-demo { display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.2); padding: 50px; border-radius: 30px;}
+.p-visual { position: relative; width: 300px; height: 300px; margin-bottom: 30px;}
+.snap-ring { width: 100%; height: 100%; border: 4px dashed #7f8c8d; border-radius: 50%; position: relative;}
+.snap-ring::after { content: ''; position: absolute; width: 20px; height: 20px; background: #e74c3c; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%);}
+.degree-mark { position: absolute; color: #bdc3c7; font-weight: bold; font-size: 1.2rem;}
+.d0 { top: -30px; left: 50%; transform: translateX(-50%); color: #f1c40f;}
+.d45 { top: 20px; right: 20px; }
+.d90 { top: 50%; right: -40px; transform: translateY(-50%);}
+.d135 { bottom: 20px; right: 20px; }
+.d180 { bottom: -30px; left: 50%; transform: translateX(-50%);}
+
+.pattern-cursor { position: absolute; width: 30px; height: 30px; background: #f1c40f; top: 0; left: 50%; margin-left: -15px; margin-top: -15px; transform-origin: 15px 165px; transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);} /* Rhombus pattern */
+
+.btn-snap { background: #f1c40f; color: #2f3542; border: none; padding: 15px 40px; font-size: 1.5rem; font-weight: bold; border-radius: 30px; cursor: pointer; transition: 0.3s; outline: none;}
+.btn-snap:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(241, 196, 15, 0.3);}
+.p-text p { font-size: 1.2rem; color: #dfe4ea; max-width: 600px;}
+
+/* Hierarchy Demo */
+.hierarchy-demo { display: flex; align-items: center; justify-content: center; gap: 50px; background: white; padding: 50px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 2px solid #e1e2e6;}
+.h-scene { position: relative; width: 300px; height: 300px; background: #1e222a; border-radius: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden;}
+.h-center-pillar { width: 100px; height: 100px; background: #3498db; border-radius: 50%; position: absolute; z-index: 2;}
+
+.orbit-container { position: absolute; width: 300px; height: 300px; animation: rogueSpin 2s linear infinite;}
+.h-pattern { position: absolute; width: 40px; height: 40px; background: #e74c3c; left: 130px; top: 20px; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);}
+
+.orbit-container.is-grouped { animation: perfectOrbit 4s linear infinite; }
+.orbit-container.is-grouped .h-pattern { background: #2ecc71; left: 130px; top: 20px;}
+.h-scene.is-grouped .h-center-pillar { box-shadow: 0 0 20px #2ecc71; border: 2px solid #2ecc71;}
+
+@keyframes rogueSpin { 0% { transform: rotate(0deg) translate(0,0);} 100% { transform: rotate(360deg) translate(50px, 50px);}} /* Flying away */
+@keyframes perfectOrbit { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);}} /* Perfect center orbit */
+
+.h-text { max-width: 400px;}
+.status-box { background: #fff0f1; border-left: 5px solid #e74c3c; padding: 20px; border-radius: 10px;}
+.status-box h4 { color: #e74c3c; margin-bottom: 10px; font-size: 1.3rem;}
+.status-box.ok { background: #eafaf1; border-left-color: #2ecc71;}
+.status-box.ok h4 { color: #2ecc71;}
+.btn-group { background: #3498db; color: white; border: none; padding: 15px 30px; font-size: 1.2rem; font-weight: bold; border-radius: 20px; cursor: pointer; transition: 0.3s; outline: none; width: 100%;}
+.btn-group:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);}
+
+/* Pitfalls */
+.pitfall-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.p-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.06); transition: transform 0.3s;}
+.p-card:hover { transform: translateY(-10px); }
+.border-red { border-top: 8px solid #e74c3c; }
+.border-orange { border-top: 8px solid #e67e22; }
+.p-emoji { font-size: 4rem; margin-bottom: 20px; }
+.p-card h4 { font-size: 1.5rem; margin-bottom: 20px; color: #2f3542; font-weight: 900;}
+.p-card .desc { color: #e74c3c; margin-bottom: 20px; font-size: 1.1rem; font-weight: 600;}
+.p-card .solution { color: #2ecc71; font-weight: 700; font-size: 1.1rem; background: #eafaf1; padding: 20px; border-radius: 12px;}

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第2课：专属桌面铭牌 - 魔法创客营 V2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body class="theme-badge">
+    <nav class="navbar custom-nav">
+        <div class="logo">🏷️ 专属桌面铭牌 (Name Badge)</div>
+        <ul class="nav-links">
+            <li><a href="#scale">解开封印</a></li>
+            <li><a href="#engrave">阴阳刻法</a></li>
+            <li><a href="#hierarchy">父子层级</a></li>
+            <li><a href="#pitfalls">警报预案</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="tag">Lesson 02</div>
+            <h1>从平面绘画到 3D 雕刻</h1>
+            <p>解开等比缩放的封印，在你的专属铭牌上刻下第一刀！</p>
+        </div>
+        <div class="hero-bg-shapes">
+            <div class="badge-bg"></div>
+        </div>
+    </header>
+
+    <section id="scale" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第一式：解开等比锁头 🔓</h2>
+                <p>如果不解开小锁头，你永远只能捏出巨大的水桶，而做不出扁扁的饼干底座！</p>
+            </div>
+            
+            <div class="scale-demo">
+                <div class="lock-panel">
+                    <div class="lock-icon" id="lock-btn">🔒 锁定中</div>
+                    <div class="params">
+                        <div>X: <span id="val-x">50</span>mm</div>
+                        <div>Y: <span id="val-y">50</span>mm</div>
+                        <div>Z: <span class="highlight" id="val-z">50</span>mm</div>
+                    </div>
+                </div>
+                <div class="cylinder-view">
+                    <div class="anim-cylinder locked" id="demo-cyl"></div>
+                </div>
+                <div class="scale-instructions">
+                    <h3>点击上面的锁头试试！</h3>
+                    <p>默认状态下，尺寸面板是“锁定”的。这意味着长宽高必须同比例放大缩小。</p>
+                    <p><strong>关键操作：</strong>点击小锁头解锁，然后只把 Z 轴压低到 <strong>4mm</strong>。看！水桶被一巴掌拍成了铭牌底板！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="engrave" class="interactive-section bg-dark text-white">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第二式：阳刻与阴刻魔法 ☯️</h2>
+                <p>右键你的底板，文字该凸出来，还是凹下去？</p>
+            </div>
+            
+            <div class="engrave-cards">
+                <div class="e-card positive">
+                    <div class="e-icon">➕</div>
+                    <h3>阳刻 (Embossing)</h3>
+                    <p><strong>添加零件：</strong>让文字凸起于底板表面，属于实体的“加法”。</p>
+                    <div class="e-visual">
+                        <div class="badge-3d-wrapper" style="transform: scale(0.6);">
+                            <div class="badge-3d relief">
+                                <div class="face top"></div>
+                                <div class="face front"></div>
+                                <div class="face right"></div>
+                                <div class="shape-3d raised">
+                                    <div class="layer shadow" style="transform: translateZ(40px) translate(4px, 4px);">★</div>
+                                    <div class="layer" style="transform: translateZ(41px);">★</div>
+                                    <div class="layer" style="transform: translateZ(42px);">★</div>
+                                    <div class="layer" style="transform: translateZ(43px);">★</div>
+                                    <div class="layer" style="transform: translateZ(44px);">★</div>
+                                    <div class="layer top-layer" style="transform: translateZ(48px);">★</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="placeholder-img">[预留：添加零件文字截图]</div>
+                </div>
+                <div class="e-card negative">
+                    <div class="e-icon">➖</div>
+                    <h3>阴刻 (Engraving)</h3>
+                    <p><strong>添加负零件：</strong>隐形的吞噬怪兽！让文字凹陷于底板内部，属于实体的“减法”。</p>
+                    <div class="e-visual">
+                        <div class="badge-3d-wrapper" style="transform: scale(0.6);">
+                            <div class="badge-3d intaglio">
+                                <!-- The grid infill at the very bottom of the hole -->
+                                <div class="infill-base" style="transform: translateZ(0px);"></div>
+                                
+                                <!-- The walls of the hole going DOWN (Hollow text layers) -->
+                                <div class="shape-3d dug-in">
+                                    <div class="layer wall" style="transform: translateZ(39px);">★</div>
+                                    <div class="layer wall" style="transform: translateZ(37px);">★</div>
+                                    <div class="layer wall" style="transform: translateZ(35px);">★</div>
+                                    <div class="layer wall" style="transform: translateZ(33px);">★</div>
+                                    <div class="layer wall" style="transform: translateZ(31px);">★</div>
+                                    <div class="layer wall" style="transform: translateZ(29px);">★</div>
+                                    <div class="layer wall" style="transform: translateZ(27px);">★</div>
+                                    <div class="layer wall" style="transform: translateZ(25px);">★</div>
+                                    <div class="layer wall" style="transform: translateZ(23px);">★</div>
+                                    <div class="layer wall" style="transform: translateZ(21px);">★</div>
+                                    <div class="layer wall" style="transform: translateZ(19px);">★</div>
+                                    <div class="layer wall" style="transform: translateZ(17px);">★</div>
+                                    <div class="layer wall" style="transform: translateZ(15px);">★</div>
+                                    <div class="layer wall" style="transform: translateZ(13px);">★</div>
+                                    <div class="layer wall" style="transform: translateZ(11px);">★</div>
+                                    <div class="layer wall" style="transform: translateZ(9px);">★</div>
+                                    <div class="layer wall" style="transform: translateZ(7px);">★</div>
+                                    <div class="layer wall" style="transform: translateZ(5px);">★</div>
+                                    <div class="layer wall" style="transform: translateZ(3px);">★</div>
+                                    <div class="layer wall" style="transform: translateZ(1px);">★</div>
+                                </div>
+
+                                <!-- The top face with an SVG hole -->
+                                <div class="face top holed">
+                                    <svg width="160" height="160" viewBox="0 0 160 160">
+                                        <defs>
+                                            <mask id="star-hole">
+                                                <rect width="160" height="160" fill="white" />
+                                                <text x="50%" y="50%" dy="0.35em" text-anchor="middle" font-size="120" font-family="'Nunito', 'Inter', sans-serif" font-weight="900" fill="black">★</text>
+                                            </mask>
+                                        </defs>
+                                        <rect width="160" height="160" fill="#f1f2f6" mask="url(#star-hole)" />
+                                        <rect width="160" height="160" fill="none" stroke="#dcdde1" stroke-width="2" />
+                                    </svg>
+                                </div>
+                                <div class="face front"></div>
+                                <div class="face right"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="placeholder-img">[预留：添加负零件文字截图]</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="hierarchy" class="interactive-section bg-colorful">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第三式：父子层级关系 👨‍👦</h2>
+                <p>如果你不遵守规矩，负零件大怪兽绝对会罢工！</p>
+            </div>
+            
+            <div class="hierarchy-demo">
+                <div class="h-rule">
+                    <h3>❌ 错误的陌生人关系</h3>
+                    <p>从顶部栏乱点添加的负零件，和底板是“平级”的。它们互不隶属，负零件咬不到底板！</p>
+                    <div class="tree-view wrong">
+                        <div>🟦 圆柱体 (底板)</div>
+                        <div>🟥 负零件文字</div>
+                    </div>
+                </div>
+                <div class="h-rule">
+                    <h3>✅ 正确的父子关系</h3>
+                    <p>必须把鼠标放在底板身上点 <strong>右键</strong> 添加！文字会乖乖缩进底板的下一行，成为“子级”，这才能完美挖洞！</p>
+                    <div class="tree-view right">
+                        <div>▼ 🟦 圆柱体 (底板)</div>
+                        <div class="indent">↳ 🟥 负零件文字</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pitfalls" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-danger">🚨 实验室警报 (避坑指南)</h2>
+            </div>
+            <div class="pitfall-grid">
+                <div class="p-card border-red">
+                    <div class="p-emoji">🗿</div>
+                    <h4>灾难 1：负零件变成了灰色实体废料</h4>
+                    <p class="desc"><strong>现场：</strong>切片后，阴刻的文字不仅没挖洞，反而变成了一块实体的废塑料粘在底板上。</p>
+                    <p class="solution"><strong>解药：</strong>看看你的左侧面板层级！你肯定是点错了顶部的按钮。删掉它，对着底板【右键】重新添加子级文字！</p>
+                </div>
+                <div class="p-card border-orange">
+                    <div class="p-emoji">🔲</div>
+                    <h4>灾难 2：中文字变成乱码方块</h4>
+                    <p class="desc"><strong>现场：</strong>输入了中文名字，切片一看全是实心方块。</p>
+                    <p class="solution"><strong>解药：</strong>因为软件默认字体不懂中文。建议换成英文拼音，或者在字体列表里选择 `Microsoft YaHei` (微软雅黑)。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

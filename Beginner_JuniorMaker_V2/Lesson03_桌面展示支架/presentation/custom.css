@@ -1,0 +1,382 @@
+/* custom.css for V2 Lesson 03 Display Stand */
+
+body.theme-stand { font-family: 'Nunito', 'Inter', sans-serif; color: #333; }
+.custom-nav { background: rgba(255, 255, 255, 0.95); border-bottom: 2px solid #eee; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;}
+.custom-nav .logo { color: #f39c12; font-size: 1.5rem; font-weight: 900;}
+.custom-nav .nav-links { list-style: none; display: flex; gap: 20px;}
+.custom-nav .nav-links a { color: #57606f; font-weight: 700; text-decoration: none;}
+
+.bg-light { background-color: #f1f2f6; color: #2f3542; }
+.bg-dark { background-color: #2f3542; color: #f1f2f6; }
+.bg-colorful { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #2f3542; }
+
+.interactive-section { padding: 80px 5%; min-height: 80vh; display: flex; align-items: center; }
+.container { max-width: 1200px; margin: 0 auto; width: 100%; }
+
+.section-header { margin-bottom: 50px; }
+.section-header h2 { font-size: 3rem; margin-bottom: 15px; font-weight: 900; }
+.section-header p { font-size: 1.3rem; opacity: 0.9; max-width: 800px; line-height: 1.6; margin: 0 auto;}
+.text-center { text-align: center;}
+
+/* Hero */
+.hero-section { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; background: #ffffff; overflow: hidden; }
+.hero-content { z-index: 10; padding: 50px; background: rgba(255,255,255,0.85); border-radius: 30px; backdrop-filter: blur(10px); max-width: 800px; border: 4px dashed #f39c12; box-shadow: 0 20px 50px rgba(243, 156, 18, 0.1);}
+.hero-content h1 { font-size: 3.5rem; color: #f39c12; margin-bottom: 20px; font-weight: 900; }
+.hero-content p { font-size: 1.5rem; color: #2f3542; font-weight: 600;}
+.tag { display: inline-block; padding: 10px 20px; background: #f39c12; color: white; border-radius: 30px; font-weight: 900; font-size: 1.2rem; margin-bottom: 20px;}
+
+/* Parallax Demo */
+
+/* Parallax Demo */
+.parallax-demo { background: white; padding: 40px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 2px solid #e1e2e6;}
+.view-switch { text-align: center; margin-bottom: 30px;}
+.v-btn { background: #f1f2f6; border: none; padding: 15px 30px; font-size: 1.2rem; font-weight: bold; border-radius: 20px; margin: 0 10px; cursor: pointer; color: #57606f; transition: 0.3s; outline: none;}
+.v-btn.active { background: #f39c12; color: white; box-shadow: 0 10px 20px rgba(243, 156, 18, 0.3);}
+
+.scene-container { height: 350px; background: #1e222b; border-radius: 20px; position: relative; perspective: 1000px; transform-style: preserve-3d; transition: transform 1s ease-in-out; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 3px solid #2f3542;}
+.grid-floor { position: absolute; width: 600px; height: 600px; background: repeating-linear-gradient(#444 0 1px, transparent 1px 100%), repeating-linear-gradient(90deg, #444 0 1px, transparent 1px 100%); background-size: 40px 40px; transform: rotateX(90deg) translateZ(-80px); opacity: 0.3;}
+
+/* Generic 3D Cube */
+.cube {
+    position: absolute;
+    transform-style: preserve-3d;
+}
+.cube .face {
+    position: absolute;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+
+/* Stand Base 3D Cube */
+.p-base {
+    width: 180px;
+    height: 12px;
+    transform: translate3d(0, 80px, 0);
+}
+.p-base .front  { width: 180px; height: 12px; transform: translateZ(40px); background: #f39c12; }
+.p-base .back   { width: 180px; height: 12px; transform: rotateY(180deg) translateZ(40px); background: #d35400; }
+.p-base .left   { width: 80px; height: 12px; transform: rotateY(-90deg) translateZ(90px); background: #e67e22; }
+.p-base .right  { width: 80px; height: 12px; transform: rotateY(90deg) translateZ(90px); background: #e67e22; }
+.p-base .top    { width: 180px; height: 80px; transform: rotateX(90deg) translateZ(6px); background: #f1c40f; }
+.p-base .bottom { width: 180px; height: 80px; transform: rotateX(-90deg) translateZ(6px); background: #7f8c8d; }
+
+/* Stand Pillar 3D Cube */
+.p-pillar {
+    width: 24px;
+    height: 100px;
+    transform: translate3d(0, 24px, 0);
+}
+.p-pillar .front  { width: 24px; height: 100px; transform: translateZ(12px); background: #7f8c8d; }
+.p-pillar .back   { width: 24px; height: 100px; transform: rotateY(180deg) translateZ(12px); background: #57606f; }
+.p-pillar .left   { width: 24px; height: 100px; transform: rotateY(-90deg) translateZ(12px); background: #64748b; }
+.p-pillar .right  { width: 24px; height: 100px; transform: rotateY(90deg) translateZ(12px); background: #64748b; }
+.p-pillar .top    { width: 24px; height: 24px; transform: rotateX(90deg) translateZ(50px); background: #94a3b8; }
+.p-pillar .bottom { width: 24px; height: 24px; transform: rotateX(-90deg) translateZ(50px); background: #334155; }
+
+/* Nameplate Badge 3D Cube */
+.p-badge {
+    width: 140px;
+    height: 60px;
+    transition: transform 1s ease-in-out;
+}
+.p-badge .front  { width: 140px; height: 60px; transform: translateZ(6px); background: #3498db; color: white; font-weight: 900; font-size: 1.4rem; box-shadow: inset 0 0 15px rgba(0,0,0,0.2); transition: background 1s; }
+.p-badge .back   { width: 140px; height: 60px; transform: rotateY(180deg) translateZ(6px); background: #2980b9; }
+.p-badge .left   { width: 12px; height: 60px; transform: rotateY(-90deg) translateZ(70px); background: #1f3a52; }
+.p-badge .right  { width: 12px; height: 60px; transform: rotateY(90deg) translateZ(70px); background: #1f3a52; }
+.p-badge .top    { width: 140px; height: 12px; transform: rotateX(90deg) translateZ(30px); background: #54a0ff; }
+.p-badge .bottom { width: 140px; height: 12px; transform: rotateX(-90deg) translateZ(30px); background: #222f3e; }
+
+/* The Parallax Illusion states */
+.scene-container.front-view { transform: rotateX(-6deg) rotateY(-5deg); }
+.scene-container.front-view .p-badge { transform: translate3d(0, -56px, 0); }
+
+/* In side view, we reveal that the badge is actually translated far back in Z space */
+.scene-container.side-view { transform: rotateX(-15deg) rotateY(-70deg); }
+.scene-container.side-view .p-badge { transform: translate3d(0, -56px, -150px); }
+.scene-container.side-view .p-badge .front { background: #ff4757; }
+
+.text-alert { text-align: center; font-size: 1.2rem; color: #ff4757; background: #fff0f1; padding: 20px; border-radius: 15px;}
+
+/* Axis Demo */
+.axis-demo-container { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; margin-bottom: 50px;}
+.axis-viewport { height: 350px; background: #1e222b; border-radius: 20px; position: relative; perspective: 1000px; transform-style: preserve-3d; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 3px solid #2f3542;}
+.grid-floor-axis { position: absolute; width: 600px; height: 600px; background: repeating-linear-gradient(#333 0 1px, transparent 1px 100%), repeating-linear-gradient(90deg, #333 0 1px, transparent 1px 100%); background-size: 30px 30px; transform: rotateX(80deg) translateZ(-60px); opacity: 0.4;}
+
+.coordinate-arrows {
+    position: relative;
+    width: 0;
+    height: 0;
+    transform-style: preserve-3d;
+    transform: rotateX(-20deg) rotateY(45deg) scale3d(1.2, 1.2, 1.2);
+}
+.arrow {
+    position: absolute;
+    height: 8px;
+    border-radius: 4px;
+    transform-origin: left center;
+    transition: all 0.3s;
+    opacity: 0.7;
+}
+.arrow.x-arrow {
+    width: 130px;
+    background: #ff4757;
+    transform: rotateY(0deg);
+}
+.arrow.y-arrow {
+    width: 130px;
+    background: #2ed573;
+    transform: rotateY(90deg);
+}
+.arrow.z-arrow {
+    width: 130px;
+    background: #1e90ff;
+    transform: rotateZ(-90deg);
+}
+.arrow.active {
+    opacity: 1;
+    height: 12px;
+    box-shadow: 0 0 20px currentColor;
+    filter: brightness(1.3);
+}
+.arrow .label {
+    position: absolute;
+    right: -25px;
+    top: -8px;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: white;
+}
+
+.axis-controls { display: flex; flex-direction: column; gap: 15px;}
+.axis-card-btn { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; border: 2px solid rgba(255,255,255,0.1); cursor: pointer; transition: all 0.3s;}
+.axis-card-btn:hover, .axis-card-btn.active { background: rgba(255,255,255,0.1); border-color: #f39c12; transform: translateX(10px);}
+.axis-card-btn h3 { font-size: 1.3rem; margin-bottom: 10px;}
+.line { width: 100%; height: 6px; border-radius: 3px; margin-bottom: 10px;}
+.line-r { background: #ff4757; box-shadow: 0 0 10px #ff4757;}
+.line-g { background: #2ed573; box-shadow: 0 0 10px #2ed573;}
+.line-b { background: #1e90ff; box-shadow: 0 0 10px #1e90ff;}
+
+/* Tilt Demo */
+.tilt-demo { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; background: #1e222a; padding: 40px; border-radius: 30px; border: 3px solid #2f3542; align-items: center;}
+.t-visual-container { height: 350px; background: #11141a; border-radius: 20px; position: relative; perspective: 1000px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 2px solid #2f3542;}
+.t-scene { 
+    position: relative; 
+    width: 200px; 
+    height: 200px; 
+    transform-style: preserve-3d;
+    transform: rotateX(-15deg) rotateY(-45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.grid-floor-tilt { position: absolute; width: 400px; height: 400px; background: repeating-linear-gradient(#333 0 1px, transparent 1px 100%), repeating-linear-gradient(90deg, #333 0 1px, transparent 1px 100%); background-size: 20px 20px; transform: rotateX(90deg) translateZ(-60px); opacity: 0.4;}
+
+/* Tilt Pillar 3D Cube */
+.t-pillar {
+    width: 24px;
+    height: 80px;
+    transform: translate3d(0, 20px, 0);
+}
+.t-pillar .front  { width: 24px; height: 80px; transform: translateZ(12px); background: #7f8c8d; }
+.t-pillar .back   { width: 24px; height: 80px; transform: rotateY(180deg) translateZ(12px); background: #57606f; }
+.t-pillar .left   { width: 24px; height: 80px; transform: rotateY(-90deg) translateZ(12px); background: #64748b; }
+.t-pillar .right  { width: 24px; height: 80px; transform: rotateY(90deg) translateZ(12px); background: #64748b; }
+.t-pillar .top    { width: 24px; height: 24px; transform: rotateX(90deg) translateZ(40px); background: #94a3b8; }
+.t-pillar .bottom { width: 24px; height: 24px; transform: rotateX(-90deg) translateZ(40px); background: #334155; }
+
+/* Tilt Badge 3D Cube */
+.t-badge {
+    width: 140px;
+    height: 60px;
+    transform-origin: center bottom; /* Rotates from the bottom hinge! */
+    transition: transform 0.1s ease-out;
+}
+.t-badge .front  { width: 140px; height: 60px; transform: translateZ(6px); background: #3498db; color: white; font-weight: 900; font-size: 1.4rem; box-shadow: inset 0 0 15px rgba(0,0,0,0.2); }
+.t-badge .back   { width: 140px; height: 60px; transform: rotateY(180deg) translateZ(6px); background: #2980b9; }
+.t-badge .left   { width: 12px; height: 60px; transform: rotateY(-90deg) translateZ(70px); background: #1f3a52; }
+.t-badge .right  { width: 12px; height: 60px; transform: rotateY(90deg) translateZ(70px); background: #1f3a52; }
+.t-badge .top    { width: 140px; height: 12px; transform: rotateX(90deg) translateZ(30px); background: #54a0ff; }
+.t-badge .bottom { width: 140px; height: 12px; transform: rotateX(-90deg) translateZ(30px); background: #222f3e; }
+
+/* Angle Arc Overlay in 3D Space */
+.angle-arc {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    transform: translate3d(85px, -10px, 0) rotateY(90deg); /* Sideways goniometer */
+    transform-style: preserve-3d;
+}
+.arc-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg); /* Start arc from top */
+}
+.angle-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateY(-90deg) rotateX(15deg);
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #f39c12;
+}
+
+.t-text { color: #dfe4ea; }
+.t-text h3 { font-size: 2rem; margin-bottom: 15px; color: #f39c12; font-weight: 900;}
+.t-text p { font-size: 1.2rem; line-height: 1.6; margin-bottom: 30px;}
+
+.slider-wrapper { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); }
+.slider-wrapper input[type="range"] {
+    width: 100%;
+    margin-bottom: 15px;
+    accent-color: #f39c12;
+    cursor: pointer;
+}
+.slider-labels { display: flex; justify-content: space-between; font-size: 0.9rem; color: #a4b0be; font-weight: bold;}
+
+/* Assemble */
+.assemble-demo { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; background: rgba(255,255,255,0.9); padding: 40px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 2px solid #e1e2e6;}
+.a-visual-container { height: 350px; background: #11141a; border-radius: 20px; position: relative; perspective: 1000px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 2px solid #2f3542;}
+.a-scene { 
+    position: relative; 
+    width: 200px; 
+    height: 200px; 
+    transform-style: preserve-3d;
+    transform: rotateX(-15deg) rotateY(-35deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s;
+}
+.grid-floor-assembly { position: absolute; width: 400px; height: 400px; background: repeating-linear-gradient(#333 0 1px, transparent 1px 100%), repeating-linear-gradient(90deg, #333 0 1px, transparent 1px 100%); background-size: 20px 20px; transform: rotateX(90deg) translateZ(-80px); opacity: 0.4;}
+
+/* Assembly Pillar 3D Cube */
+.a-pillar {
+    width: 32px;
+    height: 120px;
+    transform: translate3d(0, 40px, 0);
+}
+.a-pillar .front  { width: 32px; height: 120px; transform: translateZ(16px); background: #7f8c8d; }
+.a-pillar .back   { width: 32px; height: 120px; transform: rotateY(180deg) translateZ(16px); background: #57606f; }
+.a-pillar .left   { width: 32px; height: 120px; transform: rotateY(-90deg) translateZ(16px); background: #64748b; }
+.a-pillar .right  { width: 32px; height: 120px; transform: rotateY(90deg) translateZ(16px); background: #64748b; }
+.a-pillar .top    { width: 32px; height: 32px; transform: rotateX(90deg) translateZ(60px); background: #94a3b8; }
+.a-pillar .bottom { width: 32px; height: 32px; transform: rotateX(-90deg) translateZ(60px); background: #334155; }
+
+/* Assembly Badge 3D Cube */
+.a-badge {
+    width: 140px;
+    height: 60px;
+    transition: transform 0.1s ease-out;
+}
+.a-badge .front  { width: 140px; height: 60px; transform: translateZ(6px); background: #3498db; color: white; font-weight: 900; font-size: 1.4rem; box-shadow: inset 0 0 15px rgba(0,0,0,0.2); transition: background 0.3s; }
+.a-badge .back   { width: 140px; height: 60px; transform: rotateY(180deg) translateZ(6px); background: #2980b9; }
+.a-badge .left   { width: 12px; height: 60px; transform: rotateY(-90deg) translateZ(70px); background: #1f3a52; }
+.a-badge .right  { width: 12px; height: 60px; transform: rotateY(90deg) translateZ(70px); background: #1f3a52; }
+.a-badge .top    { width: 140px; height: 12px; transform: rotateX(90deg) translateZ(30px); background: #54a0ff; }
+.a-badge .bottom { width: 140px; height: 12px; transform: rotateX(-90deg) translateZ(30px); background: #222f3e; }
+
+/* Red Glowing Interference Box (Mesh Overlap) */
+.a-interference {
+    width: 32px;
+    height: 10px; /* height dynamically adjusted in JS */
+    transform: translate3d(0, -20px, 0); /* located right at the top surface intersection */
+    opacity: 0;
+    transition: opacity 0.3s, height 0.1s ease-out;
+    pointer-events: none;
+}
+.a-interference .face {
+    background: repeating-linear-gradient(45deg, rgba(255, 71, 87, 0.4) 0 2px, transparent 2px 8px);
+    border: 1.5px solid #ff4757;
+    box-shadow: 0 0 10px rgba(255, 71, 87, 0.6);
+}
+.a-interference .front  { width: 32px; height: 100%; transform: translateZ(16.5px); }
+.a-interference .back   { width: 32px; height: 100%; transform: rotateY(180deg) translateZ(16.5px); }
+.a-interference .left   { width: 33px; height: 100%; transform: rotateY(-90deg) translateZ(16.5px); }
+.a-interference .right  { width: 33px; height: 100%; transform: rotateY(90deg) translateZ(16.5px); }
+.a-interference .top    { width: 32px; height: 33px; transform: rotateX(90deg) translateZ(5px); background: rgba(255,71,87,0.3); }
+.a-interference .bottom { width: 32px; height: 33px; transform: rotateX(-90deg) translateZ(5px); }
+
+/* HUD Assembly Panel */
+.assembly-hud {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+}
+.status-indicator {
+    background: rgba(0,0,0,0.8);
+    color: #ff4757;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    border: 1.5px solid #ff4757;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: all 0.3s;
+}
+.status-indicator.ready {
+    color: #2ed573;
+    border-color: #2ed573;
+}
+.status-indicator.success {
+    color: #2ed573;
+    border-color: #2ed573;
+    background: rgba(46, 213, 115, 0.2);
+    box-shadow: 0 0 20px rgba(46, 213, 115, 0.4);
+}
+
+.a-text { max-width: 400px;}
+.btn-assemble-action {
+    width: 100%;
+    background: #f39c12;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: 900;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 10px 20px rgba(243, 156, 18, 0.2);
+}
+.btn-assemble-action:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 25px rgba(243, 156, 18, 0.4);
+    background: #e67e22;
+}
+.btn-assemble-action:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.6;
+}
+
+/* Fused Badge Styling after Assembly Success */
+.a-badge.fused .front {
+    background: #2ed573;
+}
+
+/* Success Glow Flash */
+.a-scene.success-flash {
+    animation: flashSuccess 0.8s ease-out;
+}
+@keyframes flashSuccess {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.8) drop-shadow(0 0 30px #2ed573); }
+    100% { filter: brightness(1); }
+}
+
+/* Pitfalls */
+.pitfall-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.p-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.06); transition: transform 0.3s;}
+.p-card:hover { transform: translateY(-10px); }
+.border-red { border-top: 8px solid #ff4757; }
+.border-orange { border-top: 8px solid #ffa502; }
+.p-emoji { font-size: 4rem; margin-bottom: 20px; }
+.p-card h4 { font-size: 1.5rem; margin-bottom: 20px; color: #2f3542; font-weight: 900;}
+.p-card .desc { color: #ff4757; margin-bottom: 20px; font-size: 1.1rem; font-weight: 600;}
+.p-card .solution { color: #2ed573; font-weight: 700; font-size: 1.1rem; background: #f1f8f5; padding: 20px; border-radius: 12px;}

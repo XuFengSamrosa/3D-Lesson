@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第5课：模块化托盘 - 魔法创客营 V2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body class="theme-tray">
+    <nav class="navbar custom-nav">
+        <div class="logo">🔪 模块化托盘 (Modular Tray)</div>
+        <ul class="nav-links">
+            <li><a href="#cut">切割手术</a></li>
+            <li><a href="#dowel">销钉与公差</a></li>
+            <li><a href="#arrange">盘面整理</a></li>
+            <li><a href="#pitfalls">警报预案</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="tag">Lesson 05</div>
+            <h1>突破物理尺寸限制</h1>
+            <p>模型比打印机还大怎么办？学会像外科医生一样一刀两断，并用销钉无缝拼接！</p>
+        </div>
+    </header>
+
+    <section id="cut" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第一式：空间切割术 ✂️</h2>
+                <p>工程师的字典里没有放弃！巨型托盘塞不进打印机，我们就把它精准切开分批制造。</p>
+            </div>
+            
+            <div class="cut-demo">
+                <div class="scene-cut">
+                    <div class="tray-container">
+                        <div class="tray-left">
+                            <div class="hole-pit"></div>
+                        </div>
+                        <div class="tray-right"></div>
+                    </div>
+                    <!-- The cutting plane laser -->
+                    <div class="laser-plane"></div>
+                </div>
+                
+                <div class="cut-controls text-center">
+                    <button class="btn-action" id="btn-cut">一刀两断 (Cut)</button>
+                </div>
+                
+                <div class="cut-text">
+                    <p>点击上方工具栏的美工刀图标。拖动滑块，让切割面垂直落在托盘中间最结实的实体部位。切开它！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="dowel" class="interactive-section bg-dark text-white">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第二式：销钉与工程公差 📌</h2>
+                <p>切开容易，怎么拼回去？这时候你需要一对“骨折钢钉”，以及决定成败的 0.2mm！</p>
+            </div>
+            
+            <div class="tolerance-demo">
+                <div class="t-visual">
+                    <div class="dowel-hole">
+                        <div class="dowel-pin"></div>
+                        <!-- Gap visualization -->
+                        <div class="gap-ring"></div>
+                        <div class="measure-line">公差间隙: 0.2mm</div>
+                    </div>
+                </div>
+                <div class="t-text">
+                    <h3>为什么不能严丝合缝？</h3>
+                    <p>在切割面板中，必须勾选 <strong>“添加连接销”</strong>！但是，如果钉子粗 10mm，孔也是 10mm，塑料冷却变形后绝对插不进去！</p>
+                    <p><strong>工程学的尊严：</strong>给孔预留 <strong>0.2mm</strong> 的“呼吸空间”（公差）。有了这微小的缝隙，你的托盘拼接时才能顺滑无比，这就是工业设计！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="arrange" class="interactive-section bg-colorful">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第三式：盘面整理术 🧩</h2>
+                <p>切完之后乱七八糟？用软件自动魔法将它们平铺，拒绝悬空！</p>
+            </div>
+            
+            <div class="arrange-demo">
+                <div class="a-tools">
+                    <div class="tool-card">
+                        <div class="t-icon i-arrange"></div>
+                        <h4>自动排列 (A)</h4>
+                        <p>一键解决重叠！软件自动计算包围盒，把分尸的零件平稳地摊在盘面上，保证互不打架。</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="t-icon i-flat"></div>
+                        <h4>平放于盘面 (F)</h4>
+                        <p>切面朝天？大错特错！用它点击那个平整的切面，让切面“啪”地死死贴在热床上，杜绝悬空！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pitfalls" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-danger">🚨 实验室警报 (避坑指南)</h2>
+            </div>
+            <div class="pitfall-grid">
+                <div class="p-card border-red">
+                    <div class="p-emoji">💥</div>
+                    <h4>灾难 1：销钉破洞露在外面</h4>
+                    <p class="desc"><strong>现场：</strong>切片后发现托盘侧面破了个洞，销钉直接露在空气里，极度难看且一掰就断。</p>
+                    <p class="solution"><strong>解药：</strong>打骨钉能打在表皮吗？撤销切割！重新把销钉的位置拖拽到切面的正中心，保证它周围有厚厚的肉包裹！</p>
+                </div>
+                <div class="p-card border-orange">
+                    <div class="p-emoji">🧗‍♂️</div>
+                    <h4>灾难 2：底部无情悬空</h4>
+                    <p class="desc"><strong>现场：</strong>切完直接切片打印，发现整个托盘一半都在空气里，打印机打出了一堆炒面。</p>
+                    <p class="solution"><strong>解药：</strong>切割后零件姿态乱了！必须用“平放于盘面 (F)”工具，选一个最平坦的面让它朝下贴床！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

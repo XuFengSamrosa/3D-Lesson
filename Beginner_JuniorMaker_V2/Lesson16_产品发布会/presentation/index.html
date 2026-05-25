@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第16课：终局产品路演 - 3D打印工程思维</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <style>
+        .stage{width:100px;height:10px;background:#333;margin-left:-50px;margin-top:20px;opacity:0;} .hero{width:40px;height:60px;background:gold;margin-left:-20px;margin-top:-40px;opacity:0;box-shadow:0 0 20px gold;} .step-1 .stage{opacity:1;} .step-2 .stage, .step-2 .hero{opacity:1;} .step-3 .stage, .step-3 .hero{opacity:1; transform:rotateY(360deg);} .step-4 .stage, .step-4 .hero{opacity:1; box-shadow:0 0 50px gold;} .step-4 .scene{transform:scale(1.2);}
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">JuniorMaker V2.0</div>
+        <ul class="nav-links">
+            <li><a href="#intro">课程目标</a></li>
+            <li><a href="#process">3D建模可视化</a></li>
+            <li><a href="#tools">软件兵器谱</a></li>
+            <li><a href="#pitfalls">避坑指南</a></li>
+        </ul>
+    </nav>
+
+    <div class="scroll-container">
+        <!-- Slide 1: Intro -->
+        <section id="intro" class="slide slide-dark">
+            <div class="content">
+                <span class="badge">Lesson 16</span>
+                <h1 class="title">终局产品路演</h1>
+                <p class="subtitle">不仅要展示成功，更要拥抱工程惨案。</p>
+                
+                <div class="cards">
+                    <div class="card glass">
+                        <h3>核心目标</h3>
+                        <p>打通商用设计研发闭环。组团上台进行技术展示与极致复盘。获得荣誉认证。</p>
+                    </div>
+                    <div class="card glass">
+                        <h3>讲师必备知识</h3>
+                        <p>工程复盘 (Retrospective)：研发核心不在于一次成功，而是吃透为什么会打出悬垂废品。<br>原型机包容度：带毛边、用胶水抢救的，都是最珍贵的 1.0 版物理原型。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: The Process (3D CSS Demo) -->
+        <section id="process" class="slide slide-light">
+            <div class="content process-content">
+                <div class="text-side">
+                    <h2>三维构建法则</h2>
+                    <p>不要凭空想象，点击下方步骤体验真实的建模逻辑操作流。</p>
+                    
+                    <div class="step-controls">
+                        <button class="step-btn active" data-step="0">0. 初始化</button>
+<button class="step-btn" data-step="1">1. 终极合体检验</button>
+<button class="step-btn" data-step="2">2. 源文件霸气上屏</button>
+<button class="step-btn" data-step="3">3. 直面灵魂逼问</button>
+<button class="step-btn" data-step="4">4. 荣耀极客结业</button>
+
+                    </div>
+
+                    <div class="step-descriptions">
+                        <div class="desc show" id="desc-0">最终发布会时刻。</div>
+<div class="desc" id="desc-1">桌面大乱斗拼装成一个巨型收纳空间站体系。</div>
+<div class="desc" id="desc-2">将包含心血的巨无霸 3mf 文件投放在黑屏教室大屏幕。</div>
+<div class="desc" id="desc-3">团队应对投资人(老师)对工程参数、悬空拯救的刁钻质问。</div>
+<div class="desc" id="desc-4">颁发证书，全班与这一堆带刺的原型机骄傲合影！</div>
+
+                    </div>
+                </div>
+                
+                <div class="visual-side">
+                    <div class="scene">
+                        <div class="axis x-axis">X</div>
+                        <div class="axis y-axis">Y</div>
+                        <div class="axis z-axis">Z</div>
+                        <div class="grid-floor"></div>
+                        <div class='part stage'></div><div class='part hero'></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Tools -->
+        <section id="tools" class="slide slide-dark">
+            <div class="content">
+                <h2>软件基础（先利其器）</h2>
+                <div class="tools-grid">
+                    <div class="tool-item glass">
+            <div class="icon">🎤</div>
+            <h3>路演结构化表达</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>痛点、技术、翻车复盘三段论。</p>
+            <p class="teacher-talk">🗣️ "如果不知道接头公差留了多少，投资人怎么敢投你？"</p>
+        </div>
+<div class="tool-item glass">
+            <div class="icon">🏅</div>
+            <h3>结营荣誉闭环</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>证书与极客团队大合影。</p>
+            <p class="teacher-talk">🗣️ "从二维的迷失者，变成了掌控三维规则的造物主！"</p>
+        </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Pitfalls -->
+        <section id="pitfalls" class="slide slide-light">
+            <div class="content">
+                <h2>灾难应急预案</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+            <div class="dot red"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 推销式干瘪汇报</h3>
+                <p>只会说“这个好看”，完全不提尺寸与内部工程。<br>应对：老师当恶人强势打断，逼问悬空处理和数字公差！</p>
+            </div>
+        </div>
+<div class="timeline-item">
+            <div class="dot orange"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 演示现场解体散架</h3>
+                <p>公差留太大，台上一拿直接掉在地上极其尴尬。<br>应对：鼓掌！要求当场说出 V2 会缩小多少公差数字，反转危机。</p>
+            </div>
+        </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script src="../../shared_web/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第1课：3D打印机初探 - 魔法创客营 V2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body class="theme-intro">
+    <nav class="navbar custom-nav">
+        <div class="logo">🚀 3D打印机初探 (Intro to 3D)</div>
+        <ul class="nav-links">
+            <li><a href="#hardware">硬件探秘</a></li>
+            <li><a href="#software">视角控制</a></li>
+            <li><a href="#slicing">初次切片</a></li>
+            <li><a href="#pitfalls">警报预案</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="tag">Lesson 01</div>
+            <h1>从数字世界到现实物理</h1>
+            <p>破除机器恐惧感，掌握 3D 打印基础闭环与空间控制的三把“魔杖”。</p>
+        </div>
+        <div class="hero-bg-shapes">
+            <div class="shape s-cube"></div>
+        </div>
+    </header>
+
+    <section id="hardware" class="interactive-section bg-dark text-white">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第一重境界：硬件解密 🛠️</h2>
+                <p>3D 打印机并不神秘，它就像是一台高精度的“全自动热熔胶枪”。</p>
+            </div>
+            
+            <div class="hardware-grid">
+                <div class="h-card">
+                    <div class="h-icon heatbed-icon"></div>
+                    <h3>热床 (Heatbed)</h3>
+                    <p>模型的“恒温地基”。工作时高达 <strong>60℃</strong>，能让第一层塑料牢牢粘在上面，绝不翘边。</p>
+                </div>
+                <div class="h-card danger">
+                    <div class="h-icon extruder-icon"></div>
+                    <h3>喷头 (Extruder)</h3>
+                    <p>吐丝的“蜘蛛”。内部核心温度高达 <strong>220℃</strong>！绝对禁止触碰，摸一下瞬间起水泡。</p>
+                </div>
+                <div class="h-card">
+                    <div class="h-icon filament-icon"></div>
+                    <h3>耗材 (Filament)</h3>
+                    <p>打印机的“弹药”。我们使用从玉米提炼的环保 PLA 生物塑料。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="software" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第二重境界：鼠标魔杖 🖱️</h2>
+                <p>不要急着点参数，先学会在三维空间里自由“飞翔”！</p>
+            </div>
+            
+            <div class="mouse-trio">
+                <div class="m-card">
+                    <div class="m-visual right-click"></div>
+                    <h3>右键：旋转视角</h3>
+                    <p>按住鼠标右键拖动，360度死角检查你的模型。</p>
+                </div>
+                <div class="m-card">
+                    <div class="m-visual mid-click"></div>
+                    <h3>中键：平移视角</h3>
+                    <p>按住滚轮拖动，把跑偏的模型重新拉回屏幕中央。</p>
+                </div>
+                <div class="m-card">
+                    <div class="m-visual scroll"></div>
+                    <h3>滚轮：缩放视角</h3>
+                    <p>上下滚动滚轮，拉近看细节，推远看全貌。</p>
+                </div>
+            </div>
+            <div class="home-btn-demo">
+                <h3>🆘 救命快捷键：Ctrl + 0</h3>
+                <p>迷失在太空中？屏幕全灰了？按下它，瞬间回到默认的最优全景视角！</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="slicing" class="interactive-section bg-colorful">
+        <div class="container">
+            <div class="section-header">
+                <h2>第三重境界：初次切片 🍰</h2>
+                <p>让打印机看懂你的模型，揭开“内部镂空”的秘密！</p>
+            </div>
+            
+            <div class="slice-demo">
+                <div class="cube-container">
+                    <!-- Slice Animation -->
+                    <div class="cube-layer l1"></div>
+                    <div class="cube-layer l2"></div>
+                    <div class="cube-layer l3"></div>
+                    <div class="cube-layer l4"></div>
+                    <div class="cube-layer l5"></div>
+                </div>
+                <div class="slice-text">
+                    <h3>什么是切片 (Slicing)？</h3>
+                    <p>打印机不懂 3D，它只会 2D！切片软件把立体模型切成了几百层薄薄的“土豆片”，打印机再一层一层把它们叠起来。</p>
+                    <p><strong>X光透视：</strong>切片后向下拉动右侧滑块，你会发现实心方块内部其实是<strong>网格状</strong>的，这就是工程师节约时间和材料的魔法——稀疏填充！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pitfalls" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-danger">🚨 实验室警报 (避坑指南)</h2>
+            </div>
+            <div class="pitfall-grid">
+                <div class="p-card border-red">
+                    <div class="p-emoji">😱</div>
+                    <h4>灾难 1：老师，东西不见了！</h4>
+                    <p class="desc"><strong>现场：</strong>乱飞鼠标导致视角偏离十万八千里，屏幕全空白。</p>
+                    <p class="solution"><strong>解药：</strong>停下鼠标！按下 Ctrl + 0！啪的一下就回家了。</p>
+                </div>
+                <div class="p-card border-orange">
+                    <div class="p-emoji">🤔</div>
+                    <h4>灾难 2：焦虑的参数恐惧症</h4>
+                    <p class="desc"><strong>现场：</strong>盯着左边密密麻麻的参数面板发呆，不敢操作。</p>
+                    <p class="solution"><strong>解药：</strong>战术性忽略！学车第一天不要去研究发动机活塞。今天只管按右上角绿色的“切片”按钮！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第10课：万向节支架 - 魔法创客营 V2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body class="theme-joint">
+    <nav class="navbar custom-nav">
+        <div class="logo">⚙️ 万向节支架 (Universal Joint)</div>
+        <ul class="nav-links">
+            <li><a href="#tolerance">呼吸空间</a></li>
+            <li><a href="#ctscan">CT 扫描</a></li>
+            <li><a href="#snap">暴力美学</a></li>
+            <li><a href="#pitfalls">警报预案</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="tag">Lesson 10</div>
+            <h1>机械公差与嵌套打印</h1>
+            <p>工程师与画家的终极分水岭。挑战一次成型、免拼装的可动关节！</p>
+        </div>
+        <div class="hero-bg-shapes">
+            <div class="joint-bg"></div>
+        </div>
+    </header>
+
+    <section id="tolerance" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第一道难关：0.3毫米的呼吸空间 🌬️</h2>
+                <p>在电脑里严丝合缝叫完美，在现实物理世界里，那叫卡死！</p>
+            </div>
+            
+            <div class="tolerance-demo">
+                <div class="t-card wrong">
+                    <div class="t-visual v-weld">
+                        <div class="outer-shell"></div>
+                        <div class="inner-ball bad">12.0mm</div>
+                        <div class="weld-sparks">💥 焊死了</div>
+                    </div>
+                    <h3>❌ 严丝合缝 (画家思维)</h3>
+                    <p>把 12mm 的球头塞进 12mm 的洞。塑料高温挤压膨胀，冷却后直接死死焊成一块铁疙瘩，永远别想动。</p>
+                </div>
+                
+                <div class="t-card right">
+                    <div class="t-visual v-breath">
+                        <div class="outer-shell hole"></div>
+                        <div class="inner-ball good">12.0mm</div>
+                        <div class="gap-glow"></div>
+                        <div class="measure-label">12.6mm 球窝</div>
+                    </div>
+                    <h3>✅ 预留公差 (工程师思维)</h3>
+                    <p>球头 12mm，用于挖洞的负零件必须扩大到 <strong>12.6mm</strong>！给塑料留出 0.6mm（单边0.3mm）的呼吸空间，这就是公差 (Tolerance)！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ctscan" class="interactive-section bg-dark text-white">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第二道难关：CT 扫描探查 🩻</h2>
+                <p>既然球包在方块里，你怎么知道里面粘没粘上？我们需要动用手术刀！</p>
+            </div>
+            
+            <div class="ct-demo">
+                <div class="ct-scene">
+                    <div class="cube-shell" id="ct-shell">
+                        <div class="slice-surface">
+                            <div class="ct-hole"></div>
+                            <div class="ct-ball"></div>
+                        </div>
+                    </div>
+                    <!-- the slicing plane -->
+                    <div class="z-plane" id="z-plane"></div>
+                </div>
+                
+                <div class="ct-controls text-center">
+                    <input type="range" min="0" max="100" value="100" class="slider" id="slice-slider">
+                    <p class="mt-2">拖动滑块，切开模型 (Z轴剖切视图)</p>
+                </div>
+                
+                <div class="ct-text text-center mt-4">
+                    <p><strong>强制检查点：</strong>拉动右侧的垂直剖切滑块，像医学 CT 一样看里面。你必须亲眼看到中间的实心球和外圈的壳之间，有一圈绝对干净的真空缝隙！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="snap" class="interactive-section bg-colorful">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第三道难关：掰开粘连的暴力美学 🦾</h2>
+                <p>打出来是一个整体，用力“咔哒”一声，它就有了灵魂！</p>
+            </div>
+            
+            <div class="snap-demo">
+                <div class="s-visual">
+                    <div class="socket-base"></div>
+                    <div class="ball-joint" id="ball-joint">
+                        <div class="joint-head"></div>
+                        <div class="joint-stick"></div>
+                    </div>
+                    <!-- tiny connecting webs -->
+                    <div class="webs" id="webs">
+                        <div class="web w1"></div>
+                        <div class="web w2"></div>
+                    </div>
+                </div>
+                
+                <div class="s-text">
+                    <button class="btn-snap" id="btn-snap">用力掰断粘连丝！</button>
+                    <div class="status-alert mt-4">
+                        <h3>嵌套打印 (Print-in-place)</h3>
+                        <p>刚打出来的万向节，内部还是有极细微的拉丝粘连。捏住底座，捏住杆子，大胆用力一掰！清脆的断裂声后，它就能 360 度顺滑旋转了！</p>
+                        <p><strong>警告：</strong>如果你的杆子做得很细，断的可能就不是拉丝，而是你的杆子！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pitfalls" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-danger">🚨 实验室警报 (避坑指南)</h2>
+            </div>
+            <div class="pitfall-grid">
+                <div class="p-card border-red">
+                    <div class="p-emoji">🧱</div>
+                    <h4>灾难 1：变成了一块铁疙瘩</h4>
+                    <p class="desc"><strong>现场：</strong>打出来的万向节根本掰不动，像一块实心塑料转头。</p>
+                    <p class="solution"><strong>解药：</strong>你忘了修改负零件的尺寸！球是 12，洞也是 12，它们亲密无间地焊死了。退回去，把挖坑的球体改成 12.6！</p>
+                </div>
+                <div class="p-card border-orange">
+                    <div class="p-emoji">😭</div>
+                    <h4>灾难 2：脖子齐根断裂</h4>
+                    <p class="desc"><strong>现场：</strong>用力一掰，“咔哒”一声，关节没松，把手圆柱直接齐根断了，球卡在里面抠不出来。</p>
+                    <p class="solution"><strong>解药：</strong>把手太细了！掰开关节需要扭矩力，把手直径绝不能低于 6mm，而且必须深深扎进球体里面！重新加粗再打！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>
