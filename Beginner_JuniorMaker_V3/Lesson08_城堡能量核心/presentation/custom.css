@@ -326,3 +326,21 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--text-dark);
         transform: rotateZ(360deg);
     }
 }
+
+/* 偏心抖动自转动画 */
+.core-spinner.wobble {
+    animation: spin-core-wobble 0.2s infinite linear !important;
+}
+
+@keyframes spin-core-wobble {
+    0% {
+        transform: rotateZ(0deg) translate3d(var(--wobble-x, 4px), var(--wobble-y, 2px), 0);
+    }
+    50% {
+        transform: rotateZ(180deg) translate3d(calc(-1 * var(--wobble-x, 4px)), calc(-1 * var(--wobble-y, 2px)), 0);
+    }
+    100% {
+        transform: rotateZ(360deg) translate3d(var(--wobble-x, 4px), var(--wobble-y, 2px), 0);
+    }
+}
+
