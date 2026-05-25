@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第4课：几何动物园 - 魔法创客营</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body class="theme-zoo">
+    <nav class="navbar custom-nav">
+        <div class="logo">🐼 几何动物园 (Geometry Zoo)</div>
+        <ul class="nav-links">
+            <li><a href="#vision">透视之眼</a></li>
+            <li><a href="#boolean">加减法魔法</a></li>
+            <li><a href="#color">多彩喷漆</a></li>
+            <li><a href="#pitfalls">实验室警报</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="tag">Lesson 04</div>
+            <h1>欢迎来到几何动物园</h1>
+            <p>不要堆积木了！今天我们要像雕塑家一样，用“加法”长出猪鼻子，用“减法”抠出眼睛坑，造出最萌的小猪！</p>
+        </div>
+        <div class="hero-bg-shapes">
+            <div class="shape s-sphere"></div>
+            <div class="shape s-cylinder"></div>
+            <div class="shape s-cone"></div>
+        </div>
+    </header>
+
+    <!-- Section 1: 工程师的透视眼 -->
+    <section id="vision" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第一重魔法：工程师的透视眼 👁️</h2>
+                <p>世界上的所有动物，在工程师的眼里，都是由最基础的几何体积木拼出来的。<br>你能看穿这只小猪吗？</p>
+            </div>
+            
+            <div class="breakdown-demo">
+                <div class="pig-composite" id="pig-model">
+                    <!-- Pure CSS Pig Head -->
+                    <div class="pig-head"></div>
+                    <div class="pig-snout">
+                        <div class="nostril n-left"></div>
+                        <div class="nostril n-right"></div>
+                    </div>
+                    <div class="pig-ear e-left"></div>
+                    <div class="pig-ear e-right"></div>
+                    <div class="pig-eye eye-left"></div>
+                    <div class="pig-eye eye-right"></div>
+                </div>
+                
+                <div class="controls text-center mt-4">
+                    <button class="btn-magic" id="btn-explode">✨ 施展透视魔法 (拆解)</button>
+                </div>
+                
+                <div class="formula-box" id="formula-box">
+                    <div class="f-item"><div class="shape-icon head-icon"></div><span>1个大球体<br><small>(主脑袋)</small></span></div>
+                    <div class="f-sign">+</div>
+                    <div class="f-item"><div class="shape-icon snout-icon"></div><span>1个短圆柱<br><small>(凸出的鼻子)</small></span></div>
+                    <div class="f-sign">+</div>
+                    <div class="f-item"><div class="shape-icon ear-icon"></div><span>2个小圆锥<br><small>(尖耳朵)</small></span></div>
+                    <div class="f-sign">-</div>
+                    <div class="f-item"><div class="shape-icon eye-icon"></div><span>负零件小球<br><small>(抠出眼睛坑)</small></span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: 加减法魔法 (Boolean) -->
+    <section id="boolean" class="interactive-section bg-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2>第二重魔法：肉体加减法 ➕➖</h2>
+                <p>选中你的小猪脑袋，右键点击它，我们要给它施加不同的生长咒语！</p>
+            </div>
+            
+            <div class="boolean-cards">
+                <!-- Add Part -->
+                <div class="b-card positive">
+                    <div class="b-icon">➕</div>
+                    <h3>添加零件 (Add Part)</h3>
+                    <p><strong>魔法效果：长肉！</strong><br>添加的圆柱体会和小猪的脑袋融为一体，变成突出的鼻子。它们在物理上变成了一个整体，永远不会掉下来。</p>
+                    <div class="visual-box">
+                        <div class="anim-add">
+                            <div class="circle-left"></div>
+                            <div class="bridge"></div>
+                            <div class="circle-right"></div>
+                        </div>
+                    </div>
+                    <div class="placeholder-img">[预留：添加零件操作截图]</div>
+                </div>
+                
+                <!-- Subtract Part -->
+                <div class="b-card negative">
+                    <div class="b-icon">➖</div>
+                    <h3>添加负零件 (Negative Part)</h3>
+                    <p><strong>魔法效果：挖坑！</strong><br>隐形的贪吃蛇！把红色半透明的负零件塞进脸上，切片后它就会消失，并且带走同样体积的肉，留下眼睛深坑！</p>
+                    <div class="visual-box">
+                        <div class="anim-sub">
+                            <div class="circle-left"></div>
+                            <div class="circle-right"></div>
+                        </div>
+                    </div>
+                    <div class="placeholder-img">[预留：添加负零件操作截图]</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: 油漆桶 -->
+    <section id="color" class="interactive-section bg-colorful">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第三重魔法：多彩喷漆车间 🎨</h2>
+                <p>只有灰色的猪太无聊了，拿起上面的油漆桶工具，给小猪上色！</p>
+            </div>
+            <div class="color-demo">
+                <div class="paint-bucket">
+                    <div class="drop d1"></div><div class="drop d2"></div><div class="drop d3"></div>
+                </div>
+                <div class="color-tips">
+                    <h3>⚠️ 油漆桶黄金法则</h3>
+                    <p>在油漆桶设置中，必须选择 <strong>“按零件 (Part)”</strong> 填充模式！</p>
+                    <p>因为我们的鼻子和耳朵是用“添加零件”做出来的，所以电脑能认识它们的边界。只要点一下鼻子，一秒钟就能涂成深红色，绝对不会溢出到脑袋上！</p>
+                </div>
+                <div class="paint-interactive">
+                    <div class="color-palette">
+                        <button class="color-btn active" style="background-color: #ffcccc;" data-bg="#ffcccc" data-border="#ff9999"></button>
+                        <button class="color-btn" style="background-color: #74b9ff;" data-bg="#74b9ff" data-border="#0984e3"></button>
+                        <button class="color-btn" style="background-color: #ffeaa7;" data-bg="#ffeaa7" data-border="#fdcb6e"></button>
+                        <button class="color-btn" style="background-color: #55efc4;" data-bg="#55efc4" data-border="#00b894"></button>
+                    </div>
+                    
+                    <div class="pig-composite paintable-pig" id="paintable-pig">
+                        <div class="pig-head part" data-part="head" style="background: #ffcccc;"></div>
+                        <div class="pig-snout part" data-part="snout" style="background: #ff9999; border-color: #ff7777;">
+                            <div class="nostril n-left"></div>
+                            <div class="nostril n-right"></div>
+                        </div>
+                        <div class="pig-ear e-left part" data-part="ear" style="border-bottom-color: #ffcccc;"></div>
+                        <div class="pig-ear e-right part" data-part="ear" style="border-bottom-color: #ffcccc;"></div>
+                        <div class="pig-eye eye-left"></div>
+                        <div class="pig-eye eye-right"></div>
+                    </div>
+                    <p class="paint-hint mt-2">👇 试试选中上方颜色，然后点击小猪的不同零件上色！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: 避坑指南 -->
+    <section id="pitfalls" class="interactive-section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-danger">🚨 实验室警报 (避坑指南)</h2>
+                <p>如果不遵守魔法规则，小猪可是会爆炸的！</p>
+            </div>
+            
+            <div class="pitfall-grid">
+                <div class="p-card border-red">
+                    <div class="p-emoji">😱</div>
+                    <h4>灾难 1：耳朵拔不下来了！</h4>
+                    <p class="desc"><strong>现场：</strong>想单独移动耳朵，结果整个猪头跟着跑。</p>
+                    <p class="solution"><strong>解药：</strong>不要直接在屏幕上点！看屏幕左边的“对象列表”，点开小箭头，选中那只叫“圆锥”的零件，就能单独移动它了！</p>
+                </div>
+                <div class="p-card border-orange">
+                    <div class="p-emoji">🍅</div>
+                    <h4>灾难 2：整只猪变成了红番茄</h4>
+                    <p class="desc"><strong>现场：</strong>想给鼻子涂红色，一点下去全身都变红了。</p>
+                    <p class="solution"><strong>解药：</strong>看看你的油漆桶面板，你是不是选成了填充整个“对象”？改成填充“零件”，再涂一次就完美了！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

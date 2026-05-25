@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第14课：梦想社区大兴土木 - 3D打印魔法创客营</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">魔法创客营 V1.0 (PRO版)</div>
+        <ul class="nav-links">
+            <li><a href="#intro">课程目标</a></li>
+            <li><a href="#process">3D建模魔法秀</a></li>
+            <li><a href="#tools">魔法兵器谱</a></li>
+            <li><a href="#pitfalls">实验室警报预案</a></li>
+        </ul>
+    </nav>
+
+    <div class="scroll-container">
+        <!-- Slide 1: Intro -->
+        <section id="intro" class="slide slide-dark">
+            <div class="content">
+                <span class="badge">Lesson 14</span>
+                <h1 class="title">梦想社区大兴土木</h1>
+                <p class="subtitle">跨件拼装干涉检查，在虚拟世界给工程排雷。</p>
+                
+                <div class="cards">
+                    <div class="card glass">
+                        <h3>核心目标</h3>
+                        <p>独立执行建筑建模任务，并通过‘添加载入’在组长电脑里进行严苛的穿模与碰撞大体检。</p>
+                    </div>
+                    <div class="card glass">
+                        <h3>讲师必备知识</h3>
+                        <p>合体碰撞：每个人做的单独看都没问题，拼到一起就会发现屋顶插进了另一家的窗户。<br>迭代修改：被打回修改是工程的必经之路。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: The Process (3D CSS Demo) -->
+        <section id="process" class="slide slide-light">
+            <div class="content process-content">
+                <div class="text-side">
+                    <h2>三维魔术解析</h2>
+                    <p>给孩子们看成品之前，先用这套步骤演示小组成员的城堡建筑大合体。</p>
+                    
+                    <div class="step-controls">
+                        <button class="step-btn active" data-step="0">0. 规划基盘就绪</button>
+                        <button class="step-btn" data-step="1">1. 召唤各组建构</button>
+                        <button class="step-btn" data-step="2">2. 精准定位降落</button>
+                        <button class="step-btn" data-step="3">3. 榫卯卡扣合体</button>
+                        <button class="step-btn" data-step="4">4. 红外穿模体检</button>
+                    </div>
+
+                    <div class="step-descriptions">
+                        <div class="desc show" id="desc-0">城堡大基座就绪，上面带有预留的榫卯定位插孔。</div>
+                        <div class="desc" id="desc-1">导入小组成员各自建立的 3D 构件：左右两个哨所与正中央的城墙围栏。</div>
+                        <div class="desc" id="desc-2">调整各组件的 XYZ 坐标，悬空对齐大基盘上对应的榫孔。</div>
+                        <div class="desc" id="desc-3">各构件沿着 Z 轴垂直下降，榫轴滑入基板槽内，防线物理拼装合体！</div>
+                        <div class="desc" id="desc-4">启动 3D 剖切扫描，确认榫卯配合边缘无碰撞、无穿模，亮起安全绿光。</div>
+                    </div>
+                </div>
+                
+                <div class="visual-side">
+                    <div class="scene">
+                        <div class="axis x-axis">X</div>
+                        <div class="axis y-axis">Y</div>
+                        <div class="axis z-axis">Z</div>
+                        <div class="grid-floor"></div>
+                        <!-- 城堡大基座 (120x120x10px) -->
+                        <div class="part castle-base">
+                            <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
+                        </div>
+
+                        <!-- 哨所1 (左，60x60x80px，榫高5px) -->
+                        <div class="part outpost-left">
+                            <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
+                        </div>
+
+                        <!-- 哨所2 (右，60x60x80px，榫高5px) -->
+                        <div class="part outpost-right">
+                            <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
+                        </div>
+
+                        <!-- 城墙围栏 (中，90x8x40px) -->
+                        <div class="part castle-wall">
+                            <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
+                        </div>
+
+                        <!-- 剖切红外扫描面 -->
+                        <div class="part scanner">
+                            <div class="scanner-plate"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Tools -->
+        <section id="tools" class="slide slide-dark">
+            <div class="content">
+                <h2>魔法兵器谱（软件基础）</h2>
+                <div class="tools-grid">
+                    <div class="tool-item glass">
+            <div class="icon">📥</div>
+            <h3>开门迎客 (Add)</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>在主项目中导入组员的文件。</p>
+            <p class="teacher-talk">🗣️ "不要瞎双击文件！要像请客一样，在项目里‘添加’把他们请进来！"</p>
+        </div>
+<div class="tool-item glass">
+            <div class="icon">🔪</div>
+            <h3>组长 CT 视界</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>切开合体处查缝隙公差。</p>
+            <p class="teacher-talk">🗣️ "如果缝隙死死贴着没有空气，当场打回重做！"</p>
+        </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Pitfalls -->
+        <section id="pitfalls" class="slide slide-light">
+            <div class="content">
+                <h2>实验室警报预案</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+            <div class="dot red"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 双击覆盖组长心血</h3>
+                <p>组长顺手双击新文件，旧项目未保存直接关闭。<br>应对：惊出一身冷汗，以后绝对只用菜单里的添加功能！</p>
+            </div>
+        </div>
+<div class="timeline-item">
+            <div class="dot yellow"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 巨物恐惧比例失调</h3>
+                <p>A做的树比B做的大厦还高十倍。<br>应对：立刻回到自己的电脑，按比例缩放重新生成再交货。</p>
+            </div>
+        </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

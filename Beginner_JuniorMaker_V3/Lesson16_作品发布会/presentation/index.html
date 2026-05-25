@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第16课：梦想之城路演发布 - 3D打印魔法创客营</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">魔法创客营 V1.0 (PRO版)</div>
+        <ul class="nav-links">
+            <li><a href="#intro">课程目标</a></li>
+            <li><a href="#process">3D建模魔法秀</a></li>
+            <li><a href="#tools">魔法兵器谱</a></li>
+            <li><a href="#pitfalls">实验室警报预案</a></li>
+        </ul>
+    </nav>
+
+    <div class="scroll-container">
+        <!-- Slide 1: Intro -->
+        <section id="intro" class="slide slide-dark">
+            <div class="content">
+                <span class="badge">Lesson 16</span>
+                <h1 class="title">梦想之城路演发布</h1>
+                <p class="subtitle">拥抱工程惨案，成为敢于复盘的小小演说家。</p>
+                
+                <div class="cards">
+                    <div class="card glass">
+                        <h3>核心目标</h3>
+                        <p>打通设计研发闭环。通过台上的技术汇报与大胆承认“翻车点”，展现真正的创客探索精神。</p>
+                    </div>
+                    <div class="card glass">
+                        <h3>讲师必备知识</h3>
+                        <p>工程复盘精神：世界上没有一次成功的火箭。最厉害的不是成品多完美，而是你们修复了多少次拉丝和倒塌。<br>1.0 原型机：带毛刺的、用胶水粘起来的，都是你们最珍贵的第一代造物。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: The Process (3D CSS Demo) -->
+        <section id="process" class="slide slide-light">
+            <div class="content process-content">
+                <div class="text-side">
+                    <h2>三维魔术解析</h2>
+                    <p>给孩子们看成品之前，先用这套步骤演示终极城堡的落成路演与结营仪式。</p>
+                    
+                    <div class="step-controls">
+                        <button class="step-btn active" data-step="0">0. 星光舞台就绪</button>
+                        <button class="step-btn" data-step="1">1. 全息霓虹点亮</button>
+                        <button class="step-btn" data-step="2">2. 终极城堡降落</button>
+                        <button class="step-btn" data-step="3">3. 360°自转路演</button>
+                        <button class="step-btn" data-step="4">4. 荣耀金光结营</button>
+                    </div>
+
+                    <div class="step-descriptions">
+                        <div class="desc show" id="desc-0">科技路演展台就绪，全班的造物梦想将在此刻绽放。</div>
+                        <div class="desc" id="desc-1">炫彩展台霓虹点亮！外围浮现彩虹霓虹跑马灯圈，全场瞩目。</div>
+                        <div class="desc" id="desc-2">终极城堡模型从天而降，落在展盘中心！包含大底座、双哨所、城墙防御圈与能量核心。</div>
+                        <div class="desc" id="desc-3">开启360度旋转自动演示，全方位路演介绍作品的设计巧思与技术参数。</div>
+                        <div class="desc" id="desc-4">庆祝金屑漫天飞舞！城堡顶部释放出耀眼的金色光晕，3D打印魔法创客营完美结营！</div>
+                    </div>
+                </div>
+                
+                <div class="visual-side">
+                    <div class="scene">
+                        <div class="axis x-axis">X</div>
+                        <div class="axis y-axis">Y</div>
+                        <div class="axis z-axis">Z</div>
+                        <div class="grid-floor"></div>
+                        
+                        <!-- 科技展台 (100x100x12px) -->
+                        <div class="part stage">
+                            <div class="face front"></div>
+                            <div class="face back"></div>
+                            <div class="face left"></div>
+                            <div class="face right"></div>
+                            <div class="face top">
+                                <div class="light-ring"></div>
+                            </div>
+                            <div class="face bottom"></div>
+                        </div>
+                        
+                        <!-- 城堡合体组合模型 -->
+                        <div class="part final-castle">
+                            <!-- 基板 -->
+                            <div class="part c-base">
+                                <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
+                            </div>
+                            <!-- 左哨所 -->
+                            <div class="part c-outpost-l">
+                                <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
+                            </div>
+                            <!-- 右哨所 -->
+                            <div class="part c-outpost-r">
+                                <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
+                            </div>
+                            <!-- 中间城墙 -->
+                            <div class="part c-wall">
+                                <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
+                            </div>
+                            <!-- 顶部陀螺核心 (旋转) -->
+                            <div class="part c-core">
+                                <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
+                            </div>
+                        </div>
+
+                        <!-- 庆祝小星斑粒子（步骤 4 展示） -->
+                        <div class="sparkles">
+                            <div class="spark s1">★</div>
+                            <div class="spark s2">✦</div>
+                            <div class="spark s3">★</div>
+                            <div class="spark s4">✦</div>
+                            <div class="spark s5">★</div>
+                            <div class="spark s6">✦</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Tools -->
+        <section id="tools" class="slide slide-dark">
+            <div class="content">
+                <h2>魔法兵器谱（软件基础）</h2>
+                <div class="tools-grid">
+                    <div class="tool-item glass">
+            <div class="icon">🎤</div>
+            <h3>路演三段论</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>想法、技术参数、翻车复盘。</p>
+            <p class="teacher-talk">🗣️ "不仅要夸它好看，更要告诉大家：你们为了公差留了多少毫米血汗！"</p>
+        </div>
+<div class="tool-item glass">
+            <div class="icon">🏅</div>
+            <h3>造物主勋章</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>颁发学期结业证书。</p>
+            <p class="teacher-talk">🗣️ "恭喜你们，从二维世界的玩家，变成了执掌三维宇宙的魔法造物主！"</p>
+        </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Pitfalls -->
+        <section id="pitfalls" class="slide slide-light">
+            <div class="content">
+                <h2>实验室警报预案</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+            <div class="dot red"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 推销式干瘪汇报</h3>
+                <p>只会说“我的房子很好看”，完全没有技术含量。<br>应对：老师当恶人强势追问，逼他们讲出用了什么工具和支撑策略！</p>
+            </div>
+        </div>
+<div class="timeline-item">
+            <div class="dot orange"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 演示现场解体散架</h3>
+                <p>拼得太松，台上拿起来当场掉了一地。<br>应对：全班鼓掌鼓励！并要求组长当场说出 V2 版本要怎么改公差。危机反转！</p>
+            </div>
+        </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

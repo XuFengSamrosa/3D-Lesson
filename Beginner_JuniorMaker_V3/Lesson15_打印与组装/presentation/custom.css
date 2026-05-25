@@ -1,0 +1,273 @@
+/* custom.css for V3 Lesson 15 (排版与去支撑) */
+
+/* 三维容器及部件基础 */
+.part {
+    width: 0;
+    height: 0;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+.part .face {
+    position: absolute;
+    transition: all 0.8s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* --- 打印热床盘 1 & 2 (70x70x2px) --- */
+.bed-plate1, .bed-plate2 {
+    transform: translate3d(-40px, 0, 1px); /* 默认左侧 */
+}
+
+.bed-plate1 .face, .bed-plate2 .face {
+    background: rgba(40, 42, 45, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.bed-plate1 .face.top, .bed-plate2 .face.top {
+    width: 70px;
+    height: 70px;
+    left: -35px;
+    top: -35px;
+    transform: rotateX(0deg) translateZ(1px);
+    background: radial-gradient(circle, rgba(60, 65, 70, 0.95) 0%, rgba(30, 32, 35, 0.95) 100%);
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 10px 10px;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+}
+
+.bed-plate1 .face.bottom, .bed-plate2 .face.bottom { width: 70px; height: 70px; left: -35px; top: -35px; transform: rotateX(180deg) translateZ(1px); }
+.bed-plate1 .face.front,  .bed-plate2 .face.front  { width: 70px; height: 2px; left: -35px; top: -1px; transform: rotateX(-90deg) translateZ(35px); }
+.bed-plate1 .face.back,   .bed-plate2 .face.back   { width: 70px; height: 2px; left: -35px; top: -1px; transform: rotateX(90deg) translateZ(35px); }
+.bed-plate1 .face.left,   .bed-plate2 .face.left   { width: 70px; height: 2px; left: -35px; top: -1px; transform: rotateY(-90deg) translateZ(35px); }
+.bed-plate1 .face.right,  .bed-plate2 .face.right  { width: 70px; height: 2px; left: -35px; top: -1px; transform: rotateY(90deg) translateZ(35px); }
+
+
+/* --- 城堡哨所构件 (灰色, 30x30x60px) --- */
+.castle-part1 {
+    transform: translate3d(-40px, 0, 30px); /* 默认在盘片1上 */
+}
+
+.castle-part1 .face {
+    background: linear-gradient(rgba(100, 100, 105, 0.9), rgba(120, 120, 125, 0.9));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.castle-part1 .face.front  { width: 30px; height: 60px; left: -15px; top: -30px; transform: rotateX(-90deg) translateZ(15px); }
+.castle-part1 .face.back   { width: 30px; height: 60px; left: -15px; top: -30px; transform: rotateX(90deg) translateZ(15px); }
+.castle-part1 .face.left   { width: 30px; height: 60px; left: -15px; top: -30px; transform: rotateY(-90deg) translateZ(15px); }
+.castle-part1 .face.right  { width: 30px; height: 60px; left: -15px; top: -30px; transform: rotateY(90deg) translateZ(15px); }
+.castle-part1 .face.top    { width: 30px; height: 30px; left: -15px; top: -15px; transform: rotateX(0deg) translateZ(30px); background: #4a4a52; }
+.castle-part1 .face.bottom { width: 30px; height: 30px; left: -15px; top: -15px; transform: rotateX(180deg) translateZ(30px); }
+
+
+/* --- 城墙围栏构件 (灰色, 50x8x35px) --- */
+.castle-part2 {
+    transform: translate3d(-40px, 0, 17.5px); /* 默认重合在盘片1上 */
+}
+
+.castle-part2 .face {
+    background: linear-gradient(rgba(120, 120, 125, 0.9), rgba(100, 100, 105, 0.9));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.castle-part2 .face.front  { width: 50px; height: 35px; left: -25px; top: -17.5px; transform: rotateX(-90deg) translateZ(4px); }
+.castle-part2 .face.back   { width: 50px; height: 35px; left: -25px; top: -17.5px; transform: rotateX(90deg) translateZ(4px); }
+.castle-part2 .face.left   { width: 8px; height: 35px; left: -4px; top: -17.5px; transform: rotateY(-90deg) translateZ(25px); }
+.castle-part2 .face.right  { width: 8px; height: 35px; left: -4px; top: -17.5px; transform: rotateY(90deg) translateZ(25px); }
+.castle-part2 .face.top    { width: 50px; height: 8px; left: -25px; top: -4px; transform: rotateX(0deg) translateZ(17.5px); }
+.castle-part2 .face.bottom { width: 50px; height: 8px; left: -25px; top: -4px; transform: rotateX(180deg) translateZ(17.5px); }
+
+
+/* --- 白色磨砂树状支撑 (12x8x20px，用于垫高城墙悬浮底) --- */
+.tree-support {
+    transform: translate3d(40px, 0, 10px);
+    opacity: 0;
+}
+
+.tree-support .face {
+    background: rgba(240, 240, 240, 0.75);
+    border: 1px dashed rgba(255, 255, 255, 0.8);
+    box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
+.tree-support .face.front  { width: 12px; height: 20px; left: -6px; top: -10px; transform: rotateX(-90deg) translateZ(4px); }
+.tree-support .face.back   { width: 12px; height: 20px; left: -6px; top: -10px; transform: rotateX(90deg) translateZ(4px); }
+.tree-support .face.left   { width: 8px; height: 20px; left: -4px; top: -10px; transform: rotateY(-90deg) translateZ(6px); }
+.tree-support .face.right  { width: 8px; height: 20px; left: -4px; top: -10px; transform: rotateY(90deg) translateZ(6px); }
+.tree-support .face.top    { width: 12px; height: 8px; left: -6px; top: -4px; transform: rotateX(0deg) translateZ(10px); }
+.tree-support .face.bottom { width: 12px; height: 8px; left: -6px; top: -4px; transform: rotateX(180deg) translateZ(10px); }
+
+
+/* --- 3D 钳子 (斜口钳) --- */
+.nipper {
+    transform: translate3d(80px, 0, 40px) rotateY(-45deg);
+    opacity: 0;
+}
+
+.nipper-jaw1, .nipper-jaw2 {
+    position: absolute;
+    width: 6px;
+    height: 25px;
+    background: rgba(80, 80, 85, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+}
+
+.nipper-jaw1 { transform: rotateZ(15deg) translate3d(-3px, -20px, 0); }
+.nipper-jaw2 { transform: rotateZ(-15deg) translate3d(3px, -20px, 0); }
+
+.nipper-handle {
+    position: absolute;
+    width: 14px;
+    height: 40px;
+    left: -7px;
+    top: 5px;
+    background: rgba(255, 59, 48, 0.9);
+    border-radius: 4px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+
+/* --- 步骤状态控制 --- */
+
+/* 步骤 0: 初始化热床排版重叠 (零件堆叠，未出现盘2) */
+.visual-side:not([class*="step-"]) .bed-plate1,
+.visual-side.step-0 .bed-plate1 {
+    opacity: 1;
+}
+.visual-side:not([class*="step-"]) .castle-part1,
+.visual-side.step-0 .castle-part1 {
+    opacity: 1;
+}
+.visual-side:not([class*="step-"]) .castle-part2,
+.visual-side.step-0 .castle-part2 {
+    opacity: 1;
+    transform: translate3d(-40px, 0, 17.5px) scale(0.95);
+}
+
+/* 步骤 1: 碰撞红区警告 (零件边缘亮起急促闪烁红光) */
+.visual-side.step-1 .bed-plate1 { opacity: 1; }
+.visual-side.step-1 .castle-part1, .visual-side.step-1 .castle-part2 {
+    opacity: 1;
+}
+.visual-side.step-1 .castle-part1 .face,
+.visual-side.step-1 .castle-part2 .face {
+    border-color: #ff3b30;
+    box-shadow: inset 0 0 8px rgba(255, 59, 48, 0.3), 0 0 12px rgba(255, 59, 48, 0.5);
+    animation: danger-clash-pulse 1s infinite ease-in-out;
+}
+
+/* 步骤 2: 多盘分流排版 (盘2浮现，城墙零件划到盘2，警报解除亮绿光) */
+.visual-side.step-2 .bed-plate1 { opacity: 1; }
+.visual-side.step-2 .bed-plate2 {
+    opacity: 1;
+    transform: translate3d(40px, 0, 1px);
+}
+.visual-side.step-2 .castle-part1 {
+    opacity: 1;
+    transform: translate3d(-40px, 0, 30px);
+}
+.visual-side.step-2 .castle-part2 {
+    opacity: 1;
+    transform: translate3d(40px, 0, 17.5px); /* 划到右盘 */
+}
+.visual-side.step-2 .castle-part1 .face,
+.visual-side.step-2 .castle-part2 .face {
+    border-color: #34c759;
+    box-shadow: inset 0 0 10px rgba(52, 199, 89, 0.3), 0 0 8px rgba(52, 199, 89, 0.4);
+}
+
+/* 步骤 3: 剥离树状支撑 (城墙下长出白色支撑，斜口钳划入并咔嚓剪断，支撑消退) */
+.visual-side.step-3 .bed-plate1, .visual-side.step-3 .bed-plate2 { opacity: 1; }
+.visual-side.step-3 .castle-part1 {
+    opacity: 1;
+    transform: translate3d(-40px, 0, 30px);
+}
+.visual-side.step-3 .castle-part2 {
+    opacity: 1;
+    transform: translate3d(40px, 0, 30px); /* 抬起方便看支撑 */
+}
+/* 树状支撑浮现 */
+.visual-side.step-3 .tree-support {
+    opacity: 0.8;
+    transform: translate3d(40px, 0, 10px);
+    animation: support-fade-out 3s infinite ease-in-out;
+}
+/* 斜口钳滑入剪切 */
+.visual-side.step-3 .nipper {
+    opacity: 1;
+    transform: translate3d(40px, 15px, 20px) rotateY(-45deg);
+    animation: nipper-cut 3s infinite ease-in-out;
+}
+
+/* 步骤 4: 干净构件落成 (热床及钳子消失，零件在中心空中拼合合体) */
+.visual-side.step-4 .scene {
+    transform: rotateX(-25deg) rotateY(30deg) rotateZ(0deg) !important;
+}
+.visual-side.step-4 .bed-plate1, .visual-side.step-4 .bed-plate2,
+.visual-side.step-4 .nipper, .visual-side.step-4 .tree-support {
+    opacity: 0;
+    transform: scale(0.1);
+}
+/* 哨所与城墙移动拼装，底面悬空拼合 */
+.visual-side.step-4 .castle-part1 {
+    opacity: 1;
+    transform: translate3d(-38px, 0, 35px); /* 合体位置 */
+}
+.visual-side.step-4 .castle-part2 {
+    opacity: 1;
+    transform: translate3d(0, 0, 22.5px); /* 合体位置 */
+}
+.visual-side.step-4 .castle-part1 .face,
+.visual-side.step-4 .castle-part2 .face {
+    box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+
+/* --- 动画关键帧 --- */
+
+/* 红色相撞警告脉冲 */
+@keyframes danger-clash-pulse {
+    0%, 100% {
+        border-color: rgba(255, 59, 48, 0.6);
+        box-shadow: 0 0 10px rgba(255, 59, 48, 0.4);
+    }
+    50% {
+        border-color: rgba(255, 59, 48, 1);
+        box-shadow: 0 0 25px rgba(255, 59, 48, 0.8), inset 0 0 10px rgba(255, 59, 48, 0.5);
+    }
+}
+
+/* 斜口钳剪切动作 */
+@keyframes nipper-cut {
+    0%, 100% {
+        transform: translate3d(70px, 15px, 20px) rotateY(-45deg);
+    }
+    50% {
+        transform: translate3d(42px, 2px, 15px) rotateY(-45deg); /* 卡入剪切 */
+    }
+}
+
+/* 支撑剥离消退 */
+@keyframes support-fade-out {
+    0% {
+        opacity: 0.8;
+        transform: translate3d(40px, 0, 10px) scale(1);
+    }
+    40% {
+        opacity: 0.8;
+        transform: translate3d(40px, 0, 10px) scale(1);
+    }
+    70% {
+        opacity: 0;
+        transform: translate3d(40px, 0, 10px) scale(0.2); /* 剪碎剥离 */
+    }
+    100% {
+        opacity: 0;
+    }
+}

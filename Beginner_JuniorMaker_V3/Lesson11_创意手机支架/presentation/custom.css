@@ -1,0 +1,256 @@
+/* custom.css for V3 Lesson 11 (徽章挂扣配合) */
+
+/* 三维容器及部件基础 */
+.part {
+    width: 0;
+    height: 0;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+.part .face {
+    position: absolute;
+    transition: all 0.8s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* --- 名字徽章 (50x4x30px) --- */
+.badge-plate {
+    transform: translate3d(0, 0, 45px); /* 默认高处悬空 */
+}
+
+/* 徽章主体：金色质感 */
+.badge-plate .face {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.95), rgba(184, 134, 11, 0.95));
+    border: 1.5px solid rgba(255, 223, 0, 0.5);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3), 0 0 8px rgba(212, 175, 55, 0.3);
+}
+
+.badge-plate .face.front  { width: 50px; height: 30px; left: -25px; top: -15px; transform: rotateX(-90deg) translateZ(2px); }
+.badge-plate .face.back   { width: 50px; height: 30px; left: -25px; top: -15px; transform: rotateX(90deg) translateZ(2px); }
+.badge-plate .face.left   { width: 4px; height: 30px; left: -2px; top: -15px; transform: rotateY(-90deg) translateZ(25px); }
+.badge-plate .face.right  { width: 4px; height: 30px; left: -2px; top: -15px; transform: rotateY(90deg) translateZ(25px); }
+.badge-plate .face.top    { width: 50px; height: 4px; left: -25px; top: -2px; transform: rotateX(0deg) translateZ(15px); }
+.badge-plate .face.bottom { width: 50px; height: 4px; left: -25px; top: -2px; transform: rotateX(180deg) translateZ(15px); }
+
+/* 名字徽章刻印文字 */
+.badge-text {
+    position: absolute;
+    width: 50px;
+    text-align: center;
+    left: -25px;
+    top: -8px;
+    font-size: 10px;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.6), 0 0 6px #ffd700;
+    transform: translate3d(0, -3px, 0) rotateX(-90deg);
+    backface-visibility: hidden;
+}
+
+
+/* --- 3D 游标卡尺 (横梁+爪) --- */
+.caliper {
+    transform: translate3d(0, 0, 45px); /* 对齐徽章高度 */
+    opacity: 0;
+}
+
+/* 尺身横梁 (80x4x4px) */
+.caliper-body {
+    transform: translate3d(-10px, 0, 0);
+}
+.caliper-body .face {
+    background: rgba(180, 185, 190, 0.9);
+}
+.caliper-body .face.front  { width: 80px; height: 4px; left: -40px; top: -2px; transform: rotateX(-90deg) translateZ(2px); }
+.caliper-body .face.back   { width: 80px; height: 4px; left: -40px; top: -2px; transform: rotateX(90deg) translateZ(2px); }
+.caliper-body .face.left   { width: 4px; height: 4px; left: -2px; top: -2px; transform: rotateY(-90deg) translateZ(40px); }
+.caliper-body .face.right  { width: 4px; height: 4px; left: -2px; top: -2px; transform: rotateY(90deg) translateZ(40px); }
+.caliper-body .face.top    { width: 80px; height: 4px; left: -40px; top: -2px; transform: rotateX(0deg) translateZ(2px); }
+.caliper-body .face.bottom { width: 80px; height: 4px; left: -40px; top: -2px; transform: rotateX(180deg) translateZ(2px); }
+
+/* 固定后爪 (4x16x4px) */
+.fixed-jaw {
+    transform: translate3d(-25px, -8px, 0); /* 伸出卡住后侧 */
+}
+.fixed-jaw .face {
+    background: rgba(160, 165, 170, 0.95);
+}
+.fixed-jaw .face.front  { width: 4px; height: 4px; left: -2px; top: -2px; transform: rotateX(-90deg) translateZ(8px); }
+.fixed-jaw .face.back   { width: 4px; height: 4px; left: -2px; top: -2px; transform: rotateX(90deg) translateZ(8px); }
+.fixed-jaw .face.left   { width: 16px; height: 4px; left: -8px; top: -2px; transform: rotateY(-90deg) translateZ(2px); }
+.fixed-jaw .face.right  { width: 16px; height: 4px; left: -8px; top: -2px; transform: rotateY(90deg) translateZ(2px); }
+.fixed-jaw .face.top    { width: 4px; height: 16px; left: -2px; top: -8px; transform: rotateX(0deg) translateZ(2px); }
+.fixed-jaw .face.bottom { width: 4px; height: 16px; left: -2px; top: -8px; transform: rotateX(180deg) translateZ(2px); }
+
+/* 活动滑动爪 (4x16x6px) */
+.sliding-jaw {
+    transform: translate3d(25px, 20px, 0); /* 默认退开 */
+}
+.sliding-jaw .face {
+    background: rgba(0, 122, 255, 0.85);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+.sliding-jaw .face.front  { width: 4px; height: 6px; left: -2px; top: -3px; transform: rotateX(-90deg) translateZ(8px); }
+.sliding-jaw .face.back   { width: 4px; height: 6px; left: -2px; top: -3px; transform: rotateX(90deg) translateZ(8px); }
+.sliding-jaw .face.left   { width: 16px; height: 6px; left: -8px; top: -3px; transform: rotateY(-90deg) translateZ(2px); }
+.sliding-jaw .face.right  { width: 16px; height: 6px; left: -8px; top: -3px; transform: rotateY(90deg) translateZ(2px); }
+.sliding-jaw .face.top    { width: 4px; height: 16px; left: -2px; top: -8px; transform: rotateX(0deg) translateZ(3px); }
+.sliding-jaw .face.bottom { width: 4px; height: 16px; left: -2px; top: -8px; transform: rotateX(180deg) translateZ(3px); }
+
+/* 卡尺示数框 */
+.caliper-readout {
+    position: absolute;
+    width: 30px;
+    height: 10px;
+    left: -15px;
+    top: -5px;
+    background: #000;
+    color: #34c759;
+    font-family: monospace;
+    font-size: 7px;
+    text-align: center;
+    line-height: 10px;
+    border: 1px solid #34c759;
+    transform: translate3d(0, 0, 4px) rotateX(0deg);
+    backface-visibility: hidden;
+}
+
+
+/* --- 3D 城防挂扣 (60x12x15px) --- */
+.badge-holder {
+    transform: translate3d(0, 0, 7.5px); /* 底部贴着 Z=0 地面 */
+    opacity: 0;
+}
+
+/* 挂扣的三个拼装块：后底板、前挡板、底垫 */
+.holder-back, .holder-front, .holder-bottom {
+    opacity: 1;
+}
+
+.holder-back .face, .holder-front .face, .holder-bottom .face {
+    background: linear-gradient(rgba(130, 135, 140, 0.95), rgba(110, 115, 120, 0.95));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+/* 后底板 (60x4x15px, Y=-4.25px) */
+.holder-back { transform: translate3d(0, -4.25px, 0); }
+.holder-back .face.front  { width: 60px; height: 15px; left: -30px; top: -7.5px; transform: rotateX(-90deg) translateZ(2px); }
+.holder-back .face.back   { width: 60px; height: 15px; left: -30px; top: -7.5px; transform: rotateX(90deg) translateZ(2px); }
+.holder-back .face.left   { width: 4px; height: 15px; left: -2px; top: -7.5px; transform: rotateY(-90deg) translateZ(30px); }
+.holder-back .face.right  { width: 4px; height: 15px; left: -2px; top: -7.5px; transform: rotateY(90deg) translateZ(30px); }
+.holder-back .face.top    { width: 60px; height: 4px; left: -30px; top: -2px; transform: rotateX(0deg) translateZ(7.5px); }
+.holder-back .face.bottom { width: 60px; height: 4px; left: -30px; top: -2px; transform: rotateX(180deg) translateZ(7.5px); }
+
+/* 前挡板 (60x4x10px, Y=4.25px, 稍矮一些便于观察配合) */
+.holder-front { transform: translate3d(0, 4.25px, -2.5px); }
+.holder-front .face.front  { width: 60px; height: 10px; left: -30px; top: -5px; transform: rotateX(-90deg) translateZ(2px); }
+.holder-front .face.back   { width: 60px; height: 10px; left: -30px; top: -5px; transform: rotateX(90deg) translateZ(2px); }
+.holder-front .face.left   { width: 4px; height: 10px; left: -2px; top: -5px; transform: rotateY(-90deg) translateZ(30px); }
+.holder-front .face.right  { width: 4px; height: 10px; left: -2px; top: -5px; transform: rotateY(90deg) translateZ(30px); }
+.holder-front .face.top    { width: 60px; height: 4px; left: -30px; top: -2px; transform: rotateX(0deg) translateZ(5px); }
+.holder-front .face.bottom { width: 60px; height: 4px; left: -30px; top: -2px; transform: rotateX(180deg) translateZ(5px); }
+
+/* 底部垫块 (60x4.5x4px, Y=0, Z=-5.5px) */
+.holder-bottom { transform: translate3d(0, 0, -5.5px); }
+.holder-bottom .face.front  { width: 60px; height: 4px; left: -30px; top: -2px; transform: rotateX(-90deg) translateZ(2.25px); }
+.holder-bottom .face.back   { width: 60px; height: 4px; left: -30px; top: -2px; transform: rotateX(90deg) translateZ(2.25px); }
+.holder-bottom .face.left   { width: 4.5px; height: 4px; left: -2.25px; top: -2px; transform: rotateY(-90deg) translateZ(30px); }
+.holder-bottom .face.right  { width: 4.5px; height: 4px; left: -2.25px; top: -2px; transform: rotateY(90deg) translateZ(30px); }
+.holder-bottom .face.top    { width: 60px; height: 4.5px; left: -30px; top: -2.25px; transform: rotateX(0deg) translateZ(2px); }
+.holder-bottom .face.bottom { width: 60px; height: 4.5px; left: -30px; top: -2.25px; transform: rotateX(180deg) translateZ(2px); }
+
+/* 配合面发光指示器 (4.5px宽，贴在凹槽底垫上) */
+.fit-indicator {
+    position: absolute;
+    width: 50px;
+    height: 4.5px;
+    left: -25px;
+    top: -2.25px;
+    background: rgba(52, 199, 89, 0.85);
+    transform: rotateX(0deg) translateZ(-3.4px);
+    box-shadow: 0 0 15px rgba(52, 199, 89, 0.8);
+    opacity: 0;
+    transition: all 0.6s ease;
+}
+
+
+/* --- 步骤状态控制 --- */
+
+/* 步骤 0: 装配干涉评估 */
+.visual-side:not([class*="step-"]) .badge-plate,
+.visual-side.step-0 .badge-plate {
+    opacity: 1;
+    transform: translate3d(0, 0, 45px) scale(1);
+}
+
+/* 步骤 1: 卡尺测量徽章厚度 (滑动爪卡入，示数亮起) */
+.visual-side.step-1 .badge-plate {
+    opacity: 1;
+}
+.visual-side.step-1 .caliper {
+    opacity: 1;
+}
+.visual-side.step-1 .caliper .sliding-jaw {
+    /* 滑移到位抵住 Y = 2px 处的徽章 */
+    transform: translate3d(25px, 2px, 0);
+}
+
+/* 步骤 2: 设计4.5mm挂扣 (挂扣出现并红黄呼吸，代表预留间隙插拔计算) */
+.visual-side.step-2 .badge-plate {
+    opacity: 1;
+}
+.visual-side.step-2 .caliper {
+    opacity: 0; /* 卡尺功成身退 */
+}
+.visual-side.step-2 .badge-holder {
+    opacity: 1;
+    transform: translate3d(0, 0, 7.5px) scale(1);
+}
+/* 呼吸高亮前侧壁，代表间隙展示 */
+.visual-side.step-2 .holder-front .face {
+    animation: gap-flash-yellow 1.5s infinite ease-in-out;
+}
+
+/* 步骤 3: 徽章卡接装配 (徽章向下滑入凹槽内，完美卡紧) */
+.visual-side.step-3 .badge-plate {
+    opacity: 1;
+    /* 滑入卡扣内部：Z = 45px 下降到 Z = 11.5px (即底部刚好抵住底垫) */
+    transform: translate3d(0, 0, 11.5px);
+}
+.visual-side.step-3 .badge-holder {
+    opacity: 1;
+}
+
+/* 步骤 4: 配合防线落成 (绿色指示灯亮起，完美无干涉) */
+.visual-side.step-4 .badge-plate {
+    opacity: 1;
+    transform: translate3d(0, 0, 11.5px);
+}
+.visual-side.step-4 .badge-holder {
+    opacity: 1;
+}
+.visual-side.step-4 .fit-indicator {
+    opacity: 1;
+}
+.visual-side.step-4 .holder-back .face,
+.visual-side.step-4 .holder-front .face {
+    border-color: #34c759;
+    box-shadow: inset 0 0 10px rgba(52, 199, 89, 0.4);
+}
+
+
+/* --- 动画关键帧 --- */
+@keyframes gap-flash-yellow {
+    0%, 100% {
+        border-color: rgba(255, 204, 0, 0.5);
+        box-shadow: inset 0 0 5px rgba(255, 204, 0, 0.2);
+    }
+    50% {
+        border-color: rgba(255, 204, 0, 0.95);
+        box-shadow: inset 0 0 15px rgba(255, 204, 0, 0.5), 0 0 10px rgba(255, 204, 0, 0.3);
+    }
+}

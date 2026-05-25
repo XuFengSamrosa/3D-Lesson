@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第3课：积木搭建大师 - 魔法创客营 V1.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body class="theme-block">
+    <nav class="navbar custom-nav">
+        <div class="logo">🏰 积木搭建大师</div>
+        <ul class="nav-links">
+            <li><a href="#axes">三维引擎</a></li>
+            <li><a href="#illusion">视觉欺骗</a></li>
+            <li><a href="#pitfalls">引力法则</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="tag">Lesson 03</div>
+            <h1>空间直觉与视觉破解</h1>
+            <p>告别平面的画纸，进入真正的三维世界！掌握神秘的红绿蓝方向盘，像搭乐高一样建造你的 3D 城堡。</p>
+        </div>
+        <div class="hero-bg-shapes">
+            <div class="castle-bg"></div>
+        </div>
+    </header>
+
+    <section id="axes" class="interactive-section bg-light">
+        <div class="container text-center">
+            <div class="section-header">
+                <h2>第一重魔法：红绿蓝三维方向盘 🕹️</h2>
+                <p>在数字世界里，没有手去抓方块，我们只能驾驶三架不同颜色的直升机来搬运积木。</p>
+            </div>
+                        <div class="axes-demo">
+                <div class="viewport-3d" id="axes-viewport">
+                    <div class="grid-floor-v1"></div>
+                    <!-- 3D target block cube -->
+                    <div class="cube target-block" id="target-block">
+                        <div class="face front"></div>
+                        <div class="face back"></div>
+                        <div class="face left"></div>
+                        <div class="face right"></div>
+                        <div class="face top"></div>
+                        <div class="face bottom"></div>
+                    </div>
+                </div>
+                
+                <div class="controls-panel-v1">
+                    <div class="slider-control">
+                        <label><span class="axis-label x-lbl">🔴 X 轴 (左右平移):</span> <span id="val-x">0px</span></label>
+                        <input type="range" id="slider-x" min="-120" max="120" value="0">
+                    </div>
+                    <div class="slider-control">
+                        <label><span class="axis-label y-lbl">🟢 Y 轴 (前后纵深):</span> <span id="val-y">0px</span></label>
+                        <input type="range" id="slider-y" min="-120" max="120" value="0">
+                    </div>
+                    <div class="slider-control">
+                        <label><span class="axis-label z-lbl">🔵 Z 轴 (垂直升降):</span> <span id="val-z">0px</span></label>
+                        <input type="range" id="slider-z" min="0" max="150" value="0">
+                    </div>
+                    <button class="btn-reset" id="btn-reset">🔄 坐标归位</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="illusion" class="interactive-section bg-dark text-white">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第二重魔法：破解 2D 屏幕的视觉欺骗 👁️</h2>
+                <p>从正面看，这颗球是不是稳稳地停在柱子正上方？按住下方的按钮旋转视角看看真相吧！</p>
+            </div>
+            
+            <div class="illusion-demo">
+                <div class="illusion-viewport" id="illusion-viewport">
+                    <div class="scene" id="illusion-scene">
+                        <div class="grid-floor-v1" style="transform: rotateX(90deg) translateZ(-100px); opacity: 0.15;"></div>
+                        <!-- 3D Pillar -->
+                        <div class="cube i-cylinder">
+                            <div class="face front"></div>
+                            <div class="face back"></div>
+                            <div class="face left"></div>
+                            <div class="face right"></div>
+                            <div class="face top"></div>
+                            <div class="face bottom"></div>
+                        </div>
+                        <!-- Parallax Sphere -->
+                        <div class="i-sphere" id="illusion-sphere"></div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <button class="btn-rotate" id="btn-rotate">👀 点击旋转视角，看清真相！</button>
+                    <p class="mt-3 hint-text"><strong>建筑师铁律：</strong>永远不要只从一个角度看模型，要不停地绕着它转圈看！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pitfalls" class="interactive-section bg-colorful">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-danger">🚨 工程师现场灾难演习 (避坑指南)</h2>
+            </div>
+            <div class="pitfall-grid">
+                <div class="p-card">
+                    <div class="p-emoji">🛸</div>
+                    <h4>灾难 1：悬空打印，塑料化泥</h4>
+                    <p class="desc"><strong>现场：</strong>切片软件底部出现橙色警告，打印出来的屋顶直接掉在地上变成一滩烂泥。</p>
+                    <p class="solution"><strong>解药：</strong>对抗地心引力！每一个在半空中的零件，下方都必须有一根柱子撑着它。屋顶必须和柱子产生穿插重叠，哪怕只穿插 0.1 毫米！</p>
+                </div>
+                <div class="p-card border-orange">
+                    <div class="p-emoji">🌌</div>
+                    <h4>灾难 2：迷失太空，模型消失</h4>
+                    <p class="desc"><strong>现场：</strong>用鼠标狂甩或输入了错误的放大数值，导致模型消失在屏幕的浩瀚视野外。</p>
+                    <p class="solution"><strong>解药：</strong>不要手动乱转去找！在左侧的对象列表里选中你的模型，然后按下键盘上的 <code>0</code> 键（居中快捷键），模型就会瞬间回到屏幕正中央！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

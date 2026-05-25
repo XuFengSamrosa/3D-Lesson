@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第13课：梦想社区大总管 - 3D打印魔法创客营</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">魔法创客营 V1.0 (PRO版)</div>
+        <ul class="nav-links">
+            <li><a href="#intro">课程目标</a></li>
+            <li><a href="#process">3D建模魔法秀</a></li>
+            <li><a href="#tools">魔法兵器谱</a></li>
+            <li><a href="#pitfalls">实验室警报预案</a></li>
+        </ul>
+    </nav>
+
+    <div class="scroll-container">
+        <!-- Slide 1: Intro -->
+        <section id="intro" class="slide slide-dark">
+            <div class="content">
+                <span class="badge">Lesson 13</span>
+                <h1 class="title">梦想社区大总管</h1>
+                <p class="subtitle">抛开电脑画蓝图，团队协作与比例尺公约。</p>
+                
+                <div class="cards">
+                    <div class="card glass">
+                        <h3>核心目标</h3>
+                        <p>脱离电脑，建立宏大场景的协作大局观。签下全组统一的缩放比例尺与连接口径标准协议。</p>
+                    </div>
+                    <div class="card glass">
+                        <h3>讲师必备知识</h3>
+                        <p>比例尺灾难：A 做的房子比 B 做的人还小，放到一起就是奥特曼踩蚂蚁。<br>统一接口：如果社区的路标要插在广场底座上，全员的孔径必须是同一张图纸上定的死规矩！</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: The Process (3D CSS Demo) -->
+        <section id="process" class="slide slide-light">
+            <div class="content process-content">
+                <div class="text-side">
+                    <h2>三维魔术解析</h2>
+                    <p>给孩子们看成品之前，先用这套步骤演示城堡沙盘的总蓝图设计规划。</p>
+                    
+                    <div class="step-controls">
+                        <button class="step-btn active" data-step="0">0. 全息蓝图铺开</button>
+                        <button class="step-btn" data-step="1">1. 大基板网格化</button>
+                        <button class="step-btn" data-step="2">2. 规划卡接插座</button>
+                        <button class="step-btn" data-step="3">3. 确立接口契约</button>
+                        <button class="step-btn" data-step="4">4. 签署1:50比例规约</button>
+                    </div>
+
+                    <div class="step-descriptions">
+                        <div class="desc show" id="desc-0">城堡大沙盘规划：关闭电脑，在全息蓝图纸上确立整体防线布局。</div>
+                        <div class="desc" id="desc-1">大基板网格化：图纸上规划出 120x120mm 的城堡大底座网格范围。</div>
+                        <div class="desc" id="desc-2">定位插座孔：精确标识出两个哨所和中间城墙的定位卡接孔位，亮起蓝色引导光。</div>
+                        <div class="desc" id="desc-3">接口规范定义：白纸黑字规定，城墙方榫为10.0mm，基座插孔为10.5mm，预留0.5mm配合公差，防止组装干涉！</div>
+                        <div class="desc" id="desc-4">比例尺签字画押：全组签署1:50比例尺规约，保证各小组成员的作品能够完美合体。</div>
+                    </div>
+                </div>
+                
+                <div class="visual-side">
+                    <div class="scene">
+                        <div class="axis x-axis">X</div>
+                        <div class="axis y-axis">Y</div>
+                        <div class="axis z-axis">Z</div>
+                        <div class="grid-floor"></div>
+                        
+                        <!-- 蓝图纸张 (120x120x1px) -->
+                        <div class="part doc">
+                            <!-- 纸张底面 -->
+                            <div class="face front"></div>
+                            <div class="face back"></div>
+                            
+                            <!-- 规划的插座孔 -->
+                            <div class="blueprint-slots">
+                                <div class="slot s1-outpost"></div>
+                                <div class="slot s2-outpost"></div>
+                                <div class="slot s3-wall"></div>
+                            </div>
+
+                            <!-- 契约尺寸标注线 -->
+                            <div class="contract-labels">
+                                <div class="label l1-hole">Hole: 10.5mm</div>
+                                <div class="label l2-peg">Peg: 10.0mm</div>
+                                <div class="dim-line"></div>
+                            </div>
+
+                            <!-- 比例尺 -->
+                            <div class="scale-box">
+                                <div class="scale-text">1:50</div>
+                                <div class="scale-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Tools -->
+        <section id="tools" class="slide slide-dark">
+            <div class="content">
+                <h2>魔法兵器谱（软件基础）</h2>
+                <div class="tools-grid">
+                    <div class="tool-item glass">
+            <div class="icon">📝</div>
+            <h3>白纸上的契约</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>画出俯视图并写死核心尺寸数据。</p>
+            <p class="teacher-talk">🗣️ "如果轮子和车轴的尺寸不对齐，你们造的就是废铁！组长负责把关！"</p>
+        </div>
+<div class="tool-item glass">
+            <div class="icon">🏷️</div>
+            <h3>文件命名法</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>强制采用组名_部件.3mf。</p>
+            <p class="teacher-talk">🗣️ "全叫‘未命名’，合体时全组绝对当场爆炸！"</p>
+        </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Pitfalls -->
+        <section id="pitfalls" class="slide slide-light">
+            <div class="content">
+                <h2>实验室警报预案</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+            <div class="dot red"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 全都抢着做地标</h3>
+                <p>没人做基础的马路和底板。<br>应对：组长发威，按主次分配任务，地基永远最重要！</p>
+            </div>
+        </div>
+<div class="timeline-item">
+            <div class="dot orange"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 天马行空做不出来</h3>
+                <p>画了超级悬浮飞船却不会加支撑。<br>应对：老师出马，无情打碎幻想，逼着他们改成简单的堆叠房子。</p>
+            </div>
+        </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

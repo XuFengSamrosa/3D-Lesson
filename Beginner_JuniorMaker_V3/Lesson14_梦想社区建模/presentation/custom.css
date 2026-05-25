@@ -1,0 +1,209 @@
+/* custom.css for V3 Lesson 14 (城堡合体兴土木) */
+
+/* 三维容器及部件基础 */
+.part {
+    width: 0;
+    height: 0;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+.part .face {
+    position: absolute;
+    transition: all 0.8s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* --- 城堡大基座 (120x120x10px) --- */
+.castle-base {
+    transform: translate3d(0, 0, 5px); /* 立于 Z=0 网格 */
+}
+
+.castle-base .face {
+    background: rgba(80, 85, 90, 0.95);
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+}
+
+.castle-base .face.top {
+    width: 120px;
+    height: 120px;
+    left: -60px;
+    top: -60px;
+    transform: rotateX(0deg) translateZ(5px);
+    background: radial-gradient(circle, rgba(10, 40, 100, 0.9) 0%, rgba(20, 25, 30, 0.95) 100%);
+    /* 配合插座槽线发光 */
+    background-image: 
+        linear-gradient(rgba(0, 122, 255, 0.25) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 122, 255, 0.25) 1px, transparent 1px);
+    background-size: 10px 10px;
+}
+.castle-base .face.bottom { width: 120px; height: 120px; left: -60px; top: -60px; transform: rotateX(180deg) translateZ(5px); }
+.castle-base .face.front  { width: 120px; height: 10px; left: -60px; top: -5px; transform: rotateX(-90deg) translateZ(60px); }
+.castle-base .face.back   { width: 120px; height: 10px; left: -60px; top: -5px; transform: rotateX(90deg) translateZ(60px); }
+.castle-base .face.left   { width: 120px; height: 10px; left: -60px; top: -5px; transform: rotateY(-90deg) translateZ(60px); }
+.castle-base .face.right  { width: 120px; height: 10px; left: -60px; top: -5px; transform: rotateY(90deg) translateZ(60px); }
+
+
+/* --- 城堡哨所 (灰色, 30x30px，为减少页面渲染负担缩小为 30x30x60px) --- */
+.outpost-left, .outpost-right {
+    transform: translate3d(0, 0, 120px); /* 默认极高空悬挂 */
+}
+
+.outpost-left .face, .outpost-right .face {
+    background: linear-gradient(rgba(100, 100, 105, 0.9), rgba(120, 120, 125, 0.9));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* 哨所 30x30x60px 尺寸定义，原点在底面中心 */
+.outpost-left .face.front,  .outpost-right .face.front  { width: 30px; height: 60px; left: -15px; top: -30px; transform: rotateX(-90deg) translateZ(15px); }
+.outpost-left .face.back,   .outpost-right .face.back   { width: 30px; height: 60px; left: -15px; top: -30px; transform: rotateX(90deg) translateZ(15px); }
+.outpost-left .face.left,   .outpost-right .face.left   { width: 30px; height: 60px; left: -15px; top: -30px; transform: rotateY(-90deg) translateZ(15px); }
+.outpost-left .face.right,  .outpost-right .face.right  { width: 30px; height: 60px; left: -15px; top: -30px; transform: rotateY(90deg) translateZ(15px); }
+.outpost-left .face.top,    .outpost-right .face.top    { width: 30px; height: 30px; left: -15px; top: -15px; transform: rotateX(0deg) translateZ(30px); background: #4a4a52; }
+.outpost-left .face.bottom { width: 30px; height: 30px; left: -15px; top: -15px; transform: rotateX(180deg) translateZ(30px); }
+
+
+/* --- 城墙围栏 (中，60x8x35px) --- */
+.castle-wall {
+    transform: translate3d(0, 0, 120px);
+}
+
+.castle-wall .face {
+    background: linear-gradient(rgba(120, 120, 125, 0.9), rgba(100, 100, 105, 0.9));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.castle-wall .face.front  { width: 60px; height: 35px; left: -30px; top: -17.5px; transform: rotateX(-90deg) translateZ(4px); }
+.castle-wall .face.back   { width: 60px; height: 35px; left: -30px; top: -17.5px; transform: rotateX(90deg) translateZ(4px); }
+.castle-wall .face.left   { width: 8px; height: 35px; left: -4px; top: -17.5px; transform: rotateY(-90deg) translateZ(30px); }
+.castle-wall .face.right  { width: 8px; height: 35px; left: -4px; top: -17.5px; transform: rotateY(90deg) translateZ(30px); }
+.castle-wall .face.top    { width: 60px; height: 8px; left: -30px; top: -4px; transform: rotateX(0deg) translateZ(17.5px); }
+.castle-wall .face.bottom { width: 60px; height: 8px; left: -30px; top: -4px; transform: rotateX(180deg) translateZ(17.5px); }
+
+
+/* --- 剖切红外扫描面 --- */
+.scanner {
+    width: 140px;
+    height: 140px;
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.scanner-plate {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    left: -70px;
+    top: -70px;
+    background: rgba(255, 59, 48, 0.15);
+    border: 2px solid #ff3b30;
+    box-shadow: 0 0 15px rgba(255, 59, 48, 0.6), inset 0 0 10px rgba(255, 59, 48, 0.3);
+    transform: rotateX(0deg);
+}
+
+
+/* --- 步骤状态控制 --- */
+
+/* 步骤 0: 规划基盘就绪 */
+.visual-side:not([class*="step-"]) .castle-base,
+.visual-side.step-0 .castle-base {
+    opacity: 1;
+}
+
+/* 步骤 1: 导入组员构建 (左哨所，右哨所，中间城墙都在空中 100px 处出现) */
+.visual-side.step-1 .castle-base {
+    opacity: 1;
+}
+.visual-side.step-1 .outpost-left {
+    opacity: 0.8;
+    transform: translate3d(-40px, 0, 100px); /* 悬空 */
+}
+.visual-side.step-1 .outpost-right {
+    opacity: 0.8;
+    transform: translate3d(40px, 0, 100px); /* 悬空 */
+}
+.visual-side.step-1 .castle-wall {
+    opacity: 0.8;
+    transform: translate3d(0, 0, 100px); /* 悬空 */
+}
+
+/* 步骤 2: 精准定位对齐 (空中构件滑移，刚好对准基座榫孔) */
+.visual-side.step-2 .castle-base { opacity: 1; }
+.visual-side.step-2 .outpost-left {
+    opacity: 0.9;
+    transform: translate3d(-38px, 0, 70px); /* 对齐 */
+}
+.visual-side.step-2 .outpost-right {
+    opacity: 0.9;
+    transform: translate3d(38px, 0, 70px); /* 对齐 */
+}
+.visual-side.step-2 .castle-wall {
+    opacity: 0.9;
+    transform: translate3d(0, 0, 70px); /* 对齐 */
+}
+
+/* 步骤 3: 榫卯卡扣合体 (下落，落座在大底盘上，卡扣契合) */
+.visual-side.step-3 .castle-base { opacity: 1; }
+.visual-side.step-3 .outpost-left {
+    opacity: 1;
+    transform: translate3d(-38px, 0, 35px); /* 落座，中心高度 Z = 5 (基座半高) + 30 (哨所半高) = 35px */
+}
+.visual-side.step-3 .outpost-right {
+    opacity: 1;
+    transform: translate3d(38px, 0, 35px); /* 落座 */
+}
+.visual-side.step-3 .castle-wall {
+    opacity: 1;
+    transform: translate3d(0, 0, 22.5px); /* 落座，中心高度 Z = 5 + 17.5 = 22.5px */
+}
+
+/* 步骤 4: 红外穿模体检 (大幅倾斜，剖切面闪烁，模型透明，榫卯面发出安全绿色荧光) */
+.visual-side.step-4 .scene {
+    transform: rotateX(-30deg) rotateY(35deg) rotateZ(-5deg) !important;
+}
+.visual-side.step-4 .castle-base {
+    opacity: 0.6;
+}
+/* 哨所与城墙均透明化 */
+.visual-side.step-4 .outpost-left {
+    opacity: 0.5;
+    transform: translate3d(-38px, 0, 35px);
+}
+.visual-side.step-4 .outpost-right {
+    opacity: 0.5;
+    transform: translate3d(38px, 0, 35px);
+}
+.visual-side.step-4 .castle-wall {
+    opacity: 0.5;
+    transform: translate3d(0, 0, 22.5px);
+}
+
+/* 配合边缘绿光浮现，代表干涉检测合格 */
+.visual-side.step-4 .castle-base .face.top {
+    border-color: #34c759;
+    box-shadow: inset 0 0 20px rgba(52, 199, 89, 0.6), 0 0 15px rgba(52, 199, 89, 0.3);
+}
+
+/* 扫描刀片激活并做往复垂直扫描 */
+.visual-side.step-4 .scanner {
+    opacity: 1;
+    animation: scan-sweep 3s infinite ease-in-out;
+}
+
+
+/* --- 动画关键帧 --- */
+@keyframes scan-sweep {
+    0%, 100% {
+        transform: translateZ(5px);
+    }
+    50% {
+        transform: translateZ(75px);
+    }
+}

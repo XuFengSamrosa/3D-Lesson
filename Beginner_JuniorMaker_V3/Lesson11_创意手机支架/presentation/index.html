@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第11课：力学创意手机架 - 3D打印魔法创客营</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">魔法创客营 V1.0 (PRO版)</div>
+        <ul class="nav-links">
+            <li><a href="#intro">课程目标</a></li>
+            <li><a href="#process">3D建模魔法秀</a></li>
+            <li><a href="#tools">魔法兵器谱</a></li>
+            <li><a href="#pitfalls">实验室警报预案</a></li>
+        </ul>
+    </nav>
+
+    <div class="scroll-container">
+        <!-- Slide 1: Intro -->
+        <section id="intro" class="slide slide-dark">
+            <div class="content">
+                <span class="badge">Lesson 11</span>
+                <h1 class="title">力学创意手机架</h1>
+                <p class="subtitle">黄金 60 度仰角与被熨斗拍平的底座悬空。</p>
+                
+                <div class="cards">
+                    <div class="card glass">
+                        <h3>核心目标</h3>
+                        <p>结合受力平衡，使用旋转工具倾斜背板，并利用面平放工具一键切平底部的悬空尖角。</p>
+                    </div>
+                    <div class="card glass">
+                        <h3>讲师必备知识</h3>
+                        <p>重心防翻车：受力面不能超出底板，底板要足够长才能稳稳接住手机。<br>深度干涉：背板倾斜后，必须往下狠狠插入底盘内部，否则风一吹就断。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: The Process (3D CSS Demo) -->
+        <section id="process" class="slide slide-light">
+            <div class="content process-content">
+                <div class="text-side">
+                    <h2>三维魔术解析</h2>
+                    <p>给孩子们看成品之前，先用这套步骤演示名字徽章与防卫挂扣的卡接配合。</p>
+                    
+                    <div class="step-controls">
+                        <button class="step-btn active" data-step="0">0. 装配干涉评估</button>
+                        <button class="step-btn" data-step="1">1. 精准卡尺量徽章</button>
+                        <button class="step-btn" data-step="2">2. 设计4.5mm挂扣</button>
+                        <button class="step-btn" data-step="3">3. 徽章卡接装配</button>
+                        <button class="step-btn" data-step="4">4. 配合防线落成</button>
+                    </div>
+
+                    <div class="step-descriptions">
+                        <div class="desc show" id="desc-0">回顾第2课的名字徽章，我们需要将它挂在城堡防线上。</div>
+                        <div class="desc" id="desc-1">使用 3D 游游卡尺测量名字徽章的实体厚度，得到精确数值 4.0mm。</div>
+                        <div class="desc" id="desc-2">设计城堡挂扣，将内部插槽厚度设为 4.5mm。预留 0.5mm 配合间隙，防止打印误差导致塞不进去！</div>
+                        <div class="desc" id="desc-3">名字徽章从上方滑动插槽内，进行物理组装。</div>
+                        <div class="desc" id="desc-4">挂扣安全锁死！卡合处亮起绿色合格光芒，代表装配无干涉，完美通过城堡防线测试！</div>
+                    </div>
+                </div>
+                
+                <div class="visual-side">
+                    <div class="scene">
+                        <div class="axis x-axis">X</div>
+                        <div class="axis y-axis">Y</div>
+                        <div class="axis z-axis">Z</div>
+                        <div class="grid-floor"></div>
+                        
+                        <!-- 名字徽章 (4x50x30px) -->
+                        <div class="part badge-plate">
+                            <div class="face front"></div>
+                            <div class="face back"></div>
+                            <div class="face left"></div>
+                            <div class="face right"></div>
+                            <div class="face top"></div>
+                            <div class="face bottom"></div>
+                            <div class="badge-text">HERO</div>
+                        </div>
+
+                        <!-- 3D 游标卡尺 -->
+                        <div class="part caliper">
+                            <!-- 尺身横梁 (80x4x6px) -->
+                            <div class="part caliper-body">
+                                <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
+                            </div>
+                            <!-- 固定爪 (4x20x6px) -->
+                            <div class="part fixed-jaw">
+                                <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
+                            </div>
+                            <!-- 活动滑动爪 (4x20x8px) -->
+                            <div class="part sliding-jaw">
+                                <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
+                                <div class="caliper-readout">4.0mm</div>
+                            </div>
+                        </div>
+
+                        <!-- 3D 城防挂扣 (插槽4.5px) -->
+                        <div class="part badge-holder">
+                            <!-- 挂扣后底板 -->
+                            <div class="part holder-back">
+                                <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
+                            </div>
+                            <!-- 挂扣前挡板 -->
+                            <div class="part holder-front">
+                                <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
+                            </div>
+                            <!-- 挂扣底部垫块 -->
+                            <div class="part holder-bottom">
+                                <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
+                            </div>
+                            <!-- 绿色合格发光指示器 -->
+                            <div class="fit-indicator"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Tools -->
+        <section id="tools" class="slide slide-dark">
+            <div class="content">
+                <h2>魔法兵器谱（软件基础）</h2>
+                <div class="tools-grid">
+                    <div class="tool-item glass">
+            <div class="icon">📐</div>
+            <h3>完美60度旋钮</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>在参数栏精确输入角度。</p>
+            <p class="teacher-talk">🗣️ "不要凭感觉瞎转！找到那个让脖子最舒服的 60度 黄金仰角。"</p>
+        </div>
+<div class="tool-item glass">
+            <div class="icon">🧲</div>
+            <h3>大熨斗 (面平放)</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>点击底面自动拍平贴紧热床。</p>
+            <p class="teacher-talk">🗣️ "零件倾斜后底座翘起来了？拿大熨斗把它死死拍平在地上！"</p>
+        </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Pitfalls -->
+        <section id="pitfalls" class="slide slide-light">
+            <div class="content">
+                <h2>实验室警报预案</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+            <div class="dot red"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 点错底面底朝天</h3>
+                <p>用大熨斗点到了斜着的背板，结果底盘撅到了天上。<br>应对：撤销！一定要把视角转到正下方，准确点击真正的底盘。</p>
+            </div>
+        </div>
+<div class="timeline-item">
+            <div class="dot yellow"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 挡板太矮手机滑雪</h3>
+                <p>忘了前面要做挡板，手机放上去哧溜滑倒。<br>应对：在最前面加个高高的小方块拦住它！</p>
+            </div>
+        </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

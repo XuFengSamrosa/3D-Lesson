@@ -1,0 +1,298 @@
+/* custom.css for V3 Lesson 12 (多彩城堡图腾) */
+
+/* 三维容器及部件基础 */
+.part {
+    width: 0;
+    height: 0;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+.part .face {
+    position: absolute;
+    transition: all 0.8s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* --- 3D 城堡防御盾牌 (底座 50x8x70px，花纹 40x2x50px) --- */
+.shield {
+    transform: translate3d(-15px, 0, 35px); /* 居中偏左 */
+    opacity: 0;
+}
+
+.shield-base {
+    transform: translate3d(0, 0, 0);
+}
+/* 初始默认灰色素模 */
+.shield-base .face {
+    background: rgba(142, 142, 147, 0.9);
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.shield-base .face.front  { width: 50px; height: 70px; left: -25px; top: -35px; transform: rotateX(-90deg) translateZ(4px); }
+.shield-base .face.back   { width: 50px; height: 70px; left: -25px; top: -35px; transform: rotateX(90deg) translateZ(4px); }
+.shield-base .face.left   { width: 8px; height: 70px; left: -4px; top: -35px; transform: rotateY(-90deg) translateZ(25px); }
+.shield-base .face.right  { width: 8px; height: 70px; left: -4px; top: -35px; transform: rotateY(90deg) translateZ(25px); }
+.shield-base .face.top    { width: 50px; height: 8px; left: -25px; top: -4px; transform: rotateX(0deg) translateZ(35px); }
+.shield-base .face.bottom { width: 50px; height: 8px; left: -25px; top: -4px; transform: rotateX(180deg) translateZ(35px); }
+
+/* 盾牌浮雕花纹 (贴在底座前侧 Y=4px 处，凸起2px) */
+.shield-pattern {
+    transform: translate3d(0, 5px, 0); /* 贴紧 front 面 */
+}
+
+.shield-pattern .face {
+    background: rgba(120, 120, 125, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.shield-pattern .face.front  { width: 40px; height: 50px; left: -20px; top: -25px; transform: rotateX(-90deg) translateZ(1px); }
+.shield-pattern .face.back   { width: 40px; height: 50px; left: -20px; top: -25px; transform: rotateX(90deg) translateZ(1px); }
+.shield-pattern .face.left   { width: 2px; height: 50px; left: -1px; top: -25px; transform: rotateY(-90deg) translateZ(20px); }
+.shield-pattern .face.right  { width: 2px; height: 50px; left: -1px; top: -25px; transform: rotateY(90deg) translateZ(20px); }
+.shield-pattern .face.top    { width: 40px; height: 2px; left: -20px; top: -1px; transform: rotateX(0deg) translateZ(25px); }
+.shield-pattern .face.bottom { width: 40px; height: 2px; left: -20px; top: -1px; transform: rotateX(180deg) translateZ(25px); }
+
+/* 浮雕雕刻文字 */
+.pattern-text {
+    position: absolute;
+    width: 40px;
+    text-align: center;
+    left: -20px;
+    top: -6px;
+    font-size: 8px;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.9);
+    transform: translate3d(0, -2px, 0) rotateX(-90deg);
+    backface-visibility: hidden;
+    transition: all 0.8s ease;
+}
+
+
+/* --- 拓竹 AMS 喷头组件 (20x20x25px) --- */
+.ams-nozzle {
+    transform: translate3d(0, 0, 120px); /* 默认高处 */
+}
+
+.ams-nozzle .face {
+    background: rgba(40, 40, 42, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.ams-nozzle .face.front  { width: 20px; height: 25px; left: -10px; top: -12.5px; transform: rotateX(-90deg) translateZ(10px); }
+.ams-nozzle .face.back   { width: 20px; height: 25px; left: -10px; top: -12.5px; transform: rotateX(90deg) translateZ(10px); }
+.ams-nozzle .face.left   { width: 20px; height: 25px; left: -10px; top: -12.5px; transform: rotateY(-90deg) translateZ(10px); }
+.ams-nozzle .face.right  { width: 20px; height: 25px; left: -10px; top: -12.5px; transform: rotateY(90deg) translateZ(10px); }
+.ams-nozzle .face.top    { width: 20px; height: 20px; left: -10px; top: -10px; transform: rotateX(0deg) translateZ(12.5px); }
+.ams-nozzle .face.bottom { 
+    width: 20px; 
+    height: 20px; 
+    left: -10px; 
+    top: -10px; 
+    transform: rotateX(180deg) translateZ(12.5px);
+    background: radial-gradient(circle, #ff0 20%, #222 30%); /* 加热嘴孔 */
+}
+
+/* 进料管线条 (四条彩色进料线往上拉) */
+.filament-tubes {
+    position: absolute;
+    width: 20px;
+    height: 60px;
+    left: -10px;
+    top: -30px;
+    transform: translate3d(0, 0, 40px) rotateX(90deg);
+    transform-style: preserve-3d;
+}
+
+.tube {
+    position: absolute;
+    width: 2px;
+    height: 65px;
+    opacity: 0.3;
+    transition: all 0.5s ease;
+}
+
+.tube.t1 { background: #007aff; left: 3px; }  /* 蓝色耗材 */
+.tube.t2 { background: #ffd700; left: 7px; }  /* 金色耗材 */
+.tube.t3 { background: #ff3b30; left: 11px; } /* 红色耗材 */
+.tube.t4 { background: #34c759; left: 15px; } /* 绿色耗材 */
+
+
+/* --- 冲刷废料塔 (15x15x40px) --- */
+.waste-tower {
+    transform: translate3d(40px, 0, 20px); /* 位于右侧 */
+}
+
+/* 彩色层叠分层条纹，模拟换色排料 */
+.waste-tower .face {
+    background: repeating-linear-gradient(
+        to bottom,
+        #007aff 0px, #007aff 5px,
+        #ffd700 5px, #ffd700 10px,
+        #ff3b30 10px, #ff3b30 15px,
+        #34c759 15px, #34c759 20px
+    );
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.waste-tower .face.front  { width: 15px; height: 40px; left: -7.5px; top: -20px; transform: rotateX(-90deg) translateZ(7.5px); }
+.waste-tower .face.back   { width: 15px; height: 40px; left: -7.5px; top: -20px; transform: rotateX(90deg) translateZ(7.5px); }
+.waste-tower .face.left   { width: 15px; height: 40px; left: -7.5px; top: -20px; transform: rotateY(-90deg) translateZ(7.5px); }
+.waste-tower .face.right  { width: 15px; height: 40px; left: -7.5px; top: -20px; transform: rotateY(90deg) translateZ(7.5px); }
+.waste-tower .face.top    { width: 15px; height: 15px; left: -7.5px; top: -7.5px; transform: rotateX(0deg) translateZ(20px); background: #ff3b30; }
+.waste-tower .face.bottom { width: 15px; height: 15px; left: -7.5px; top: -7.5px; transform: rotateX(180deg) translateZ(20px); }
+
+
+/* --- 步骤状态控制 --- */
+
+/* 步骤 0: 城堡图腾素模 */
+.visual-side:not([class*="step-"]) .shield,
+.visual-side.step-0 .shield {
+    opacity: 1;
+    transform: translate3d(-15px, 0, 35px);
+}
+
+/* 步骤 1: 打印深蓝底座 (喷头在底座上方往复扫过，蓝色软管点亮) */
+.visual-side.step-1 .shield {
+    opacity: 1;
+}
+/* 喷头降落到底座上方，执行扫射动画 */
+.visual-side.step-1 .ams-nozzle {
+    opacity: 1;
+    transform: translate3d(-15px, 0, 80px);
+    animation: nozzle-print-base 2s infinite linear;
+}
+/* 底座面变为半透明蓝色，表示刚打印成型 */
+.visual-side.step-1 .shield-base .face {
+    background: linear-gradient(rgba(0, 90, 200, 0.8), rgba(0, 60, 150, 0.8));
+    border-color: rgba(0, 122, 255, 0.7);
+    box-shadow: inset 0 0 10px rgba(0, 122, 255, 0.5);
+}
+/* 点亮蓝色耗材管 */
+.visual-side.step-1 .tube.t1 {
+    opacity: 1;
+    box-shadow: 0 0 10px #007aff;
+}
+
+/* 步骤 2: 双色浮雕雕琢 (喷头在前侧扫过，金色管点亮，花纹变金色) */
+.visual-side.step-2 .shield {
+    opacity: 1;
+}
+.visual-side.step-2 .shield-base .face {
+    background: linear-gradient(rgba(0, 80, 180, 0.95), rgba(0, 50, 130, 0.95));
+    border-color: rgba(0, 122, 255, 0.8);
+}
+/* 喷头前移到浮雕前方 Y=12px 处，进行浮雕打印动画 */
+.visual-side.step-2 .ams-nozzle {
+    opacity: 1;
+    transform: translate3d(-15px, 12px, 35px) rotateX(90deg); /* 视角放倒贴近浮雕 */
+    animation: nozzle-print-pattern 2.5s infinite linear;
+}
+/* 浮雕变金黄色 */
+.visual-side.step-2 .shield-pattern .face {
+    background: linear-gradient(135deg, #ffd700, #b8860b);
+    border-color: #ffd700;
+}
+.visual-side.step-2 .pattern-text {
+    color: #ffffff;
+    text-shadow: 0 0 5px #ffd700;
+}
+/* 点亮金色耗材管 */
+.visual-side.step-2 .tube.t2 {
+    opacity: 1;
+    box-shadow: 0 0 10px #ffd700;
+}
+
+/* 步骤 3: 冲刷料塔魔术 (喷头移动到废料塔上方，排出杂色，废料塔闪光) */
+.visual-side.step-3 .shield {
+    opacity: 1;
+}
+.visual-side.step-3 .shield-base .face {
+    background: linear-gradient(rgba(0, 80, 180, 0.95), rgba(0, 50, 130, 0.95));
+}
+.visual-side.step-3 .shield-pattern .face {
+    background: linear-gradient(135deg, #ffd700, #b8860b);
+}
+/* 废料塔出现 */
+.visual-side.step-3 .waste-tower {
+    opacity: 1;
+    animation: tower-pulsate 1.5s infinite ease-in-out;
+}
+/* 喷头移动到废料塔顶部 Z=48px, X=40px 处吐废料 */
+.visual-side.step-3 .ams-nozzle {
+    opacity: 1;
+    transform: translate3d(40px, 0, 55px);
+}
+/* 耗材管双重微光 */
+.visual-side.step-3 .tube.t1,
+.visual-side.step-3 .tube.t2 {
+    opacity: 0.8;
+}
+
+/* 步骤 4: 多色盾牌落成 (全景旋转，放射金色光晕，料塔和喷头消失) */
+.visual-side.step-4 .scene {
+    animation: shield-showcase-rotate 10s linear infinite;
+}
+.visual-side.step-4 .shield {
+    opacity: 1;
+    transform: translate3d(0, 0, 35px); /* 居中显示 */
+}
+.visual-side.step-4 .shield-base .face {
+    background: linear-gradient(135deg, #0056b3, #002752);
+    border-color: #007aff;
+    box-shadow: 0 0 15px rgba(0, 122, 255, 0.5), inset 0 0 15px rgba(0, 122, 255, 0.3);
+}
+.visual-side.step-4 .shield-pattern .face {
+    background: linear-gradient(135deg, #ffd700, #b8860b);
+    border-color: #ffd700;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+}
+.visual-side.step-4 .pattern-text {
+    color: #ffffff;
+    text-shadow: 0 0 8px #ffd700, 0 0 12px #ffffff;
+}
+/* 喷头与废料塔功成身退 */
+.visual-side.step-4 .ams-nozzle,
+.visual-side.step-4 .waste-tower {
+    opacity: 0;
+    transform: scale(0.1);
+}
+
+
+/* --- 动画关键帧 --- */
+
+/* 打印底座时的喷头往复运动 */
+@keyframes nozzle-print-base {
+    0% { transform: translate3d(-35px, 0, 80px); }
+    50% { transform: translate3d(5px, 0, 80px); }
+    100% { transform: translate3d(-35px, 0, 80px); }
+}
+
+/* 打印浮雕时的喷头上下左右运动 */
+@keyframes nozzle-print-pattern {
+    0% { transform: translate3d(-30px, 12px, 35px) rotateX(90deg); }
+    25% { transform: translate3d(-10px, 12px, 55px) rotateX(90deg); }
+    50% { transform: translate3d(10px, 12px, 20px) rotateX(90deg); }
+    75% { transform: translate3d(0px, 12px, 45px) rotateX(90deg); }
+    100% { transform: translate3d(-30px, 12px, 35px) rotateX(90deg); }
+}
+
+/* 废料塔在排废料时的呼吸发光 */
+@keyframes tower-pulsate {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(255, 59, 48, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(255, 59, 48, 0.7), 0 0 10px rgba(52, 199, 89, 0.5);
+    }
+}
+
+/* 步骤4展示时的自转 */
+@keyframes shield-showcase-rotate {
+    0% { transform: rotateX(-20deg) rotateY(0deg); }
+    100% { transform: rotateX(-20deg) rotateY(360deg); }
+}

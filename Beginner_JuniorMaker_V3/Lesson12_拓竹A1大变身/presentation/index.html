@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第12课：打印机机甲改装 - 3D打印魔法创客营</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">魔法创客营 V1.0 (PRO版)</div>
+        <ul class="nav-links">
+            <li><a href="#intro">课程目标</a></li>
+            <li><a href="#process">3D建模魔法秀</a></li>
+            <li><a href="#tools">魔法兵器谱</a></li>
+            <li><a href="#pitfalls">实验室警报预案</a></li>
+        </ul>
+    </nav>
+
+    <div class="scroll-container">
+        <!-- Slide 1: Intro -->
+        <section id="intro" class="slide slide-dark">
+            <div class="content">
+                <span class="badge">Lesson 12</span>
+                <h1 class="title">打印机机甲改装</h1>
+                <p class="subtitle">实物测绘与躺地打印防劈裂术。</p>
+                
+                <div class="cards">
+                    <div class="card glass">
+                        <h3>核心目标</h3>
+                        <p>利用卡尺量取真实物品的尺寸，设计大受力夹具，并学习为了强度必须倒下侧躺打印的物理法则。</p>
+                    </div>
+                    <div class="card glass">
+                        <h3>讲师必备知识</h3>
+                        <p>逆向公差留余量：量出来的数字要加上 0.5mm，否则卡扣永远塞不进去。<br>层纹抗劈裂：受力的方向必须跟打印机吐丝层横向交叉，站着打一受力就会像劈柴一样裂开。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: The Process (3D CSS Demo) -->
+        <section id="process" class="slide slide-light">
+            <div class="content process-content">
+                <div class="text-side">
+                    <h2>三维魔术解析</h2>
+                    <p>给孩子们看成品之前，先用这套步骤演示拓竹多色打印多彩盾牌的过程。</p>
+                    
+                    <div class="step-controls">
+                        <button class="step-btn active" data-step="0">0. 城堡图腾素模</button>
+                        <button class="step-btn" data-step="1">1. 加载首色底盘</button>
+                        <button class="step-btn" data-step="2">2. 双色浮雕雕琢</button>
+                        <button class="step-btn" data-step="3">3. 冲刷料塔魔术</button>
+                        <button class="step-btn" data-step="4">4. 多色盾牌落成</button>
+                    </div>
+
+                    <div class="step-descriptions">
+                        <div class="desc show" id="desc-0">城堡防御大盾牌的素模，它是由多重零件叠放出的浮雕效果。</div>
+                        <div class="desc" id="desc-1">开始多色打印！首先，喷头拉入蓝色耗材，打印出深蓝色科技感盾牌底盘。</div>
+                        <div class="desc" id="desc-2">打印机喷头拉退蓝色耗材，拉入金色耗材，滑过表面打印凸起的金色文字与边框浮雕。</div>
+                        <div class="desc" id="desc-3">换色时为什么旁边会多打一个‘垃圾方块’？那是为了把喷头里残留的旧颜色耗材彻底挤干净！</div>
+                        <div class="desc" id="desc-4">多色打印顺利结束！我们成功用双色勾勒出威武的城堡防护大盾牌，防线能量进一步提升！</div>
+                    </div>
+                </div>
+                
+                <div class="visual-side">
+                    <div class="scene">
+                        <div class="axis x-axis">X</div>
+                        <div class="axis y-axis">Y</div>
+                        <div class="axis z-axis">Z</div>
+                        <div class="grid-floor"></div>
+                        
+                        <!-- 3D 城堡防御盾牌 -->
+                        <div class="part shield">
+                            <!-- 盾牌底座 (50x8x70px) -->
+                            <div class="part shield-base">
+                                <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
+                            </div>
+                            <!-- 盾牌浮雕花纹 (40x2x50px) -->
+                            <div class="part shield-pattern">
+                                <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
+                                <div class="pattern-text">CASTLE</div>
+                            </div>
+                        </div>
+
+                        <!-- 拓竹 AMS 喷头与进料管 (20x20x25px) -->
+                        <div class="part ams-nozzle">
+                            <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
+                            <!-- 四色进料软管 -->
+                            <div class="filament-tubes">
+                                <div class="tube t1"></div>
+                                <div class="tube t2"></div>
+                                <div class="tube t3"></div>
+                                <div class="tube t4"></div>
+                            </div>
+                        </div>
+
+                        <!-- 冲刷废料塔 (15x15x40px，彩色分层条纹) -->
+                        <div class="part waste-tower">
+                            <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Tools -->
+        <section id="tools" class="slide slide-dark">
+            <div class="content">
+                <h2>魔法兵器谱（软件基础）</h2>
+                <div class="tools-grid">
+                    <div class="tool-item glass">
+            <div class="icon">📏</div>
+            <h3>真实游标卡尺</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>实体测绘，记录数据。</p>
+            <p class="teacher-talk">🗣️ "抛弃电脑里的幻想！给我去量真实的横梁有多厚！"</p>
+        </div>
+<div class="tool-item glass">
+            <div class="icon">🛏️</div>
+            <h3>推倒平躺大法</h3>
+            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
+            <p>为了力学强度，把站着的 C 型夹放平。</p>
+            <p class="teacher-talk">🗣️ "想结实？让最长的连续胶丝贯穿整个受力点，推倒打印！"</p>
+        </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Pitfalls -->
+        <section id="pitfalls" class="slide slide-light">
+            <div class="content">
+                <h2>实验室警报预案</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+            <div class="dot red"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 零公差焊死进不去</h3>
+                <p>测了 20mm 就做 20mm 的卡槽，结果根本套不进杆子。<br>应对：退回电脑，强行给卡槽挖宽 0.5mm 留退路！</p>
+            </div>
+        </div>
+<div class="timeline-item">
+            <div class="dot orange"></div>
+            <div class="timeline-content glass-dark">
+                <h3>🚨 一掰成两半</h3>
+                <p>站着打印导致层纹断裂。<br>应对：推倒它！让它舒舒服服平躺着打印。</p>
+            </div>
+        </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

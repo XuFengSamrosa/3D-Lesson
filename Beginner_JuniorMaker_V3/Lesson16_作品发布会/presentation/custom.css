@@ -1,0 +1,261 @@
+/* custom.css for V3 Lesson 16 (城堡落成发布会) */
+
+/* 三维容器及部件基础 */
+.part {
+    width: 0;
+    height: 0;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+.part .face {
+    position: absolute;
+    transition: all 0.8s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* --- 科技展台 (100x100x12px) --- */
+.stage {
+    transform: translate3d(0, 0, 6px); /* 立于地面 */
+}
+
+.stage .face {
+    background: rgba(25, 27, 30, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.stage .face.front  { width: 100px; height: 12px; left: -50px; top: -6px; transform: rotateX(-90deg) translateZ(50px); }
+.stage .face.back   { width: 100px; height: 12px; left: -50px; top: -6px; transform: rotateX(90deg) translateZ(50px); }
+.stage .face.left   { width: 100px; height: 12px; left: -50px; top: -6px; transform: rotateY(-90deg) translateZ(50px); }
+.stage .face.right  { width: 100px; height: 12px; left: -50px; top: -6px; transform: rotateY(90deg) translateZ(50px); }
+.stage .face.top    { 
+    width: 100px; 
+    height: 100px; 
+    left: -50px; 
+    top: -50px; 
+    transform: rotateX(0deg) translateZ(6px);
+    background: radial-gradient(circle, #1f2327 60%, #0e1012 100%);
+    border: 2px solid rgba(0, 210, 255, 0.4);
+}
+.stage .face.bottom { width: 100px; height: 100px; left: -50px; top: -50px; transform: rotateX(180deg) translateZ(6px); }
+
+/* 霓虹发光环 */
+.stage .light-ring {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    left: 8px;
+    top: 8px;
+    border-radius: 50%;
+    border: 2px solid #00d2ff;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.8), inset 0 0 15px rgba(0, 210, 255, 0.4);
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+
+
+/* --- 城堡合体组合模型 (包含基板、哨所、城墙、陀螺核心) --- */
+.final-castle {
+    transform: translate3d(0, 0, 120px); /* 默认极高空 */
+    transform-style: preserve-3d;
+}
+
+/* 各个组件通用的面属性 */
+.final-castle .part {
+    opacity: 1; /* 统一由大容器 .final-castle 控制 */
+}
+
+/* 城堡大基座板 (60x60x4px) */
+.c-base {
+    transform: translate3d(0, 0, 2px);
+}
+.c-base .face {
+    background: #0056b3;
+    border-color: #007aff;
+}
+.c-base .face.front  { width: 60px; height: 4px; left: -30px; top: -2px; transform: rotateX(-90deg) translateZ(30px); }
+.c-base .face.back   { width: 60px; height: 4px; left: -30px; top: -2px; transform: rotateX(90deg) translateZ(30px); }
+.c-base .face.left   { width: 60px; height: 4px; left: -30px; top: -2px; transform: rotateY(-90deg) translateZ(30px); }
+.c-base .face.right  { width: 60px; height: 4px; left: -30px; top: -2px; transform: rotateY(90deg) translateZ(30px); }
+.c-base .face.top    { width: 60px; height: 60px; left: -30px; top: -30px; transform: rotateX(0deg) translateZ(2px); }
+.c-base .face.bottom { width: 60px; height: 60px; left: -30px; top: -30px; transform: rotateX(180deg) translateZ(2px); }
+
+/* 左哨所 & 右哨所 (16x16x30px) */
+.c-outpost-l { transform: translate3d(-20px, 0, 19px); }
+.c-outpost-r { transform: translate3d(20px, 0, 19px); }
+
+.c-outpost-l .face, .c-outpost-r .face {
+    background: linear-gradient(#5a5e63, #3c4045);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+.c-outpost-l .face.front, .c-outpost-r .face.front   { width: 16px; height: 30px; left: -8px; top: -15px; transform: rotateX(-90deg) translateZ(8px); }
+.c-outpost-l .face.back,  .c-outpost-r .face.back    { width: 16px; height: 30px; left: -8px; top: -15px; transform: rotateX(90deg) translateZ(8px); }
+.c-outpost-l .face.left,  .c-outpost-r .face.left    { width: 16px; height: 30px; left: -8px; top: -15px; transform: rotateY(-90deg) translateZ(8px); }
+.c-outpost-l .face.right, .c-outpost-r .face.right   { width: 16px; height: 30px; left: -8px; top: -15px; transform: rotateY(90deg) translateZ(8px); }
+.c-outpost-l .face.top,   .c-outpost-r .face.top     { width: 16px; height: 16px; left: -8px; top: -8px; transform: rotateX(0deg) translateZ(15px); background: #282a2d; }
+
+/* 中间城墙 (24x4x16px) */
+.c-wall { transform: translate3d(0, 0, 12px); }
+.c-wall .face {
+    background: linear-gradient(#4d5156, #363a3d);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+.c-wall .face.front  { width: 24px; height: 16px; left: -12px; top: -8px; transform: rotateX(-90deg) translateZ(2px); }
+.c-wall .face.back   { width: 24px; height: 16px; left: -12px; top: -8px; transform: rotateX(90deg) translateZ(2px); }
+.c-wall .face.left   { width: 4px; height: 16px; left: -2px; top: -8px; transform: rotateY(-90deg) translateZ(12px); }
+.c-wall .face.right  { width: 4px; height: 16px; left: -2px; top: -8px; transform: rotateY(90deg) translateZ(12px); }
+.c-wall .face.top    { width: 24px; height: 4px; left: -12px; top: -2px; transform: rotateX(0deg) translateZ(8px); }
+
+/* 顶部旋转陀螺核心 (10x10x10px，立在左哨所顶部 Z=34+5=39px) */
+.c-core {
+    transform: translate3d(-20px, 0, 39px);
+    animation: core-self-rotate 4s infinite linear;
+}
+.c-core .face {
+    background: linear-gradient(135deg, #ffd700, #ffb900);
+    border-color: #ffd700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+.c-core .face.front  { width: 10px; height: 10px; left: -5px; top: -5px; transform: rotateX(-90deg) translateZ(5px); }
+.c-core .face.back   { width: 10px; height: 10px; left: -5px; top: -5px; transform: rotateX(90deg) translateZ(5px); }
+.c-core .face.left   { width: 10px; height: 10px; left: -5px; top: -5px; transform: rotateY(-90deg) translateZ(5px); }
+.c-core .face.right  { width: 10px; height: 10px; left: -5px; top: -5px; transform: rotateY(90deg) translateZ(5px); }
+.c-core .face.top    { width: 10px; height: 10px; left: -5px; top: -5px; transform: rotateX(0deg) translateZ(5px); background: #ffffff; }
+
+
+/* --- 欢庆星星斑粒子 --- */
+.sparkles {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    left: 50%;
+    top: 50%;
+    margin-left: -70px;
+    margin-top: -70px;
+    transform: translateZ(40px);
+    transform-style: preserve-3d;
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.sparkles .spark {
+    position: absolute;
+    color: #ffd700;
+    font-size: 14px;
+    text-shadow: 0 0 8px #ffd700;
+    animation: float-star 2s infinite ease-in-out;
+}
+
+.sparkles .spark.s1 { left: 10px; top: 15px; animation-delay: 0s; }
+.sparkles .spark.s2 { right: 15px; top: 10px; animation-delay: 0.3s; }
+.sparkles .spark.s3 { left: 25px; bottom: 20px; animation-delay: 0.6s; }
+.sparkles .spark.s4 { right: 10px; bottom: 25px; animation-delay: 0.9s; }
+.sparkles .spark.s5 { left: 60px; top: 5px; animation-delay: 1.2s; }
+.sparkles .spark.s6 { right: 50px; bottom: 5px; animation-delay: 1.5s; }
+
+
+/* --- 步骤状态控制 --- */
+
+/* 步骤 0: 舞台就绪 */
+.visual-side:not([class*="step-"]) .stage,
+.visual-side.step-0 .stage {
+    opacity: 1;
+}
+
+/* 步骤 1: 全息霓虹点亮 (展台大环发出耀眼蓝光) */
+.visual-side.step-1 .stage {
+    opacity: 1;
+}
+.visual-side.step-1 .stage .light-ring {
+    opacity: 1;
+    animation: neon-run 2.5s infinite linear;
+}
+
+/* 步骤 2: 终极城堡降落 (组合城堡模型从天而降，坐落于展台) */
+.visual-side.step-2 .stage { opacity: 1; }
+.visual-side.step-2 .stage .light-ring { opacity: 1; }
+.visual-side.step-2 .final-castle {
+    opacity: 1;
+    transform: translate3d(0, 0, 12px); /* 坐落 */
+}
+
+/* 步骤 3: 360°自转路演 (城堡与展台联合，开始整场慢速自转) */
+.visual-side.step-3 .stage { opacity: 1; }
+.visual-side.step-3 .stage .light-ring { opacity: 1; }
+.visual-side.step-3 .final-castle {
+    opacity: 1;
+    transform: translate3d(0, 0, 12px);
+    animation: castle-spin-show 8s infinite linear;
+}
+
+/* 步骤 4: 荣耀金光结营 (全场星星漫舞，镜头倾斜，城堡射出耀眼金光脉冲) */
+.visual-side.step-4 .scene {
+    transform: scale(0.85) rotateX(-25deg) rotateY(30deg) !important;
+}
+.visual-side.step-4 .stage { opacity: 0.95; }
+.visual-side.step-4 .stage .light-ring { opacity: 0.8; }
+.visual-side.step-4 .final-castle {
+    opacity: 1;
+    transform: translate3d(0, 0, 12px);
+}
+/* 城堡散发金光特效 */
+.visual-side.step-4 .final-castle .face {
+    box-shadow: 0 0 20px #ffd700, inset 0 0 8px rgba(255, 215, 0, 0.4);
+    border-color: #ffffff;
+    animation: castle-gold-pulse 2s infinite ease-in-out;
+}
+.visual-side.step-4 .sparkles {
+    opacity: 1;
+}
+
+
+/* --- 动画关键帧 --- */
+
+/* 陀螺核心自转 */
+@keyframes core-self-rotate {
+    from { transform: translate3d(-20px, 0, 39px) rotateZ(0deg) rotateX(15deg); }
+    to { transform: translate3d(-20px, 0, 39px) rotateZ(360deg) rotateX(15deg); }
+}
+
+/* 霓虹灯带跑马效果 */
+@keyframes neon-run {
+    0%, 100% {
+        box-shadow: 0 0 10px #00d2ff, inset 0 0 10px #00d2ff;
+        border-color: #00d2ff;
+    }
+    50% {
+        box-shadow: 0 0 30px #007aff, inset 0 0 20px #007aff;
+        border-color: #007aff;
+    }
+}
+
+/* 城堡慢速旋转展示 */
+@keyframes castle-spin-show {
+    from { transform: translate3d(0, 0, 12px) rotateZ(0deg); }
+    to { transform: translate3d(0, 0, 12px) rotateZ(360deg); }
+}
+
+/* 星斑浮动 */
+@keyframes float-star {
+    0%, 100% {
+        transform: translateZ(0px) scale(0.8);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translateZ(30px) scale(1.2);
+        opacity: 1;
+    }
+}
+
+/* 城堡金光脉冲 */
+@keyframes castle-gold-pulse {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 35px #ffd700, 0 0 15px #ffffff;
+    }
+}

@@ -1,0 +1,255 @@
+/* custom.css for V3 Lesson 09 (魔法氛围灯塔) */
+
+/* 三维容器及部件基础 */
+.part {
+    width: 0;
+    height: 0;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+.part .face {
+    position: absolute;
+    transition: all 0.8s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* --- 哨所底座 (60x60x80px) 设为半透明作为背景 --- */
+.outpost-core {
+    transform: translate3d(0, 0, 40px); /* 居中立于地面 */
+    opacity: 0.3 !important; /* 始终保持半透明作为装配参考 */
+}
+
+.outpost-core .face {
+    background: rgba(100, 100, 105, 0.4);
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+}
+
+.outpost-core .face.front  { width: 60px; height: 80px; left: -30px; top: -40px; transform: rotateX(-90deg) translateZ(30px); }
+.outpost-core .face.back   { width: 60px; height: 80px; left: -30px; top: -40px; transform: rotateX(90deg) translateZ(30px); }
+.outpost-core .face.left   { width: 60px; height: 80px; left: -30px; top: -40px; transform: rotateY(-90deg) translateZ(30px); }
+.outpost-core .face.right  { width: 60px; height: 80px; left: -30px; top: -40px; transform: rotateY(90deg) translateZ(30px); }
+.outpost-core .face.top    { 
+    width: 60px; 
+    height: 60px; 
+    left: -30px; 
+    top: -30px; 
+    transform: rotateX(0deg) translateZ(40px);
+    background: radial-gradient(circle, rgba(0, 122, 255, 0.3) 50%, rgba(80, 80, 85, 0.4) 52%);
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+}
+.outpost-core .face.bottom { width: 60px; height: 60px; left: -30px; top: -30px; transform: rotateX(180deg) translateZ(40px); }
+
+
+/* --- 塔罩外壳 (8面圆柱，高60px，内切圆半径25px) --- */
+.beacon-shell {
+    transform: translate3d(0, 0, 150px); /* 默认高空悬挂 */
+}
+
+.beacon-shell .face {
+    width: 21px; /* 稍宽于 20.7px 避免拼接裂缝 */
+    height: 60px;
+    left: -10.5px;
+    top: -30px;
+    background: linear-gradient(to bottom, rgba(255, 180, 0, 0.2), rgba(255, 140, 0, 0.4));
+    border: 1px solid rgba(255, 180, 0, 0.6);
+    box-shadow: inset 0 0 10px rgba(255, 140, 0, 0.2);
+    transform-style: preserve-3d;
+}
+
+/* 顶盖和底盖 */
+.beacon-shell::before,
+.beacon-shell::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: -25px;
+    top: -25px;
+    border-radius: 50%;
+    background: rgba(255, 140, 0, 0.3);
+    border: 1.5px solid rgba(255, 180, 0, 0.7);
+    transition: all 0.8s ease;
+    opacity: 0;
+}
+.beacon-shell::before { transform: translateZ(30px) rotateX(90deg); }
+.beacon-shell::after  { transform: translateZ(-30px) rotateX(90deg); }
+
+/* 8面环向定位 */
+.beacon-shell .face.w1 { transform: rotateZ(0deg)   translateY(24.5px) rotateX(90deg); }
+.beacon-shell .face.w2 { transform: rotateZ(45deg)  translateY(24.5px) rotateX(90deg); }
+.beacon-shell .face.w3 { transform: rotateZ(90deg)  translateY(24.5px) rotateX(90deg); }
+.beacon-shell .face.w4 { transform: rotateZ(135deg) translateY(24.5px) rotateX(90deg); }
+.beacon-shell .face.w5 { transform: rotateZ(180deg) translateY(24.5px) rotateX(90deg); }
+.beacon-shell .face.w6 { transform: rotateZ(225deg) translateY(24.5px) rotateX(90deg); }
+.beacon-shell .face.w7 { transform: rotateZ(270deg) translateY(24.5px) rotateX(90deg); }
+.beacon-shell .face.w8 { transform: rotateZ(315deg) translateY(24.5px) rotateX(90deg); }
+
+/* 用于在步骤4中显示镂空效果的伪元素 */
+.beacon-shell .face::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    left: 4.5px;
+    top: 24px;
+    background: rgba(255, 59, 48, 0.9);
+    border: 1px solid #ff3b30;
+    transform: rotate(45deg) scale(0);
+    transition: all 0.5s ease;
+    opacity: 0;
+}
+
+
+/* --- 红色半透明 3D 菱形切刀 (16x16x50px) --- */
+.cutters-group {
+    position: absolute;
+    width: 0;
+    height: 0;
+    transform-style: preserve-3d;
+}
+
+.cutter {
+    width: 16px;
+    height: 16px;
+    transform-style: preserve-3d;
+}
+
+.cutter .face {
+    background: rgba(255, 59, 48, 0.7);
+    border: 1px solid rgba(255, 59, 48, 0.9);
+    box-shadow: 0 0 10px rgba(255, 59, 48, 0.4);
+}
+
+/* 3D 长方体六个面，长50px，截面16x16，中心在原点 */
+.cutter .face.front  { width: 16px; height: 16px; transform: rotateY(0deg) translateZ(25px); }
+.cutter .face.back   { width: 16px; height: 16px; transform: rotateY(180deg) translateZ(25px); }
+.cutter .face.left   { width: 50px; height: 16px; left: -17px; transform: rotateY(-90deg) translateZ(8px); }
+.cutter .face.right  { width: 50px; height: 16px; left: -17px; transform: rotateY(90deg) translateZ(8px); }
+.cutter .face.top    { width: 16px; height: 50px; top: -17px; transform: rotateX(90deg) translateZ(8px); }
+.cutter .face.bottom { width: 16px; height: 50px; top: -17px; transform: rotateX(-90deg) translateZ(8px); }
+
+/* 切刀极坐标阵列定位，高度与悬空灯罩一致 (Z=150px)，且指向中心 */
+.cutter.c1 { transform: rotateZ(0deg)   translate3d(0, 30px, 150px) rotateY(90deg) rotateX(45deg); }
+.cutter.c2 { transform: rotateZ(45deg)  translate3d(0, 30px, 150px) rotateY(90deg) rotateX(45deg); }
+.cutter.c3 { transform: rotateZ(90deg)  translate3d(0, 30px, 150px) rotateY(90deg) rotateX(45deg); }
+.cutter.c4 { transform: rotateZ(135deg) translate3d(0, 30px, 150px) rotateY(90deg) rotateX(45deg); }
+.cutter.c5 { transform: rotateZ(180deg) translate3d(0, 30px, 150px) rotateY(90deg) rotateX(45deg); }
+.cutter.c6 { transform: rotateZ(225deg) translate3d(0, 30px, 150px) rotateY(90deg) rotateX(45deg); }
+.cutter.c7 { transform: rotateZ(270deg) translate3d(0, 30px, 150px) rotateY(90deg) rotateX(45deg); }
+.cutter.c8 { transform: rotateZ(315deg) translate3d(0, 30px, 150px) rotateY(90deg) rotateX(45deg); }
+
+
+/* --- 步骤状态控制 --- */
+
+/* 步骤 0: 初始化夜幕 */
+.visual-side:not([class*="step-"]) .outpost-core,
+.visual-side.step-0 .outpost-core {
+    opacity: 0.3;
+}
+
+/* 步骤 1: 悬空高塔灯罩出现 */
+.visual-side.step-1 .outpost-core {
+    opacity: 0.3;
+}
+.visual-side.step-1 .beacon-shell {
+    opacity: 1;
+    transform: translate3d(0, 0, 150px); /* 悬空 */
+}
+.visual-side.step-1 .beacon-shell::before,
+.visual-side.step-1 .beacon-shell::after {
+    opacity: 1;
+}
+
+/* 步骤 2: 植入第一片菱形切刀 */
+.visual-side.step-2 .outpost-core { opacity: 0.3; }
+.visual-side.step-2 .beacon-shell {
+    opacity: 1;
+    transform: translate3d(0, 0, 150px);
+}
+.visual-side.step-2 .beacon-shell::before,
+.visual-side.step-2 .beacon-shell::after { opacity: 1; }
+/* 仅显示 c1 切刀，且呼吸红光 */
+.visual-side.step-2 .cutter.c1 {
+    opacity: 1;
+}
+.visual-side.step-2 .cutter.c1 .face {
+    animation: pulse-red-cutter 1.5s infinite ease-in-out;
+}
+
+/* 步骤 3: 极坐标阵列 (8个切刀全亮起) */
+.visual-side.step-3 .outpost-core { opacity: 0.3; }
+.visual-side.step-3 .beacon-shell {
+    opacity: 1;
+    transform: translate3d(0, 0, 150px);
+}
+.visual-side.step-3 .beacon-shell::before,
+.visual-side.step-3 .beacon-shell::after { opacity: 1; }
+/* 8个切刀全部浮现并指向圆心 */
+.visual-side.step-3 .cutter {
+    opacity: 1;
+}
+.visual-side.step-3 .cutter .face {
+    background: rgba(255, 59, 48, 0.85);
+    box-shadow: 0 0 12px rgba(255, 59, 48, 0.6);
+}
+
+/* 步骤 4: 镂空灯罩落成，倒扣于哨所上，放射旋转圣光 */
+.visual-side.step-4 .outpost-core {
+    opacity: 0.8 !important; /* 哨所底座也亮起来 */
+    box-shadow: inset 0 0 20px rgba(0, 122, 255, 0.5);
+}
+.visual-side.step-4 .beacon-shell {
+    opacity: 1;
+    /* 降落并倒扣在哨所顶部 (Z = 80px + 灯罩半高 30px = 110px) */
+    transform: translate3d(0, 0, 110px);
+    animation: beacon-rotate 8s linear infinite; /* 缓慢自转展示 */
+}
+.visual-side.step-4 .beacon-shell::before,
+.visual-side.step-4 .beacon-shell::after {
+    opacity: 0.8;
+    background: rgba(255, 215, 0, 0.4);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+}
+.visual-side.step-4 .beacon-shell .face {
+    background: linear-gradient(to bottom, rgba(255, 215, 0, 0.15), rgba(255, 140, 0, 0.35));
+    border-color: rgba(255, 215, 0, 0.8);
+    box-shadow: inset 0 0 15px rgba(255, 140, 0, 0.4), 0 0 20px rgba(255, 215, 0, 0.3);
+}
+/* 每一面展示镂空菱形透光孔洞 */
+.visual-side.step-4 .beacon-shell .face::after {
+    opacity: 1;
+    transform: rotate(45deg) scale(1);
+    background: transparent;
+    border: 2px solid #ffd700;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8), inset 0 0 8px rgba(255, 215, 0, 0.5);
+}
+/* 切刀隐藏 */
+.visual-side.step-4 .cutter {
+    opacity: 0;
+    transform: scale(0.1);
+}
+
+
+/* --- 动画关键帧 --- */
+@keyframes pulse-red-cutter {
+    0%, 100% {
+        box-shadow: 0 0 8px rgba(255, 59, 48, 0.4);
+        background: rgba(255, 59, 48, 0.6);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 59, 48, 0.8);
+        background: rgba(255, 59, 48, 0.9);
+    }
+}
+
+@keyframes beacon-rotate {
+    0% {
+        transform: translate3d(0, 0, 110px) rotateZ(0deg);
+    }
+    100% {
+        transform: translate3d(0, 0, 110px) rotateZ(360deg);
+    }
+}

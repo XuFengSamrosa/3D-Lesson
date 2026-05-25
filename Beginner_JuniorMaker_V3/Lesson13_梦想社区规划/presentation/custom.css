@@ -1,0 +1,260 @@
+/* custom.css for V3 Lesson 13 (奇幻城堡大总管) */
+
+/* 核心蓝图图纸容器 (120x120px，表示城堡大基板图纸) */
+.doc {
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translate3d(0, 0, 1px) scale(0.5);
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+/* 3D 纸张面 (顶底双层) */
+.doc .face {
+    position: absolute;
+    transition: all 0.8s ease;
+    backface-visibility: hidden;
+}
+
+.doc .face.front {
+    width: 120px;
+    height: 120px;
+    transform: rotateX(0deg) translate3d(-60px, -60px, 0.5px);
+    background: rgba(10, 30, 80, 0.85);
+    border: 2px solid rgba(0, 122, 255, 0.6);
+    box-shadow: inset 0 0 20px rgba(0, 122, 255, 0.5), 0 0 15px rgba(0, 122, 255, 0.2);
+    /* 蓝图科技网格 */
+    background-image: 
+        linear-gradient(rgba(0, 122, 255, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 122, 255, 0.2) 1px, transparent 1px);
+    background-size: 10px 10px;
+}
+
+.doc .face.back {
+    width: 120px;
+    height: 120px;
+    transform: rotateX(180deg) translate3d(-60px, 60px, 0.5px);
+    background: rgba(5, 15, 40, 0.95);
+    border: 1px solid rgba(0, 122, 255, 0.4);
+}
+
+
+/* --- 步骤 2: 规划的插座孔 (哨所和城墙卡接孔) --- */
+.blueprint-slots {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-60px, -60px, 1px);
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+
+/* 插槽的基础样式 */
+.blueprint-slots .slot {
+    position: absolute;
+    background: rgba(0, 122, 255, 0.2);
+    border: 1.5px dashed #007aff;
+    box-shadow: 0 0 8px rgba(0, 122, 255, 0.4);
+    border-radius: 2px;
+}
+
+/* 哨所定位孔1 (16x16px) */
+.blueprint-slots .slot.s1-outpost {
+    width: 16px;
+    height: 16px;
+    left: 15px;
+    top: 52px;
+}
+
+/* 哨所定位孔2 (16x16px) */
+.blueprint-slots .slot.s2-outpost {
+    width: 16px;
+    height: 16px;
+    left: 89px;
+    top: 52px;
+}
+
+/* 城墙插槽 (42x10px) */
+.blueprint-slots .slot.s3-wall {
+    width: 42px;
+    height: 10px;
+    left: 39px;
+    top: 55px;
+}
+
+
+/* --- 步骤 3: 契约尺寸标注线 --- */
+.contract-labels {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-60px, -60px, 1.2px);
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+
+/* 标注文本样式 */
+.contract-labels .label {
+    position: absolute;
+    font-size: 6px;
+    font-family: monospace;
+    font-weight: 800;
+    color: #34c759;
+    background: rgba(0, 0, 0, 0.8);
+    border: 0.5px solid #34c759;
+    padding: 1px 3px;
+    border-radius: 1px;
+    box-shadow: 0 0 5px rgba(52, 199, 89, 0.5);
+    white-space: nowrap;
+}
+
+.contract-labels .label.l1-hole {
+    left: 38px;
+    top: 38px;
+}
+
+.contract-labels .label.l2-peg {
+    left: 38px;
+    top: 74px;
+    color: #ffd700;
+    border-color: #ffd700;
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+/* 尺寸标注辅助引线 */
+.contract-labels .dim-line {
+    position: absolute;
+    width: 42px;
+    height: 1px;
+    left: 39px;
+    top: 60px;
+    border-top: 1px dashed #34c759;
+}
+.contract-labels .dim-line::before,
+.contract-labels .dim-line::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-top: 1px solid #34c759;
+    border-left: 1px solid #34c759;
+    top: -3px;
+}
+.contract-labels .dim-line::before { left: 0; transform: rotate(-45deg); }
+.contract-labels .dim-line::after { right: 0; transform: rotate(135deg); }
+
+
+/* --- 步骤 4: 比例尺规约框 --- */
+.scale-box {
+    position: absolute;
+    width: 136px;
+    height: 136px;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-68px, -68px, 1.5px);
+    border: 1.5px dashed #ff3b30;
+    box-shadow: 0 0 12px rgba(255, 59, 48, 0.3);
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 6px;
+    box-sizing: border-box;
+}
+
+.scale-text {
+    color: #ff3b30;
+    font-size: 9px;
+    font-weight: 800;
+    font-family: 'Inter', sans-serif;
+    text-shadow: 0 0 5px rgba(255, 59, 48, 0.6);
+    margin-bottom: 2px;
+}
+
+/* 比例尺标黑白条 */
+.scale-bar {
+    width: 30px;
+    height: 3px;
+    border: 0.5px solid #ff3b30;
+    background: linear-gradient(90deg, #ff3b30 0%, #ff3b30 50%, #fff 50%, #fff 100%);
+    background-size: 10px 3px;
+}
+
+
+/* --- 步骤状态控制 --- */
+
+/* 步骤 0: 初始化蓝图 */
+.visual-side:not([class*="step-"]) .doc,
+.visual-side.step-0 .doc {
+    opacity: 0.8;
+    transform: translate3d(0, 0, 1px) scale(0.6) rotateX(15deg);
+}
+
+/* 步骤 1: 大基板网格化 (图纸在平面铺展，网格线条闪烁) */
+.visual-side.step-1 .doc {
+    opacity: 1;
+    transform: translate3d(0, 0, 1px) scale(1);
+}
+
+/* 步骤 2: 规划卡接插座 (插座蓝光闪亮起) */
+.visual-side.step-2 .doc {
+    opacity: 1;
+    transform: translate3d(0, 0, 1px) scale(1);
+}
+.visual-side.step-2 .blueprint-slots {
+    opacity: 1;
+}
+.visual-side.step-2 .blueprint-slots .slot {
+    animation: slot-pulse 1.5s infinite ease-in-out;
+}
+
+/* 步骤 3: 确立接口契约 (尺寸与公差标注浮现) */
+.visual-side.step-3 .doc {
+    opacity: 1;
+    transform: translate3d(0, 0, 1px) scale(1);
+}
+.visual-side.step-3 .blueprint-slots {
+    opacity: 0.6; /* 略微虚化 */
+}
+.visual-side.step-3 .contract-labels {
+    opacity: 1;
+}
+
+/* 步骤 4: 签署比例尺规约 (整体缩放，红色外框包裹比例尺，场景略转) */
+.visual-side.step-4 .scene {
+    transform: rotateX(-20deg) rotateY(15deg) rotateZ(0deg) !important;
+}
+.visual-side.step-4 .doc {
+    opacity: 1;
+    transform: translate3d(0, 0, 1px) scale(0.8);
+}
+.visual-side.step-4 .blueprint-slots {
+    opacity: 0.5;
+}
+.visual-side.step-4 .contract-labels {
+    opacity: 0.5;
+}
+.visual-side.step-4 .scale-box {
+    opacity: 1;
+}
+
+
+/* --- 动画关键帧 --- */
+@keyframes slot-pulse {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(0, 122, 255, 0.3);
+        background: rgba(0, 122, 255, 0.15);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(0, 122, 255, 0.7);
+        background: rgba(0, 122, 255, 0.35);
+    }
+}
