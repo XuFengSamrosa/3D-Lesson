@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第06课：桌面小管家收纳盒 - 3D打印魔法创客营</title>
+    <title>第06课：城堡守卫哨所收纳底座 - 3D打印魔法创客营</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="custom.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">魔法创客营 V1.0 (PRO版)</div>
+        <div class="logo">🏰 城堡守卫哨所</div>
         <ul class="nav-links">
             <li><a href="#intro">课程目标</a></li>
             <li><a href="#process">3D建模魔法秀</a></li>
@@ -60,8 +60,14 @@
                         <div class="desc" id="desc-1">召唤一块 60x60x80mm 的实心花岗岩立方体作为哨所外壳。</div>
                         <div class="desc" id="desc-2">添加一个 40x40x50mm 的红色半透明门洞负零件，置于底部前侧。</div>
                         <div class="desc" id="desc-3">将门洞负零件向上抬高 3mm 留出底板，并在侧面雕刻上阴刻“守护图腾”字样。</div>
-                        <div class="desc" id="desc-4">切片！负零件切削出拱门通道，哨所内部成功掏空，成为可装笔的防卫百宝箱！</div>
+                        <div class="desc" id="desc-4">切片！负零件切削出拱门通道，哨所内部成功掏空，成为能够收纳武器卡接的城堡哨所底座！</div>
+                    </div>
 
+                    <!-- 交互式底厚调节面板 -->
+                    <div class="interactive-panel" id="floor-panel" style="display:none; margin-top:20px; background:rgba(0,0,0,0.05); padding:20px; border-radius:12px; border:1px solid rgba(0,0,0,0.1);">
+                        <label style="font-weight:600; color:#1d1d1f; display:block; margin-bottom:10px;">🛠️ 实时底厚调节: <span id="floor-val" style="color:#2997ff; font-weight:800;">3.0</span> mm</label>
+                        <input type="range" id="floor-slider" min="0" max="6" step="0.5" value="3.0" style="width:100%; height:8px; border-radius:4px; background:#ddd; outline:none; -webkit-appearance:none; cursor:pointer;">
+                        <p id="floor-feedback" style="margin-top:10px; font-size:0.9rem; font-weight:700; color:#34c759;">✅ 安全底厚：3.0mm（合格）</p>
                     </div>
                 </div>
                 
@@ -105,14 +111,14 @@
             <h3>绝对数值面板</h3>
             <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
             <p>在右下角输入精确的毫米数字。</p>
-            <p class="teacher-talk">🗣️ "今天我们要造的是实用工具，差一毫米橡皮擦就塞不进去！"</p>
+            <p class="teacher-talk">🗣️ "今天我们要造的是城堡防线，差一毫米栏杆和高塔就无法插接合体！"</p>
         </div>
 <div class="tool-item glass">
             <div class="icon">🔍</div>
             <h3>X光切片透视</h3>
             <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
             <p>切片后拉动右侧垂直滑块。</p>
-            <p class="teacher-talk">🗣️ "一定要拉下透视仪看一眼底部，如果能看到网格床，你的盒子就漏底了！"</p>
+            <p class="teacher-talk">🗣️ "一定要拉下透视仪看一眼底板，如果能直接透视到打印网格底板，你的高塔就漏底了！"</p>
         </div>
 
                 </div>
@@ -128,14 +134,14 @@
             <div class="dot red"></div>
             <div class="timeline-content glass-dark">
                 <h3>🚨 漏水的无底洞</h3>
-                <p>负零件直接贴到了Z=0的地面。<br>应对：把里面的负零件往上抬高 3mm，给盒子留一层结实的地板！</p>
+                <p>负零件直接贴到了Z=0的地面。<br>应对：把里面的负零件往上抬高 3mm，给塔楼留一层结实的地板！</p>
             </div>
         </div>
 <div class="timeline-item">
             <div class="dot yellow"></div>
             <div class="timeline-content glass-dark">
                 <h3>🚨 一碰就碎的纸盒</h3>
-                <p>里面掏空得太狠，边框只剩下一丝丝肉。<br>应对：缩小负零件的尺寸，给四面八方都留下安全厚度。</p>
+                <p>里面掏空得太狠，边框只剩下一丝丝肉。<br>应对：缩减挖空负零件的横向尺寸，给塔楼四周都留下大于 2mm 的安全壁厚！</p>
             </div>
         </div>
 
