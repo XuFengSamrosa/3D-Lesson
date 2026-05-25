@@ -14,7 +14,7 @@
 | [x] | ↳ Task 10 | Implement Lesson 15 (打印与组装) |
 | [x] | ↳ Task 11 | Implement Lesson 16 (作品发布会) |
 | [x] | Phase 3: Verification | Verify all pages in browser and run git tests |
-| [/] | Phase 4: Personalize and Rename V3 Lessons 06-16 | Rename physical directories and implement personalized 3D magic sandboxes and text purification |
+| [x] | Phase 4: Personalize and Rename V3 Lessons 06-16 | Rename physical directories and implement personalized 3D magic sandboxes and text purification |
 | [x] | ↳ Task 1 | Rename physical directories (Lesson 06 to 16) via git mv |
 | [x] | ↳ Task 2 | Implement personalized presentation for Lesson 06 |
 | [x] | ↳ Task 3 | Implement personalized presentation for Lesson 07 |
@@ -27,6 +27,6 @@
 | [x] | ↳ Task 10 | Implement personalized presentation for Lesson 14 |
 | [x] | ↳ Task 11 | Implement personalized presentation for Lesson 15 |
 | [x] | ↳ Task 12 | Implement personalized presentation for Lesson 16 |
-| [ ] | ↳ Task 13 | Perform automated verification, cleanup and push changes to remote repository |
+| [x] | ↳ Task 13 | Perform automated verification, cleanup and push changes to remote repository |
 
 
