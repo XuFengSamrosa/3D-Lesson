@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第15课：火热生产与护目镜拆解 - 3D打印魔法创客营</title>
+    <title>第15课：量产与后处理工坊 - 3D打印魔法创客营</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="custom.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">魔法创客营 V1.0 (PRO版)</div>
+        <div class="logo">🏰 城堡量产与后处理</div>
         <ul class="nav-links">
             <li><a href="#intro">课程目标</a></li>
             <li><a href="#process">3D建模魔法秀</a></li>
@@ -23,17 +23,17 @@
         <section id="intro" class="slide slide-dark">
             <div class="content">
                 <span class="badge">Lesson 15</span>
-                <h1 class="title">火热生产与护目镜拆解</h1>
-                <p class="subtitle">满载车间的排版碰撞警戒与暴力的后处理体验。</p>
+                <h1 class="title">第15课：量产与后处理工坊</h1>
+                <p class="subtitle">多盘分批生产与树状支撑安全去除技术。</p>
                 
                 <div class="cards">
                     <div class="card glass">
                         <h3>核心目标</h3>
-                        <p>掌控满屏幕的大乱排防止碰撞红区，戴上护目镜体验用斜口钳暴力拆解支撑的工业质感。</p>
+                        <p>在切片软件中进行多床排盘，规划多板分批生产以量产城堡守卫和防卫城墙，并在后处理中学习安全去除树状支撑的工程方法。</p>
                     </div>
                     <div class="card glass">
                         <h3>讲师必备知识</h3>
-                        <p>碰撞红色警戒：排得过挤，切片软件会标出红色禁区，执意打印会发生撞机事故！<br>护目镜后处理：支撑虽然好拆，但塑料崩飞极具危险性。</p>
+                        <p>多盘片排版：当城堡哨所、城防城墙等多零件需要量产时，拥挤在单板上会引发碰撞错误。使用多盘排列可大大降低风险。<br>支撑安全去除：剥离树状支撑时塑料易崩飞。必须佩戴护目镜并使用斜口钳，禁止强行手撕以防损坏模型细节。</p>
                     </div>
                 </div>
             </div>
@@ -44,22 +44,31 @@
             <div class="content process-content">
                 <div class="text-side">
                     <h2>三维魔术解析</h2>
-                    <p>给孩子们看成品之前，先用这套步骤演示热床多板排版与去支撑工艺。</p>
+                    <p>在最终组装之前，通过排版分流与去支撑，准备最完美的物理构件。</p>
                     
                     <div class="step-controls">
-                        <button class="step-btn active" data-step="0">0. 热床排版重叠</button>
+                        <button class="step-btn active" data-step="0">0. 拥挤排盘重叠</button>
                         <button class="step-btn" data-step="1">1. 碰撞红区警告</button>
-                        <button class="step-btn" data-step="2">2. 多盘分流排版</button>
-                        <button class="step-btn" data-step="3">3. 剥离树状支撑</button>
-                        <button class="step-btn" data-step="4">4. 干净构件落成</button>
+                        <button class="step-btn" data-step="2">2. 双加热盘分流</button>
+                        <button class="step-btn" data-step="3">3. 斜口钳剪支撑</button>
+                        <button class="step-btn" data-step="4">4. 干净城堡构件</button>
                     </div>
 
                     <div class="step-descriptions">
-                        <div class="desc show" id="desc-0">哨所、城墙等多个零件堆叠在同一热床板上，极易造成打印事故。</div>
-                        <div class="desc" id="desc-1">切片红区碰撞警告：当零件重叠时，软件会闪烁红色危险光环。</div>
-                        <div class="desc" id="desc-2">双盘排版分流：新建第二个打印盘（Bed Plate 2），零件自动整齐排布，警报解除！</div>
-                        <div class="desc" id="desc-3">后处理拆支撑：佩戴好防护目镜，使用斜口钳剪断并剥离零件上的白色树状支撑。</div>
-                        <div class="desc" id="desc-4">大功告成！去支撑后的干净构件完全露出，进入最终合体组装状态！</div>
+                        <div class="desc show" id="desc-0">哨所、城防城墙等多个构件被死死堆叠在同一个热床板上，极易造成打印事故。</div>
+                        <div class="desc" id="desc-1">切片重叠警报：由于零件发生实体交叉重合，切片软件将拉响红色警报。</div>
+                        <div class="desc" id="desc-2">双热床排版分流：增加第二个热床（Bed Plate 2），零件自动向右分流，间隙恢复安全，警告解除亮起绿光。</div>
+                        <div class="desc" id="desc-3">树状支撑剥离：戴好护目镜，控制斜口钳伸入悬空部位，咔嚓剪断并剥除白色的树状支撑。</div>
+                        <div class="desc" id="desc-4">干净城堡构件：剥离完成！去支撑后的哨所和城防城墙展现平整底面，准备进行最终总装！</div>
+                    </div>
+
+                    <!-- 交互式排盘与支撑剥离面板 -->
+                    <div class="interactive-panel" id="arrange-panel" style="display:none; margin-top:20px; background:rgba(0,0,0,0.05); padding:20px; border-radius:12px; border:1px solid rgba(0,0,0,0.1);">
+                        <div style="margin-bottom:15px; display:flex; gap:10px;">
+                            <button id="auto-arrange-btn" style="flex:1; background:#2997ff; color:white; border:none; padding:10px; border-radius:8px; font-weight:700; cursor:pointer; outline:none;">🗂️ 一键自动排盘</button>
+                            <button id="peel-support-btn" style="flex:1; background:#ff3b30; color:white; border:none; padding:10px; border-radius:8px; font-weight:700; cursor:pointer; outline:none;">✂️ 斜口钳去支撑</button>
+                        </div>
+                        <p id="arrange-feedback" style="margin-top:10px; font-size:0.9rem; font-weight:700; color:#2997ff;">💡 提示：点击“一键自动排盘”按钮，在双加热板上重新摆放零件，消除碰撞危险！</p>
                     </div>
                 </div>
                 
@@ -108,23 +117,22 @@
         <!-- Slide 3: Tools -->
         <section id="tools" class="slide slide-dark">
             <div class="content">
-                <h2>魔法兵器谱（软件基础）</h2>
+                <h2>魔法兵器谱（后处理工具）</h2>
                 <div class="tools-grid">
                     <div class="tool-item glass">
-            <div class="icon">🗂️</div>
-            <h3>多盘片任务列车</h3>
-            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
-            <p>顶部加号新建盘片，分流拥挤大件。</p>
-            <p class="teacher-talk">🗣️ "不要把所有货死塞进一辆车，多建几个盘片分批生产！"</p>
-        </div>
-<div class="tool-item glass">
-            <div class="icon">🛠️</div>
-            <h3>劳保钳子拆树根</h3>
-            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
-            <p>使用斜口钳拆解树形支撑。</p>
-            <p class="teacher-talk">🗣️ "戴好护目镜！我们要像拆违建一样，把这层废塑料壳咔嚓剪断！"</p>
-        </div>
-
+                        <div class="icon">🗂️</div>
+                        <h3>多盘片排布 (Plates)</h3>
+                        <div class="image-placeholder">[预留位置：请在此插入软件新建排盘的真实截图]</div>
+                        <p>在切片中添加多个热床盘片，将庞大复杂的城堡部件包按类型分发到不同盘片中进行独立打印。</p>
+                        <p class="teacher-talk">🗣️ "不要把全组的零件硬塞到一块板上，用‘新建盘’功能让它们分批排队上火线！"</p>
+                    </div>
+                    <div class="tool-item glass">
+                        <div class="icon">🛠️</div>
+                        <h3>专业防飞溅斜口钳</h3>
+                        <div class="image-placeholder">[预留位置：请在此插入使用钳子拆支撑的真实截图]</div>
+                        <p>采用高硬度精磨刃口，精准伸入树状支撑与城堡实体的极窄缝隙中进行齐根剪切，防止拉裂表面。</p>
+                        <p class="teacher-talk">🗣️ "安全第一，戴上护目镜！千万不能图省事用手生拉硬扯，否则城堡的飞檐一瞬间就被你抠烂了！"</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -135,20 +143,19 @@
                 <h2>实验室警报预案</h2>
                 <div class="timeline">
                     <div class="timeline-item">
-            <div class="dot red"></div>
-            <div class="timeline-content glass-dark">
-                <h3>🚨 裙边重叠变连体婴</h3>
-                <p>自动排列太挤，模型的裙边融合成了一片。<br>应对：调出排版设置，把互相的间距拉大到 10mm 以上。</p>
-            </div>
-        </div>
-<div class="timeline-item">
-            <div class="dot orange"></div>
-            <div class="timeline-content glass-dark">
-                <h3>🚨 蛮力徒手撕毁大厦</h3>
-                <p>大拇指乱抠，把精密的栏杆连根拔起。<br>应对：拿出 502 强力胶抢救，体会工程师返工的心痛。</p>
-            </div>
-        </div>
-
+                        <div class="dot red"></div>
+                        <div class="timeline-content glass-dark">
+                            <h3>🚨 裙边/侧边重叠碰撞</h3>
+                            <p>零件排布太紧，由于打印裙边（Brim）有一定宽度，彼此的裙边会融为一体变成难看的连体零件。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="dot orange"></div>
+                        <div class="timeline-content glass-dark">
+                            <h3>🚨 蛮力手撕拔除城堡飞檐</h3>
+                            <p>因为没有使用斜口钳，直接用大拇指去抠坚硬的支撑，导致城防城墙上的齿缘飞檐连带被掰断。</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

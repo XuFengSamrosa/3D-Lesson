@@ -1,3 +1,92 @@
+:root {
+    --bg-dark: #000000; --bg-light: #f5f5f7;
+    --text-dark: #f5f5f7; --text-light: #1d1d1f;
+    --accent: #2997ff;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --sz: 80px; /* base size */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; color: var(--text-dark); background-color: var(--bg-dark); overflow-x: hidden; scroll-behavior: smooth; }
+
+/* Navbar */
+.navbar { position: fixed; top: 0; width: 100%; height: 60px; background: rgba(0,0,0,0.8); backdrop-filter: blur(20px); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.logo { font-weight: 800; font-size: 1.2rem; }
+.nav-links { list-style: none; display: flex; gap: 30px; }
+.nav-links a { color: #a1a1a6; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+.nav-links a:hover { color: #fff; }
+
+/* Scroll Container */
+.scroll-container { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; }
+.slide { height: 100vh; width: 100%; scroll-snap-align: start; display: flex; align-items: center; justify-content: center; padding: 80px 5%; position: relative; }
+.slide-dark { background: var(--bg-dark); color: var(--text-dark); }
+.slide-light { background: var(--bg-light); color: var(--text-light); }
+.content { max-width: 1200px; width: 100%; }
+
+/* Slide 1: Intro */
+.badge { display: inline-block; padding: 5px 12px; background: rgba(41,151,255,0.2); color: var(--accent); border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 20px; }
+.title { font-size: 4rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; background: linear-gradient(135deg, #fff, #a1a1a6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.subtitle { font-size: 1.3rem; color: #a1a1a6; margin-bottom: 60px; max-width: 600px; }
+.cards { display: flex; gap: 30px; }
+.glass { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; padding: 40px; flex: 1; transition: 0.3s; }
+.glass:hover { transform: translateY(-5px); }
+.glass h3 { margin-bottom: 15px; font-size: 1.3rem; }
+.glass p { color: #a1a1a6; line-height: 1.6; }
+
+/* Slide 2: Process */
+.process-content { display: flex; gap: 50px; align-items: center; }
+.text-side { flex: 1; }
+.text-side h2 { font-size: 3rem; margin-bottom: 20px; color: var(--text-light);}
+.text-side p { color: #86868b; font-size: 1.1rem; margin-bottom: 40px; line-height: 1.5; }
+.step-controls { display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; }
+.step-btn { padding: 15px 20px; background: rgba(0,0,0,0.05); border: none; border-radius: 12px; text-align: left; font-size: 1rem; font-weight: 600; color: var(--text-light); cursor: pointer; transition: 0.3s; }
+.step-btn.active { background: var(--accent); color: white; box-shadow: 0 10px 20px rgba(41,151,255,0.3); }
+.step-descriptions { height: 120px; }
+.desc { display: none; font-size: 1.1rem; color: #1d1d1f; line-height: 1.6; background: rgba(41,151,255,0.1); padding: 20px; border-radius: 12px; border-left: 4px solid var(--accent); animation: fadeIn 0.5s forwards; }
+.desc.show { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* 3D Scene */
+.visual-side { flex: 1; height: 500px; display: flex; align-items: center; justify-content: center; perspective: 1200px; background: radial-gradient(circle, #e5e5ea 0%, #f5f5f7 70%); border-radius: 30px; overflow: hidden; }
+.scene { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transform: rotateX(-20deg) rotateY(45deg); transition: transform 1s ease-in-out; }
+.grid-floor { position: absolute; width: 300px; height: 300px; background-image: linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px); background-size: 30px 30px; top: 50%; left: 50%; transform: translate(-50%, -50%) rotateX(90deg); border: 2px solid rgba(0,0,0,0.2); }
+.axis { position: absolute; top: 50%; left: 50%; font-weight: bold; font-size: 12px; }
+.x-axis { width: 150px; height: 2px; background: red; transform: translate(0, -50%); } .x-axis::after { content: 'X'; position: absolute; right: -15px; color: red; }
+.y-axis { width: 2px; height: 150px; background: green; transform: translate(-50%, 0) rotateX(90deg); transform-origin: top; } .y-axis::after { content: 'Y'; position: absolute; bottom: -20px; left:-5px; color: green; }
+.z-axis { width: 2px; height: 150px; background: blue; transform: translate(-50%, -100%); } .z-axis::after { content: 'Z'; position: absolute; top: -15px; left:-5px; color: blue; }
+
+/* Dynamic 3D Parts (Configurable via HTML inline styles or step classes) */
+.part { position: absolute; top: 50%; left: 50%; transform-style: preserve-3d; transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); }
+.face { position: absolute; border: 1px solid rgba(255,255,255,0.3); }
+
+/* Tools */
+.tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; }
+.tool-item { padding: 40px; }
+.icon { font-size: 3rem; margin-bottom: 15px; }
+.tool-item h3 { font-size: 1.8rem; margin-bottom: 15px; }
+.tool-item p { font-size: 1.0rem; color: #a1a1a6; line-height: 1.6; margin-bottom: 20px; }
+.teacher-talk { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; border-left: 4px solid #34c759; color: #fff !important; font-style: italic; }
+.image-placeholder { width:100%; height:150px; background:rgba(255,255,255,0.05); border:1px dashed rgba(255,255,255,0.2); border-radius:12px; display:flex; align-items:center; justify-content:center; color:#888; font-size:12px; margin-bottom:20px; text-align:center; padding:10px;}
+
+/* Timeline */
+.timeline { position: relative; max-width: 800px; margin: 40px auto 0; padding-left: 30px; border-left: 2px solid rgba(0,0,0,0.1); }
+.timeline-item { position: relative; margin-bottom: 30px; }
+.dot { position: absolute; left: -39px; top: 0; width: 16px; height: 16px; border-radius: 50%; border: 3px solid var(--bg-light); }
+.dot.red { background: #ff3b30; } .dot.yellow { background: #ffcc00; } .dot.orange { background: #ff9500; }
+.glass-dark { background: rgba(0,0,0,0.8); backdrop-filter: blur(20px); border-radius: 16px; padding: 25px; color: white; border: 1px solid rgba(255,255,255,0.1); }
+.glass-dark h3 { margin-bottom: 10px; color: #ff3b30; font-size: 1.2rem; }
+.glass-dark p { line-height: 1.5; color: #d2d2d7; font-size: 0.95rem; }
+.glass-dark strong { color: white; }
+
+/* Helper classes for parts */
+.gray-part .face { background: rgba(142, 142, 147, 0.9); }
+.red-part .face { background: rgba(255, 59, 48, 0.6); border-color: red; }
+.blue-part .face { background: rgba(0, 122, 255, 0.8); border-color: #007aff; }
+.green-part .face { background: rgba(52, 199, 89, 0.8); border-color: #34c759; }
+.yellow-part .face { background: rgba(255, 204, 0, 0.8); border-color: #ffcc00; }
+
+
 /* custom.css for V2 Lesson 10 Universal Joint */
 
 body.theme-joint { font-family: 'Nunito', 'Inter', sans-serif; color: #333; }

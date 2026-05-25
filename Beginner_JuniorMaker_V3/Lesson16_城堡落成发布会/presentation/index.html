@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第16课：梦想之城路演发布 - 3D打印魔法创客营</title>
+    <title>第16课：城堡落成发布会 - 3D打印魔法创客营</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="custom.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">魔法创客营 V1.0 (PRO版)</div>
+        <div class="logo">🏰 城堡落成发布会</div>
         <ul class="nav-links">
             <li><a href="#intro">课程目标</a></li>
             <li><a href="#process">3D建模魔法秀</a></li>
@@ -23,17 +23,17 @@
         <section id="intro" class="slide slide-dark">
             <div class="content">
                 <span class="badge">Lesson 16</span>
-                <h1 class="title">梦想之城路演发布</h1>
-                <p class="subtitle">拥抱工程惨案，成为敢于复盘的小小演说家。</p>
+                <h1 class="title">第16课：城堡落成发布会</h1>
+                <p class="subtitle">工程复盘与造物主毕业路演。</p>
                 
                 <div class="cards">
                     <div class="card glass">
                         <h3>核心目标</h3>
-                        <p>打通设计研发闭环。通过台上的技术汇报与大胆承认“翻车点”，展现真正的创客探索精神。</p>
+                        <p>完成城堡防御线最终路演。各组将各自拼装完成的实体城堡沙盘带上展台，通过技术复盘分享设计、尺寸公差配合与去支撑中的“踩坑”经验，并接受毕业勋章。</p>
                     </div>
                     <div class="card glass">
                         <h3>讲师必备知识</h3>
-                        <p>工程复盘精神：世界上没有一次成功的火箭。最厉害的不是成品多完美，而是你们修复了多少次拉丝和倒塌。<br>1.0 原型机：带毛刺的、用胶水粘起来的，都是你们最珍贵的第一代造物。</p>
+                        <p>工程复盘精神：创客路演的灵魂不是展示“完美无缺”，而是展示“如何解决失败”。分享在配合公差、打印层高、换色料塔中经历的失败与迭代，才是真正的工程师品质。<br>毕业典礼加冕：这是对孩子从纯消费者跃升为“执掌三维宇宙实体制造者”的终结礼赞。</p>
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
             <div class="content process-content">
                 <div class="text-side">
                     <h2>三维魔术解析</h2>
-                    <p>给孩子们看成品之前，先用这套步骤演示终极城堡的落成路演与结营仪式。</p>
+                    <p>城堡大防御线圆满竣工，星光舞台已经准备完毕，欢迎各位造物主上台汇报！</p>
                     
                     <div class="step-controls">
                         <button class="step-btn active" data-step="0">0. 星光舞台就绪</button>
@@ -56,10 +56,18 @@
 
                     <div class="step-descriptions">
                         <div class="desc show" id="desc-0">科技路演展台就绪，全班的造物梦想将在此刻绽放。</div>
-                        <div class="desc" id="desc-1">炫彩展台霓虹点亮！外围浮现彩虹霓虹跑马灯圈，全场瞩目。</div>
-                        <div class="desc" id="desc-2">终极城堡模型从天而降，落在展盘中心！包含大底座、双哨所、城墙防御圈与能量核心。</div>
-                        <div class="desc" id="desc-3">开启360度旋转自动演示，全方位路演介绍作品的设计巧思与技术参数。</div>
-                        <div class="desc" id="desc-4">庆祝金屑漫天飞舞！城堡顶部释放出耀眼的金色光晕，3D打印魔法创客营完美结营！</div>
+                        <div class="desc" id="desc-1">炫彩展台霓虹点亮！外围浮现蓝绿霓虹跑马灯圈，全场瞩目。</div>
+                        <div class="desc" id="desc-2">终极城堡模型从天而降，落在展盘中心！包含大底座、双哨所、城墙防御圈与黄金能量核心。</div>
+                        <div class="desc" id="desc-3">开启360度旋转自动演示，全方位路演介绍作品的设计巧思与配合参数。</div>
+                        <div class="desc" id="desc-4">庆祝金屑漫天飞舞！城堡外表散发出耀眼的金色光晕，3D打印魔法创客营完美结营！</div>
+                    </div>
+
+                    <!-- 交互式落成发布会控制面板 -->
+                    <div class="interactive-panel" id="celebrate-panel" style="display:none; margin-top:20px; background:rgba(0,0,0,0.05); padding:20px; border-radius:12px; border:1px solid rgba(0,0,0,0.1);">
+                        <div style="margin-bottom:15px; display:flex; gap:10px;">
+                            <button id="launch-ceremony-btn" style="flex:1; background:linear-gradient(135deg, #ffd700, #ff9500); color:black; border:none; padding:12px; border-radius:8px; font-weight:900; cursor:pointer; outline:none; box-shadow:0 4px 15px rgba(255, 215, 0, 0.4); font-size:1.05rem;">⭐ 启动落成典礼</button>
+                        </div>
+                        <p id="celebrate-feedback" style="margin-top:10px; font-size:0.9rem; font-weight:700; color:#ffd700;">💡 提示：点击“启动落成典礼”按钮，启动城堡霓虹灯环与核心电力，漫天星光闪烁庆贺！</p>
                     </div>
                 </div>
                 
@@ -100,7 +108,7 @@
                             <div class="part c-wall">
                                 <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
                             </div>
-                            <!-- 顶部陀螺核心 (旋转) -->
+                            <!-- 顶部旋转陀螺核心 (旋转) -->
                             <div class="part c-core">
                                 <div class="face front"></div><div class="face back"></div><div class="face left"></div><div class="face right"></div><div class="face top"></div><div class="face bottom"></div>
                             </div>
@@ -123,23 +131,22 @@
         <!-- Slide 3: Tools -->
         <section id="tools" class="slide slide-dark">
             <div class="content">
-                <h2>魔法兵器谱（软件基础）</h2>
+                <h2>魔法兵器谱（路演工具）</h2>
                 <div class="tools-grid">
                     <div class="tool-item glass">
-            <div class="icon">🎤</div>
-            <h3>路演三段论</h3>
-            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
-            <p>想法、技术参数、翻车复盘。</p>
-            <p class="teacher-talk">🗣️ "不仅要夸它好看，更要告诉大家：你们为了公差留了多少毫米血汗！"</p>
-        </div>
-<div class="tool-item glass">
-            <div class="icon">🏅</div>
-            <h3>造物主勋章</h3>
-            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
-            <p>颁发学期结业证书。</p>
-            <p class="teacher-talk">🗣️ "恭喜你们，从二维世界的玩家，变成了执掌三维宇宙的魔法造物主！"</p>
-        </div>
-
+                        <div class="icon">🎤</div>
+                        <h3>路演三段论</h3>
+                        <div class="image-placeholder">[预留位置：请在此插入路演与复盘三段论真实截图]</div>
+                        <p>研发想法、机械配合公差与去支撑后处理的“翻车”复盘汇报框架。</p>
+                        <p class="teacher-talk">🗣️ "不仅要夸它好看，更要告诉大家：你们为了对齐公差留了多少毫米的汗水！"</p>
+                    </div>
+                    <div class="tool-item glass">
+                        <div class="icon">🏅</div>
+                        <h3>造物主勋章</h3>
+                        <div class="image-placeholder">[预留位置：请在此插入三维创客毕业徽章的真实截图]</div>
+                        <p>授予全班学生的结业荣誉，加冕为正式的 3D 打印三维工程师。</p>
+                        <p class="teacher-talk">🗣️ "恭喜你们，从二维屏幕的消费者，变成了执掌三维宇宙实体化制造的魔法工程师！"</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -150,20 +157,19 @@
                 <h2>实验室警报预案</h2>
                 <div class="timeline">
                     <div class="timeline-item">
-            <div class="dot red"></div>
-            <div class="timeline-content glass-dark">
-                <h3>🚨 推销式干瘪汇报</h3>
-                <p>只会说“我的房子很好看”，完全没有技术含量。<br>应对：老师当恶人强势追问，逼他们讲出用了什么工具和支撑策略！</p>
-            </div>
-        </div>
-<div class="timeline-item">
-            <div class="dot orange"></div>
-            <div class="timeline-content glass-dark">
-                <h3>🚨 演示现场解体散架</h3>
-                <p>拼得太松，台上拿起来当场掉了一地。<br>应对：全班鼓掌鼓励！并要求组长当场说出 V2 版本要怎么改公差。危机反转！</p>
-            </div>
-        </div>
-
+                        <div class="dot red"></div>
+                        <div class="timeline-content glass-dark">
+                            <h3>🚨 干瘪空洞的“王婆卖瓜”式汇报</h3>
+                            <p>学生上台只说“我的城堡很酷很漂亮”，没有任何打印工艺细节。<br>应对：讲师抛出诱导式追问：“你的配合公差留了多少？树状支撑是怎么剥离的？”逼出技术复盘。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="dot orange"></div>
+                        <div class="timeline-content glass-dark">
+                            <h3>🚨 台上路演现场发生城堡解体散架</h3>
+                            <p>因配合公差留得太松，拿起来时哨所当场从基座脱落摔坏。<br>应对：引导全班鼓掌打气！要求组长分享“这次翻车事故将如何指导我们进行 V2.0 图纸参数修正”，将危机转化为极佳的工程教育时刻。</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

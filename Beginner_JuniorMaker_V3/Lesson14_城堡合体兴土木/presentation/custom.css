@@ -296,3 +296,35 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--text-dark);
         transform: translateZ(75px);
     }
 }
+
+/* 发生位置干涉偏移的城墙 */
+.castle-wall.err-offset {
+    transform: translate3d(5px, 5px, 22.5px) !important; /* 偏位 */
+}
+
+/* 穿模部位红色高亮闪烁 */
+.collision .face {
+    background: linear-gradient(rgba(255, 59, 48, 0.95), rgba(139, 0, 0, 0.95)) !important;
+    border-color: #ff3b30 !important;
+    box-shadow: 0 0 15px #ff3b30, inset 0 0 10px #ff3b30 !important;
+    animation: collision-blink 0.5s infinite alternate;
+}
+
+@keyframes collision-blink {
+    from { filter: brightness(1); }
+    to { filter: brightness(1.4); }
+}
+
+/* 红色扫描激光线 */
+.scanner-plate.danger {
+    background: rgba(255, 59, 48, 0.25) !important;
+    border-color: #ff3b30 !important;
+    box-shadow: 0 0 20px #ff3b30, inset 0 0 15px rgba(255, 59, 48, 0.5) !important;
+}
+
+.scanner-plate.success {
+    background: rgba(52, 199, 89, 0.25) !important;
+    border-color: #34c759 !important;
+    box-shadow: 0 0 20px #34c759, inset 0 0 15px rgba(52, 199, 89, 0.5) !important;
+}
+

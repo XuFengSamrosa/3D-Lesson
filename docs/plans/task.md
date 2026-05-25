@@ -18,15 +18,15 @@
 | [x] | ↳ Task 1 | Rename physical directories (Lesson 06 to 16) via git mv |
 | [x] | ↳ Task 2 | Implement personalized presentation for Lesson 06 |
 | [x] | ↳ Task 3 | Implement personalized presentation for Lesson 07 |
-| [ ] | ↳ Task 4 | Implement personalized presentation for Lesson 08 |
-| [ ] | ↳ Task 5 | Implement personalized presentation for Lesson 09 |
-| [ ] | ↳ Task 6 | Implement personalized presentation for Lesson 10 |
-| [ ] | ↳ Task 7 | Implement personalized presentation for Lesson 11 |
-| [ ] | ↳ Task 8 | Implement personalized presentation for Lesson 12 |
-| [ ] | ↳ Task 9 | Implement personalized presentation for Lesson 13 |
-| [ ] | ↳ Task 10 | Implement personalized presentation for Lesson 14 |
-| [ ] | ↳ Task 11 | Implement personalized presentation for Lesson 15 |
-| [ ] | ↳ Task 12 | Implement personalized presentation for Lesson 16 |
+| [x] | ↳ Task 4 | Implement personalized presentation for Lesson 08 |
+| [x] | ↳ Task 5 | Implement personalized presentation for Lesson 09 |
+| [x] | ↳ Task 6 | Implement personalized presentation for Lesson 10 |
+| [x] | ↳ Task 7 | Implement personalized presentation for Lesson 11 |
+| [x] | ↳ Task 8 | Implement personalized presentation for Lesson 12 |
+| [x] | ↳ Task 9 | Implement personalized presentation for Lesson 13 |
+| [x] | ↳ Task 10 | Implement personalized presentation for Lesson 14 |
+| [x] | ↳ Task 11 | Implement personalized presentation for Lesson 15 |
+| [x] | ↳ Task 12 | Implement personalized presentation for Lesson 16 |
 | [ ] | ↳ Task 13 | Perform automated verification, cleanup and push changes to remote repository |
 
 

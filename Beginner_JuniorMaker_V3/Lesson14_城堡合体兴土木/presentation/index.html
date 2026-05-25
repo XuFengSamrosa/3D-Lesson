@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第14课：梦想社区大兴土木 - 3D打印魔法创客营</title>
+    <title>第14课：城堡合体兴土木 - 3D打印魔法创客营</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="custom.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">魔法创客营 V1.0 (PRO版)</div>
+        <div class="logo">🏰 城堡合体建模</div>
         <ul class="nav-links">
             <li><a href="#intro">课程目标</a></li>
             <li><a href="#process">3D建模魔法秀</a></li>
@@ -23,17 +23,17 @@
         <section id="intro" class="slide slide-dark">
             <div class="content">
                 <span class="badge">Lesson 14</span>
-                <h1 class="title">梦想社区大兴土木</h1>
-                <p class="subtitle">跨件拼装干涉检查，在虚拟世界给工程排雷。</p>
+                <h1 class="title">城堡合体兴土木</h1>
+                <p class="subtitle">跨构件榫卯大合体，与全景干涉红外防线扫描。</p>
                 
                 <div class="cards">
                     <div class="card glass">
                         <h3>核心目标</h3>
-                        <p>独立执行建筑建模任务，并通过‘添加载入’在组长电脑里进行严苛的穿模与碰撞大体检。</p>
+                        <p>将全组成员建立的城堡哨所、围栏城墙和底座进行合流拼装，并在切片前执行全景穿模与干涉体检排雷。</p>
                     </div>
                     <div class="card glass">
                         <h3>讲师必备知识</h3>
-                        <p>合体碰撞：每个人做的单独看都没问题，拼到一起就会发现屋顶插进了另一家的窗户。<br>迭代修改：被打回修改是工程的必经之路。</p>
+                        <p>合体碰撞的排查：组装建模时，任何面与面的交叉重叠（穿模）都会在切片时造成算法错误导致打印失败。<br>红外防线扫描：运用软件的“干涉检查”算法，以0.01mm 精度揪出埋在模型体内的挤压冲突点。</p>
                     </div>
                 </div>
             </div>
@@ -60,6 +60,22 @@
                         <div class="desc" id="desc-2">调整各组件的 XYZ 坐标，悬空对齐大基盘上对应的榫孔。</div>
                         <div class="desc" id="desc-3">各构件沿着 Z 轴垂直下降，榫轴滑入基板槽内，防线物理拼装合体！</div>
                         <div class="desc" id="desc-4">启动 3D 剖切扫描，确认榫卯配合边缘无碰撞、无穿模，亮起安全绿光。</div>
+                    </div>
+
+                    <!-- 交互式一键拼装与干涉体检面板 -->
+                    <div class="interactive-panel" id="assemble-panel" style="display:none; margin-top:20px; background:rgba(0,0,0,0.05); padding:20px; border-radius:12px; border:1px solid rgba(0,0,0,0.1);">
+                        <div style="margin-bottom:15px; display:flex; gap:10px;">
+                            <button id="assemble-all-btn" style="flex:1; background:#2997ff; color:white; border:none; padding:10px; border-radius:8px; font-weight:700; cursor:pointer; outline:none;">🧩 一键大合体</button>
+                            <button id="scan-interference-btn" style="flex:1; background:#34c759; color:white; border:none; padding:10px; border-radius:8px; font-weight:700; cursor:pointer; outline:none;">🔍 红外干涉体检</button>
+                        </div>
+                        <div style="margin-bottom:15px;">
+                            <label style="font-weight:600; color:#1d1d1f; display:block; margin-bottom:10px;">🛡️ 模拟拼装对齐精度公差:</label>
+                            <div style="display:flex; gap:10px;">
+                                <button class="precision-btn" data-type="error" style="flex:1; padding:8px; border:1px solid #ddd; background:white; border-radius:8px; font-weight:700; cursor:pointer; outline:none;">有偏位 (发生穿模碰撞)</button>
+                                <button class="precision-btn active" data-type="perfect" style="flex:1; padding:8px; border:1px solid #2997ff; background:#2997ff; color:white; border-radius:8px; font-weight:700; cursor:pointer; outline:none;">无偏位 (完美对齐吸附)</button>
+                            </div>
+                        </div>
+                        <p id="assemble-feedback" style="margin-top:10px; font-size:0.9rem; font-weight:700; color:#2997ff;">💡 提示：点击“一键大合体”按钮，将哨所和城墙合拢安装到大底座上！</p>
                     </div>
                 </div>
                 
@@ -101,23 +117,22 @@
         <!-- Slide 3: Tools -->
         <section id="tools" class="slide slide-dark">
             <div class="content">
-                <h2>魔法兵器谱（软件基础）</h2>
+                <h2>魔法兵器谱（总装配工具）</h2>
                 <div class="tools-grid">
                     <div class="tool-item glass">
-            <div class="icon">📥</div>
-            <h3>开门迎客 (Add)</h3>
-            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
-            <p>在主项目中导入组员的文件。</p>
-            <p class="teacher-talk">🗣️ "不要瞎双击文件！要像请客一样，在项目里‘添加’把他们请进来！"</p>
-        </div>
-<div class="tool-item glass">
-            <div class="icon">🔪</div>
-            <h3>组长 CT 视界</h3>
-            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
-            <p>切开合体处查缝隙公差。</p>
-            <p class="teacher-talk">🗣️ "如果缝隙死死贴着没有空气，当场打回重做！"</p>
-        </div>
-
+                        <div class="icon">📥</div>
+                        <h3>装配体载入 (Add)</h3>
+                        <div class="image-placeholder">[预留位置：请在此插入软件添加模型的真实截图]</div>
+                        <p>在总底座页面上使用“添加”将其他各组员的 3MF 模型调入当前视界。</p>
+                        <p class="teacher-talk">🗣️ "必须在同一个页面里‘添加’他们，才能在虚空中给城堡合体！"</p>
+                    </div>
+                    <div class="tool-item glass">
+                        <div class="icon">🔍</div>
+                        <h3>干涉分析算法</h3>
+                        <div class="image-placeholder">[预留位置：请在此插入干涉红色穿模指示软件截图]</div>
+                        <p>计算机碰撞检测，自动用红光标示出重叠或互相刺穿的实体部分。</p>
+                        <p class="teacher-talk">🗣️ "一旦模型体内有红光重叠，说明骨架撞在一块了，打出来零件绝对爆裂！"</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -128,20 +143,19 @@
                 <h2>实验室警报预案</h2>
                 <div class="timeline">
                     <div class="timeline-item">
-            <div class="dot red"></div>
-            <div class="timeline-content glass-dark">
-                <h3>🚨 双击覆盖组长心血</h3>
-                <p>组长顺手双击新文件，旧项目未保存直接关闭。<br>应对：惊出一身冷汗，以后绝对只用菜单里的添加功能！</p>
-            </div>
-        </div>
-<div class="timeline-item">
-            <div class="dot yellow"></div>
-            <div class="timeline-content glass-dark">
-                <h3>🚨 巨物恐惧比例失调</h3>
-                <p>A做的树比B做的大厦还高十倍。<br>应对：立刻回到自己的电脑，按比例缩放重新生成再交货。</p>
-            </div>
-        </div>
-
+                        <div class="dot red"></div>
+                        <div class="timeline-content glass-dark">
+                            <h3>🚨 双击文件顶掉主图纸</h3>
+                            <p>组长不小心双击了组员的新发文件，导致当前正在总装的城堡地基图纸未保存被顶掉。<br>应对：虚惊一场！此后装配仅从添加菜单导入，杜绝双击。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="dot orange"></div>
+                        <div class="timeline-content glass-dark">
+                            <h3>🚨 巨物恐惧比例失控</h3>
+                            <p>组员 A 做的一个城防哨所竟然比大总管做的城墙基座还要大上 5 倍！<br>应对：统一 1:50 城堡比例尺，退回各自电脑重新缩放再输出。</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
