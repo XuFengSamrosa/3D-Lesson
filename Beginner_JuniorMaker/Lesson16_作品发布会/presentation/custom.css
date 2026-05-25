@@ -1,0 +1,228 @@
+/* custom.css for Lesson 16 */
+
+/* 展台和奖杯 3D 容器 */
+.part {
+    width: 0;
+    height: 0;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+.part .face {
+    position: absolute;
+    transition: all 0.8s ease;
+}
+
+/* --- 黑色科技展台 100x100x16px --- */
+.stage {
+    transform: translate3d(0, 0, 8px);
+}
+
+.stage .face {
+    background: rgba(30, 30, 35, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.stage .face.front  { width: 100px; height: 16px; left: -50px; top: -8px; transform: rotateX(-90deg) translateZ(50px); }
+.stage .face.back   { width: 100px; height: 16px; left: -50px; top: -8px; transform: rotateX(90deg) translateZ(50px); }
+.stage .face.left   { width: 100px; height: 16px; left: -50px; top: -8px; transform: rotateY(-90deg) translateZ(50px); }
+.stage .face.right  { width: 100px; height: 16px; left: -50px; top: -8px; transform: rotateY(90deg) translateZ(50px); }
+.stage .face.top    { 
+    width: 100px; 
+    height: 100px; 
+    left: -50px; 
+    top: -50px; 
+    transform: rotateX(0deg) translateZ(8px);
+    background: radial-gradient(circle, #2a2a32 50%, #15151a 100%);
+    border: 2px solid rgba(0, 210, 255, 0.4);
+    box-shadow: inset 0 0 20px rgba(0, 210, 255, 0.2);
+}
+.stage .face.bottom { width: 100px; height: 100px; left: -50px; top: -50px; transform: rotateX(180deg) translateZ(8px); }
+
+/* 展台顶面的发光霓虹环 */
+.stage .light-ring {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    left: 10px;
+    top: 10px;
+    border-radius: 50%;
+    border: 2px solid #00d2ff;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.8), inset 0 0 15px rgba(0, 210, 255, 0.4);
+    animation: ring-glow 2.5s infinite ease-in-out;
+}
+
+@keyframes ring-glow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(0, 210, 255, 0.6), inset 0 0 10px rgba(0, 210, 255, 0.3);
+        border-color: rgba(0, 210, 255, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(0, 210, 255, 1), inset 0 0 20px rgba(0, 210, 255, 0.6);
+        border-color: rgba(0, 210, 255, 1);
+    }
+}
+
+
+/* --- 荣耀金杯 24x24x55px --- */
+.hero {
+    /* 默认初始化悬在很高的地方 */
+    transform: translate3d(0, 0, 150px);
+}
+
+/* 底座: 24x24x15px */
+.hero .cup-base {
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translate3d(0, 0, 7.5px);
+}
+
+.hero .cup-base .face {
+    background: #1a1a20;
+    border: 1px solid rgba(255, 215, 0, 0.5); /* 金色封边 */
+}
+
+.hero .cup-base .face.front  { width: 24px; height: 15px; left: -12px; top: -7.5px; transform: rotateX(-90deg) translateZ(12px); }
+.hero .cup-base .face.back   { width: 24px; height: 15px; left: -12px; top: -7.5px; transform: rotateX(90deg) translateZ(12px); }
+.hero .cup-base .face.left   { width: 24px; height: 15px; left: -12px; top: -7.5px; transform: rotateY(-90deg) translateZ(12px); }
+.hero .cup-base .face.right  { width: 24px; height: 15px; left: -12px; top: -7.5px; transform: rotateY(90deg) translateZ(12px); }
+.hero .cup-base .face.top    { width: 24px; height: 24px; left: -12px; top: -12px; transform: rotateX(0deg) translateZ(7.5px); }
+.hero .cup-base .face.bottom { width: 24px; height: 24px; left: -12px; top: -12px; transform: rotateX(180deg) translateZ(7.5px); }
+
+/* 金身: 16x16x40px */
+.hero .cup-body {
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translate3d(0, 0, 35px); /* 立在底盘 Z=15px 之上 */
+}
+
+.hero .cup-body .face {
+    background: linear-gradient(135deg, #ffd700 0%, #ffb900 100%);
+    border: 1.2px solid rgba(255, 255, 255, 0.7);
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.4), 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+.hero .cup-body .face.front  { width: 16px; height: 40px; left: -8px; top: -20px; transform: rotateX(-90deg) translateZ(8px); }
+.hero .cup-body .face.back   { width: 16px; height: 40px; left: -8px; top: -20px; transform: rotateX(90deg) translateZ(8px); }
+.hero .cup-body .face.left   { width: 16px; height: 40px; left: -8px; top: -20px; transform: rotateY(-90deg) translateZ(8px); }
+.hero .cup-body .face.right  { width: 16px; height: 40px; left: -8px; top: -20px; transform: rotateY(90deg) translateZ(8px); }
+.hero .cup-body .face.top    { 
+    width: 16px; 
+    height: 16px; 
+    left: -8px; 
+    top: -8px; 
+    transform: rotateX(0deg) translateZ(20px);
+    background: #fff;
+    box-shadow: 0 0 12px #fff;
+}
+.hero .cup-body .face.bottom { width: 16px; height: 16px; left: -8px; top: -8px; transform: rotateX(180deg) translateZ(20px); }
+
+
+/* --- 欢庆星星斑粒子 --- */
+.sparkles {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    left: 50%;
+    top: 50%;
+    margin-left: -70px;
+    margin-top: -70px;
+    transform: translateZ(45px); /* 漂浮在奖杯高度 */
+    transform-style: preserve-3d;
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.sparkles .spark {
+    position: absolute;
+    color: #ffd700;
+    font-size: 16px;
+    text-shadow: 0 0 10px #ffd700;
+    animation: float-particle 2s infinite ease-in-out;
+}
+
+.sparkles .spark.s1 { left: 15px; top: 20px; animation-delay: 0s; }
+.sparkles .spark.s2 { right: 20px; top: 15px; animation-delay: 0.5s; }
+.sparkles .spark.s3 { left: 30px; bottom: 25px; animation-delay: 1s; }
+.sparkles .spark.s4 { right: 15px; bottom: 30px; animation-delay: 1.5s; }
+
+@keyframes float-particle {
+    0%, 100% {
+        transform: translateZ(0px) scale(0.7);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translateZ(35px) scale(1.2);
+        opacity: 1;
+    }
+}
+
+
+/* --- 步骤动画样式切换 --- */
+
+/* 步骤 0: 初始化 */
+.visual-side:not([class*="step-"]) .part,
+.visual-side.step-0 .part {
+    opacity: 0;
+}
+
+/* 步骤 1: 终极版图点亮 (展台闪烁登场，灯带亮起) */
+.visual-side.step-1 .stage {
+    opacity: 1;
+    transform: translate3d(0, 0, 8px) scale(1);
+}
+
+/* 步骤 2: 三维心血上大屏 (展台持续亮，金色奖杯从高空飘然落下至展台中心) */
+.visual-side.step-2 .stage {
+    opacity: 1;
+}
+.visual-side.step-2 .hero {
+    opacity: 1;
+    transform: translate3d(0, 0, 16px); /* 底面正好坐落在展台顶面 Z=16px */
+}
+
+/* 步骤 3: 直面灵魂逼问 (大合影/路演答辩，奖杯启动 360 度炫丽自转) */
+.visual-side.step-3 .stage {
+    opacity: 1;
+}
+.visual-side.step-3 .hero {
+    opacity: 1;
+    animation: trophy-spin 6s infinite linear;
+}
+
+@keyframes trophy-spin {
+    from { transform: translate3d(0, 0, 16px) rotateZ(0deg); }
+    to { transform: translate3d(0, 0, 16px) rotateZ(360deg); }
+}
+
+/* 步骤 4: 荣耀结营大合影 (全场星斑漂浮，视角拉远，金色荣耀金杯呼吸发光) */
+.visual-side.step-4 .scene {
+    transform: scale(0.85) rotateX(-20deg) rotateY(25deg) !important;
+}
+.visual-side.step-4 .stage {
+    opacity: 0.95;
+}
+.visual-side.step-4 .hero {
+    opacity: 1;
+    transform: translate3d(0, 0, 16px);
+}
+.visual-side.step-4 .hero .cup-body .face {
+    box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.6), 0 0 35px #ffd700;
+    border-color: #fff;
+    animation: gold-glow-pulse 2s infinite ease-in-out;
+}
+.visual-side.step-4 .sparkles {
+    opacity: 1;
+}
+
+@keyframes gold-glow-pulse {
+    0%, 100% {
+        box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.5), 0 0 20px #ffd700;
+    }
+    50% {
+        box-shadow: inset 0 0 22px rgba(255, 255, 255, 0.8), 0 0 45px #ffd700;
+    }
+}
