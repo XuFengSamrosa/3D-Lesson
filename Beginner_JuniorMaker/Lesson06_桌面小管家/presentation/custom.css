@@ -1,18 +1,17 @@
 :root {
-    --bg-dark: #000000; --bg-light: #f5f5f7;
+    --bg-dark: #070d1e; --bg-light: #f5f5f7;
     --text-dark: #f5f5f7; --text-light: #1d1d1f;
     --accent: #2997ff;
-    --glass-bg: rgba(255, 255, 255, 0.1);
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --sz: 80px; /* base size */
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.15);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Inter', -apple-system, sans-serif; color: var(--text-dark); background-color: var(--bg-dark); overflow-x: hidden; scroll-behavior: smooth; }
 
 /* Navbar */
-.navbar { position: fixed; top: 0; width: 100%; height: 60px; background: rgba(0,0,0,0.8); backdrop-filter: blur(20px); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
-.logo { font-weight: 800; font-size: 1.2rem; }
+.navbar { position: fixed; top: 0; width: 100%; height: 60px; background: rgba(7,13,30,0.85); backdrop-filter: blur(20px); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.logo { font-weight: 800; font-size: 1.2rem; background: linear-gradient(135deg, #fff, #2997ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .nav-links { list-style: none; display: flex; gap: 30px; }
 .nav-links a { color: #a1a1a6; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
 .nav-links a:hover { color: #fff; }
@@ -21,206 +20,162 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--text-dark);
 .scroll-container { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; }
 .slide { height: 100vh; width: 100%; scroll-snap-align: start; display: flex; align-items: center; justify-content: center; padding: 80px 5%; position: relative; }
 .slide-dark { background: var(--bg-dark); color: var(--text-dark); }
-.slide-light { background: var(--bg-light); color: var(--text-light); }
+.slide-light { background: #0c1530; color: var(--text-dark); }
 .content { max-width: 1200px; width: 100%; }
 
 /* Slide 1: Intro */
 .badge { display: inline-block; padding: 5px 12px; background: rgba(41,151,255,0.2); color: var(--accent); border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 20px; }
-.title { font-size: 4rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; background: linear-gradient(135deg, #fff, #a1a1a6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.title { font-size: 4rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; background: linear-gradient(135deg, #fff, #2997ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .subtitle { font-size: 1.3rem; color: #a1a1a6; margin-bottom: 60px; max-width: 600px; }
 .cards { display: flex; gap: 30px; }
 .glass { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; padding: 40px; flex: 1; transition: 0.3s; }
-.glass:hover { transform: translateY(-5px); }
-.glass h3 { margin-bottom: 15px; font-size: 1.3rem; }
+.glass:hover { transform: translateY(-5px); border-color: rgba(41,151,255,0.4); }
+.glass h3 { margin-bottom: 15px; font-size: 1.3rem; color: #fff; }
 .glass p { color: #a1a1a6; line-height: 1.6; }
 
-/* Slide 2: Process */
+/* Slide 2: Process Layout */
 .process-content { display: flex; gap: 50px; align-items: center; }
-.text-side { flex: 1; }
-.text-side h2 { font-size: 3rem; margin-bottom: 20px; color: var(--text-light);}
-.text-side p { color: #86868b; font-size: 1.1rem; margin-bottom: 40px; line-height: 1.5; }
-.step-controls { display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; }
-.step-btn { padding: 15px 20px; background: rgba(0,0,0,0.05); border: none; border-radius: 12px; text-align: left; font-size: 1rem; font-weight: 600; color: var(--text-light); cursor: pointer; transition: 0.3s; }
-.step-btn.active { background: var(--accent); color: white; box-shadow: 0 10px 20px rgba(41,151,255,0.3); }
-.step-descriptions { height: 120px; }
-.desc { display: none; font-size: 1.1rem; color: #1d1d1f; line-height: 1.6; background: rgba(41,151,255,0.1); padding: 20px; border-radius: 12px; border-left: 4px solid var(--accent); animation: fadeIn 0.5s forwards; }
-.desc.show { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.text-side { flex: 1.1; display: flex; flex-direction: column; gap: 20px; }
+.text-side h2 { font-size: 2.8rem; font-weight: 800; background: linear-gradient(135deg, #fff, #a1a1a6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.text-side p { color: #86868b; font-size: 1rem; line-height: 1.5; }
+
+/* Parameter Panel */
+.parameter-panel { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 25px; display: flex; flex-direction: column; gap: 20px; }
+.control-group { display: flex; flex-direction: column; gap: 8px; }
+.label-row { display: flex; justify-content: space-between; align-items: center; }
+.param-label { font-size: 0.95rem; font-weight: 600; color: #d2d2d7; }
+.param-value { font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: var(--accent); }
+.custom-slider { -webkit-appearance: none; width: 100%; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.1); outline: none; cursor: pointer; }
+.custom-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px rgba(41,151,255,0.5); transition: 0.2s; }
+.custom-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+/* Toggle Button */
+.toggle-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); color: #fff; padding: 12px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; outline: none; width: 100%; }
+.toggle-btn.active { background: rgba(41,151,255,0.15); border-color: var(--accent); color: var(--accent); box-shadow: 0 0 15px rgba(41,151,255,0.2); }
+
+/* Formula Box */
+.formula-box { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 15px; font-family: 'JetBrains Mono', monospace; }
+.formula-box h4 { font-size: 0.85rem; color: #86868b; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+.formula-box p { font-size: 0.95rem; color: #ffd700; }
+
+/* Feedback Box */
+.feedback-box { border-radius: 12px; padding: 18px; border-left: 4px solid #86868b; transition: 0.3s; background: rgba(255,255,255,0.02); }
+.feedback-box h4 { font-size: 0.85rem; color: #86868b; margin-bottom: 5px; }
+.feedback-box p { font-size: 0.95rem; font-weight: 600; line-height: 1.5; }
+
+/* Feedback states */
+.status-pass { border-left-color: #34c759 !important; color: #34c759; }
+.status-warn { border-left-color: #ff9500 !important; color: #ff9500; }
+.status-fail { border-left-color: #ff3b30 !important; color: #ff3b30; animation: border-pulse 1s infinite alternate; }
+
+@keyframes border-pulse {
+    from { border-left-color: #ff3b30; }
+    to { border-left-color: #ff9500; }
+}
 
 /* 3D Scene */
-.visual-side { flex: 1; height: 500px; display: flex; align-items: center; justify-content: center; perspective: 1200px; background: radial-gradient(circle, #e5e5ea 0%, #f5f5f7 70%); border-radius: 30px; overflow: hidden; }
-.scene { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transform: rotateX(-20deg) rotateY(45deg); transition: transform 1s ease-in-out; }
-.grid-floor { position: absolute; width: 300px; height: 300px; background-image: linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px); background-size: 30px 30px; top: 50%; left: 50%; transform: translate(-50%, -50%) rotateX(90deg); border: 2px solid rgba(0,0,0,0.2); }
-.axis { position: absolute; top: 50%; left: 50%; font-weight: bold; font-size: 12px; }
-.x-axis { width: 150px; height: 2px; background: red; transform: translate(0, -50%); } .x-axis::after { content: 'X'; position: absolute; right: -15px; color: red; }
-.y-axis { width: 2px; height: 150px; background: green; transform: translate(-50%, 0) rotateX(90deg); transform-origin: top; } .y-axis::after { content: 'Y'; position: absolute; bottom: -20px; left:-5px; color: green; }
-.z-axis { width: 2px; height: 150px; background: blue; transform: translate(-50%, -100%); } .z-axis::after { content: 'Z'; position: absolute; top: -15px; left:-5px; color: blue; }
+.visual-side { flex: 0.9; height: 500px; display: flex; align-items: center; justify-content: center; perspective: 1200px; background: radial-gradient(circle, #0e1732 0%, #070d1e 80%); border-radius: 30px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
+.scene { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transform: rotateX(-20deg) rotateY(45deg); transition: transform 0.5s ease-out; }
+.grid-floor { position: absolute; width: 300px; height: 300px; top: 50%; left: 50%; transform: translate(-50%, -50%) rotateX(90deg); }
 
-/* Dynamic 3D Parts (Configurable via HTML inline styles or step classes) */
-.part { position: absolute; top: 50%; left: 50%; transform-style: preserve-3d; transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); }
-.face { position: absolute; border: 1px solid rgba(255,255,255,0.3); }
+/* Blueprint Grid */
+.blueprint-grid {
+    background-image: 
+        linear-gradient(rgba(0, 210, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 210, 255, 0.08) 1px, transparent 1px);
+    background-size: 20px 20px;
+    border: 2px solid rgba(0, 210, 255, 0.2);
+    box-shadow: 0 0 30px rgba(0, 210, 255, 0.1);
+}
 
-/* Tools */
+.axis { position: absolute; top: 50%; left: 50%; font-weight: bold; font-size: 12px; pointer-events: none; }
+.x-axis { width: 150px; height: 2px; background: red; transform: translate(0, -50%); opacity: 0.5; } .x-axis::after { content: 'X'; position: absolute; right: -15px; color: red; }
+.y-axis { width: 2px; height: 150px; background: green; transform: translate(-50%, 0) rotateX(90deg); transform-origin: top; opacity: 0.5; } .y-axis::after { content: 'Y'; position: absolute; bottom: -20px; left:-5px; color: green; }
+.z-axis { width: 2px; height: 150px; background: blue; transform: translate(-50%, -100%); opacity: 0.5; } .z-axis::after { content: 'Z'; position: absolute; top: -15px; left:-5px; color: blue; }
+
+/* 3D 核心物理部分 */
+.part {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-style: preserve-3d;
+}
+.face {
+    position: absolute;
+    box-sizing: border-box;
+}
+
+/* --- 外盒 (立方体 50x50x50px 变量驱动) --- */
+.outer-box {
+    --w: 50px;
+    --h: 50px;
+    --d: 50px;
+    width: 0; height: 0;
+    transform: translate3d(0, 0, calc(var(--h) / 2));
+    transform-style: preserve-3d;
+    position: absolute;
+}
+.outer-box .face {
+    background: rgba(142, 142, 147, 0.8);
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    position: absolute;
+    left: calc(0px - var(--w)/2);
+    top: calc(0px - var(--d)/2);
+    transition: background 0.3s;
+}
+.outer-box .face.front  { width: var(--w); height: var(--h); transform: rotateX(90deg) translateZ(calc(var(--d) / 2)); }
+.outer-box .face.back   { width: var(--w); height: var(--h); transform: rotateX(-90deg) translateZ(calc(var(--d) / 2)); }
+.outer-box .face.left   { width: var(--d); height: var(--h); transform: rotateY(-90deg) rotateX(90deg) translateZ(calc(var(--w) / 2)); }
+.outer-box .face.right  { width: var(--d); height: var(--h); transform: rotateY(90deg) rotateX(90deg) translateZ(calc(var(--w) / 2)); }
+.outer-box .face.top    { width: var(--w); height: var(--d); transform: rotateX(0deg) translateZ(calc(var(--h) / 2)); }
+.outer-box .face.bottom { width: var(--w); height: var(--d); transform: rotateX(180deg) translateZ(calc(var(--h) / 2)); }
+
+/* --- 内部负零件 (红色吞噬兽) --- */
+.inner-core {
+    --iw: 46px;
+    --ih: 50px;
+    --id: 46px;
+    --iz: 2px;
+    width: 0; height: 0;
+    transform: translate3d(0, 0, calc(var(--iz) + var(--ih) / 2));
+    transform-style: preserve-3d;
+    position: absolute;
+    opacity: 0.15; /* 默认不透视时高透明 */
+    transition: opacity 0.3s, transform 0.2s ease-out;
+}
+.inner-core .face {
+    background: rgba(255, 59, 48, 0.65);
+    border: 2px solid #ff3b30;
+    position: absolute;
+    left: calc(0px - var(--iw)/2);
+    top: calc(0px - var(--id)/2);
+}
+.inner-core .face.front  { width: var(--iw); height: var(--ih); transform: rotateX(90deg) translateZ(calc(var(--id) / 2)); }
+.inner-core .face.back   { width: var(--iw); height: var(--ih); transform: rotateX(-90deg) translateZ(calc(var(--id) / 2)); }
+.inner-core .face.left   { width: var(--id); height: var(--ih); transform: rotateY(-90deg) rotateX(90deg) translateZ(calc(var(--iw) / 2)); }
+.inner-core .face.right  { width: var(--id); height: var(--ih); transform: rotateY(90deg) rotateX(90deg) translateZ(calc(var(--iw) / 2)); }
+.inner-core .face.top    { width: var(--iw); height: var(--id); transform: rotateX(0deg) translateZ(calc(var(--ih) / 2)); }
+.inner-core .face.bottom { width: var(--iw); height: var(--id); transform: rotateX(180deg) translateZ(calc(var(--ih) / 2)); }
+
+/* X-Ray 透视激活状态 */
+.inner-core.xray-mode {
+    opacity: 0.85 !important;
+}
+
+/* Tools Grid */
 .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; }
 .tool-item { padding: 40px; }
 .icon { font-size: 3rem; margin-bottom: 15px; }
-.tool-item h3 { font-size: 1.8rem; margin-bottom: 15px; }
+.tool-item h3 { font-size: 1.8rem; margin-bottom: 15px; color: #fff; }
 .tool-item p { font-size: 1.0rem; color: #a1a1a6; line-height: 1.6; margin-bottom: 20px; }
-.teacher-talk { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; border-left: 4px solid #34c759; color: #fff !important; font-style: italic; }
-.image-placeholder { width:100%; height:150px; background:rgba(255,255,255,0.05); border:1px dashed rgba(255,255,255,0.2); border-radius:12px; display:flex; align-items:center; justify-content:center; color:#888; font-size:12px; margin-bottom:20px; text-align:center; padding:10px;}
+.teacher-talk { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border-left: 4px solid #34c759; color: #fff !important; font-style: italic; }
+.image-placeholder { width:100%; height:150px; background:rgba(255,255,255,0.03); border:1px dashed rgba(255,255,255,0.15); border-radius:12px; display:flex; align-items:center; justify-content:center; color:#888; font-size:12px; margin-bottom:20px; text-align:center; padding:10px;}
 
 /* Timeline */
-.timeline { position: relative; max-width: 800px; margin: 40px auto 0; padding-left: 30px; border-left: 2px solid rgba(0,0,0,0.1); }
+.timeline { position: relative; max-width: 800px; margin: 40px auto 0; padding-left: 30px; border-left: 2px solid rgba(255,255,255,0.08); }
 .timeline-item { position: relative; margin-bottom: 30px; }
-.dot { position: absolute; left: -39px; top: 0; width: 16px; height: 16px; border-radius: 50%; border: 3px solid var(--bg-light); }
+.dot { position: absolute; left: -39px; top: 0; width: 16px; height: 16px; border-radius: 50%; border: 3px solid var(--bg-dark); }
 .dot.red { background: #ff3b30; } .dot.yellow { background: #ffcc00; } .dot.orange { background: #ff9500; }
-.glass-dark { background: rgba(0,0,0,0.8); backdrop-filter: blur(20px); border-radius: 16px; padding: 25px; color: white; border: 1px solid rgba(255,255,255,0.1); }
+.glass-dark { background: rgba(255,255,255,0.02); backdrop-filter: blur(20px); border-radius: 16px; padding: 25px; color: white; border: 1px solid rgba(255,255,255,0.08); }
 .glass-dark h3 { margin-bottom: 10px; color: #ff3b30; font-size: 1.2rem; }
 .glass-dark p { line-height: 1.5; color: #d2d2d7; font-size: 0.95rem; }
-.glass-dark strong { color: white; }
-
-/* Helper classes for parts */
-.gray-part .face { background: rgba(142, 142, 147, 0.9); }
-.red-part .face { background: rgba(255, 59, 48, 0.6); border-color: red; }
-.blue-part .face { background: rgba(0, 122, 255, 0.8); border-color: #007aff; }
-.green-part .face { background: rgba(52, 199, 89, 0.8); border-color: #34c759; }
-.yellow-part .face { background: rgba(255, 204, 0, 0.8); border-color: #ffcc00; }
-
-
-/* custom.css for Lesson 06 */
-
-/* 3D 零件容器基础配置 */
-.main-body {
-    width: 60px;
-    height: 80px;
-    margin-left: -30px;
-    margin-top: -40px;
-    transform-style: preserve-3d;
-    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.main-body .face {
-    position: absolute;
-    box-sizing: border-box;
-    background: rgba(142, 142, 147, 0.85);
-    border: 1.5px solid rgba(255, 255, 255, 0.6);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    transition: all 0.8s ease-in-out;
-}
-
-/* 零件面的 3D 定位 */
-.main-body .front {
-    width: 60px;
-    height: 80px;
-    transform: translateZ(30px);
-}
-
-.main-body .left {
-    width: 60px; /* 深度 */
-    height: 80px;
-    transform: rotateY(-90deg) translateZ(30px);
-}
-
-.main-body .top {
-    width: 60px;
-    height: 60px; /* 深度 */
-    transform: rotateX(90deg) translateZ(40px);
-}
-
-/* 负零件配置 */
-.negative-core {
-    width: 50px;
-    height: 90px;
-    margin-left: -25px;
-    margin-top: -45px;
-    transform-style: preserve-3d;
-    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.negative-core .face {
-    position: absolute;
-    box-sizing: border-box;
-    background: rgba(255, 59, 48, 0.65);
-    border: 2px solid #ff3b30;
-    box-shadow: 0 0 15px rgba(255, 59, 48, 0.4);
-    transition: all 0.8s ease-in-out;
-}
-
-.negative-core .front {
-    width: 50px;
-    height: 90px;
-    transform: translateZ(25px);
-}
-
-.negative-core .left {
-    width: 50px;
-    height: 90px;
-    transform: rotateY(-90deg) translateZ(25px);
-}
-
-.negative-core .top {
-    width: 50px;
-    height: 50px;
-    transform: rotateX(90deg) translateZ(45px);
-}
-
-/* 步骤切换控制动画 */
-
-/* 步骤 0: 初始化 */
-.visual-side:not([class*="step-"]) .main-body,
-.visual-side.step-0 .main-body {
-    opacity: 0;
-    transform: scale(0.5) translate3d(0, 50px, 0);
-}
-
-.visual-side:not([class*="step-"]) .negative-core,
-.visual-side.step-0 .negative-core {
-    opacity: 0;
-    transform: scale(0.5) translate3d(0, 50px, 0);
-}
-
-/* 步骤 1: 召唤实心金砖 */
-.visual-side.step-1 .main-body {
-    opacity: 1;
-    transform: scale(1) translate3d(0, 0, 0);
-}
-.visual-side.step-1 .negative-core {
-    opacity: 0;
-    transform: scale(0.8) translate3d(0, -100px, 0);
-}
-
-/* 步骤 2: 植入透明吞噬兽 (降落重叠) */
-.visual-side.step-2 .main-body {
-    opacity: 0.6;
-    transform: scale(1) translate3d(0, 0, 0);
-}
-.visual-side.step-2 .negative-core {
-    opacity: 1;
-    transform: scale(1) translate3d(0, 0, 0);
-}
-
-/* 步骤 3: 拯救盒子的底面 (负零件上提) */
-.visual-side.step-3 .main-body {
-    opacity: 0.6;
-    transform: scale(1) translate3d(0, 0, 0);
-}
-.visual-side.step-3 .negative-core {
-    opacity: 1;
-    transform: scale(1) translate3d(0, -15px, 0); /* 向上移动以保留底厚 */
-}
-
-/* 步骤 4: 布尔掏空成型 (负零件消失，外壳中空) */
-.visual-side.step-4 .main-body {
-    opacity: 1;
-    transform: scale(1) translate3d(0, 0, 0);
-}
-.visual-side.step-4 .main-body .face {
-    background: rgba(142, 142, 147, 0.25);
-    border: 2px dashed #ff3b30; /* 红虚线高亮提醒切出的壁厚 */
-    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
-}
-.visual-side.step-4 .negative-core {
-    opacity: 0;
-    transform: scale(0.1) translate3d(0, -15px, 0);
-    pointer-events: none;
-}
