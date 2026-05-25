@@ -1,237 +1,277 @@
 :root {
-    --bg-dark: #000000; --bg-light: #f5f5f7;
+    --bg-dark: #050b14; --bg-light: #f5f5f7;
     --text-dark: #f5f5f7; --text-light: #1d1d1f;
-    --accent: #2997ff;
-    --glass-bg: rgba(255, 255, 255, 0.1);
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --sz: 80px; /* base size */
+    --accent: #00d2ff;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.12);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Inter', -apple-system, sans-serif; color: var(--text-dark); background-color: var(--bg-dark); overflow-x: hidden; scroll-behavior: smooth; }
 
 /* Navbar */
-.navbar { position: fixed; top: 0; width: 100%; height: 60px; background: rgba(0,0,0,0.8); backdrop-filter: blur(20px); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
-.logo { font-weight: 800; font-size: 1.2rem; }
+.navbar { position: fixed; top: 0; width: 100%; height: 60px; background: rgba(5,11,20,0.85); backdrop-filter: blur(20px); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.logo { font-weight: 800; font-size: 1.2rem; background: linear-gradient(135deg, #fff, #34c759); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .nav-links { list-style: none; display: flex; gap: 30px; }
 .nav-links a { color: #a1a1a6; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
-.nav-links a:hover { color: #fff; }
+.nav-links a:hover { color: #34c759; }
 
 /* Scroll Container */
 .scroll-container { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; }
 .slide { height: 100vh; width: 100%; scroll-snap-align: start; display: flex; align-items: center; justify-content: center; padding: 80px 5%; position: relative; }
 .slide-dark { background: var(--bg-dark); color: var(--text-dark); }
-.slide-light { background: var(--bg-light); color: var(--text-light); }
+.slide-light { background: #070f1a; color: var(--text-dark); }
 .content { max-width: 1200px; width: 100%; }
 
 /* Slide 1: Intro */
-.badge { display: inline-block; padding: 5px 12px; background: rgba(41,151,255,0.2); color: var(--accent); border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 20px; }
-.title { font-size: 4rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; background: linear-gradient(135deg, #fff, #a1a1a6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.badge { display: inline-block; padding: 5px 12px; background: rgba(52,199,89,0.2); color: #34c759; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 20px; }
+.title { font-size: 4rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; background: linear-gradient(135deg, #fff, #34c759); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .subtitle { font-size: 1.3rem; color: #a1a1a6; margin-bottom: 60px; max-width: 600px; }
 .cards { display: flex; gap: 30px; }
 .glass { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; padding: 40px; flex: 1; transition: 0.3s; }
-.glass:hover { transform: translateY(-5px); }
-.glass h3 { margin-bottom: 15px; font-size: 1.3rem; }
+.glass:hover { transform: translateY(-5px); border-color: rgba(52,199,89,0.4); }
+.glass h3 { margin-bottom: 15px; font-size: 1.3rem; color: #fff; }
 .glass p { color: #a1a1a6; line-height: 1.6; }
 
-/* Slide 2: Process */
-.process-content { display: flex; gap: 50px; align-items: center; }
-.text-side { flex: 1; }
-.text-side h2 { font-size: 3rem; margin-bottom: 20px; color: var(--text-light);}
-.text-side p { color: #86868b; font-size: 1.1rem; margin-bottom: 40px; line-height: 1.5; }
-.step-controls { display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; }
-.step-btn { padding: 15px 20px; background: rgba(0,0,0,0.05); border: none; border-radius: 12px; text-align: left; font-size: 1rem; font-weight: 600; color: var(--text-light); cursor: pointer; transition: 0.3s; }
-.step-btn.active { background: var(--accent); color: white; box-shadow: 0 10px 20px rgba(41,151,255,0.3); }
-.step-descriptions { height: 120px; }
-.desc { display: none; font-size: 1.1rem; color: #1d1d1f; line-height: 1.6; background: rgba(41,151,255,0.1); padding: 20px; border-radius: 12px; border-left: 4px solid var(--accent); animation: fadeIn 0.5s forwards; }
-.desc.show { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+/* Slide 2: Process Layout */
+.process-content { display: flex; gap: 40px; align-items: center; }
+.text-side { flex: 1; display: flex; flex-direction: column; gap: 15px; }
+.text-side h2 { font-size: 2.8rem; font-weight: 800; background: linear-gradient(135deg, #fff, #a1a1a6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.text-side p { color: #86868b; font-size: 0.95rem; line-height: 1.4; }
+
+/* Parameter Panel */
+.parameter-panel { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+.control-group { display: flex; flex-direction: column; gap: 8px; }
+.label-row { display: flex; justify-content: space-between; align-items: center; }
+.param-label { font-size: 0.9rem; font-weight: 600; color: #d2d2d7; }
+.param-value { font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; color: var(--accent); }
+.custom-slider { -webkit-appearance: none; width: 100%; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.08); outline: none; cursor: pointer; }
+.custom-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px rgba(0,210,255,0.5); transition: 0.2s; }
+.custom-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+/* Green Slider for Slice Scan */
+.custom-slider-green { -webkit-appearance: none; width: 100%; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.08); outline: none; cursor: pointer; }
+.custom-slider-green::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #34c759; box-shadow: 0 0 10px rgba(52,199,89,0.5); transition: 0.2s; }
+.custom-slider-green::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+/* Feedback Box */
+.feedback-box { border-radius: 12px; padding: 15px; border-left: 4px solid #86868b; transition: 0.3s; background: rgba(255,255,255,0.01); }
+.feedback-box h4 { font-size: 0.8rem; color: #86868b; margin-bottom: 4px; }
+.feedback-box p { font-size: 0.9rem; font-weight: 600; line-height: 1.4; }
+
+/* Feedback states */
+.status-pass { border-left-color: #34c759 !important; color: #34c759; }
+.status-warn { border-left-color: #ff9500 !important; color: #ff9500; }
+.status-fail { border-left-color: #ff3b30 !important; color: #ff3b30; animation: border-pulse 1s infinite alternate; }
+
+@keyframes border-pulse {
+    from { border-left-color: #ff3b30; }
+    to { border-left-color: #ff9500; }
+}
 
 /* 3D Scene */
-.visual-side { flex: 1; height: 500px; display: flex; align-items: center; justify-content: center; perspective: 1200px; background: radial-gradient(circle, #e5e5ea 0%, #f5f5f7 70%); border-radius: 30px; overflow: hidden; }
-.scene { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transform: rotateX(-20deg) rotateY(45deg); transition: transform 1s ease-in-out; }
-.grid-floor { position: absolute; width: 300px; height: 300px; background-image: linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px); background-size: 30px 30px; top: 50%; left: 50%; transform: translate(-50%, -50%) rotateX(90deg); border: 2px solid rgba(0,0,0,0.2); }
-.axis { position: absolute; top: 50%; left: 50%; font-weight: bold; font-size: 12px; }
-.x-axis { width: 150px; height: 2px; background: red; transform: translate(0, -50%); } .x-axis::after { content: 'X'; position: absolute; right: -15px; color: red; }
-.y-axis { width: 2px; height: 150px; background: green; transform: translate(-50%, 0) rotateX(90deg); transform-origin: top; } .y-axis::after { content: 'Y'; position: absolute; bottom: -20px; left:-5px; color: green; }
-.z-axis { width: 2px; height: 150px; background: blue; transform: translate(-50%, -100%); } .z-axis::after { content: 'Z'; position: absolute; top: -15px; left:-5px; color: blue; }
+.visual-side { flex: 1.2; height: 480px; display: flex; align-items: center; justify-content: center; perspective: 1200px; background: radial-gradient(circle, #091a10 0%, #030805 90%); border-radius: 30px; overflow: hidden; border: 1px solid rgba(52,199,89,0.1); position: relative; }
+.scene { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transform: rotateX(-20deg) rotateY(45deg); transition: transform 0.3s ease-out; }
+.grid-floor { position: absolute; width: 300px; height: 300px; top: 50%; left: 50%; transform: translate(-50%, -50%) rotateX(90deg); }
 
-/* Dynamic 3D Parts (Configurable via HTML inline styles or step classes) */
-.part { position: absolute; top: 50%; left: 50%; transform-style: preserve-3d; transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); }
-.face { position: absolute; border: 1px solid rgba(255,255,255,0.3); }
+/* Hologram Grid */
+.hologram-grid {
+    background-image: 
+        linear-gradient(rgba(52, 199, 89, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(52, 199, 89, 0.08) 1px, transparent 1px);
+    background-size: 20px 20px;
+    border: 2px solid rgba(52, 199, 89, 0.2);
+    box-shadow: 0 0 30px rgba(52, 199, 89, 0.1);
+}
 
-/* Tools */
+/* Axis */
+.axis { position: absolute; top: 50%; left: 50%; font-weight: bold; font-size: 11px; pointer-events: none; }
+.x-axis { width: 150px; height: 2px; background: red; transform: translate(0, -50%); opacity: 0.3; }
+.y-axis { width: 2px; height: 150px; background: green; transform: translate(-50%, 0) rotateX(90deg); transform-origin: top; opacity: 0.3; }
+.z-axis { width: 2px; height: 150px; background: blue; transform: translate(-50%, -100%); opacity: 0.3; }
+
+/* 3D Part configuration */
+.part {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-style: preserve-3d;
+}
+.face {
+    position: absolute;
+    box-sizing: border-box;
+}
+
+/* --- 哨所线框主体 (60x60x80px 变量驱动) --- */
+.holo-outpost {
+    --w: 60px;
+    --h: 80px;
+    --d: 60px;
+    --rotX: 0deg;
+    --rotY: 0deg;
+    --rotZ: 0deg;
+    --transX: 0px;
+    --transY: 0px;
+    --transZ: 40px; /* Z 轴抬升量 */
+    width: 0; height: 0;
+    transform: translate3d(var(--transX), var(--transY), var(--transZ)) rotateX(var(--rotX)) rotateY(var(--rotY)) rotateZ(var(--rotZ));
+    transform-style: preserve-3d;
+    position: absolute;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.holo-outpost .face {
+    background: rgba(52, 199, 89, 0.08); /* 荧光绿线框透视 */
+    border: 1.5px solid #34c759;
+    box-shadow: 0 0 10px rgba(52, 199, 89, 0.2), inset 0 0 8px rgba(52, 199, 89, 0.1);
+    position: absolute;
+    left: calc(0px - var(--w)/2);
+    top: calc(0px - var(--d)/2);
+    transition: background 0.3s, border-color 0.3s, transform 0.4s ease-out;
+}
+
+.holo-outpost .face.front  { width: var(--w); height: var(--h); transform: rotateX(90deg) translateZ(calc(var(--d) / 2)); }
+.holo-outpost .face.back   { width: var(--w); height: var(--h); transform: rotateX(-90deg) translateZ(calc(var(--d) / 2)); }
+.holo-outpost .face.left   { width: var(--d); height: var(--h); transform: rotateY(-90deg) rotateX(90deg) translateZ(calc(var(--w) / 2)); }
+.holo-outpost .face.right  { width: var(--d); height: var(--h); transform: rotateY(90deg) rotateX(90deg) translateZ(calc(var(--w) / 2)); }
+.holo-outpost .face.top    { width: var(--w); height: var(--d); transform: rotateX(0deg) translateZ(calc(var(--h) / 2)); }
+.holo-outpost .face.bottom { width: var(--w); height: var(--d); transform: rotateX(180deg) translateZ(calc(var(--h) / 2)); }
+
+/* 拱门剪孔 clip-path (当拱门切削起效时应用于 front 面) */
+.holo-outpost .face.front.cut-gate {
+    clip-path: polygon(
+        0% 0%, 100% 0%, 
+        100% 100%, var(--r-edge) 100%, 
+        var(--r-edge) var(--gate-h-pct), 
+        var(--l-edge) var(--gate-h-pct), 
+        var(--l-edge) 100%, 0% 100%
+    );
+}
+
+/* --- 大门负零件 (红色全息) --- */
+.holo-gate {
+    --gw: 30px;
+    --gh: 35px;
+    --gd: 40px; /* 大门厚度 */
+    --gz: 0px;  /* Z 轴抬高 */
+    width: 0; height: 0;
+    transform: translate3d(0px, calc(30px - var(--gd)/2), calc(var(--gz) + var(--gh)/2));
+    transform-style: preserve-3d;
+    position: absolute;
+    transition: transform 0.2s ease-out;
+}
+
+.holo-gate .face {
+    background: rgba(255, 59, 48, 0.12); /* 红色半透线框 */
+    border: 1.5px solid #ff3b30;
+    box-shadow: 0 0 10px rgba(255, 59, 48, 0.2);
+    position: absolute;
+    left: calc(0px - var(--gw)/2);
+    top: calc(0px - var(--gd)/2);
+}
+
+.holo-gate .face.front  { width: var(--gw); height: var(--gh); transform: rotateX(90deg) translateZ(calc(var(--gd) / 2)); }
+.holo-gate .face.back   { width: var(--gw); height: var(--gh); transform: rotateX(-90deg) translateZ(calc(var(--gd) / 2)); }
+.holo-gate .face.left   { width: var(--gd); height: var(--gh); transform: rotateY(-90deg) rotateX(90deg) translateZ(calc(var(--gw) / 2)); }
+.holo-gate .face.right  { width: var(--gd); height: var(--gh); transform: rotateY(90deg) rotateX(90deg) translateZ(calc(var(--gw) / 2)); }
+.holo-gate .face.top    { width: var(--gw); height: var(--gd); transform: rotateX(0deg) translateZ(calc(var(--gh) / 2)); }
+.holo-gate .face.bottom { width: var(--gw); height: var(--gd); transform: rotateX(180deg) translateZ(calc(var(--gh) / 2)); }
+
+
+/* --- 水平激光扫描线面 --- */
+.scan-laser-line {
+    --sz: 0px;
+    width: 0; height: 0;
+    transform: translate3d(0, 0, var(--sz));
+    transform-style: preserve-3d;
+    position: absolute;
+    pointer-events: none;
+    transition: transform 0.1s linear;
+}
+.laser-plate {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    left: -70px;
+    top: -70px;
+    background: rgba(52, 199, 89, 0.12);
+    border: 1.5px solid #34c759;
+    box-shadow: 0 0 15px #34c759, inset 0 0 10px rgba(52, 199, 89, 0.3);
+    transform: rotateX(0deg);
+}
+
+/* --- 2D 切片投影悬浮窗 --- */
+.slicing-preview-window {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 150px;
+    background: rgba(5, 11, 20, 0.85);
+    backdrop-filter: blur(15px);
+    border: 1.5px solid rgba(52, 199, 89, 0.25);
+    border-radius: 12px;
+    padding: 15px;
+    z-index: 100;
+    color: #34c759;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+.slicing-preview-window h5 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    border-bottom: 1.5px solid rgba(52, 199, 89, 0.2);
+    padding-bottom: 6px;
+    color: #34c759;
+}
+#slice-canvas {
+    display: block;
+    margin: 0 auto 10px;
+    background: #020603;
+    border: 1px solid rgba(52, 199, 89, 0.3);
+    border-radius: 6px;
+    box-shadow: inset 0 0 8px rgba(52, 199, 89, 0.2);
+}
+#slice-desc {
+    font-size: 0.72rem;
+    line-height: 1.3;
+    text-align: center;
+    color: #888;
+}
+
+/* --- 基座物理断裂与警报类 --- */
+.holo-outpost.fractured .face {
+    border-color: #ff3b30 !important;
+    background: rgba(255, 59, 48, 0.15) !important;
+    box-shadow: 0 0 15px #ff3b30, inset 0 0 10px rgba(255, 59, 48, 0.3) !important;
+}
+
+/* 报警振动特效 */
+.visual-side.alarm-active .scene {
+    animation: screen-shake 0.1s infinite alternate;
+}
+
+@keyframes screen-shake {
+    from { transform: rotateX(-20deg) rotateY(45deg) translate3d(1px, 1px, 0); }
+    to { transform: rotateX(-20deg) rotateY(45deg) translate3d(-1px, -1px, 0); }
+}
+
+/* Tools Grid */
 .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; }
 .tool-item { padding: 40px; }
 .icon { font-size: 3rem; margin-bottom: 15px; }
-.tool-item h3 { font-size: 1.8rem; margin-bottom: 15px; }
+.tool-item h3 { font-size: 1.8rem; margin-bottom: 15px; color: #fff; }
 .tool-item p { font-size: 1.0rem; color: #a1a1a6; line-height: 1.6; margin-bottom: 20px; }
-.teacher-talk { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; border-left: 4px solid #34c759; color: #fff !important; font-style: italic; }
-.image-placeholder { width:100%; height:150px; background:rgba(255,255,255,0.05); border:1px dashed rgba(255,255,255,0.2); border-radius:12px; display:flex; align-items:center; justify-content:center; color:#888; font-size:12px; margin-bottom:20px; text-align:center; padding:10px;}
+.teacher-talk { background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; border-left: 4px solid #34c759; color: #fff !important; font-style: italic; }
+.image-placeholder { width:100%; height:150px; background:rgba(255,255,255,0.02); border:1px dashed rgba(255,255,255,0.12); border-radius:12px; display:flex; align-items:center; justify-content:center; color:#888; font-size:12px; margin-bottom:20px; text-align:center; padding:10px;}
 
 /* Timeline */
-.timeline { position: relative; max-width: 800px; margin: 40px auto 0; padding-left: 30px; border-left: 2px solid rgba(0,0,0,0.1); }
+.timeline { position: relative; max-width: 800px; margin: 40px auto 0; padding-left: 30px; border-left: 2px solid rgba(255,255,255,0.06); }
 .timeline-item { position: relative; margin-bottom: 30px; }
-.dot { position: absolute; left: -39px; top: 0; width: 16px; height: 16px; border-radius: 50%; border: 3px solid var(--bg-light); }
+.dot { position: absolute; left: -39px; top: 0; width: 16px; height: 16px; border-radius: 50%; border: 3px solid var(--bg-dark); }
 .dot.red { background: #ff3b30; } .dot.yellow { background: #ffcc00; } .dot.orange { background: #ff9500; }
-.glass-dark { background: rgba(0,0,0,0.8); backdrop-filter: blur(20px); border-radius: 16px; padding: 25px; color: white; border: 1px solid rgba(255,255,255,0.1); }
+.glass-dark { background: rgba(255,255,255,0.01); backdrop-filter: blur(20px); border-radius: 16px; padding: 25px; color: white; border: 1px solid rgba(255,255,255,0.06); }
 .glass-dark h3 { margin-bottom: 10px; color: #ff3b30; font-size: 1.2rem; }
 .glass-dark p { line-height: 1.5; color: #d2d2d7; font-size: 0.95rem; }
-.glass-dark strong { color: white; }
-
-/* Helper classes for parts */
-.gray-part .face { background: rgba(142, 142, 147, 0.9); }
-.red-part .face { background: rgba(255, 59, 48, 0.6); border-color: red; }
-.blue-part .face { background: rgba(0, 122, 255, 0.8); border-color: #007aff; }
-.green-part .face { background: rgba(52, 199, 89, 0.8); border-color: #34c759; }
-.yellow-part .face { background: rgba(255, 204, 0, 0.8); border-color: #ffcc00; }
-
-
-/* custom.css for V3 Lesson 06 (城堡守卫哨所) */
-
-/* 三维容器配置 */
-.part {
-    width: 0;
-    height: 0;
-    position: absolute;
-    transform-style: preserve-3d;
-    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
-    opacity: 0;
-}
-
-.part .face {
-    position: absolute;
-    transition: all 0.8s ease;
-    background: rgba(142, 142, 147, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* --- 城堡哨所本体 60x60x80px --- */
-.outpost {
-    transform: translate3d(0, 0, 40px); /* 居中立于地面 */
-}
-
-/* 哨所外墙采用灰色城堡石砖质感 */
-.outpost .face {
-    background: linear-gradient(rgba(100, 100, 105, 0.9), rgba(120, 120, 125, 0.9));
-    border: 1.5px solid rgba(255, 255, 255, 0.3);
-    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3);
-}
-
-.outpost .face.front  { 
-    width: 60px; 
-    height: 80px; 
-    left: -30px; 
-    top: -40px; 
-    transform: rotateX(-90deg) translateZ(30px); 
-}
-.outpost .face.back   { width: 60px; height: 80px; left: -30px; top: -40px; transform: rotateX(90deg) translateZ(30px); }
-.outpost .face.left   { width: 60px; height: 80px; left: -30px; top: -40px; transform: rotateY(-90deg) translateZ(30px); }
-.outpost .face.right  { width: 60px; height: 80px; left: -30px; top: -40px; transform: rotateY(90deg) translateZ(30px); }
-.outpost .face.top    { 
-    width: 60px; 
-    height: 60px; 
-    left: -30px; 
-    top: -30px; 
-    transform: rotateX(0deg) translateZ(40px);
-    background: #4a4a52;
-    /* 哨所顶部的圆坑蓄能盘 (温故知新：为第8课对齐打底) */
-    background-image: radial-gradient(circle, rgba(0, 122, 255, 0.2) 50%, #4a4a52 52%);
-    border: 2px solid rgba(255, 255, 255, 0.4);
-}
-.outpost .face.bottom { width: 60px; height: 60px; left: -30px; top: -30px; transform: rotateX(180deg) translateZ(40px); }
-
-
-/* --- 拱门负零件 40x40x50px --- */
-.negative-gate {
-    transform: translate3d(0, -20px, 150px); /* 默认在高空 */
-}
-
-.negative-gate .face {
-    background: rgba(255, 59, 48, 0.7); /* 红色半透明全息 */
-    border: 1px solid rgba(255, 59, 48, 0.9);
-    box-shadow: inset 0 0 10px rgba(255, 59, 48, 0.4), 0 0 8px rgba(255, 59, 48, 0.3);
-}
-
-.negative-gate .face.front  { width: 40px; height: 50px; left: -20px; top: -25px; transform: rotateX(-90deg) translateZ(20px); }
-.negative-gate .face.back   { width: 40px; height: 50px; left: -20px; top: -25px; transform: rotateX(90deg) translateZ(20px); }
-.negative-gate .face.left   { width: 40px; height: 50px; left: -20px; top: -25px; transform: rotateY(-90deg) translateZ(20px); }
-.negative-gate .face.right  { width: 40px; height: 50px; left: -20px; top: -25px; transform: rotateY(90deg) translateZ(20px); }
-.negative-gate .face.top    { width: 40px; height: 40px; left: -20px; top: -20px; transform: rotateX(0deg) translateZ(25px); }
-.negative-gate .face.bottom { width: 40px; height: 40px; left: -20px; top: -20px; transform: rotateX(180deg) translateZ(25px); }
-
-
-/* --- 步骤切换样式控制 --- */
-
-/* 步骤 0: 初始化 */
-.visual-side:not([class*="step-"]) .part,
-.visual-side.step-0 .part {
-    opacity: 0;
-}
-
-/* 步骤 1: 召唤实心巨石 (仅哨所出现，大门未出现) */
-.visual-side.step-1 .outpost {
-    opacity: 1;
-}
-
-/* 步骤 2: 植入拱门负零件 (大门从空中降落到 Z=25px, 穿透哨所底部) */
-.visual-side.step-2 .outpost {
-    opacity: 1;
-}
-.visual-side.step-2 .negative-gate {
-    opacity: 1;
-    transform: translate3d(0, -20px, 25px); /* 穿入底座且贴地，无防漏底 */
-}
-.visual-side.step-2 .negative-gate .face {
-    animation: pulse-red 1.5s infinite ease-in-out;
-}
-
-/* 步骤 3: 守护图腾与防漏底 (大门抬高 3mm，塔身侧面浮现金色发光字) */
-.visual-side.step-3 .outpost {
-    opacity: 1;
-}
-.visual-side.step-3 .negative-gate {
-    opacity: 1;
-    transform: translate3d(0, -20px, 28px); /* 抬高 3mm 保住底厚 */
-}
-/* 塔身刻上金色守护印记效果 */
-.visual-side.step-3 .outpost .face.left,
-.visual-side.step-3 .outpost .face.right {
-    border-color: #ffd700;
-    box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.4);
-    text-shadow: 0 0 8px #ffd700;
-}
-
-/* 步骤 4: 布尔掏空大门 (大门隐藏，哨所正面墙壁开启拱门大洞，内部掏空) */
-.visual-side.step-4 .outpost {
-    opacity: 1;
-}
-.visual-side.step-4 .negative-gate {
-    opacity: 0;
-    transform: translate3d(0, -20px, 28px) scale(0.5); /* 隐去 */
-}
-/* 重点！哨所正面墙壁通过 clip-path 挖出一个漂亮的 3D 拱门 */
-.visual-side.step-4 .outpost .face.front {
-    clip-path: polygon(
-        0% 0%, 100% 0%, 
-        100% 100%, 80% 100%, 
-        80% 55%, 50% 35%, 20% 55%, 20% 100%, 
-        0% 100%
-    );
-    background: linear-gradient(rgba(80, 80, 85, 0.9), rgba(100, 100, 105, 0.9));
-}
-/* 顶端发光强化，表示挖空完成 */
-.visual-side.step-4 .outpost .face.top {
-    box-shadow: inset 0 0 20px rgba(0, 122, 255, 0.5), 0 0 10px rgba(0, 122, 255, 0.3);
-}
-
-@keyframes pulse-red {
-    0%, 100% {
-        opacity: 0.6;
-        box-shadow: inset 0 0 8px rgba(255, 59, 48, 0.3);
-    }
-    50% {
-        opacity: 0.95;
-        box-shadow: inset 0 0 18px rgba(255, 59, 48, 0.7), 0 0 12px rgba(255, 59, 48, 0.5);
-    }
-}
