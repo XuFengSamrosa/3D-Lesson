@@ -385,3 +385,53 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--text-dark);
     0% { transform: rotateX(-20deg) rotateY(0deg); }
     100% { transform: rotateX(-20deg) rotateY(360deg); }
 }
+
+/* 巨型垃圾废料塔 (高度拉伸 2.5倍) */
+.waste-tower.huge {
+    transform: translate3d(40px, 0, 50px) scaleZ(2.5) !important;
+}
+
+/* 微型垃圾废料塔 (零件上色换色极少，高度缩至 0.25倍) */
+.waste-tower.tiny {
+    transform: translate3d(40px, 0, 5px) scaleZ(0.25) !important;
+}
+
+/* AMS 极速切片测试换色扫射动画 */
+.ams-nozzle.slicing-crazy {
+    animation: crazy-slicing-path 1.2s infinite ease-in-out !important;
+}
+
+@keyframes crazy-slicing-path {
+    0%, 100% {
+        transform: translate3d(-15px, 0, 60px); /* 在盾牌上方 */
+    }
+    30% {
+        transform: translate3d(40px, 0, 60px); /* 跑到废料塔排废 */
+    }
+    60% {
+        transform: translate3d(-15px, 10px, 35px); /* 返回盾牌浮雕 */
+    }
+    80% {
+        transform: translate3d(40px, 0, 60px); /* 再次跑到废料塔 */
+    }
+}
+
+/* 喷墨高亮 */
+.ams-nozzle.slicing-crazy::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #ff0;
+    border-radius: 50%;
+    bottom: -15px;
+    left: -3px;
+    box-shadow: 0 0 15px #ff0, 0 0 30px #ff0;
+    animation: nozzle-glow 0.3s infinite alternate;
+}
+
+@keyframes nozzle-glow {
+    from { opacity: 0.3; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1.3); }
+}
+

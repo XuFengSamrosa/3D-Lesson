@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第12课：打印机机甲改装 - 3D打印魔法创客营</title>
+    <title>第12课：多彩城堡图腾 - 3D打印魔法创客营</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="custom.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">魔法创客营 V1.0 (PRO版)</div>
+        <div class="logo">🎨 多彩城堡图腾</div>
         <ul class="nav-links">
             <li><a href="#intro">课程目标</a></li>
             <li><a href="#process">3D建模魔法秀</a></li>
@@ -23,17 +23,17 @@
         <section id="intro" class="slide slide-dark">
             <div class="content">
                 <span class="badge">Lesson 12</span>
-                <h1 class="title">打印机机甲改装</h1>
-                <p class="subtitle">实物测绘与躺地打印防劈裂术。</p>
+                <h1 class="title">多彩城堡图腾</h1>
+                <p class="subtitle">Bambu AMS 多色打印原理，与多色填色避坑指南。</p>
                 
                 <div class="cards">
                     <div class="card glass">
                         <h3>核心目标</h3>
-                        <p>利用卡尺量取真实物品的尺寸，设计大受力夹具，并学习为了强度必须倒下侧躺打印的物理法则。</p>
+                        <p>理解多色打印中喷头“退料-进料”的物理换色逻辑，学会合理上色以规避频繁换色带来的天量耗材浪费。</p>
                     </div>
                     <div class="card glass">
                         <h3>讲师必备知识</h3>
-                        <p>逆向公差留余量：量出来的数字要加上 0.5mm，否则卡扣永远塞不进去。<br>层纹抗劈裂：受力的方向必须跟打印机吐丝层横向交叉，站着打一受力就会像劈柴一样裂开。</p>
+                        <p>换色的代价：每次换色都要回抽前一种耗材，挤入并冲刷干净喷嘴内残存颜色。这个过程产生大量“拉圾吐丝”。<br>料塔的诞生：为稳固打印换色时产生的熔体压力，需要在旁边打印一个高高的垃圾料塔，料塔的体积往往大过成品。</p>
                     </div>
                 </div>
             </div>
@@ -60,6 +60,28 @@
                         <div class="desc" id="desc-2">打印机喷头拉退蓝色耗材，拉入金色耗材，滑过表面打印凸起的金色文字与边框浮雕。</div>
                         <div class="desc" id="desc-3">换色时为什么旁边会多打一个‘垃圾方块’？那是为了把喷头里残留的旧颜色耗材彻底挤干净！</div>
                         <div class="desc" id="desc-4">多色打印顺利结束！我们成功用双色勾勒出威武的城堡防护大盾牌，防线能量进一步提升！</div>
+                    </div>
+
+                    <!-- 交互式填色与换色耗材评估面板 -->
+                    <div class="interactive-panel" id="color-panel" style="display:none; margin-top:20px; background:rgba(0,0,0,0.05); padding:20px; border-radius:12px; border:1px solid rgba(0,0,0,0.1);">
+                        <div style="margin-bottom:15px;">
+                            <label style="font-weight:600; color:#1d1d1f; display:block; margin-bottom:10px;">🎨 上色与填色模式选择:</label>
+                            <div style="display:flex; gap:10px;">
+                                <button class="mode-btn active" data-mode="part" style="flex:1; padding:8px; border:1px solid #2997ff; background:#2997ff; color:white; border-radius:8px; font-weight:700; cursor:pointer; outline:none;">按独立零件上色 (浮雕分色)</button>
+                                <button class="mode-btn" data-mode="height" style="flex:1; padding:8px; border:1px solid #ddd; background:white; border-radius:8px; font-weight:700; cursor:pointer; outline:none;">按高度层上色 (频繁换色)</button>
+                            </div>
+                        </div>
+                        <div style="margin-bottom:15px; display:flex; gap:10px; justify-content:space-between; align-items:center;">
+                            <span style="font-weight:600; color:#1d1d1f;">🧪 选择画笔颜色:</span>
+                            <div style="display:flex; gap:8px;">
+                                <button class="brush-btn active" data-color="#007aff" style="width:24px; height:24px; border-radius:50%; background:#007aff; border:2.5px solid white; cursor:pointer; outline:none; box-shadow:0 0 5px rgba(0,0,0,0.3);"></button>
+                                <button class="brush-btn" data-color="#ffd700" style="width:24px; height:24px; border-radius:50%; background:#ffd700; border:2.5px solid white; cursor:pointer; outline:none; box-shadow:0 0 5px rgba(0,0,0,0.3);"></button>
+                                <button class="brush-btn" data-color="#ff3b30" style="width:24px; height:24px; border-radius:50%; background:#ff3b30; border:2.5px solid white; cursor:pointer; outline:none; box-shadow:0 0 5px rgba(0,0,0,0.3);"></button>
+                                <button class="brush-btn" data-color="#34c759" style="width:24px; height:24px; border-radius:50%; background:#34c759; border:2.5px solid white; cursor:pointer; outline:none; box-shadow:0 0 5px rgba(0,0,0,0.3);"></button>
+                            </div>
+                        </div>
+                        <button id="slice-test-btn" style="width:100%; background:#34c759; color:white; border:none; padding:10px; border-radius:8px; font-weight:700; cursor:pointer; outline:none;">🖨️ 启动多色切片打印评估</button>
+                        <p id="color-feedback" style="margin-top:10px; font-size:0.9rem; font-weight:700; color:#2997ff;">💡 提示：点击盾牌的不同组件，用当前选择的画笔为它着色！</p>
                     </div>
                 </div>
                 
@@ -107,23 +129,22 @@
         <!-- Slide 3: Tools -->
         <section id="tools" class="slide slide-dark">
             <div class="content">
-                <h2>魔法兵器谱（软件基础）</h2>
+                <h2>魔法兵器谱（多色打印工具）</h2>
                 <div class="tools-grid">
                     <div class="tool-item glass">
-            <div class="icon">📏</div>
-            <h3>真实游标卡尺</h3>
-            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
-            <p>实体测绘，记录数据。</p>
-            <p class="teacher-talk">🗣️ "抛弃电脑里的幻想！给我去量真实的横梁有多厚！"</p>
-        </div>
-<div class="tool-item glass">
-            <div class="icon">🛏️</div>
-            <h3>推倒平躺大法</h3>
-            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
-            <p>为了力学强度，把站着的 C 型夹放平。</p>
-            <p class="teacher-talk">🗣️ "想结实？让最长的连续胶丝贯穿整个受力点，推倒打印！"</p>
-        </div>
-
+                        <div class="icon">🎨</div>
+                        <h3>AMS 智能进料盒</h3>
+                        <div class="image-placeholder">[预留位置：请在此插入 AMS 实物或截图]</div>
+                        <p>四路自动进料管，在电机的微米级控制下随时更换热端的不同耗材。</p>
+                        <p class="teacher-talk">🗣️ "有了配料盒，软件里刷了什么颜色，喷嘴就能自动拉来什么丝线！"</p>
+                    </div>
+                    <div class="tool-item glass">
+                        <div class="icon">🧱</div>
+                        <h3>换色磨料塔 (Prime Tower)</h3>
+                        <div class="image-placeholder">[预留位置：请在此插入料塔切片的真实软件截图]</div>
+                        <p>为保证换色前后熔化喷嘴内的压力和余色彻底清洗，在模型旁建立的辅助牺牲方块。</p>
+                        <p class="teacher-talk">🗣️ "换颜色像洗画笔一样，必须在旁边的废纸（料塔）上把残留颜色涂抹干净！"</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -134,20 +155,19 @@
                 <h2>实验室警报预案</h2>
                 <div class="timeline">
                     <div class="timeline-item">
-            <div class="dot red"></div>
-            <div class="timeline-content glass-dark">
-                <h3>🚨 零公差焊死进不去</h3>
-                <p>测了 20mm 就做 20mm 的卡槽，结果根本套不进杆子。<br>应对：退回电脑，强行给卡槽挖宽 0.5mm 留退路！</p>
-            </div>
-        </div>
-<div class="timeline-item">
-            <div class="dot orange"></div>
-            <div class="timeline-content glass-dark">
-                <h3>🚨 一掰成两半</h3>
-                <p>站着打印导致层纹断裂。<br>应对：推倒它！让它舒舒服服平躺着打印。</p>
-            </div>
-        </div>
-
+                        <div class="dot red"></div>
+                        <div class="timeline-content glass-dark">
+                            <h3>🚨 频繁换色废料爆盘</h3>
+                            <p>按高度层上色导致每一层都发生 4 次退换料，垃圾废丝比成品还要重上几倍。<br>应对：优化模型设计，尽量让颜色在同一高度层保持统一，只在特定高度换色。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="dot orange"></div>
+                        <div class="timeline-content glass-dark">
+                            <h3>🚨 AMS 耗材磨损卡管</h3>
+                            <p>超高频抽回进料，导致管道中磨削积屑，管路卡死。<br>应对：在填色时选择“零件分色”而不是“逐层换色”，极力压缩总换色次数。</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
