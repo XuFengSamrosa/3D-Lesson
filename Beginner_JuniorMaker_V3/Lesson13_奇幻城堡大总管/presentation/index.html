@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第13课：梦想社区大总管 - 3D打印魔法创客营</title>
+    <title>第13课：奇幻城堡大总管 - 3D打印魔法创客营</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="custom.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">魔法创客营 V1.0 (PRO版)</div>
+        <div class="logo">🗺️ 奇幻城堡规划</div>
         <ul class="nav-links">
             <li><a href="#intro">课程目标</a></li>
             <li><a href="#process">3D建模魔法秀</a></li>
@@ -23,17 +23,17 @@
         <section id="intro" class="slide slide-dark">
             <div class="content">
                 <span class="badge">Lesson 13</span>
-                <h1 class="title">梦想社区大总管</h1>
+                <h1 class="title">奇幻城堡大总管</h1>
                 <p class="subtitle">抛开电脑画蓝图，团队协作与比例尺公约。</p>
                 
                 <div class="cards">
                     <div class="card glass">
                         <h3>核心目标</h3>
-                        <p>脱离电脑，建立宏大场景的协作大局观。签下全组统一的缩放比例尺与连接口径标准协议。</p>
+                        <p>脱离电脑，建立宏大城堡沙盘的协作大局观。签署全组统一的 1:50 比例尺与连接接口标准契约。</p>
                     </div>
                     <div class="card glass">
                         <h3>讲师必备知识</h3>
-                        <p>比例尺灾难：A 做的房子比 B 做的人还小，放到一起就是奥特曼踩蚂蚁。<br>统一接口：如果社区的路标要插在广场底座上，全员的孔径必须是同一张图纸上定的死规矩！</p>
+                        <p>比例尺灾难：组员 A 做的城门比组员 B 做的城堡塔楼还要大，放到一块就会产生严重穿模与滑稽错位。<br>统一连接规范：基底的卡槽与外接塔楼插头必须绝对符合相同的公差协议，才能组装成功。</p>
                     </div>
                 </div>
             </div>
@@ -60,6 +60,19 @@
                         <div class="desc" id="desc-2">定位插座孔：精确标识出两个哨所和中间城墙的定位卡接孔位，亮起蓝色引导光。</div>
                         <div class="desc" id="desc-3">接口规范定义：白纸黑字规定，城墙方榫为10.0mm，基座插孔为10.5mm，预留0.5mm配合公差，防止组装干涉！</div>
                         <div class="desc" id="desc-4">比例尺签字画押：全组签署1:50比例尺规约，保证各小组成员的作品能够完美合体。</div>
+                    </div>
+
+                    <!-- 交互式城堡接口公约与配合间隙面板 -->
+                    <div class="interactive-panel" id="contract-panel" style="display:none; margin-top:20px; background:rgba(0,0,0,0.05); padding:20px; border-radius:12px; border:1px solid rgba(0,0,0,0.1);">
+                        <div style="margin-bottom:15px;">
+                            <label style="font-weight:600; color:#1d1d1f; display:block; margin-bottom:10px;">📐 城堡插销装配规范 (契约):</label>
+                            <div style="display:flex; gap:10px;">
+                                <button class="contract-btn" data-type="fuse" style="flex:1; padding:8px; border:1px solid #ddd; background:white; border-radius:8px; font-weight:700; cursor:pointer; outline:none;">10mm 插槽 (零公差干涉)</button>
+                                <button class="contract-btn active" data-type="fit" style="flex:1; padding:8px; border:1px solid #2997ff; background:#2997ff; color:white; border-radius:8px; font-weight:700; cursor:pointer; outline:none;">10.5mm 插槽 (预留公差)</button>
+                            </div>
+                        </div>
+                        <button id="plug-test-btn" style="width:100%; background:#34c759; color:white; border:none; padding:10px; border-radius:8px; font-weight:700; cursor:pointer; outline:none;">🔌 模拟插销拼装卡接</button>
+                        <p id="contract-feedback" style="margin-top:10px; font-size:0.9rem; font-weight:700; color:#2997ff;">💡 大总管提示：请先选择契约规范，再执行插接拼装。</p>
                     </div>
                 </div>
                 
@@ -96,6 +109,16 @@
                                 <div class="scale-bar"></div>
                             </div>
                         </div>
+                        
+                        <!-- 待组装的哨所底座插销 -->
+                        <div class="part castle-outpost-peg">
+                            <div class="face front"></div>
+                            <div class="face back"></div>
+                            <div class="face left"></div>
+                            <div class="face right"></div>
+                            <div class="face top"></div>
+                            <div class="face bottom"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -104,23 +127,22 @@
         <!-- Slide 3: Tools -->
         <section id="tools" class="slide slide-dark">
             <div class="content">
-                <h2>魔法兵器谱（软件基础）</h2>
+                <h2>魔法兵器谱（规划与设计工具）</h2>
                 <div class="tools-grid">
                     <div class="tool-item glass">
-            <div class="icon">📝</div>
-            <h3>白纸上的契约</h3>
-            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
-            <p>画出俯视图并写死核心尺寸数据。</p>
-            <p class="teacher-talk">🗣️ "如果轮子和车轴的尺寸不对齐，你们造的就是废铁！组长负责把关！"</p>
-        </div>
-<div class="tool-item glass">
-            <div class="icon">🏷️</div>
-            <h3>文件命名法</h3>
-            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
-            <p>强制采用组名_部件.3mf。</p>
-            <p class="teacher-talk">🗣️ "全叫‘未命名’，合体时全组绝对当场爆炸！"</p>
-        </div>
-
+                        <div class="icon">📝</div>
+                        <h3>白纸上的接口契约</h3>
+                        <div class="image-placeholder">[预留位置：请在此插入白纸契约的真实设计图草稿]</div>
+                        <p>纸面设计中必须白纸黑字写清插头与插孔的最大、最小基准尺寸，统一全组步调。</p>
+                        <p class="teacher-talk">🗣️ "在沙盘组装时，如果塔座和基底口径对不上，这防线就成了危房碎瓦！"</p>
+                    </div>
+                    <div class="tool-item glass">
+                        <div class="icon">🏷️</div>
+                        <h3>规范文件命名法</h3>
+                        <div class="image-placeholder">[预留位置：请在此插入命名规范软件截图]</div>
+                        <p>强制规定全组文件存储格式为“防区编号_塔楼名_组员名”，便于总管合拢切片。</p>
+                        <p class="teacher-talk">🗣️ "全都乱起名‘未命名零件’，合体切片时大总管绝对当场急哭了！"</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -131,20 +153,19 @@
                 <h2>实验室警报预案</h2>
                 <div class="timeline">
                     <div class="timeline-item">
-            <div class="dot red"></div>
-            <div class="timeline-content glass-dark">
-                <h3>🚨 全都抢着做地标</h3>
-                <p>没人做基础的马路和底板。<br>应对：组长发威，按主次分配任务，地基永远最重要！</p>
-            </div>
-        </div>
-<div class="timeline-item">
-            <div class="dot orange"></div>
-            <div class="timeline-content glass-dark">
-                <h3>🚨 天马行空做不出来</h3>
-                <p>画了超级悬浮飞船却不会加支撑。<br>应对：老师出马，无情打碎幻想，逼着他们改成简单的堆叠房子。</p>
-            </div>
-        </div>
-
+                        <div class="dot red"></div>
+                        <div class="timeline-content glass-dark">
+                            <h3>🚨 全都抢着做皇家尖塔</h3>
+                            <p>组员都只想做华丽的尖顶地标，而没有人做基础的连结路段和城墙底盘。<br>应对：大总管强势指派分工，地基和外墙是防线的脊梁骨，首要完成！</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="dot orange"></div>
+                        <div class="timeline-content glass-dark">
+                            <h3>🚨 悬空城堡无法打印</h3>
+                            <p>随手画出了反物理的魔法飞空浮岛，忽略重力而没有任何落地的支撑柱。<br>应对：大总管无情推翻科幻方案，引导修改为结实的经典石桥支撑柱以导向重力。</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
