@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第5课：几何空间奥秘 - 魔法创客营 V1.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body class="theme-cut">
+    <nav class="navbar custom-nav">
+        <div class="logo">✂️ 空间切割与组装</div>
+        <ul class="nav-links">
+            <li><a href="#cut">平面切割</a></li>
+            <li><a href="#dowel">销钉榫卯</a></li>
+            <li><a href="#pitfalls">避坑指南</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="tag">Lesson 05</div>
+            <h1>化整为零：切割与销钉魔法</h1>
+            <p>只要你能把它切开，你就能造出跟宇宙一样大的东西！掌握强大的平面切割与自动销钉工具，进入模块化组装时代。</p>
+        </div>
+        <div class="hero-bg-shapes">
+            <div class="laser-beam"></div>
+            <div class="half-shape top"></div>
+            <div class="half-shape bottom"></div>
+        </div>
+    </header>
+
+    <section id="cut" class="interactive-section bg-light">
+        <div class="container text-center">
+            <div class="section-header">
+                <h2>第一重魔法：无形激光剑 (Planar Cut) 🗡️</h2>
+                <p>模型太大装不下？两头圆滚滚没法立住？按下切割按钮，一刀两断，瞬间获得完美的平坦底面！</p>
+            </div>
+            
+            <div class="cut-demo">
+                <div class="viewport" id="cut-viewport">
+                    <div class="laser-line" id="laser-line"></div>
+                    <div class="capsule" id="capsule">
+                        <div class="cap-top"></div>
+                        <div class="cap-bottom"></div>
+                    </div>
+                </div>
+                
+                <div class="controls mt-4">
+                    <button class="btn-cut" id="btn-cut">⚡ 执行切割 (Cut)</button>
+                    <button class="btn-reset" id="btn-reset">🔄 复原</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="dowel" class="interactive-section bg-dark text-white">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第二重魔法：暗藏玄机的销钉 (Dowel) 🧩</h2>
+                <p>切平了怎么接回去？只要打个勾，电脑会自动挖孔并准备好小木桩，像搭乐高一样咔嚓锁死！</p>
+            </div>
+            
+            <div class="dowel-demo">
+                <div class="dowel-viewport">
+                    <div class="part part-left">
+                        <div class="cut-face">
+                            <div class="dowel-hole h1"></div>
+                            <div class="dowel-hole h2"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="dowel-pins">
+                        <div class="pin p1"></div>
+                        <div class="pin p2"></div>
+                    </div>
+                    
+                    <div class="part part-right">
+                        <div class="cut-face">
+                            <div class="dowel-hole h1"></div>
+                            <div class="dowel-hole h2"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <button class="btn-assemble" id="btn-assemble">🔧 销钉拼装演示</button>
+                    <p class="mt-3 hint-text"><strong>公差密码：</strong>软件默认的孔会比销钉大 0.15mm，这就是工程学中的“公差”，保证你能顺滑插入！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pitfalls" class="interactive-section bg-colorful">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-danger">🚨 工程师现场灾难演习 (避坑指南)</h2>
+            </div>
+            <div class="pitfall-grid">
+                <div class="p-card">
+                    <div class="p-emoji">🤏</div>
+                    <h4>灾难 1：销钉塞不进去，孔太小了</h4>
+                    <p class="desc"><strong>现场：</strong>打印完成后，无论怎么用力都塞不进，甚至把销钉掰断了。</p>
+                    <p class="solution"><strong>解药：</strong>遇到阻力绝不用蛮力！这是大象脚或者公差太小导致的。拿锉刀或砂纸打磨一下边缘，下次切片时把“公差”参数从 0.15 提高到 0.25！</p>
+                </div>
+                <div class="p-card border-green">
+                    <div class="p-emoji">🚁</div>
+                    <h4>灾难 2：切割后飞在空中，报错悬空</h4>
+                    <p class="desc"><strong>现场：</strong>切开后直接切片，结果上半身悬在半空中，底面没有挨着热床。</p>
+                    <p class="solution"><strong>解药：</strong>切割的最大目的就是获得平坦的底面！选中悬在空中的那半个身体，按下快捷键 <code>F</code>（放置面），点击你切出来的大平层面，让它死死贴在地上！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>

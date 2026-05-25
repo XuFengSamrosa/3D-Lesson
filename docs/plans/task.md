@@ -1,26 +1,16 @@
 | Status | Phase | Task |
-|--------|-------|------|
-| [x] | RED | Create pressure scenarios (3+ combined pressures) |
-| [x] | RED | Run scenarios WITHOUT skill - document baseline behavior verbatim |
-| [x] | RED | Identify patterns in rationalizations/failures |
-| [x] | GREEN | Name uses only letters, numbers, hyphens |
-| [x] | GREEN | YAML frontmatter with only name and description (max 1024 chars) |
-| [x] | GREEN | Description starts with "Use when..." and includes specific triggers/symptoms |
-| [x] | GREEN | Description written in third person |
-| [x] | GREEN | Keywords throughout for search (errors, symptoms, tools) |
-| [x] | GREEN | Clear overview with core principle |
-| [x] | GREEN | Address specific baseline failures identified in RED |
-| [x] | GREEN | Code inline OR link to separate file |
-| [x] | GREEN | One excellent example (not multi-language) |
-| [x] | GREEN | Run scenarios WITH skill - verify agents now comply |
-| [x] | REFACTOR | Identify NEW rationalizations from testing |
-| [x] | REFACTOR | Add explicit counters (if discipline skill) |
-| [x] | REFACTOR | Build rationalization table from all test iterations |
-| [x] | REFACTOR | Create red flags list |
-| [x] | REFACTOR | Re-test until bulletproof |
-| [x] | QUALITY | Small flowchart only if decision non-obvious |
-| [x] | QUALITY | Quick reference table |
-| [x] | QUALITY | Common mistakes section |
-| [x] | QUALITY | No narrative storytelling |
-| [x] | QUALITY | Supporting files only for tools or heavy reference |
-| [x] | DEPLOY | Commit skill to git and push to your fork |
+| :---: | :--- | :--- |
+| [x] | Phase 1: Implement Lessons 06-11 | Implement 3D presentation styles and custom.js/custom.css/index.html integration for Lesson 06 to 11 |
+| [x] | ↳ Task 1 | Implement Lesson 06 (桌面小管家) |
+| [x] | ↳ Task 2 | Implement Lesson 07 (迷你景观配件) |
+| [x] | ↳ Task 3 | Implement Lesson 08 (旋转陀螺大赛) |
+| [x] | ↳ Task 4 | Implement Lesson 09 (镂空灯罩设计) |
+| [x] | ↳ Task 5 | Implement Lesson 10 (关节可动小人) |
+| [x] | ↳ Task 6 | Implement Lesson 11 (创意手机支架) |
+| [x] | Phase 2: Implement Lessons 12-16 | Implement 3D presentation styles and custom.js/custom.css/index.html integration for Lesson 12 to 16 |
+| [x] | ↳ Task 7 | Implement Lesson 12 (拓竹A1大变身) |
+| [x] | ↳ Task 8 | Implement Lesson 13 (梦想社区规划) |
+| [x] | ↳ Task 9 | Implement Lesson 14 (梦想社区建模) |
+| [x] | ↳ Task 10 | Implement Lesson 15 (打印与组装) |
+| [x] | ↳ Task 11 | Implement Lesson 16 (作品发布会) |
+| [/] | Phase 3: Verification | Verify all pages in browser and run git tests |

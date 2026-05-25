@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第2课：我的名字徽章 - 魔法创客营 V1.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared_web/style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body class="theme-badge">
+    <nav class="navbar custom-nav">
+        <div class="logo">📛 姓名徽章</div>
+        <ul class="nav-links">
+            <li><a href="#boolean">阴阳雕刻</a></li>
+            <li><a href="#infill">骨架的秘密</a></li>
+            <li><a href="#pitfalls">避坑指南</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <div class="tag">Lesson 02</div>
+            <h1>阴阳雕刻与内部骨架</h1>
+            <p>告别“看客”身份，正式拿起数字刻刀！你将亲手设计你的第一枚 3D 专属名牌，并揭开 3D 打印内部“网格”的工程秘密。</p>
+        </div>
+        <div class="hero-bg-shapes">
+            <div class="block b1">M</div>
+            <div class="block b2">A</div>
+            <div class="block b3">K</div>
+        </div>
+    </header>
+
+    <section id="boolean" class="interactive-section bg-light">
+        <div class="container text-center">
+            <div class="section-header">
+                <h2>第一重魔法：阴阳雕刻 🎭</h2>
+                <p>是想用奶油把字挤出来（阳刻），还是想用刻刀把字挖进去（阴刻）？点击切换，见证负零件的神奇魔力！</p>
+            </div>
+            
+            <div class="nameplate-showcase">
+                <!-- Left: Intaglio / Subtraction -->
+                <div class="badge-item">
+                    <h3>➖ 阴刻 (负零件) / INTAGLIO</h3>
+                    <p class="desc">像一把隐形的刻刀，将文字或图案从底板中挖空。</p>
+                    <div class="badge-3d-wrapper">
+                        <div class="badge-3d intaglio">
+                            <!-- The grid infill at the very bottom of the hole -->
+                            <div class="infill-base" style="transform: translateZ(0px);"></div>
+                            
+                            <!-- The walls of the hole going DOWN (Hollow text layers) -->
+                            <div class="shape-3d dug-in">
+                                <div class="layer wall" style="transform: translateZ(39px);">★</div>
+                                <div class="layer wall" style="transform: translateZ(37px);">★</div>
+                                <div class="layer wall" style="transform: translateZ(35px);">★</div>
+                                <div class="layer wall" style="transform: translateZ(33px);">★</div>
+                                <div class="layer wall" style="transform: translateZ(31px);">★</div>
+                                <div class="layer wall" style="transform: translateZ(29px);">★</div>
+                                <div class="layer wall" style="transform: translateZ(27px);">★</div>
+                                <div class="layer wall" style="transform: translateZ(25px);">★</div>
+                                <div class="layer wall" style="transform: translateZ(23px);">★</div>
+                                <div class="layer wall" style="transform: translateZ(21px);">★</div>
+                                <div class="layer wall" style="transform: translateZ(19px);">★</div>
+                                <div class="layer wall" style="transform: translateZ(17px);">★</div>
+                                <div class="layer wall" style="transform: translateZ(15px);">★</div>
+                                <div class="layer wall" style="transform: translateZ(13px);">★</div>
+                                <div class="layer wall" style="transform: translateZ(11px);">★</div>
+                                <div class="layer wall" style="transform: translateZ(9px);">★</div>
+                                <div class="layer wall" style="transform: translateZ(7px);">★</div>
+                                <div class="layer wall" style="transform: translateZ(5px);">★</div>
+                                <div class="layer wall" style="transform: translateZ(3px);">★</div>
+                                <div class="layer wall" style="transform: translateZ(1px);">★</div>
+                            </div>
+
+                            <!-- The top face with an SVG hole -->
+                            <div class="face top holed">
+                                <svg width="160" height="160" viewBox="0 0 160 160">
+                                    <defs>
+                                        <mask id="star-hole">
+                                            <rect width="160" height="160" fill="white" />
+                                            <text x="50%" y="50%" dy="0.35em" text-anchor="middle" font-size="120" font-family="'Nunito', 'Inter', sans-serif" font-weight="900" fill="black">★</text>
+                                        </mask>
+                                    </defs>
+                                    <rect width="160" height="160" fill="#f1f2f6" mask="url(#star-hole)" />
+                                    <rect width="160" height="160" fill="none" stroke="#dcdde1" stroke-width="2" />
+                                </svg>
+                            </div>
+                            <div class="face front"></div>
+                            <div class="face right"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right: Relief / Addition -->
+                <div class="badge-item">
+                    <h3>➕ 阳刻 (普通零件) / RELIEF</h3>
+                    <p class="desc">像挤奶油一样，将新的文字或图案堆叠在底板表面。</p>
+                    <div class="badge-3d-wrapper">
+                        <div class="badge-3d relief">
+                            <div class="face top"></div>
+                            <div class="face front"></div>
+                            <div class="face right"></div>
+                            
+                            <!-- Raised layers for 3D extrusion effect -->
+                            <div class="shape-3d raised">
+                                <div class="layer shadow" style="transform: translateZ(40px) translate(4px, 4px);">★</div>
+                                <div class="layer" style="transform: translateZ(41px);">★</div>
+                                <div class="layer" style="transform: translateZ(42px);">★</div>
+                                <div class="layer" style="transform: translateZ(43px);">★</div>
+                                <div class="layer" style="transform: translateZ(44px);">★</div>
+                                <div class="layer" style="transform: translateZ(45px);">★</div>
+                                <div class="layer" style="transform: translateZ(46px);">★</div>
+                                <div class="layer" style="transform: translateZ(47px);">★</div>
+                                <div class="layer top-layer" style="transform: translateZ(48px);">★</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="mt-4 hint-text"><strong>工程视角：</strong>3D打印机在处理【阴刻】时，中空的区域会自动露出内部的网格骨架（填充）；而【阳刻】则是在原本平整的表面继续向上打印实体塑料块！</p>
+        </div>
+    </section>
+
+    <section id="infill" class="interactive-section bg-dark text-white">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>第二重魔法：大自然的骨架 (填充率) 🧽</h2>
+                <p>以为里面是实心的铁疙瘩？错！为了省材料又保证强度，我们会生成像鸟类骨骼一样的“网格骨架”。拖动滑块查看内部！</p>
+            </div>
+            
+            <div class="infill-demo">
+                <div class="infill-cube">
+                    <div class="cube-shell"></div>
+                    <div class="cube-infill" id="cube-infill"></div>
+                </div>
+                
+                <div class="infill-controls text-center mt-4">
+                    <input type="range" id="infill-slider" min="5" max="50" step="5" value="15" class="custom-slider w-100">
+                    <div class="progress-info mt-2">当前填充率 (Infill): <span id="infill-val" class="highlight">15</span>%</div>
+                    <p class="mt-2 text-muted">只需 15% 就能让模型坚不可摧，实心不仅浪费材料，打印时间还要翻倍！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pitfalls" class="interactive-section bg-colorful">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-danger">🚨 工程师现场灾难演习 (避坑指南)</h2>
+            </div>
+            <div class="pitfall-grid">
+                <div class="p-card">
+                    <div class="p-emoji">👻</div>
+                    <h4>灾难 1：负零件悬空，雕刻失败</h4>
+                    <p class="desc"><strong>现场：</strong>添加了负零件文字，切片后发现底板上什么痕迹都没有，没挖出字。</p>
+                    <p class="solution"><strong>解药：</strong>刻刀飘在天花板上怎么可能刻字？必须按住蓝色的 Z 轴箭头，把它往下按，深深地“扎进”底板里产生重叠交集！</p>
+                </div>
+                <div class="p-card border-red">
+                    <div class="p-emoji">🧶</div>
+                    <h4>灾难 2：文字脱落，打印成炒面</h4>
+                    <p class="desc"><strong>现场：</strong>底板打印完好，但上面的凸起文字全是一团团乱丝，一摸就掉。</p>
+                    <p class="solution"><strong>解药：</strong>打印机不能在空气中凭空吐丝！把你的文字往下移，让它的脚死死踩在底板的肩膀上（有交集），软件才会把它们当成一个整体！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="../../shared_web/script.js"></script>
+    <script src="custom.js"></script>
+</body>
+</html>
