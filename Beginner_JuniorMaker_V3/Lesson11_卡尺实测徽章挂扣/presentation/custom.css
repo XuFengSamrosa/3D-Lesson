@@ -343,3 +343,30 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--text-dark);
         box-shadow: inset 0 0 15px rgba(255, 204, 0, 0.5), 0 0 10px rgba(255, 204, 0, 0.3);
     }
 }
+
+/* 测量状态的滑动爪过渡 */
+.caliper.measuring .sliding-jaw {
+    transform: translate3d(25px, 2px, 0);
+    transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 插接测试装配干涉 (失败) 的红色发光指示器 */
+.fit-indicator.fail {
+    background: rgba(255, 59, 48, 0.95) !important;
+    box-shadow: 0 0 20px rgba(255, 59, 48, 0.9) !important;
+    opacity: 1 !important;
+}
+
+.fit-indicator.success {
+    background: rgba(52, 199, 89, 0.9) !important;
+    box-shadow: 0 0 20px rgba(52, 199, 89, 0.8) !important;
+    opacity: 1 !important;
+}
+
+/* 一体打印时，零间隙状态下的卡板发红 */
+.badge-holder.interference .holder-back .face,
+.badge-holder.interference .holder-front .face {
+    border-color: #ff3b30 !important;
+    box-shadow: inset 0 0 12px rgba(255, 59, 48, 0.4) !important;
+}
+

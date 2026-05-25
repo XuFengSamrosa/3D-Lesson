@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第11课：力学创意手机架 - 3D打印魔法创客营</title>
+    <title>第11课：卡尺实测徽章挂扣 - 3D打印魔法创客营</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="custom.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">魔法创客营 V1.0 (PRO版)</div>
+        <div class="logo">📐 卡尺实测徽章挂扣</div>
         <ul class="nav-links">
             <li><a href="#intro">课程目标</a></li>
             <li><a href="#process">3D建模魔法秀</a></li>
@@ -23,17 +23,17 @@
         <section id="intro" class="slide slide-dark">
             <div class="content">
                 <span class="badge">Lesson 11</span>
-                <h1 class="title">力学创意手机架</h1>
-                <p class="subtitle">黄金 60 度仰角与被熨斗拍平的底座悬空。</p>
+                <h1 class="title">卡尺实测徽章挂扣</h1>
+                <p class="subtitle">卡尺精准逆向测量，与插接卡扣插槽装配公差。</p>
                 
                 <div class="cards">
                     <div class="card glass">
                         <h3>核心目标</h3>
-                        <p>结合受力平衡，使用旋转工具倾斜背板，并利用面平放工具一键切平底部的悬空尖角。</p>
+                        <p>掌握高精度卡尺的实物逆向测量方法，理解并应用“插接/卡接”配合中的单边与双边装配公差。</p>
                     </div>
                     <div class="card glass">
                         <h3>讲师必备知识</h3>
-                        <p>重心防翻车：受力面不能超出底板，底板要足够长才能稳稳接住手机。<br>深度干涉：背板倾斜后，必须往下狠狠插入底盘内部，否则风一吹就断。</p>
+                        <p>零配合的悲剧：打印出的塑料表面有微观纹理与缩水。如果卡槽和徽章设计得一模一样宽，绝对挤不进去！<br>0.5mm 的装配黄金律：一般来说，FDM 打印的插接件，预留 0.5mm 的配合宽度，装配体验最严丝合缝。</p>
                     </div>
                 </div>
             </div>
@@ -60,6 +60,22 @@
                         <div class="desc" id="desc-2">设计城堡挂扣，将内部插槽厚度设为 4.5mm。预留 0.5mm 配合间隙，防止打印误差导致塞不进去！</div>
                         <div class="desc" id="desc-3">名字徽章从上方滑动插槽内，进行物理组装。</div>
                         <div class="desc" id="desc-4">挂扣安全锁死！卡合处亮起绿色合格光芒，代表装配无干涉，完美通过城堡防线测试！</div>
+                    </div>
+
+                    <!-- 交互式卡尺测量与配合间隙面板 -->
+                    <div class="interactive-panel" id="caliper-panel" style="display:none; margin-top:20px; background:rgba(0,0,0,0.05); padding:20px; border-radius:12px; border:1px solid rgba(0,0,0,0.1);">
+                        <div style="margin-bottom:15px; display:flex; gap:10px;">
+                            <button id="measure-btn" style="flex:1; background:#2997ff; color:white; border:none; padding:10px; border-radius:8px; font-weight:700; cursor:pointer; outline:none;">📏 游标卡尺测量</button>
+                            <button id="assemble-btn" style="flex:1; background:#34c759; color:white; border:none; padding:10px; border-radius:8px; font-weight:700; cursor:pointer; outline:none;">🔌 执行插接测试</button>
+                        </div>
+                        <div style="margin-bottom:15px;">
+                            <label style="font-weight:600; color:#1d1d1f; display:block; margin-bottom:10px;">⚙️ 设计卡槽宽度 (挂扣插槽):</label>
+                            <div style="display:flex; gap:10px;">
+                                <button class="gap-btn" data-gap="0.0" style="flex:1; padding:8px; border:1px solid #ddd; background:white; border-radius:8px; font-weight:700; cursor:pointer; outline:none;">4.0mm (零间隙)</button>
+                                <button class="gap-btn active" data-gap="0.5" style="flex:1; padding:8px; border:1px solid #2997ff; background:#2997ff; color:white; border-radius:8px; font-weight:700; cursor:pointer; outline:none;">4.5mm (0.5mm 间隙)</button>
+                            </div>
+                        </div>
+                        <p id="caliper-feedback" style="margin-top:10px; font-size:0.9rem; font-weight:700; color:#2997ff;">💡 请先点击“游标卡尺测量”以夹紧名字徽章。</p>
                     </div>
                 </div>
                 
@@ -123,23 +139,22 @@
         <!-- Slide 3: Tools -->
         <section id="tools" class="slide slide-dark">
             <div class="content">
-                <h2>魔法兵器谱（软件基础）</h2>
+                <h2>魔法兵器谱（测量与配合工具）</h2>
                 <div class="tools-grid">
                     <div class="tool-item glass">
-            <div class="icon">📐</div>
-            <h3>完美60度旋钮</h3>
-            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
-            <p>在参数栏精确输入角度。</p>
-            <p class="teacher-talk">🗣️ "不要凭感觉瞎转！找到那个让脖子最舒服的 60度 黄金仰角。"</p>
-        </div>
-<div class="tool-item glass">
-            <div class="icon">🧲</div>
-            <h3>大熨斗 (面平放)</h3>
-            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
-            <p>点击底面自动拍平贴紧热床。</p>
-            <p class="teacher-talk">🗣️ "零件倾斜后底座翘起来了？拿大熨斗把它死死拍平在地上！"</p>
-        </div>
-
+                        <div class="icon">📏</div>
+                        <h3>高精度数显卡尺</h3>
+                        <div class="image-placeholder">[预留位置：请在此插入卡尺测量的真实软件截图]</div>
+                        <p>夹紧实物以获取精确的外形几何厚度参数。</p>
+                        <p class="teacher-talk">🗣️ "拉开卡尺夹紧徽章，读取数显屏幕上的数字，精度卡在 0.1mm 以内！"</p>
+                    </div>
+                    <div class="tool-item glass">
+                        <div class="icon">🔌</div>
+                        <h3>配合拉伸切除</h3>
+                        <div class="image-placeholder">[预留位置：请在此插入挂槽负零件拉伸的软件截图]</div>
+                        <p>在配合同伴零件的地方，拉伸出一个大 0.5mm 的空气容纳卡槽。</p>
+                        <p class="teacher-talk">🗣️ "给被插的地方多留一丢丢呼吸的空气缝隙，装配时才会咔嗒一声顺滑入位！"</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -150,20 +165,19 @@
                 <h2>实验室警报预案</h2>
                 <div class="timeline">
                     <div class="timeline-item">
-            <div class="dot red"></div>
-            <div class="timeline-content glass-dark">
-                <h3>🚨 点错底面底朝天</h3>
-                <p>用大熨斗点到了斜着的背板，结果底盘撅到了天上。<br>应对：撤销！一定要把视角转到正下方，准确点击真正的底盘。</p>
-            </div>
-        </div>
-<div class="timeline-item">
-            <div class="dot yellow"></div>
-            <div class="timeline-content glass-dark">
-                <h3>🚨 挡板太矮手机滑雪</h3>
-                <p>忘了前面要做挡板，手机放上去哧溜滑倒。<br>应对：在最前面加个高高的小方块拦住它！</p>
-            </div>
-        </div>
-
+                        <div class="dot red"></div>
+                        <div class="timeline-content glass-dark">
+                            <h3>🚨 卡槽过窄焊死进不去</h3>
+                            <p>忘记在挂扣中预留公差，导致名字徽章无论如何也挤不进槽里。<br>应对：回到软件中，将那个负责切出空槽的负零件加宽 0.5mm 重新切除！</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="dot orange"></div>
+                        <div class="timeline-content glass-dark">
+                            <h3>🚨 卡槽过大风吹即散</h3>
+                            <p>公差预留过度（达到 1.0mm 以上），导致打印出来的徽章在挂扣里前后左右摇晃，极易脱落。<br>应对：修改配合公差，将单边配合余量严格锁死在 0.25mm（双边 0.5mm）。</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
