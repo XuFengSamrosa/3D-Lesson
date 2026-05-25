@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第06课：城堡守卫哨所收纳底座 - 3D打印魔法创客营</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>第06课：城堡守卫哨所 - 3D打印魔法创客营</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="custom.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">🏰 城堡守卫哨所</div>
+        <div class="logo">🏰 城堡守卫前哨战术沙盘</div>
         <ul class="nav-links">
-            <li><a href="#intro">课程目标</a></li>
-            <li><a href="#process">3D建模魔法秀</a></li>
-            <li><a href="#tools">魔法兵器谱</a></li>
-            <li><a href="#pitfalls">实验室警报预案</a></li>
+            <li><a href="#intro">防线战略</a></li>
+            <li><a href="#process">全息沙盘</a></li>
+            <li><a href="#tools">战术兵器</a></li>
+            <li><a href="#pitfalls">城防预案</a></li>
         </ul>
     </nav>
 
@@ -23,51 +23,62 @@
         <section id="intro" class="slide slide-dark">
             <div class="content">
                 <span class="badge">Lesson 06</span>
-                <h1 class="title">城堡守卫哨所收纳底座</h1>
-                <p class="subtitle">掏空哨所巨石，打造城防前哨百宝箱。</p>
+                <h1 class="title">第06课：城堡守卫哨所</h1>
+                <p class="subtitle">大门凹槽开凿与城堡基座承重分析。</p>
                 
                 <div class="cards">
                     <div class="card glass">
                         <h3>核心目标</h3>
-                        <p>综合运用基础形状和负零件，深刻理解“壁厚”与“底厚”的概念，为城堡搭建守护哨所。</p>
+                        <p>学习如何在城堡高塔下方开凿拱门通道以卡接城防城墙，掌握插接配合尺寸与装配间隙，确保哨所底盘不被切穿断裂。</p>
                     </div>
                     <div class="card glass">
                         <h3>讲师必备知识</h3>
-                        <p>城堡壁厚：哨所外墙若小于 2mm 会被强风吹垮，必须保留安全壁厚！<br>大门门槛：门洞负零件不能挖穿底板，需要抬高 3mm 留出哨所的结实地板！</p>
+                        <p>凹槽防断裂：门洞切削高度和宽度若失去控制，会彻底切断塔基板，导致拼装时高塔当场解体。分层切片逻辑：3D 打印是逐层堆积的魔法，通过扫描层高展现各截面的 2D 几何边缘，让学生秒懂切片分层机理。</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 2: The Process (3D CSS Demo) -->
+        <!-- Slide 2: Holographic Sandbox -->
         <section id="process" class="slide slide-light">
             <div class="content process-content">
                 <div class="text-side">
-                    <h2>三维魔术解析</h2>
-                    <p>给孩子们看成品之前，先用这套步骤演示魔法是怎么变出来的。</p>
+                    <h2>全息防御塔控制台</h2>
+                    <p>拖动大门滑块切削哨所底座；拉动切片高度扫描仪，在右侧实时生成 2D 打印切片投影图。</p>
                     
-                    <div class="step-controls">
-                        <button class="step-btn active" data-step="0">0. 初始化</button>
-                        <button class="step-btn" data-step="1">1. 召唤实心巨石</button>
-                        <button class="step-btn" data-step="2">2. 植入拱门负零件</button>
-                        <button class="step-btn" data-step="3">3. 守护图腾与防漏底</button>
-                        <button class="step-btn" data-step="4">4. 布尔掏空大门</button>
+                    <div class="parameter-panel">
+                        <!-- 大门切割高度 -->
+                        <div class="control-group">
+                            <div class="label-row">
+                                <span class="param-label">🚪 拱门切削高度 (Gate Height):</span>
+                                <span class="param-value"><strong id="gate-height-val">35</strong> mm</span>
+                            </div>
+                            <input type="range" id="gate-height-slider" min="0" max="60" step="1" value="35" class="custom-slider">
+                        </div>
 
+                        <!-- 大门宽度 -->
+                        <div class="control-group">
+                            <div class="label-row">
+                                <span class="param-label">↔️ 拱门开口宽度 (Gate Width):</span>
+                                <span class="param-value"><strong id="gate-width-val">30</strong> mm</span>
+                            </div>
+                            <input type="range" id="gate-width-slider" min="10" max="55" step="1" value="30" class="custom-slider">
+                        </div>
+
+                        <!-- 切片高度扫描 -->
+                        <div class="control-group" style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 15px;">
+                            <div class="label-row">
+                                <span class="param-label" style="color: #34c759;">⚡ 切片高度扫描仪 (Slice Scan):</span>
+                                <span class="param-value" style="color: #34c759;"><strong id="scan-val">0</strong> mm</span>
+                            </div>
+                            <input type="range" id="scan-slider" min="0" max="80" step="1" value="0" class="custom-slider-green">
+                        </div>
                     </div>
 
-                    <div class="step-descriptions">
-                        <div class="desc show" id="desc-0">开始防卫哨所的铸造。</div>
-                        <div class="desc" id="desc-1">召唤一块 60x60x80mm 的实心花岗岩立方体作为哨所外壳。</div>
-                        <div class="desc" id="desc-2">添加一个 40x40x50mm 的红色半透明门洞负零件，置于底部前侧。</div>
-                        <div class="desc" id="desc-3">将门洞负零件向上抬高 3mm 留出底板，并在侧面雕刻上阴刻“守护图腾”字样。</div>
-                        <div class="desc" id="desc-4">切片！负零件切削出拱门通道，哨所内部成功掏空，成为能够收纳武器卡接的城堡哨所底座！</div>
-                    </div>
-
-                    <!-- 交互式底厚调节面板 -->
-                    <div class="interactive-panel" id="floor-panel" style="display:none; margin-top:20px; background:rgba(0,0,0,0.05); padding:20px; border-radius:12px; border:1px solid rgba(0,0,0,0.1);">
-                        <label style="font-weight:600; color:#1d1d1f; display:block; margin-bottom:10px;">🛠️ 实时底厚调节: <span id="floor-val" style="color:#2997ff; font-weight:800;">3.0</span> mm</label>
-                        <input type="range" id="floor-slider" min="0" max="6" step="0.5" value="3.0" style="width:100%; height:8px; border-radius:4px; background:#ddd; outline:none; -webkit-appearance:none; cursor:pointer;">
-                        <p id="floor-feedback" style="margin-top:10px; font-size:0.9rem; font-weight:700; color:#34c759;">✅ 安全底厚：3.0mm（合格）</p>
+                    <!-- 战略评估 -->
+                    <div class="feedback-box">
+                        <h4>📋 战术承重评估:</h4>
+                        <p id="tactical-feedback" class="status-pass">✅ 凹槽开凿参数合格，哨所基板卡接口承载强度 100%！</p>
                     </div>
                 </div>
                 
@@ -76,9 +87,10 @@
                         <div class="axis x-axis">X</div>
                         <div class="axis y-axis">Y</div>
                         <div class="axis z-axis">Z</div>
-                        <div class="grid-floor"></div>
-                        <!-- 哨所主体 60x60x80px -->
-                        <div class="part outpost">
+                        <div class="grid-floor hologram-grid"></div>
+                        
+                        <!-- 3D 全息哨所主体 (60x60x80px 变量驱动) -->
+                        <div class="part holo-outpost">
                             <div class="face front"></div>
                             <div class="face back"></div>
                             <div class="face left"></div>
@@ -87,8 +99,8 @@
                             <div class="face bottom"></div>
                         </div>
                         
-                        <!-- 红色拱门负零件 40x40x50px -->
-                        <div class="part negative-gate">
+                        <!-- 红色全息拱门负零件 -->
+                        <div class="part holo-gate">
                             <div class="face front"></div>
                             <div class="face back"></div>
                             <div class="face left"></div>
@@ -96,6 +108,18 @@
                             <div class="face top"></div>
                             <div class="face bottom"></div>
                         </div>
+
+                        <!-- 激光水平扫描线面 -->
+                        <div class="part scan-laser-line">
+                            <div class="laser-plate"></div>
+                        </div>
+                    </div>
+
+                    <!-- 右侧切片 2D 投影预览悬浮窗 -->
+                    <div class="slicing-preview-window">
+                        <h5>2D 切片投影 (Layer 2D)</h5>
+                        <canvas id="slice-canvas" width="120" height="120"></canvas>
+                        <p id="slice-desc">当前高度: 0mm<br>截面: 实心底板</p>
                     </div>
                 </div>
             </div>
@@ -104,23 +128,22 @@
         <!-- Slide 3: Tools -->
         <section id="tools" class="slide slide-dark">
             <div class="content">
-                <h2>魔法兵器谱（软件基础）</h2>
+                <h2>战术兵器谱（设计工具）</h2>
                 <div class="tools-grid">
                     <div class="tool-item glass">
-            <div class="icon">📐</div>
-            <h3>绝对数值面板</h3>
-            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
-            <p>在右下角输入精确的毫米数字。</p>
-            <p class="teacher-talk">🗣️ "今天我们要造的是城堡防线，差一毫米栏杆和高塔就无法插接合体！"</p>
-        </div>
-<div class="tool-item glass">
-            <div class="icon">🔍</div>
-            <h3>X光切片透视</h3>
-            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
-            <p>切片后拉动右侧垂直滑块。</p>
-            <p class="teacher-talk">🗣️ "一定要拉下透视仪看一眼底板，如果能直接透视到打印网格底板，你的高塔就漏底了！"</p>
-        </div>
-
+                        <div class="icon">🚪</div>
+                        <h3>卡接凹槽（大门负零件）</h3>
+                        <div class="image-placeholder">[预留位置：请在此插入软件局部凹槽切削的真实截图]</div>
+                        <p>通过添加立方体负零件开凿门洞卡口，作为城防城墙的插接口。必须留出合理的间隙（公差）以防尺寸过大卡不进去。</p>
+                        <p class="teacher-talk">🗣️ "大门是城墙的依靠，算错了大门的尺寸，城防部队的兄弟可就没法把城墙接进来了！"</p>
+                    </div>
+                    <div class="tool-item glass">
+                        <div class="icon">⚡</div>
+                        <h3>分层切片渲染器</h3>
+                        <div class="image-placeholder">[预留位置：请在此插入切片软件层高预览的真实截图]</div>
+                        <p>将 3D 模型划分为数千个超薄的 2D 塑料熔融图层。利用层高扫描仪，我们可以直观地检查出喷嘴每一步需要绘制出的图形路径。</p>
+                        <p class="teacher-talk">🗣️ "3D 打印就是把大城堡切成一万张煎饼，然后把煎饼一层层叠起来的几何学！"</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -128,23 +151,22 @@
         <!-- Slide 4: Pitfalls -->
         <section id="pitfalls" class="slide slide-light">
             <div class="content">
-                <h2>实验室警报预案</h2>
+                <h2>城防灾难预案</h2>
                 <div class="timeline">
                     <div class="timeline-item">
-            <div class="dot red"></div>
-            <div class="timeline-content glass-dark">
-                <h3>🚨 漏水的无底洞</h3>
-                <p>负零件直接贴到了Z=0的地面。<br>应对：把里面的负零件往上抬高 3mm，给塔楼留一层结实的地板！</p>
-            </div>
-        </div>
-<div class="timeline-item">
-            <div class="dot yellow"></div>
-            <div class="timeline-content glass-dark">
-                <h3>🚨 一碰就碎的纸盒</h3>
-                <p>里面掏空得太狠，边框只剩下一丝丝肉。<br>应对：缩减挖空负零件的横向尺寸，给塔楼四周都留下大于 2mm 的安全壁厚！</p>
-            </div>
-        </div>
-
+                        <div class="dot red"></div>
+                        <div class="timeline-content glass-dark">
+                            <h3>🚨 塔楼腰斩（基座物理断裂）</h3>
+                            <p>大门负零件的开凿高度直接顶到了高塔内部，或者门宽等于外框宽度，使得哨所承重为 0，高塔在底座断开塌毁。<br>应对：在对象树中严格调节大门负零件的 Z 高度，在顶部或底部保留 3mm 以上的承重墙！</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="dot orange"></div>
+                        <div class="timeline-content glass-dark">
+                            <h3>🚨 卡槽偏斜（城墙无法插接）</h3>
+                            <p>手抖拖动导致大门偏向一侧，甚至偏移出高塔外。卡口错位将使得城墙无法滑入拼装线。<br>应对：必须右键选择“添加负零件”来保持绝对的中心对齐约束！</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
