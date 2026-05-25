@@ -13,4 +13,4 @@
 | [x] | ↳ Task 9 | Implement Lesson 14 (梦想社区建模) |
 | [x] | ↳ Task 10 | Implement Lesson 15 (打印与组装) |
 | [x] | ↳ Task 11 | Implement Lesson 16 (作品发布会) |
-| [/] | Phase 3: Verification | Verify all pages in browser and run git tests |
+| [x] | Phase 3: Verification | Verify all pages in browser and run git tests |
