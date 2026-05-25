@@ -28,5 +28,13 @@
 | [x] | ↳ Task 11 | Implement personalized presentation for Lesson 15 |
 | [x] | ↳ Task 12 | Implement personalized presentation for Lesson 16 |
 | [x] | ↳ Task 13 | Perform automated verification, cleanup and push changes to remote repository |
+| [x] | Phase 5: Redesign Lesson 06 (V1 & V3) | Redesign V1 and V3 Lesson 06 with unique presentation styles |
+| [x] | ↳ Task 1 | Redesign index.html for V1 Lesson 06 |
+| [x] | ↳ Task 2 | Redesign custom.css for V1 Lesson 06 |
+| [x] | ↳ Task 3 | Redesign custom.js for V1 Lesson 06 |
+| [x] | ↳ Task 4 | Redesign index.html for V3 Lesson 06 |
+| [x] | ↳ Task 5 | Redesign custom.css for V3 Lesson 06 |
+| [x] | ↳ Task 6 | Redesign custom.js for V3 Lesson 06 |
+| [x] | ↳ Task 7 | Perform final verification and cleanup |
 
 
