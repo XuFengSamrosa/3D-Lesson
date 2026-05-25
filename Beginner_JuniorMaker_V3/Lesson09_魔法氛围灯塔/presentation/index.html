@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第09课：花纹镂空灯罩 - 3D打印魔法创客营</title>
+    <title>第09课：魔法氛围灯塔 - 3D打印魔法创客营</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="custom.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">魔法创客营 V1.0 (PRO版)</div>
+        <div class="logo">🕯️ 魔法氛围灯塔</div>
         <ul class="nav-links">
             <li><a href="#intro">课程目标</a></li>
             <li><a href="#process">3D建模魔法秀</a></li>
@@ -23,8 +23,8 @@
         <section id="intro" class="slide slide-dark">
             <div class="content">
                 <span class="badge">Lesson 09</span>
-                <h1 class="title">花纹镂空灯罩</h1>
-                <p class="subtitle">极坐标旋转阵列的魔法，与无需支撑的菱形奥秘。</p>
+                <h1 class="title">魔法氛围灯塔</h1>
+                <p class="subtitle">极坐标旋转阵列的魔法，与无需支撑的自支撑悬空孔洞。</p>
                 
                 <div class="cards">
                     <div class="card glass">
@@ -59,7 +59,21 @@
                         <div class="desc" id="desc-1">在哨所上方设计一个中空圆柱灯罩，为核心光源提供容纳外壳。</div>
                         <div class="desc" id="desc-2">在侧面贴合一个红色发光的菱形负零件切刀。菱形开孔具有45°天然自支撑，无需打印任何支撑材料！</div>
                         <div class="desc" id="desc-3">将切刀与灯罩中心轴线绑定，以45°为增量，向八个方向进行环形阵列复制。</div>
-                        <div class="desc" id="desc-4">切刀隐去，布尔求差完成！灯罩表面呈现8个完美的菱形镂空，倒扣在哨所顶端，释放出旋转的防卫圣光！</div>
+                        <div class="desc" id="desc-4">切刀隐去，布尔求差完成！灯罩表面呈现出完美的菱形镂空，倒扣在哨所顶端，释放出旋转的防卫圣光！</div>
+                    </div>
+
+                    <!-- 交互式极坐标阵列调节面板 -->
+                    <div class="interactive-panel" id="array-panel" style="display:none; margin-top:20px; background:rgba(0,0,0,0.05); padding:20px; border-radius:12px; border:1px solid rgba(0,0,0,0.1);">
+                        <div style="margin-bottom:15px;">
+                            <label style="font-weight:600; color:#1d1d1f; display:block; margin-bottom:10px;">🕒 极坐标旋转阵列间隔角度:</label>
+                            <div style="display:flex; gap:10px;">
+                                <button class="angle-btn" data-angle="90" style="flex:1; padding:8px; border:1px solid #ddd; background:white; border-radius:8px; font-weight:700; cursor:pointer; outline:none;">90° (4孔)</button>
+                                <button class="angle-btn active" data-angle="45" style="flex:1; padding:8px; border:1px solid #2997ff; background:#2997ff; color:white; border-radius:8px; font-weight:700; cursor:pointer; outline:none;">45° (8孔)</button>
+                                <button class="angle-btn" data-angle="30" style="flex:1; padding:8px; border:1px solid #ddd; background:white; border-radius:8px; font-weight:700; cursor:pointer; outline:none;">30° (12孔)</button>
+                            </div>
+                        </div>
+                        <button id="cut-btn" style="background:#34c759; color:white; border:none; padding:10px 15px; border-radius:8px; font-weight:700; cursor:pointer; width:100%; outline:none;">💡 执行布尔镂空切割</button>
+                        <p id="array-feedback" style="margin-top:10px; font-size:0.9rem; font-weight:700; color:#34c759;">✅ 极坐标 45° 角度吸附就绪，共将阵列出 8 个菱形孔洞</p>
                     </div>
                 </div>
                 
@@ -82,6 +96,7 @@
 
                         <!-- 塔罩外壳 (8面圆柱) -->
                         <div class="part beacon-shell">
+                            <div class="beacon-light"></div>
                             <div class="face w1"></div>
                             <div class="face w2"></div>
                             <div class="face w3"></div>
