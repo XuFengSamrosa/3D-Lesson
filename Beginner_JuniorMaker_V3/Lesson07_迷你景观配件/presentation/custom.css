@@ -1,0 +1,162 @@
+/* custom.css for V3 Lesson 07 (防卫城墙围栏) */
+
+/* 3D 容器 */
+.part {
+    width: 0;
+    height: 0;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+.part .face {
+    position: absolute;
+    transition: all 0.8s ease;
+    background: rgba(142, 142, 147, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* --- 两侧半透明高塔哨所作为组装背景 --- */
+.gate-tower {
+    transform: translate3d(0, 0, 40px);
+}
+.gt1 { transform: translate3d(-60px, 0, 40px); }
+.gt2 { transform: translate3d(60px, 0, 40px); }
+
+.gate-tower .face {
+    background: rgba(140, 140, 145, 0.15) !important;
+    border: 1px dashed rgba(255, 255, 255, 0.25) !important;
+    box-shadow: none !important;
+}
+.gate-tower .face.front  { width: 60px; height: 80px; left: -30px; top: -40px; transform: rotateX(-90deg) translateZ(30px); }
+.gate-tower .face.back   { width: 60px; height: 80px; left: -30px; top: -40px; transform: rotateX(90deg) translateZ(30px); }
+.gate-tower .face.left   { width: 60px; height: 80px; left: -30px; top: -40px; transform: rotateY(-90deg) translateZ(30px); }
+.gate-tower .face.right  { width: 60px; height: 80px; left: -30px; top: -40px; transform: rotateY(90deg) translateZ(30px); }
+.gate-tower .face.top    { width: 60px; height: 60px; left: -30px; top: -30px; transform: rotateX(0deg) translateZ(40px); }
+.gate-tower .face.bottom { width: 60px; height: 60px; left: -30px; top: -30px; transform: rotateX(180deg) translateZ(40px); }
+
+
+/* --- 4 根城墙立柱 (8x8x40px 3D 盒子) --- */
+.fence {
+    /* 默认堆叠在第一根的位置 */
+    transform: translate3d(-30px, 0, 20px);
+}
+
+.fence .face {
+    background: linear-gradient(#808085, #909095);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.fence .face.front  { width: 8px; height: 40px; left: -4px; top: -20px; transform: rotateX(-90deg) translateZ(4px); }
+.fence .face.back   { width: 8px; height: 40px; left: -4px; top: -20px; transform: rotateX(90deg) translateZ(4px); }
+.fence .face.left   { width: 8px; height: 40px; left: -4px; top: -20px; transform: rotateY(-90deg) translateZ(4px); }
+.fence .face.right  { width: 8px; height: 40px; left: -4px; top: -20px; transform: rotateY(90deg) translateZ(4px); }
+.fence .face.top    { width: 8px; height: 8px; left: -4px; top: -4px; transform: rotateX(0deg) translateZ(20px); }
+.fence .face.bottom { width: 8px; height: 8px; left: -4px; top: -4px; transform: rotateX(180deg) translateZ(20px); }
+
+
+/* --- 悬空上横梁 (90x8x8px 3D 盒子) --- */
+.beam {
+    /* 默认悬在天上 */
+    transform: translate3d(0, 0, 150px);
+}
+
+.beam .face {
+    background: linear-gradient(90deg, #606065, #707075);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+.beam .face.front  { width: 90px; height: 8px; left: -45px; top: -4px; transform: rotateX(-90deg) translateZ(4px); }
+.beam .face.back   { width: 90px; height: 8px; left: -45px; top: -4px; transform: rotateX(90deg) translateZ(4px); }
+.beam .face.left   { width: 8px; height: 8px; left: -4px; top: -4px; transform: rotateY(-90deg) translateZ(45px); }
+.beam .face.right  { width: 8px; height: 8px; left: -4px; top: -4px; transform: rotateY(90deg) translateZ(45px); }
+.beam .face.top    { width: 90px; height: 8px; left: -45px; top: -4px; transform: rotateX(0deg) translateZ(4px); }
+.beam .face.bottom { width: 90px; height: 8px; left: -45px; top: -4px; transform: rotateX(180deg) translateZ(4px); }
+
+
+/* --- 树形支撑 (12x8x40px 3D 白色盒子) --- */
+.tree-support {
+    transform: translate3d(0, 0, 20px) scale(0.1);
+}
+
+.tree-support .face {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px dashed rgba(255, 255, 255, 0.8);
+}
+.tree-support .face.front  { width: 12px; height: 40px; left: -6px; top: -20px; transform: rotateX(-90deg) translateZ(4px); }
+.tree-support .face.back   { width: 12px; height: 40px; left: -6px; top: -20px; transform: rotateX(90deg) translateZ(4px); }
+.tree-support .face.left   { width: 8px; height: 40px; left: -4px; top: -20px; transform: rotateY(-90deg) translateZ(6px); }
+.tree-support .face.right  { width: 8px; height: 40px; left: -4px; top: -20px; transform: rotateY(90deg) translateZ(6px); }
+.tree-support .face.top    { width: 12px; height: 8px; left: -6px; top: -4px; transform: rotateX(0deg) translateZ(20px); }
+.tree-support .face.bottom { width: 12px; height: 8px; left: -6px; top: -4px; transform: rotateX(180deg) translateZ(20px); }
+
+
+/* --- 步骤过渡动画控制 --- */
+
+/* 步骤 0: 初始化 */
+.visual-side:not([class*="step-"]) .part,
+.visual-side.step-0 .part {
+    opacity: 0;
+}
+
+/* 步骤 1: 建立单根城防栏 (背景和第一根栏杆显现) */
+.visual-side.step-1 .gate-tower {
+    opacity: 1;
+}
+.visual-side.step-1 .fence.f1 {
+    opacity: 1;
+    transform: translate3d(-30px, 0, 20px); /* 保持在左侧 */
+}
+
+/* 步骤 2: 阵列铺满通道 (四个立柱在 transition 下拉开，形成等距) */
+.visual-side.step-2 .gate-tower {
+    opacity: 1;
+}
+.visual-side.step-2 .fence {
+    opacity: 1;
+}
+.visual-side.step-2 .fence.f1 { transform: translate3d(-30px, 0, 20px); }
+.visual-side.step-2 .fence.f2 { transform: translate3d(-10px, 0, 20px); }
+.visual-side.step-2 .fence.f3 { transform: translate3d(10px, 0, 20px); }
+.visual-side.step-2 .fence.f4 { transform: translate3d(30px, 0, 20px); }
+
+/* 步骤 3: 跨空架设上横梁 (横梁降落，并在 X=0 空隙处生成白色树状支撑托举) */
+.visual-side.step-3 .gate-tower,
+.visual-side.step-3 .fence {
+    opacity: 1;
+}
+.visual-side.step-3 .fence.f1 { transform: translate3d(-30px, 0, 20px); }
+.visual-side.step-3 .fence.f2 { transform: translate3d(-10px, 0, 20px); }
+.visual-side.step-3 .fence.f3 { transform: translate3d(10px, 0, 20px); }
+.visual-side.step-3 .fence.f4 { transform: translate3d(30px, 0, 20px); }
+.visual-side.step-3 .beam {
+    opacity: 1;
+    transform: translate3d(0, 0, 44px); /* 准确降落在大梁高程 */
+}
+.visual-side.step-3 .tree-support {
+    opacity: 1;
+    transform: translate3d(0, 0, 20px) scale(1);
+}
+
+/* 步骤 4: 支撑剥除大拼接 (支撑隐去，横梁卡接合体成功，大梁呈现拼合高亮) */
+.visual-side.step-4 .gate-tower,
+.visual-side.step-4 .fence,
+.visual-side.step-4 .beam {
+    opacity: 1;
+}
+.visual-side.step-4 .fence.f1 { transform: translate3d(-30px, 0, 20px); }
+.visual-side.step-4 .fence.f2 { transform: translate3d(-10px, 0, 20px); }
+.visual-side.step-4 .fence.f3 { transform: translate3d(10px, 0, 20px); }
+.visual-side.step-4 .fence.f4 { transform: translate3d(30px, 0, 20px); }
+.visual-side.step-4 .beam {
+    transform: translate3d(0, 0, 44px);
+}
+.visual-side.step-4 .tree-support {
+    opacity: 0;
+    transform: translate3d(0, 0, 20px) scale(0.1); /* 隐去 */
+}
+/* 卡接件变绿发光边缘表示拼接成功 */
+.visual-side.step-4 .beam .face,
+.visual-side.step-4 .fence .face {
+    border-color: #34c759;
+    box-shadow: inset 0 0 10px rgba(52, 199, 89, 0.3), 0 0 8px rgba(52, 199, 89, 0.2);
+}

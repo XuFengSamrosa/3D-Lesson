@@ -1,0 +1,148 @@
+/* custom.css for V3 Lesson 06 (城堡守卫哨所) */
+
+/* 三维容器配置 */
+.part {
+    width: 0;
+    height: 0;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+.part .face {
+    position: absolute;
+    transition: all 0.8s ease;
+    background: rgba(142, 142, 147, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* --- 城堡哨所本体 60x60x80px --- */
+.outpost {
+    transform: translate3d(0, 0, 40px); /* 居中立于地面 */
+}
+
+/* 哨所外墙采用灰色城堡石砖质感 */
+.outpost .face {
+    background: linear-gradient(rgba(100, 100, 105, 0.9), rgba(120, 120, 125, 0.9));
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.outpost .face.front  { 
+    width: 60px; 
+    height: 80px; 
+    left: -30px; 
+    top: -40px; 
+    transform: rotateX(-90deg) translateZ(30px); 
+}
+.outpost .face.back   { width: 60px; height: 80px; left: -30px; top: -40px; transform: rotateX(90deg) translateZ(30px); }
+.outpost .face.left   { width: 60px; height: 80px; left: -30px; top: -40px; transform: rotateY(-90deg) translateZ(30px); }
+.outpost .face.right  { width: 60px; height: 80px; left: -30px; top: -40px; transform: rotateY(90deg) translateZ(30px); }
+.outpost .face.top    { 
+    width: 60px; 
+    height: 60px; 
+    left: -30px; 
+    top: -30px; 
+    transform: rotateX(0deg) translateZ(40px);
+    background: #4a4a52;
+    /* 哨所顶部的圆坑蓄能盘 (温故知新：为第8课对齐打底) */
+    background-image: radial-gradient(circle, rgba(0, 122, 255, 0.2) 50%, #4a4a52 52%);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+}
+.outpost .face.bottom { width: 60px; height: 60px; left: -30px; top: -30px; transform: rotateX(180deg) translateZ(40px); }
+
+
+/* --- 拱门负零件 40x40x50px --- */
+.negative-gate {
+    transform: translate3d(0, -20px, 150px); /* 默认在高空 */
+}
+
+.negative-gate .face {
+    background: rgba(255, 59, 48, 0.7); /* 红色半透明全息 */
+    border: 1px solid rgba(255, 59, 48, 0.9);
+    box-shadow: inset 0 0 10px rgba(255, 59, 48, 0.4), 0 0 8px rgba(255, 59, 48, 0.3);
+}
+
+.negative-gate .face.front  { width: 40px; height: 50px; left: -20px; top: -25px; transform: rotateX(-90deg) translateZ(20px); }
+.negative-gate .face.back   { width: 40px; height: 50px; left: -20px; top: -25px; transform: rotateX(90deg) translateZ(20px); }
+.negative-gate .face.left   { width: 40px; height: 50px; left: -20px; top: -25px; transform: rotateY(-90deg) translateZ(20px); }
+.negative-gate .face.right  { width: 40px; height: 50px; left: -20px; top: -25px; transform: rotateY(90deg) translateZ(20px); }
+.negative-gate .face.top    { width: 40px; height: 40px; left: -20px; top: -20px; transform: rotateX(0deg) translateZ(25px); }
+.negative-gate .face.bottom { width: 40px; height: 40px; left: -20px; top: -20px; transform: rotateX(180deg) translateZ(25px); }
+
+
+/* --- 步骤切换样式控制 --- */
+
+/* 步骤 0: 初始化 */
+.visual-side:not([class*="step-"]) .part,
+.visual-side.step-0 .part {
+    opacity: 0;
+}
+
+/* 步骤 1: 召唤实心巨石 (仅哨所出现，大门未出现) */
+.visual-side.step-1 .outpost {
+    opacity: 1;
+}
+
+/* 步骤 2: 植入拱门负零件 (大门从空中降落到 Z=25px, 穿透哨所底部) */
+.visual-side.step-2 .outpost {
+    opacity: 1;
+}
+.visual-side.step-2 .negative-gate {
+    opacity: 1;
+    transform: translate3d(0, -20px, 25px); /* 穿入底座且贴地，无防漏底 */
+}
+.visual-side.step-2 .negative-gate .face {
+    animation: pulse-red 1.5s infinite ease-in-out;
+}
+
+/* 步骤 3: 守护图腾与防漏底 (大门抬高 3mm，塔身侧面浮现金色发光字) */
+.visual-side.step-3 .outpost {
+    opacity: 1;
+}
+.visual-side.step-3 .negative-gate {
+    opacity: 1;
+    transform: translate3d(0, -20px, 28px); /* 抬高 3mm 保住底厚 */
+}
+/* 塔身刻上金色守护印记效果 */
+.visual-side.step-3 .outpost .face.left,
+.visual-side.step-3 .outpost .face.right {
+    border-color: #ffd700;
+    box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.4);
+    text-shadow: 0 0 8px #ffd700;
+}
+
+/* 步骤 4: 布尔掏空大门 (大门隐藏，哨所正面墙壁开启拱门大洞，内部掏空) */
+.visual-side.step-4 .outpost {
+    opacity: 1;
+}
+.visual-side.step-4 .negative-gate {
+    opacity: 0;
+    transform: translate3d(0, -20px, 28px) scale(0.5); /* 隐去 */
+}
+/* 重点！哨所正面墙壁通过 clip-path 挖出一个漂亮的 3D 拱门 */
+.visual-side.step-4 .outpost .face.front {
+    clip-path: polygon(
+        0% 0%, 100% 0%, 
+        100% 100%, 80% 100%, 
+        80% 55%, 50% 35%, 20% 55%, 20% 100%, 
+        0% 100%
+    );
+    background: linear-gradient(rgba(80, 80, 85, 0.9), rgba(100, 100, 105, 0.9));
+}
+/* 顶端发光强化，表示挖空完成 */
+.visual-side.step-4 .outpost .face.top {
+    box-shadow: inset 0 0 20px rgba(0, 122, 255, 0.5), 0 0 10px rgba(0, 122, 255, 0.3);
+}
+
+@keyframes pulse-red {
+    0%, 100% {
+        opacity: 0.6;
+        box-shadow: inset 0 0 8px rgba(255, 59, 48, 0.3);
+    }
+    50% {
+        opacity: 0.95;
+        box-shadow: inset 0 0 18px rgba(255, 59, 48, 0.7), 0 0 12px rgba(255, 59, 48, 0.5);
+    }
+}

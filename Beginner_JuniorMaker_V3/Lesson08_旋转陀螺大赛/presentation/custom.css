@@ -1,0 +1,239 @@
+/* custom.css for V3 Lesson 08 (城堡能量核心) */
+
+/* 3D 容器 */
+.part {
+    width: 0;
+    height: 0;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+.part .face {
+    position: absolute;
+    transition: all 0.8s ease;
+    background: rgba(142, 142, 147, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* --- 哨所顶部圆台背景 (半透明) --- */
+.tower-top {
+    transform: translate3d(0, 0, 7.5px);
+}
+.tower-top .face {
+    background: rgba(100, 100, 105, 0.15) !important;
+    border: 1px dashed rgba(255, 255, 255, 0.25) !important;
+}
+.tower-top .face.front  { width: 60px; height: 15px; left: -30px; top: -7.5px; transform: rotateX(-90deg) translateZ(30px); }
+.tower-top .face.back   { width: 60px; height: 15px; left: -30px; top: -7.5px; transform: rotateX(90deg) translateZ(30px); }
+.tower-top .face.left   { width: 60px; height: 15px; left: -30px; top: -7.5px; transform: rotateY(-90deg) translateZ(30px); }
+.tower-top .face.right  { width: 60px; height: 15px; left: -30px; top: -7.5px; transform: rotateY(90deg) translateZ(30px); }
+.tower-top .face.top    { 
+    width: 60px; 
+    height: 60px; 
+    left: -30px; 
+    top: -30px; 
+    transform: rotateX(0deg) translateZ(7.5px); 
+    background: radial-gradient(circle, rgba(0, 210, 255, 0.3) 30%, transparent 60%);
+}
+.tower-top .face.bottom { width: 60px; height: 60px; left: -30px; top: -30px; transform: rotateX(180deg) translateZ(7.5px); }
+
+
+/* --- 能量核心陀螺组合体 --- */
+.core-spinner {
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+/* 1. 飞轮圆盘 50x50x12px */
+.spinner-disc {
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translate3d(-20px, -20px, 100px); /* 默认偏心且悬浮 */
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.spinner-disc .face {
+    background: linear-gradient(135deg, #4f4f56, #3f3f44);
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.spinner-disc .face.front  { width: 50px; height: 12px; left: -25px; top: -6px; transform: rotateX(-90deg) translateZ(25px); }
+.spinner-disc .face.back   { width: 50px; height: 12px; left: -25px; top: -6px; transform: rotateX(90deg) translateZ(25px); }
+.spinner-disc .face.left   { width: 50px; height: 12px; left: -25px; top: -6px; transform: rotateY(-90deg) translateZ(25px); }
+.spinner-disc .face.right  { width: 50px; height: 12px; left: -25px; top: -6px; transform: rotateY(90deg) translateZ(25px); }
+.spinner-disc .face.top    { 
+    width: 50px; 
+    height: 50px; 
+    left: -25px; 
+    top: -25px; 
+    transform: rotateX(0deg) translateZ(6px);
+    background: radial-gradient(circle, #2a2a30 30%, #4f4f56 100%);
+    border: 2px solid rgba(0, 210, 255, 0.4);
+}
+.spinner-disc .face.bottom { width: 50px; height: 50px; left: -25px; top: -25px; transform: rotateX(180deg) translateZ(6px); }
+
+/* 2. 中心手柄圆柱 12x12x30px */
+.spinner-shaft {
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translate3d(20px, 20px, 120px); /* 默认偏心且悬浮 */
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.spinner-shaft .face {
+    background: #707075;
+}
+.spinner-shaft .face.front  { width: 12px; height: 30px; left: -6px; top: -15px; transform: rotateX(-90deg) translateZ(6px); }
+.spinner-shaft .face.back   { width: 12px; height: 30px; left: -6px; top: -15px; transform: rotateX(90deg) translateZ(6px); }
+.spinner-shaft .face.left   { width: 12px; height: 30px; left: -6px; top: -15px; transform: rotateY(-90deg) translateZ(6px); }
+.spinner-shaft .face.right  { width: 12px; height: 30px; left: -6px; top: -15px; transform: rotateY(90deg) translateZ(6px); }
+.spinner-shaft .face.top    { width: 12px; height: 12px; left: -6px; top: -6px; transform: rotateX(0deg) translateZ(15px); background: #909095; }
+.spinner-shaft .face.bottom { width: 12px; height: 12px; left: -6px; top: -6px; transform: rotateX(180deg) translateZ(15px); }
+
+/* 3. 轴针底尖 12x12x12px */
+.spinner-tip {
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translate3d(0, -30px, 80px); /* 默认偏心且悬浮 */
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.spinner-tip .face {
+    background: #505055;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+.spinner-tip .face.front  { width: 12px; height: 12px; left: -6px; top: -6px; transform: rotateX(-90deg) translateZ(6px); }
+.spinner-tip .face.back   { width: 12px; height: 12px; left: -6px; top: -6px; transform: rotateX(90deg) translateZ(6px); }
+.spinner-tip .face.left   { width: 12px; height: 12px; left: -6px; top: -6px; transform: rotateY(-90deg) translateZ(6px); }
+.spinner-tip .face.right  { width: 12px; height: 12px; left: -6px; top: -6px; transform: rotateY(90deg) translateZ(6px); }
+.spinner-tip .face.top    { width: 12px; height: 12px; left: -6px; top: -6px; transform: rotateX(0deg) translateZ(6px); }
+.spinner-tip .face.bottom { 
+    width: 12px; 
+    height: 12px; 
+    left: -6px; 
+    top: -6px; 
+    transform: rotateX(180deg) translateZ(6px); 
+    background: #00d2ff; /* 轴尖发光 */
+    box-shadow: 0 0 10px #00d2ff;
+}
+
+/* 4. 2 颗重力魔法石 10x10x10px */
+.weights {
+    position: absolute;
+    transform-style: preserve-3d;
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+.weight {
+    transform: scale(0.1);
+}
+.weight.w1 { transform: translate3d(-35px, 0, 26px) scale(0.1); }
+.weight.w2 { transform: translate3d(35px, 0, 26px) scale(0.1); }
+
+.weight .face {
+    background: rgba(255, 215, 0, 0.7); /* 金黄半透明 */
+    border: 1px solid #ffd700;
+}
+.weight .face.front  { width: 10px; height: 10px; left: -5px; top: -5px; transform: rotateX(-90deg) translateZ(5px); }
+.weight .face.back   { width: 10px; height: 10px; left: -5px; top: -5px; transform: rotateX(90deg) translateZ(5px); }
+.weight .face.left   { width: 10px; height: 10px; left: -5px; top: -5px; transform: rotateY(-90deg) translateZ(5px); }
+.weight .face.right  { width: 10px; height: 10px; left: -5px; top: -5px; transform: rotateY(90deg) translateZ(5px); }
+.weight .face.top    { width: 10px; height: 10px; left: -5px; top: -5px; transform: rotateX(0deg) translateZ(5px); }
+.weight .face.bottom { width: 10px; height: 10px; left: -5px; top: -5px; transform: rotateX(180deg) translateZ(5px); }
+
+
+/* --- 步骤切换动画控制 --- */
+
+/* 步骤 0: 初始化 */
+.visual-side:not([class*="step-"]) .part,
+.visual-side.step-0 .part {
+    opacity: 0;
+}
+
+/* 步骤 1: 拆分核心部件 (背景显示，陀螺各部件悬浮并偏轴心) */
+.visual-side.step-1 .tower-top {
+    opacity: 1;
+}
+.visual-side.step-1 .core-spinner {
+    opacity: 1;
+}
+.visual-side.step-1 .spinner-disc { transform: translate3d(-20px, -20px, 90px); }
+.visual-side.step-1 .spinner-shaft { transform: translate3d(20px, 20px, 120px); }
+.visual-side.step-1 .spinner-tip { transform: translate3d(0, -30px, 60px); }
+
+/* 步骤 2: 坐标同心锁定 (各部件X/Y归零，在高空完美拼合) */
+.visual-side.step-2 .tower-top {
+    opacity: 1;
+}
+.visual-side.step-2 .core-spinner {
+    opacity: 1;
+}
+.visual-side.step-2 .spinner-disc { transform: translate3d(0, 0, 26px); }
+.visual-side.step-2 .spinner-shaft { transform: translate3d(0, 0, 47px); }
+.visual-side.step-2 .spinner-tip { transform: translate3d(0, 0, 14px); }
+
+/* 步骤 3: 边缘镶嵌配重 (两侧魔法石显现，并向内滑移镶嵌到圆盘中) */
+.visual-side.step-3 .tower-top,
+.visual-side.step-3 .core-spinner {
+    opacity: 1;
+}
+.visual-side.step-3 .spinner-disc { transform: translate3d(0, 0, 26px); }
+.visual-side.step-3 .spinner-shaft { transform: translate3d(0, 0, 47px); }
+.visual-side.step-3 .spinner-tip { transform: translate3d(0, 0, 14px); }
+.visual-side.step-3 .weights {
+    opacity: 1;
+}
+/* 魔法石卡入盘子两端 */
+.visual-side.step-3 .weight.w1 { 
+    transform: translate3d(-20px, 0, 26px) scale(1); 
+    animation: gold-pulse 1.5s infinite ease-in-out;
+}
+.visual-side.step-3 .weight.w2 { 
+    transform: translate3d(20px, 0, 26px) scale(1); 
+    animation: gold-pulse 1.5s infinite ease-in-out;
+}
+
+/* 步骤 4: 能量落座旋转 (陀螺整体降落8mm，落入槽中并启动自转，背景发光) */
+.visual-side.step-4 .tower-top {
+    opacity: 1;
+}
+.visual-side.step-4 .tower-top .face.top {
+    border-color: #00d2ff;
+    box-shadow: inset 0 0 20px rgba(0, 210, 255, 0.4), 0 0 10px rgba(0, 210, 255, 0.3);
+}
+.visual-side.step-4 .core-spinner {
+    opacity: 1;
+    /* 降落8px，并启动旋转 */
+    animation: spin-core 3s infinite linear;
+}
+.visual-side.step-4 .spinner-disc { transform: translate3d(0, 0, 18px); }
+.visual-side.step-4 .spinner-shaft { transform: translate3d(0, 0, 39px); }
+.visual-side.step-4 .spinner-tip { transform: translate3d(0, 0, 6px); }
+.visual-side.step-4 .weights {
+    opacity: 1;
+}
+.visual-side.step-4 .weight.w1 { transform: translate3d(-20px, 0, 18px) scale(1); }
+.visual-side.step-4 .weight.w2 { transform: translate3d(20px, 0, 18px) scale(1); }
+
+/* 配重金色石呼吸 */
+@keyframes gold-pulse {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(255, 215, 0, 0.4);
+        border-color: rgba(255, 215, 0, 0.6);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
+        border-color: rgba(255, 215, 0, 1);
+    }
+}
+
+/* 陀螺自转动画 */
+@keyframes spin-core {
+    from {
+        transform: rotateZ(0deg);
+    }
+    to {
+        transform: rotateZ(360deg);
+    }
+}
