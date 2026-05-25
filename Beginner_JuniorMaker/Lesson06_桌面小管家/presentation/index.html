@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>第06课：桌面小管家收纳盒 - 3D打印魔法创客营</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="custom.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">魔法创客营 V1.0 (PRO版)</div>
+        <div class="logo">📐 CAD 掏空模拟实验室</div>
         <ul class="nav-links">
-            <li><a href="#intro">课程目标</a></li>
-            <li><a href="#process">3D建模魔法秀</a></li>
+            <li><a href="#intro">设计定位</a></li>
+            <li><a href="#process">蓝图沙盒</a></li>
             <li><a href="#tools">魔法兵器谱</a></li>
-            <li><a href="#pitfalls">实验室警报预案</a></li>
+            <li><a href="#pitfalls">实验室警报</a></li>
         </ul>
     </nav>
 
@@ -23,45 +23,64 @@
         <section id="intro" class="slide slide-dark">
             <div class="content">
                 <span class="badge">Lesson 06</span>
-                <h1 class="title">桌面小管家收纳盒</h1>
-                <p class="subtitle">精准掏空魔法，打造你的私人百宝箱。</p>
+                <h1 class="title">第06课：桌面小管家收纳盒</h1>
+                <p class="subtitle">精准掏空减法与底部防穿套工程。</p>
                 
                 <div class="cards">
                     <div class="card glass">
                         <h3>核心目标</h3>
-                        <p>综合运用基础形状和负零件，深刻理解‘壁厚’与‘底厚’的概念，告别无底洞。</p>
+                        <p>学习如何在切片软件中使用负零件掏空模型，掌握壁厚与底厚的数学公式，杜绝容器设计中的漏底与偏心灾难。</p>
                     </div>
                     <div class="card glass">
                         <h3>讲师必备知识</h3>
-                        <p>壁厚极限：墙壁太薄会被一捏就碎，至少要留 2mm 的肉！<br>Z轴陷阱(底厚)：挖坑千万不能挖到底，否则收纳盒就成了下水道！</p>
+                        <p>壁厚物理强度：收纳盒外墙若低于 1.2mm 结构会一捏即碎，推荐使用 2.0mm。底部留厚公式：内部的挖空负零件必须在 Z 轴上抬高（抬高高度即为底厚），否则切片后模型会挖穿底面，直接报废。</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 2: The Process (3D CSS Demo) -->
+        <!-- Slide 2: Blueprint Sandbox -->
         <section id="process" class="slide slide-light">
             <div class="content process-content">
                 <div class="text-side">
-                    <h2>三维魔术解析</h2>
-                    <p>给孩子们看成品之前，先用这套步骤演示魔法是怎么变出来的。</p>
+                    <h2>CAD 掏空参数沙盒</h2>
+                    <p>拉动滑条实时改变收纳盒的壁厚与底厚参数，并在 3D 视口中透视内部负零件的相对位置。</p>
                     
-                    <div class="step-controls">
-                        <button class="step-btn active" data-step="0">0. 初始化</button>
-<button class="step-btn" data-step="1">1. 召唤实心金砖</button>
-<button class="step-btn" data-step="2">2. 植入透明吞噬兽</button>
-<button class="step-btn" data-step="3">3. 拯救盒子的底面</button>
-<button class="step-btn" data-step="4">4. 布尔掏空成型</button>
+                    <div class="parameter-panel">
+                        <!-- X/Y 壁厚 -->
+                        <div class="control-group">
+                            <div class="label-row">
+                                <span class="param-label">🛠️ 外壁厚度 (Wall Thickness):</span>
+                                <span class="param-value"><strong id="wall-val">2.0</strong> mm</span>
+                            </div>
+                            <input type="range" id="wall-slider" min="0.4" max="8.0" step="0.2" value="2.0" class="custom-slider">
+                        </div>
 
+                        <!-- Z 底厚 -->
+                        <div class="control-group">
+                            <div class="label-row">
+                                <span class="param-label">🛡️ 底板厚度 (Floor Thickness):</span>
+                                <span class="param-value"><strong id="floor-val">3.0</strong> mm</span>
+                            </div>
+                            <input type="range" id="floor-slider" min="0.0" max="10.0" step="0.5" value="3.0" class="custom-slider">
+                        </div>
+
+                        <!-- 联动透视 -->
+                        <div class="control-group" style="margin-top: 15px;">
+                            <button id="xray-btn" class="toggle-btn active">🌐 X-Ray 内部透视: ON</button>
+                        </div>
                     </div>
 
-                    <div class="step-descriptions">
-                        <div class="desc show" id="desc-0">开始百宝箱铸造。</div>
-<div class="desc" id="desc-1">放置一个 60x60mm 的实心方块作为外壳。</div>
-<div class="desc" id="desc-2">加入一个稍微小一点的红色负零件，它负责吃掉内部的肉。</div>
-<div class="desc" id="desc-3">关键一步！把红色的负零件向上抬高 3mm，保住盒底。</div>
-<div class="desc" id="desc-4">切片！红色怪兽与内部的肉同归于尽，留下一个坚固带底的收纳盒！</div>
+                    <!-- 动态公式 -->
+                    <div class="formula-box">
+                        <h4>📐 掏空尺寸计算式:</h4>
+                        <p id="math-formula">外盒尺寸 (50) - 2 * 壁厚 (2.0) = 负零件宽 (46.0 mm)</p>
+                    </div>
 
+                    <!-- 安全评估 -->
+                    <div class="feedback-box">
+                        <h4>📋 安全评估结果:</h4>
+                        <p id="safety-feedback" class="status-pass">✅ 黄金参数，结构强度与材料消耗完美平衡，合格！</p>
                     </div>
                 </div>
                 
@@ -70,8 +89,27 @@
                         <div class="axis x-axis">X</div>
                         <div class="axis y-axis">Y</div>
                         <div class="axis z-axis">Z</div>
-                        <div class="grid-floor"></div>
-                        <div class='part main-body'><div class='face front'></div><div class='face left'></div><div class='face top'></div></div><div class='part negative-core'><div class='face front'></div><div class='face left'></div><div class='face top'></div></div>
+                        <div class="grid-floor blueprint-grid"></div>
+                        
+                        <!-- 外盒实体 (默认 50x50x50px) -->
+                        <div class="part outer-box">
+                            <div class="face front"></div>
+                            <div class="face back"></div>
+                            <div class="face left"></div>
+                            <div class="face right"></div>
+                            <div class="face top"></div>
+                            <div class="face bottom"></div>
+                        </div>
+                        
+                        <!-- 内部负零件吞噬体 (默认 46x46x50px) -->
+                        <div class="part inner-core xray-mode">
+                            <div class="face front"></div>
+                            <div class="face back"></div>
+                            <div class="face left"></div>
+                            <div class="face right"></div>
+                            <div class="face top"></div>
+                            <div class="face bottom"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -80,23 +118,22 @@
         <!-- Slide 3: Tools -->
         <section id="tools" class="slide slide-dark">
             <div class="content">
-                <h2>魔法兵器谱（软件基础）</h2>
+                <h2>魔法兵器谱（设计工具）</h2>
                 <div class="tools-grid">
                     <div class="tool-item glass">
-            <div class="icon">📐</div>
-            <h3>绝对数值面板</h3>
-            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
-            <p>在右下角输入精确的毫米数字。</p>
-            <p class="teacher-talk">🗣️ "今天我们要造的是实用工具，差一毫米橡皮擦就塞不进去！"</p>
-        </div>
-<div class="tool-item glass">
-            <div class="icon">🔍</div>
-            <h3>X光切片透视</h3>
-            <div class="image-placeholder">[预留位置：请在此插入真实的软件截图]</div>
-            <p>切片后拉动右侧垂直滑块。</p>
-            <p class="teacher-talk">🗣️ "一定要拉下透视仪看一眼底部，如果能看到网格床，你的盒子就漏底了！"</p>
-        </div>
-
+                        <div class="icon">📐</div>
+                        <h3>局部绝对坐标轴</h3>
+                        <div class="image-placeholder">[预留位置：请在此插入软件局部坐标输入框的真实截图]</div>
+                        <p>通过右侧数值属性面板，对负零件的 X/Y/Z 轴进行精确到 0.01mm 的位移定位，拒绝鼠标拖拽造成的偏心。</p>
+                        <p class="teacher-talk">🗣️ "靠手抖对齐是设计最大的天敌！记住在面板里直接输入数值才是真理！"</p>
+                    </div>
+                    <div class="tool-item glass">
+                        <div class="icon">🔍</div>
+                        <h3>切片分层透视仪</h3>
+                        <div class="image-placeholder">[预留位置：请在此插入切片软件剖面预览的真实截图]</div>
+                        <p>切片后拉动高度调节条，可以逐层剖视模型底面的封口状态，提前排查是否有漏底洞。</p>
+                        <p class="teacher-talk">🗣️ "切片之后第一件事，就是把进度条滑到底部，检查你的‘第一层’是不是个漏洞！"</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -107,20 +144,19 @@
                 <h2>实验室警报预案</h2>
                 <div class="timeline">
                     <div class="timeline-item">
-            <div class="dot red"></div>
-            <div class="timeline-content glass-dark">
-                <h3>🚨 漏水的无底洞</h3>
-                <p>负零件直接贴到了Z=0的地面。<br>应对：把里面的负零件往上抬高 3mm，给盒子留一层结实的地板！</p>
-            </div>
-        </div>
-<div class="timeline-item">
-            <div class="dot yellow"></div>
-            <div class="timeline-content glass-dark">
-                <h3>🚨 一碰就碎的纸盒</h3>
-                <p>里面掏空得太狠，边框只剩下一丝丝肉。<br>应对：缩小负零件的尺寸，给四面八方都留下安全厚度。</p>
-            </div>
-        </div>
-
+                        <div class="dot red"></div>
+                        <div class="timeline-content glass-dark">
+                            <h3>🚨 杯底开花（底漏通心管）</h3>
+                            <p>负零件的 Z 轴没有往上抬升，导致把地板整个吞噬挖穿，笔放进去当场落地。<br>应对：在左侧对象树选中负零件立方体，将其 Z 位置严格往上抬升（高度等于壁厚）。</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="dot orange"></div>
+                        <div class="timeline-content glass-dark">
+                            <h3>🚨 偏心厚壁（一侧厚一侧纸薄）</h3>
+                            <p>学生没有用右键“添加负零件”，而是直接放置了一个独立立方体，由于手动对心偏差导致偏心严重。<br>应对：必须右键外盒选择“添加负零件”，由切片软件自动锚定几何对称中心！</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
