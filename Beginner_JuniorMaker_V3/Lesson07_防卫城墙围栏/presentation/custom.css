@@ -249,3 +249,20 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--text-dark);
     border-color: #34c759;
     box-shadow: inset 0 0 10px rgba(52, 199, 89, 0.3), 0 0 8px rgba(52, 199, 89, 0.2);
 }
+
+/* 模拟梁体塌陷下弯效果 (不加支撑打印翻车) */
+.beam.sag {
+    transform: translate3d(0, 0, 34px) rotateX(10deg) !important;
+}
+.beam.sag .face {
+    background: linear-gradient(90deg, #ff3b30, #ff9500) !important;
+    border-color: #ff3b30 !important;
+    box-shadow: 0 0 15px rgba(255, 59, 48, 0.6) !important;
+}
+
+/* 支撑隐去或不启用时过渡 */
+.tree-support.hidden {
+    opacity: 0 !important;
+    transform: translate3d(0, 0, 20px) scale(0.1) !important;
+}
+
